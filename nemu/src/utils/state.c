@@ -16,8 +16,13 @@
 #include <utils.h>
 
 NEMUState nemu_state = { .state = NEMU_STOP };
+static int cmd_q(char *args) {
+  nemu_state.state = NEMU_QUIT;
+  return -1;
+}
 
 int is_exit_status_bad() {
+  cmd_q(NULL);
   int good = (nemu_state.state == NEMU_END && nemu_state.halt_ret == 0) ||
     (nemu_state.state == NEMU_QUIT);
   return !good;
