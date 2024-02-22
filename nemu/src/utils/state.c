@@ -18,7 +18,7 @@
 NEMUState nemu_state = { .state = NEMU_STOP };
 static int cmd_q(char *args) {
   nemu_state.state = NEMU_QUIT;
-  return -1;
+  return 0;
 }
 
 int is_exit_status_bad() {
