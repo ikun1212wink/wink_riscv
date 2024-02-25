@@ -70,14 +70,14 @@ static int cmd_si(char *args){ //cmd_si函数用于使程序单步执行
 } 
 
 static int cmd_info(char *args){
-  if(strcmp(args,"r")==0){
+  if(args==NULL){
+    printf("Unkonw input, print register status: \"info r\", or print watchpointer information: \"info w\"\n");
+  }
+  else if(strcmp(args,"r")==0){
     printf("Print the register status\n");
   }
   else if(strcmp(args,"w")==0){
     printf("Print the watchpoint information\n");
-  }
-  else if(args==NULL){
-    printf("Unkonw input, print register status: \"info r\", or print watchpointer information: \"info w\"\n");
   }
   else{
     printf("Unkonw input, print register status: \"info r\", or print watchpointer information: \"info w\"\n");
