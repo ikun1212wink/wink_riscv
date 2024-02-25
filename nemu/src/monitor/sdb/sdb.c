@@ -52,9 +52,24 @@ static int cmd_q(char *args) { //cmd_q()函数用于使程序停止操作
   return -1;
 }
 
+static int cmd_si(char *args){ //cmd_si函数用于使程序单步执行
+  int n=0;
+  if(args==NULL){
+    n=1;
+  }
+  else {
+    sscanf(args,"%d",&n);
+  }
+  cpu_exec(n);
+  return 0;
+} 
+
+
+
+
 static int cmd_help(char *args); 
 
-static struct {
+static struct {//命令列表
   const char *name;
   const char *description;
   int (*handler) (char *);
@@ -62,7 +77,7 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  { "si","Enter 'si [N]', let the program execute N instructions, and then pause",cmd_si}
   /* TODO: Add more commands */
 
 };
