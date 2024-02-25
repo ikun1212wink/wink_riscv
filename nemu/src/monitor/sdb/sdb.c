@@ -75,6 +75,7 @@ static int cmd_info(char *args){
   }
   else if(strcmp(args,"r")==0){
     printf("Print the register status\n");
+    isa_reg_display();
   }
   else if(strcmp(args,"w")==0){
     printf("Print the watchpoint information\n");
