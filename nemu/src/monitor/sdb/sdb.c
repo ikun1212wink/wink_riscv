@@ -61,7 +61,7 @@ static int cmd_si(char *args){ //cmd_si函数用于使程序单步执行
     n=0;
     sscanf(args,"%d",&n);
     if(n==0){
-      printf("Unknow input, the format is 'si [N]'\n");
+      printf("Unknow input, the format is \"si [N]\"\n");
     } 
   }
   printf("Step excute N=%d\n",n);
@@ -69,7 +69,18 @@ static int cmd_si(char *args){ //cmd_si函数用于使程序单步执行
   return 0;
 } 
 
-
+static int cmd_info(char *args){
+  if(strcmp(args,"r")==0){
+    printf("Print the register status\n");
+  }
+  else if(strcmp(args,"w")==0){
+    printf("Print the watchpoint information\n");
+  }
+  else{
+    printf("Unkonw input, print register status: \"info r\", or print watchpointer information: \"info w\"\n");
+  }
+  return 0;
+}
 
 
 static int cmd_help(char *args); 
@@ -82,7 +93,8 @@ static struct {//命令列表
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si","Enter 'si [N]', let the program execute N instructions, and then pause",cmd_si} 
+  { "si","Enter \"si [N]\", let the program execute N instructions, and then pause",cmd_si} ,
+  { "info","Enter \"info r\" to print register status, or enter \"info w\" to print watchpointer information",cmd_info}
   /* TODO: Add more commands */
 
 };
