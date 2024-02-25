@@ -58,8 +58,13 @@ static int cmd_si(char *args){ //cmd_si函数用于使程序单步执行
     n=1;
   }
   else {
+    n=0;
     sscanf(args,"%d",&n);
+    if(n==0){
+      printf("Unknow input, the format is 'si [N]'\n");
+    } 
   }
+  printf("Step excute N=%d\n",n);
   cpu_exec(n);
   return 0;
 } 
@@ -77,7 +82,7 @@ static struct {//命令列表
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si","Enter 'si [N]', let the program execute N instructions, and then pause",cmd_si}
+  { "si","Enter 'si [N]', let the program execute N instructions, and then pause",cmd_si} 
   /* TODO: Add more commands */
 
 };
