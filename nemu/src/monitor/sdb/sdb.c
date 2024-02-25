@@ -64,7 +64,7 @@ static int cmd_si(char *args){ //cmd_si函数用于使程序单步执行
       printf("Unknow input, the format is 'si [N]'\n");
     } 
   }
-  printf("Step excute N=%d",n);
+  printf("Step excute N=%d\n",n);
   cpu_exec(n);
   return 0;
 } 
