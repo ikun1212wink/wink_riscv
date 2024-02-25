@@ -76,6 +76,9 @@ static int cmd_info(char *args){
   else if(strcmp(args,"w")==0){
     printf("Print the watchpoint information\n");
   }
+  else if(args==NULL){
+    printf("Unkonw input, print register status: \"info r\", or print watchpointer information: \"info w\"\n");
+  }
   else{
     printf("Unkonw input, print register status: \"info r\", or print watchpointer information: \"info w\"\n");
   }
