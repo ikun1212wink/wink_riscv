@@ -62,8 +62,9 @@ static int cmd_si(char *args){ //cmd_si函数用于使程序单步执行
     sscanf(args,"%d",&n);
     if(n==0){
       printf("Unknow input, the format is 'si [N]'\n");
-    }
+    } 
   }
+  printf("Step excute N=%d",n);
   cpu_exec(n);
   return 0;
 } 
