@@ -50,11 +50,15 @@ void init_mem() {
   Log("physical memory area [" FMT_PADDR ", " FMT_PADDR "]", PMEM_LEFT, PMEM_RIGHT);
 }
 
-word_t paddr_read(paddr_t addr, int len) {
-  if (likely(in_pmem(addr))) return pmem_read(addr, len);
-  IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
-  out_of_bound(addr);
+word_t paddr_read(paddr_t addr, int len) { //函数paddr_read，用于从物理地址（paddr_t）处读取指定长度（len）的数据
+  if (likely(in_pmem(addr))) //调用in_pmem函数检查给定的地址是否在物理内存范围内
+    return pmem_read(addr, len);//如果在物理内存范围内，可以直接从物理内存中读取数据，使用pmem_read函数来读取数据，并返回读取的结果
+  IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));//如果给定的地址不在物理内存范围内，那么根据配置选项进行条件编译
+    out_of_bound(addr);
   return 0;
+  //如果定义了CONFIG_DEVICE宏，说明支持设备访问
+  //因此调用mmio_read函数来读取设备的寄存器或内存映射IO的数据，并返回读取的结果
+  //如果既不在物理内存范围内，也不支持设备访问，说明发生了越界访问，因此调用out_of_bound函数进行越界处理
 }
 
 void paddr_write(paddr_t addr, int len, word_t data) {

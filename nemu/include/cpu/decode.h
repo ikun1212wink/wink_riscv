@@ -18,12 +18,12 @@
 
 #include <isa.h>
 
-typedef struct Decode {
-  vaddr_t pc;
-  vaddr_t snpc; // static next pc
-  vaddr_t dnpc; // dynamic next pc
-  ISADecodeInfo isa;
-  IFDEF(CONFIG_ITRACE, char logbuf[128]);
+typedef struct Decode {//Decode结构体用于存储指令解码和执行过程中的相关信息，包括程序计数器、指令解码信息和指令执行日志等
+  vaddr_t pc;//表示当前指令的程序计数器（Program Counter）值，是一个虚拟地址类型（vaddr_t）
+  vaddr_t snpc; // 表示静态下一条指令的程序计数器值，也是一个虚拟地址类型
+  vaddr_t dnpc; // 表示动态下一条指令的程序计数器值，同样是一个虚拟地址类型
+  ISADecodeInfo isa;//表示指令的解码信息，是一个名为ISADecodeInfo的结构体类型
+  IFDEF(CONFIG_ITRACE, char logbuf[128]);//如果定义了该宏，则logbuf是一个长度为128的字符数组，用于存储指令执行的日志信息
 } Decode;
 
 // --- pattern matching mechanism ---

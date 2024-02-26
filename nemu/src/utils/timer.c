@@ -39,9 +39,9 @@ static uint64_t get_time_internal() {
 }
 
 uint64_t get_time() {
-  if (boot_time == 0) boot_time = get_time_internal();
-  uint64_t now = get_time_internal();
-  return now - boot_time;
+  if (boot_time == 0) boot_time = get_time_internal();//如果是0，表示引导时间尚未初始化，需要调用get_time_internal()函数获取引导时间并将其赋值给boot_time
+  uint64_t now = get_time_internal();//调用get_time_internal()函数获取当前时间，并将其保存在局部变量now中
+  return now - boot_time;//计算当前时间与引导时间之间的时间差，并将结果返回
 }
 
 void init_rand() {

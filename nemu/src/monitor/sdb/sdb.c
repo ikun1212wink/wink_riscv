@@ -20,7 +20,7 @@
 #include "sdb.h"
 
 static int is_batch_mode = false;//定义静态变量is_batch_mode用于指示调试器是否处于待处理模式，默认为false
-
+word_t paddr_read(paddr_t addr, int len);
 void init_regex(); //初始化正则表达式
 void init_wp_pool(); //初始化观察点
 
@@ -61,7 +61,7 @@ static int cmd_si(char *args){ //cmd_si函数用于使程序单步执行
     n=0;
     sscanf(args,"%d",&n);
     if(n==0){
-      printf("Unknow input, the format is 'si [N]'\n");
+      printf("Unknow input, the format is \"si [N]\"\n");
     } 
   }
   printf("Step excute N=%d\n",n);
@@ -69,8 +69,36 @@ static int cmd_si(char *args){ //cmd_si函数用于使程序单步执行
   return 0;
 } 
 
+static int cmd_info(char *args){
+  if(args==NULL){
+    printf("Unkonw input, print register status: \"info r\", or print watchpointer information: \"info w\"\n");
+  }
+  else if(strcmp(args,"r")==0){
+    printf("Print the register status\n");
+    isa_reg_display();
+  }
+  else if(strcmp(args,"w")==0){
+    printf("Print the watchpoint information\n");
+  }
+  else{
+    printf("Unkonw input, print register status: \"info r\", or print watchpointer information: \"info w\"\n");
+  }
+  return 0;
+}
 
-
+static int cmd_x(char *args){
+  int n=0;
+  uint32_t start_address=0;
+  if(args==NULL){
+    printf("Unknow input, the standard format is \"x [N] EXPR\"\n");
+  }
+  sscanf(args,"%d %x",&n,&start_address);
+  for(int i=0;i<n;i++){
+    printf("0x%08x\n",paddr_read(start_address,4));
+    start_address+=4;
+  }
+  return 0;
+}
 
 static int cmd_help(char *args); 
 
@@ -82,7 +110,9 @@ static struct {//命令列表
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si","Enter 'si [N]', let the program execute N instructions, and then pause",cmd_si} 
+  { "si","Enter \"si [N]\", let the program execute N instructions, and then pause",cmd_si} ,
+  { "info","Enter \"info r\" to print register status, or enter \"info w\" to print watchpointer information",cmd_info},
+  { "x" ,"Enter \"x [N] EXPR\" to scan the memory",cmd_x}
   /* TODO: Add more commands */
 
 };
