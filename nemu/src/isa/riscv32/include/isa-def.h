@@ -24,7 +24,8 @@ typedef struct {
   vaddr_t pc;
 } MUXDEF(CONFIG_RV64, riscv64_CPU_state, riscv32_CPU_state);
 
-// decode
+// 根据宏CONFIG_RV64的定义来决定具体是哪个类型。该结构体类型只有一个成员变量inst，是一个联合体，其中包含一个uint32_t类型的val字段
+//用于存储RISC-V架构的指令解码信息
 typedef struct {
   union {
     uint32_t val;
