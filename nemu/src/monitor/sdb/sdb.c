@@ -94,7 +94,7 @@ static int cmd_x(char *args){
   }
   sscanf(args,"%d %x",&n,&start_address);
   for(int i=0;i<n;i++){
-    printf("%08x\n",paddr_read(start_address,4));
+    printf("0x%08x\n",paddr_read(start_address,4));
     start_address+=4;
   }
   return 0;
