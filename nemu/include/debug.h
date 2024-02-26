@@ -39,5 +39,6 @@
 #define panic(format, ...) Assert(0, format, ## __VA_ARGS__)
 
 #define TODO() panic("please implement me")
+//定义了一个名为TODO的宏函数。当代码中调用TODO()时，它会触发一个panic，并输出"please implement me"的错误信息
 
 #endif
