@@ -195,7 +195,6 @@ static bool check_parentheses(int p,int q){
       for(int a=0;a<=j;a+=2){
         if(catch[a]=='('&&catch[a+1]==')'){
           flag=true;
-          break;
         }
         else{
           flag=false;
@@ -211,6 +210,7 @@ static bool check_parentheses(int p,int q){
     flag=false;
   }
   printf("%s\n", flag ? "true" : "false");
+  printf("%d %d %d",catch[0],catch[1],catch[2]);
   return flag;
 }
 
