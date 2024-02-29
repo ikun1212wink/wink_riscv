@@ -193,3 +193,7 @@ word_t expr(char *e, bool *success) {//函数expr(char *e, bool *success)，用�
 
   return 0;
 }
+
+void token_text(char *e){
+  make_token(e);
+}
