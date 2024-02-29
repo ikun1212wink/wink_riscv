@@ -195,7 +195,7 @@ static bool check_parentheses(int p,int q){
       for(int a=0;a<=(j-1);a+=2){
         if(catch[a]=='(' && catch[a+1]==')'){
           flag=true;
-          printf("1\n");
+  /*         printf("1\n"); */
         }
         else{
           flag=false;
@@ -246,10 +246,10 @@ word_t expr(char *e, bool *success) {
 }
 
 
-//测试tokens
+//测试用的函数
 void token_text(char *e){
   make_token(e);
-  printf("%d\n",nr_token);
+/*   printf("%d\n",nr_token); */
   check_parentheses(0,nr_token-1);
 
 }
