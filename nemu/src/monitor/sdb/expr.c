@@ -109,14 +109,13 @@ static int nr_token __attribute__((used))  = 0;
 
 
 
-
 //对给定的输入进行分词，以及正则表达式归类
 static bool make_token(char *e) {//函数make_token(char *e)，用于对给定输入字符串进行分词
   int position = 0;//position用于追踪当前在输入字符串中的位置
   int i; //i作为循环计数器
   regmatch_t pmatch; //pmatch是一个结构体，用于存储匹配到的子字符串的信息
 
-  nr_token = 1;//用于记录找到的标记数量
+  nr_token = 0;//用于记录找到的标记数量
 
   while (e[position] != '\0') {//函数进入一个while循环，循环条件是尚未到达输入字符串的末尾（e[position] != '\0'）
     /* Try all rules one by one. */
@@ -182,9 +181,8 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 
 
 
-
-
-word_t expr(char *e, bool *success) {//函数expr(char *e, bool *success)，用于对输入的表达式进行求值
+//函数expr(char *e, bool *success)，用于对输入的表达式进行求值
+word_t expr(char *e, bool *success) {
   if (!make_token(e)) { //首先调用make_token()函数对表达式进行词法分析
     *success = false;
     return 0;
@@ -196,6 +194,8 @@ word_t expr(char *e, bool *success) {//函数expr(char *e, bool *success)，用�
   return 0;
 }
 
+
+//测试tokens
 void token_text(char *e){
   make_token(e);
 }
