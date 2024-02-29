@@ -247,6 +247,7 @@ word_t expr(char *e, bool *success) {
 //测试tokens
 void token_text(char *e){
   make_token(e);
+  printf("%d\n",nr_token);
   check_parentheses(0,nr_token);
 
 }
