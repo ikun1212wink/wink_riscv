@@ -116,7 +116,7 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
   int i; //i作为循环计数器
   regmatch_t pmatch; //pmatch是一个结构体，用于存储匹配到的子字符串的信息
 
-  nr_token = 0;//用于记录找到的标记数量
+  nr_token = 1;//用于记录找到的标记数量
 
   while (e[position] != '\0') {//函数进入一个while循环，循环条件是尚未到达输入字符串的末尾（e[position] != '\0'）
     /* Try all rules one by one. */
@@ -157,7 +157,7 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
            strncpy(token.str, substr_start, substr_len);//使用strncpy函数将匹配到的子字符串复制到token.str中
            token.str[substr_len] = '\0'; //在末尾添加一个空字符
            token.type=rules[i].token_type;//将规则的类型赋值给token.type
-           tokens[nr_token+1] = token;
+           tokens[nr_token] = token;
            printf("Token %d: %s (type:%d)\n",nr_token,tokens[nr_token].str,tokens[nr_token].type);
            nr_token++;
           break;
