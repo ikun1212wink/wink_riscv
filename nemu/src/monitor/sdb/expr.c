@@ -175,7 +175,56 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 }
 
 
+//判断表达式是否被一对匹配的括号包围着, 同时检查表达式的左右括号是否匹配, 如果不匹配, 这个表达式肯定是不符合语法的
+static bool check_parentheses(int p,int q){
+  int catch[32]={};
+  int j=0;
+  bool flag=false;
+  if(tokens[p].type=='('&&tokens[q].type==')'){//满足开头‘（’，结尾‘）’
+    for(int i=p+1;i<=q-1;i++){ //遍历除去开头和结尾的子字符
+      if(tokens[i].type=='(' && tokens[i+1].type==')'){//出现了（）相连的情况，直接flag=false;
+        flag=false;
+        break;
+      }
+      else if((tokens[i].type=='(' && tokens[i+1].type!=')') || tokens[i].type==')'){
+        catch[j]=tokens[i].type;//将‘（’ ‘）’存入数组中
+        j++;
+      }
+    }
+    if(j%2==1){
+      for(int a=0;a<=j;a+=2){
+        if(catch[a]=='('&&catch[a+1]==')'){
+          flag=true;
+        }
+        else{
+          flag=false;
+          break;
+        }
+      }
+    }
+    else{
+      flag=false;
+    }
+  }
+  else{ //不满足开头‘（’，结尾‘）’
+    flag=false;
+  }
+  printf("%s\n", flag ? "true" : "false");
+  return flag;
+}
 
+
+
+//寻找主运算符 int find(int p,int q){
+
+
+
+
+
+
+//对两个子表达式进行运算 word_t eval(int p,int q){
+//代码框架
+   
 
 
 
@@ -198,4 +247,6 @@ word_t expr(char *e, bool *success) {
 //测试tokens
 void token_text(char *e){
   make_token(e);
+  check_parentheses(0,nr_token);
+
 }
