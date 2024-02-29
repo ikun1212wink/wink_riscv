@@ -19,6 +19,8 @@
 #include <readline/history.h>
 #include "sdb.h"
 
+void token_text();
+
 static int is_batch_mode = false;//定义静态变量is_batch_mode用于指示调试器是否处于待处理模式，默认为false
 word_t paddr_read(paddr_t addr, int len);
 void init_regex(); //初始化正则表达式
@@ -100,6 +102,16 @@ static int cmd_x(char *args){
   return 0;
 }
 
+static int cmd_p(char *args){
+  if(args==NULL){
+    printf("Unknow input, the standard format is \"p EXPR\"");
+  }
+  else{
+    token_text(args);
+  }
+  return 0;
+}
+
 static int cmd_help(char *args); 
 
 static struct {//命令列表
@@ -112,7 +124,8 @@ static struct {//命令列表
   { "q", "Exit NEMU", cmd_q },
   { "si","Enter \"si [N]\", let the program execute N instructions, and then pause",cmd_si} ,
   { "info","Enter \"info r\" to print register status, or enter \"info w\" to print watchpointer information",cmd_info},
-  { "x" ,"Enter \"x [N] EXPR\" to scan the memory",cmd_x}
+  { "x" ,"Enter \"x [N] EXPR\" to scan the memory",cmd_x},
+  { "p", "Enter \"p EXPR\"",cmd_p}
   /* TODO: Add more commands */
 
 };
@@ -146,7 +159,11 @@ void sdb_set_batch_mode() { //设置待处理模式
   is_batch_mode = true;
 }
 
-void sdb_mainloop() { //执行调试器的主循环逻辑
+
+
+
+//执行调试器的主循环逻辑
+void sdb_mainloop() { 
 
   if (is_batch_mode) { //判断is_batch_mode,如果处于待处理模式，就开始执行CPU指令
     cmd_c(NULL);
