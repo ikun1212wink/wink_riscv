@@ -109,14 +109,13 @@ static int nr_token __attribute__((used))  = 0;
 
 
 
-
 //对给定的输入进行分词，以及正则表达式归类
 static bool make_token(char *e) {//函数make_token(char *e)，用于对给定输入字符串进行分词
   int position = 0;//position用于追踪当前在输入字符串中的位置
   int i; //i作为循环计数器
   regmatch_t pmatch; //pmatch是一个结构体，用于存储匹配到的子字符串的信息
 
-  nr_token = 1;//用于记录找到的标记数量
+  nr_token = 0;//用于记录找到的标记数量
 
   while (e[position] != '\0') {//函数进入一个while循环，循环条件是尚未到达输入字符串的末尾（e[position] != '\0'）
     /* Try all rules one by one. */
@@ -176,15 +175,89 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 }
 
 
+//判断表达式是否被一对匹配的括号包围着, 同时检查表达式的左右括号是否匹配, 如果不匹配, 这个表达式肯定是不符合语法的
+static bool check_parentheses(int p,int q){
+  int catch[32]={};
+  int j=0;
+  bool flag=false;
+  if(tokens[p]=='('&&tokens[q]==')'){//满足开头‘（’，结尾‘）’
+    for(int i=p+1;i<=q-1;i++){ //遍历除去开头和结尾的子字符
+      if(tokens[i].type=='(' && tokens[i+1].type==')'){//出现了（）相连的情况，直接flag=false;
+        flag=false;
+        break;
+      }
+      else if((tokens[i].type=='(' && tokens[i+1].type!=')') || tokens[i].type==')'){
+        catch[j]=tokens[i].type;//将‘（’ ‘）’存入数组中
+        j++;
+      }
+    }
+    if(j%2==1){
+      for(int a=0;a<=j;a+=2){
+        if(catch[a]=='('&&catch[a+1]==')'){
+          flag=true;
+        }
+        else{
+          flag=false;
+          break;
+        }
+      }
+    }
+    else{
+      flag=false;
+    }
+  }
+  else{ //不满足开头‘（’，结尾‘）’
+    flag=false;
+  }
+  return flag;
+}
+
+
+
+//寻找主运算符
+word_t find(int p,int q){
+
+}
+//对两个子表达式进行运算
+word_t eval(int p,int q){
+//代码框架
+   if (p > q) {
+    /* Bad expression */
+  }
+  else if (p == q) {
+    /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+  }
+  else if (check_parentheses(p, q) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    return eval(p + 1, q - 1);
+  }
+  else {
+    op = the position of 主运算符 in the token expression;
+    val1 = eval(p, op - 1);
+    val2 = eval(op + 1, q);
+
+    switch (op_type) {
+      case '+': return val1 + val2;
+      case '-': /* ... */
+      case '*': /* ... */
+      case '/': /* ... */
+      default: assert(0);
+    }
+  }
+}
 
 
 
 
 
 
-
-
-word_t expr(char *e, bool *success) {//函数expr(char *e, bool *success)，用于对输入的表达式进行求值
+//函数expr(char *e, bool *success)，用于对输入的表达式进行求值
+word_t expr(char *e, bool *success) {
   if (!make_token(e)) { //首先调用make_token()函数对表达式进行词法分析
     *success = false;
     return 0;
@@ -196,6 +269,8 @@ word_t expr(char *e, bool *success) {//函数expr(char *e, bool *success)，用�
   return 0;
 }
 
+
+//测试tokens
 void token_text(char *e){
   make_token(e);
 }
