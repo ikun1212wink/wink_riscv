@@ -180,7 +180,7 @@ static bool check_parentheses(int p,int q){
   int catch[32]={};
   int j=0;
   bool flag=false;
-  if(tokens[p]=='('&&tokens[q]==')'){//满足开头‘（’，结尾‘）’
+  if(tokens[p].type=='('&&tokens[q].type==')'){//满足开头‘（’，结尾‘）’
     for(int i=p+1;i<=q-1;i++){ //遍历除去开头和结尾的子字符
       if(tokens[i].type=='(' && tokens[i+1].type==')'){//出现了（）相连的情况，直接flag=false;
         flag=false;
@@ -191,10 +191,11 @@ static bool check_parentheses(int p,int q){
         j++;
       }
     }
-    if(j%2==1){
-      for(int a=0;a<=j;a+=2){
-        if(catch[a]=='('&&catch[a+1]==')'){
+    if((j-1)%2==1){
+      for(int a=0;a<=(j-1);a+=2){
+        if(catch[a]=='(' && catch[a+1]==')'){
           flag=true;
+  /*         printf("1\n"); */
         }
         else{
           flag=false;
@@ -209,48 +210,23 @@ static bool check_parentheses(int p,int q){
   else{ //不满足开头‘（’，结尾‘）’
     flag=false;
   }
+  printf("%s\n", flag ? "true" : "false");
+  printf("%d %d",catch[0],catch[1]);
   return flag;
 }
 
 
 
-//寻找主运算符
-word_t find(int p,int q){
+//寻找主运算符 int find(int p,int q){
 
-}
-//对两个子表达式进行运算
-word_t eval(int p,int q){
+
+
+
+
+
+//对两个子表达式进行运算 word_t eval(int p,int q){
 //代码框架
-   if (p > q) {
-    /* Bad expression */
-  }
-  else if (p == q) {
-    /* Single token.
-     * For now this token should be a number.
-     * Return the value of the number.
-     */
-  }
-  else if (check_parentheses(p, q) == true) {
-    /* The expression is surrounded by a matched pair of parentheses.
-     * If that is the case, just throw away the parentheses.
-     */
-    return eval(p + 1, q - 1);
-  }
-  else {
-    op = the position of 主运算符 in the token expression;
-    val1 = eval(p, op - 1);
-    val2 = eval(op + 1, q);
-
-    switch (op_type) {
-      case '+': return val1 + val2;
-      case '-': /* ... */
-      case '*': /* ... */
-      case '/': /* ... */
-      default: assert(0);
-    }
-  }
-}
-
+   
 
 
 
@@ -270,7 +246,10 @@ word_t expr(char *e, bool *success) {
 }
 
 
-//测试tokens
+//测试用的函数
 void token_text(char *e){
   make_token(e);
+/*   printf("%d\n",nr_token); */
+  check_parentheses(0,nr_token-1);
+
 }
