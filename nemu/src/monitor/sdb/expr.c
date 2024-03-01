@@ -241,6 +241,7 @@ int find(int p,int q){
 
 //提取所有括号之外的运算符号
   for(int i=p+1;i<=q-1;i++){
+    printf("%d\t",i);
     if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
       if(!insideParentheses){//判断是否在括号内
         switch (tokens[i].type)
@@ -263,10 +264,10 @@ int find(int p,int q){
             break;
         }
       }
-      if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
+      else if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
         insideParentheses=true;
       }
-      if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
+      else if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
         insideParentheses=false;
       }
     }
