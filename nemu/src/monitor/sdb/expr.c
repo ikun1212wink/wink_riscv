@@ -332,7 +332,7 @@ word_t eval(int p, int q) {
       case '+': return val1 + val2;
       case '-': return val1-val2;
       case '*': return val1*val2;
-      case '/': return val1*val2;
+      case '/': return val1/val2;
       default: assert(0);
     }
   }
@@ -358,10 +358,7 @@ word_t expr(char *e, bool *success) {
 void token_text(char *e){
   make_token(e);
 /*   printf("%d\n",nr_token); */
-  bool flag;
-  flag=check_parentheses(0,nr_token-1);
-  printf("%s\n",flag ? "true" : "false");
-  find(0,nr_token-1);
+ 
   word_t sum;
 
   sum=eval(0,nr_token);
