@@ -242,8 +242,7 @@ int find(int p,int q){
 
 //提取所有括号之外的运算符号
   for(int i=p+1;i<=q-1;i++){
-    printf("%d\n",i);
-    printf("%d\n",tokens[i].type);
+
       if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
         insideParentheses=true;
       } 
@@ -334,7 +333,7 @@ void token_text(char *e){
 /*   printf("%d\n",nr_token); */
   bool flag;
   flag=check_parentheses(0,nr_token-1);
-  printf("%s",flag ? "true" : "false");
+  printf("%s\n",flag ? "true" : "false");
   find(0,nr_token-1);
 }
 
