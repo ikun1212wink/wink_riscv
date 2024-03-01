@@ -279,8 +279,8 @@ int find(int p,int q){
     primary_symbol.pos=low_level[0].pos;
   }
   
-  printf("the primary symbol is %c\n",primary_symbol.symbol);
-  printf("the primary pos is %d\n",primary_symbol.pos);
+ /*  printf("the primary symbol is %c\n",primary_symbol.symbol);
+  printf("the primary pos is %d\n",primary_symbol.pos); */
   
   return primary_symbol.pos;
 }
@@ -330,14 +330,14 @@ word_t expr(char *e, bool *success) {
 }
 
 
-//测试用的函数
+/* //测试用的函数
 void token_text(char *e){
   make_token(e);
-/*   printf("%d\n",nr_token); */
+// printf("%d\n",nr_token); 
  
   word_t sum;
 
   sum=eval(0,nr_token-1);
   printf("%d\n",sum);
-}
+} */
 
