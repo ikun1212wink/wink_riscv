@@ -237,7 +237,7 @@ int find(int p,int q){
 
   };//低优先级运算符号
   struct Pos primary_symbol;
-  bool insideParentheses=false;//判断是否在括号内，初始时不在
+  int insideParentheses=0;//判断是否在括号内，初始时不在
 
 //提取所有括号之外的运算符号
   for(int i=p+1;i<=q-1;i++){
@@ -270,10 +270,10 @@ int find(int p,int q){
         }
       }
       else if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
-        insideParentheses=true;
+        insideParentheses=1;
       }
       else if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
-        insideParentheses=false;
+        insideParentheses=0;
       }
     }
   }
