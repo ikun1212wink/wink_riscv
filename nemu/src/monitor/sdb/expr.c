@@ -176,47 +176,29 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 
 
 //判断表达式是否被一对匹配的括号包围着, 同时检查表达式的左右括号是否匹配, 如果不匹配, 这个表达式肯定是不符合语法的
-static bool check_parentheses(int p,int q){
-  int catch[32]={};//用来存放‘（’ 和 ‘）’
-  int j=0;//记录括号的数量
-  bool flag=false;
-  if(tokens[p].type=='('&&tokens[q].type==')'){//满足开头‘（’，结尾‘）’
-    for(int i=p+1;i<=q-1;i++){ //遍历除去开头和结尾的子字符
-      if(tokens[i].type=='(' && tokens[i+1].type==')'){//出现了（）相连的情况，直接flag=false;
-        flag=false;
-        break;
+bool check_parentheses(int p,int q){
+  int count=0;//对括号数量进行计数
+  if(tokens[p].type!='('||tokens[q].type!=')'){
+    return false;
+  }
+  else {
+    for(int i=p;i<=q;i++){
+      if(tokens[i].type=='('){
+        count++;
       }
-      else if((tokens[i].type=='(' && tokens[i+1].type!=')') || tokens[i].type==')'){
-        catch[j]=tokens[i].type;//将‘（’ ‘）’存入数组中
-        j++;
+      else if(tokens[i].type==')'){
+        count--;
       }
-    }
-    if((j-1)%2==1){//判断是否为奇数
-      for(int a=0;a<=(j-1);a+=2){
-        if(catch[a]=='(' && catch[a+1]==')'){
-          flag=true;
-  /*         printf("1\n"); */
-        }
-        else{
-          flag=false;
-          break;
-        }
+      if(i==q){
+        return (count==0);
       }
-    }
-    else{
-      flag=false;
     }
   }
-  else{ //不满足开头‘（’，结尾‘）’
-    flag=false;
-  }
-  printf("%s\n", flag ? "true" : "false");
-/*   printf("%d %d",catch[0],catch[1]); */
-  return flag;
+  return false;
 }
 
 //寻找主运算符 
-#define MAX_SIZE 32
+/* #define MAX_SIZE 32
 struct Pos{
   int symbol;
   int pos;
@@ -306,7 +288,7 @@ int find(int p,int q){
   printf("the primary symbol is %c\n",primary_symbol.symbol);
   printf("the primary pos is %d\n",primary_symbol.pos);
   return primary_symbol.symbol;
-}
+} */
 
 
 
@@ -340,7 +322,9 @@ word_t expr(char *e, bool *success) {
 void token_text(char *e){
   make_token(e);
 /*   printf("%d\n",nr_token); */
-  check_parentheses(0,nr_token-1);
-  find(0,nr_token-1);
+  bool flag;
+  flag=check_parentheses(0,nr_token-1);
+  printf("%s",flag ? "true" : "false");
 
 }
+
