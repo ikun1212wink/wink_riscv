@@ -302,10 +302,10 @@ int find(int p,int q){
     primary_symbol.symbol=low_level[0].symbol;
     primary_symbol.pos=low_level[0].pos;
   }
-  int num=primary_symbol.pos;
+  
   printf("the primary symbol is %c\n",primary_symbol.symbol);
   printf("the primary pos is %d\n",primary_symbol.pos);
-  printf("%c",tokens[num].type);
+  
   return primary_symbol.pos;
 }
 
@@ -318,7 +318,9 @@ word_t eval(int p, int q) {
     return 0;
   }
   else if (p == q) {
-    return 0;
+    word_t num;
+    sscanf(tokens[p].str,"%d",&num);
+    return num;
   }
   else if (check_parentheses(p, q) == true) {
     return eval(p + 1, q - 1);
