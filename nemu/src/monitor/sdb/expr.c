@@ -275,7 +275,7 @@ int find(int p,int q){
     symbol=low_level[0];
   }
 
-  printf("%c",symbol);
+  printf("%c\n",symbol);
   return symbol;
 }
 
