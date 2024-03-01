@@ -257,7 +257,7 @@ int find(int p,int q){
     }
   }
   index--;
-  for(int j=0;j<=index;j--){
+  for(int j=0;j<=index;j++){
     if(symbols[j]=='+'||symbols[j]=='-'){//将‘+’ ‘-’ 按顺序放入low_level
       low_level[index_l++]=symbols[j];
     }
