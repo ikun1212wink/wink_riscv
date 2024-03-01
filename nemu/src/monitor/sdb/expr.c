@@ -306,8 +306,10 @@ int find(int p,int q){
     primary_symbol.symbol=low_level[0].symbol;
     primary_symbol.pos=low_level[0].pos;
   }
+  int num=primary_symbol.pos;
   printf("the primary symbol is %c\n",primary_symbol.symbol);
   printf("the primary pos is %d\n",primary_symbol.pos);
+  printf("%c\n",tokens[num].type);
   return primary_symbol.symbol;
 }
 
