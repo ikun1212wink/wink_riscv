@@ -177,8 +177,8 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 
 //判断表达式是否被一对匹配的括号包围着, 同时检查表达式的左右括号是否匹配, 如果不匹配, 这个表达式肯定是不符合语法的
 static bool check_parentheses(int p,int q){
-  int catch[32]={};
-  int j=0;
+  int catch[32]={};//用来存放‘（’ 和 ‘）’
+  int j=0;//记录括号的数量
   bool flag=false;
   if(tokens[p].type=='('&&tokens[q].type==')'){//满足开头‘（’，结尾‘）’
     for(int i=p+1;i<=q-1;i++){ //遍历除去开头和结尾的子字符
@@ -191,7 +191,7 @@ static bool check_parentheses(int p,int q){
         j++;
       }
     }
-    if((j-1)%2==1){
+    if((j-1)%2==1){//判断是否为奇数
       for(int a=0;a<=(j-1);a+=2){
         if(catch[a]=='(' && catch[a+1]==')'){
           flag=true;
@@ -211,13 +211,75 @@ static bool check_parentheses(int p,int q){
     flag=false;
   }
   printf("%s\n", flag ? "true" : "false");
-  printf("%d %d",catch[0],catch[1]);
+/*   printf("%d %d",catch[0],catch[1]); */
   return flag;
 }
 
 
+#define MAX_SIZE 100
+//寻找主运算符 
+int find(int p,int q){
+  int symbol;//主运算符号
+  int index=0;
+  int index_l=0;
+  int index_h=0;
+  int symbols[MAX_SIZE]={};//括号以外的运算符号
+  int high_level[MAX_SIZE]={};//高优先级运算符号
+  int low_level[MAX_SIZE]={};//低优先级运算符号
+  bool insideParentheses=false;//判断是否在括号内，初始时不在
 
-//寻找主运算符 int find(int p,int q){
+//提取所有括号之外的运算符号
+  for(int i=p+1;i<=q-1;i++){
+    if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
+      if(!insideParentheses){//判断是否在括号内
+        switch (tokens[i].type)
+        {
+          case '+':
+            symbols[index++]='+';
+            break;
+          case '-':
+            symbols[index++]='-';
+            break;
+          case '*':
+            symbols[index++]='*';
+            break;
+          case '/':
+            symbols[index++]='/';
+            break;
+        }
+      }
+      else if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
+        insideParentheses=true;
+      }
+      else if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
+        insideParentheses=false;
+      }
+    }
+  }
+  index--;
+  for(int j=0;j<=index;j--){
+    if(symbols[j]=='+'||symbols[j]=='-'){//将‘+’ ‘-’ 按顺序放入low_level
+      low_level[index_l++]=symbols[j];
+    }
+    else if(symbols[j]=='*'||symbols[j]=='/'){//将‘*’ ‘/’ 按顺序放入low_level
+      high_level[index_h++]=symbols[j];
+    }
+  }
+  index_l--;
+  index_h--;
+
+  if(low_level[0]==0){
+    symbol=high_level[0];
+  }
+  else{
+    symbol=low_level[0];
+  }
+
+  printf("%c",symbol);
+  return symbol;
+}
+
+
 
 
 
@@ -251,5 +313,6 @@ void token_text(char *e){
   make_token(e);
 /*   printf("%d\n",nr_token); */
   check_parentheses(0,nr_token-1);
+  find(0,nr_token-1);
 
 }
