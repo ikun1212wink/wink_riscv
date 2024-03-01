@@ -243,38 +243,38 @@ int find(int p,int q){
   for(int i=p+1;i<=q-1;i++){
     printf("%d\n",i);
     printf("%d\n",tokens[i].type);
-    if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
-      if(!insideParentheses){//判断是否在括号内
-        switch (tokens[i].type)
-        {
-          case '+':
-            symbol_all[index].symbol='+';
-            symbol_all[index].pos=i;
-            index++;
-            break;
-          case '-':
-            symbol_all[index].symbol='-';
-            symbol_all[index].pos=i;
-            index++;
-            break;
-          case '*':
-            symbol_all[index].symbol='*';
-            symbol_all[index].pos=i;
-            index++;
-            break;
-          case '/':
-            symbol_all[index].symbol='/';
-            symbol_all[index].pos=i;
-            index++;
-            break;
-        }
-      }
-      else if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
+      if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
         insideParentheses=true;
       } 
       else if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
         insideParentheses=false;
       }
+      if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
+        if(!insideParentheses){//判断是否在括号内
+          switch (tokens[i].type)
+          {
+            case '+':
+              symbol_all[index].symbol='+';
+              symbol_all[index].pos=i;
+              index++;
+              break;
+            case '-':
+              symbol_all[index].symbol='-';
+              symbol_all[index].pos=i;
+              index++;
+              break;
+            case '*':
+              symbol_all[index].symbol='*';
+              symbol_all[index].pos=i;
+              index++;
+              break;
+            case '/':
+              symbol_all[index].symbol='/';
+              symbol_all[index].pos=i;
+              index++;
+              break;
+          }
+        }
       else if(tokens[i].type == TK_NUMBER){
         continue;
       }
