@@ -215,6 +215,7 @@ bool check_parentheses(int p, int q)
 
 
 
+
 //寻找主运算符 
 #define MAX_SIZE 32
 struct Pos{
@@ -275,14 +276,10 @@ int find(int p,int q){
               break;
           }
         }
-      else if(tokens[i].type == TK_NUMBER){
-        continue;
-      }
     }
   }
   index--;
-  printf("%c%c%c%c%c%d%d%d%d%d",symbol_all[0].symbol,symbol_all[1].symbol,symbol_all[2].symbol,symbol_all[3].symbol
-  ,symbol_all[4].symbol,symbol_all[0].pos,symbol_all[1].pos,symbol_all[2].pos,symbol_all[3].pos,symbol_all[4].pos);
+ 
   for(int j=0;j<=index;j++){
     if(symbol_all[j].symbol=='+'||symbol_all[j].symbol=='-'){//将‘+’ ‘-’ 按顺序放入low_level
       low_level[index_l].symbol=symbol_all[j].symbol;
@@ -309,8 +306,8 @@ int find(int p,int q){
   int num=primary_symbol.pos;
   printf("the primary symbol is %c\n",primary_symbol.symbol);
   printf("the primary pos is %d\n",primary_symbol.pos);
-  printf("%c\n",tokens[num].type);
-  return primary_symbol.symbol;
+  printf("%c",tokens[num].type);
+  return primary_symbol.pos;
 }
 
 
