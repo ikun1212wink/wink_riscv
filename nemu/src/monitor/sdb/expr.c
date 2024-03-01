@@ -216,7 +216,7 @@ bool check_parentheses(int p, int q)
 
 
 
-//寻找主运算符 
+/* //寻找主运算符 
 #define MAX_SIZE 32
 struct Pos{
   int symbol;
@@ -307,9 +307,75 @@ int find(int p,int q){
   printf("the primary pos is %d\n",primary_symbol.pos);
   printf("%c",tokens[num].type);
   return primary_symbol.pos;
+} */
+
+int find(int p, int q)
+{
+	int par = 0, op_type = 0, pos = 0;
+	//printf("1\n");
+	for(int i = p; i <= q; i++)
+	{ 
+		if(tokens[i].type == TK_NUMBER)
+			continue;
+		else if(tokens[i].type == '(')
+			par++;
+		else if(tokens[i].type == ')')
+		 {
+			if(par == 0) return -1;
+			par--;
+		}
+		else
+		{ 
+			if(par > 0) continue;
+			int tmp_type;    //是主运算符的优先级
+			switch(tokens[i].type)
+			{
+
+				case '*': case '/': tmp_type = 2; break;
+				case '+': case '-': tmp_type = 3; break;
+
+				default: assert(0);	
+			 }
+			if(tmp_type > op_type)
+			{
+				op_type = tmp_type;
+				pos = i;
+			} 
+		}
+
+	}
+	if(par != 0) return -1;
+  printf("%d\n", pos);
+	return pos;
 }
 
 
+/* word_t eval(int p, int q, bool*success) {
+  *success=true;
+  if (p > q) {
+    *success=false;
+    return 0;
+  }
+  else if (p == q) {
+
+  }
+  else if (check_parentheses(p, q) == true) {
+    return eval(p + 1, q - 1);
+  }
+  else {
+    op = the position of 主运算符 in the token expression;
+    val1 = eval(p, op - 1);
+    val2 = eval(op + 1, q);
+
+    switch (op_type) {
+      case '+': return val1 + val2;
+      case '-': 
+      case '*': 
+      case '/': 
+      default: assert(0);
+    }
+  }
+} */
 
 
 
