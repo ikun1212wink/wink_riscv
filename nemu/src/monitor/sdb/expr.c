@@ -263,10 +263,10 @@ int find(int p,int q){
             break;
         }
       }
-      else if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
+      if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
         insideParentheses=true;
       }
-      else if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
+      if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
         insideParentheses=false;
       }
     }
