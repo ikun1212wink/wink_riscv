@@ -248,20 +248,24 @@ int find(int p,int q){
         switch (tokens[i].type)
         {
           case '+':
-            symbol_all[index++].symbol='+';
-            symbol_all[index++].pos=i;
+            symbol_all[index].symbol='+';
+            symbol_all[index].pos=i;
+            index++;
             break;
           case '-':
-            symbol_all[index++].symbol='-';
-            symbol_all[index++].pos=i;
+            symbol_all[index].symbol='-';
+            symbol_all[index].pos=i;
+            index++;
             break;
           case '*':
-            symbol_all[index++].symbol='*';
-            symbol_all[index++].pos=i;
+            symbol_all[index].symbol='*';
+            symbol_all[index].pos=i;
+            index++;
             break;
           case '/':
-            symbol_all[index++].symbol='/';
-            symbol_all[index++].pos=i;
+            symbol_all[index].symbol='/';
+            symbol_all[index].pos=i;
+            index++;
             break;
         }
       }
