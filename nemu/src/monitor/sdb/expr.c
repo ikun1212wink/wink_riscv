@@ -237,7 +237,7 @@ int find(int p,int q){
 
   };//低优先级运算符号
   struct Pos primary_symbol;
-  int insideParentheses=0;//判断是否在括号内，初始时不在
+  bool insideParentheses=0;//判断是否在括号内，初始时不在
 
 //提取所有括号之外的运算符号
   for(int i=p+1;i<=q-1;i++){
@@ -270,10 +270,10 @@ int find(int p,int q){
         }
       }
       else if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
-        insideParentheses=1;
-      }
+        insideParentheses=true;
+      } 
       else if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
-        insideParentheses=0;
+        insideParentheses=false;
       }
     }
   }
@@ -282,12 +282,14 @@ int find(int p,int q){
   ,symbol_all[4].symbol,symbol_all[0].pos,symbol_all[1].pos,symbol_all[2].pos,symbol_all[3].pos,symbol_all[4].pos);
   for(int j=0;j<=index;j++){
     if(symbol_all[j].symbol=='+'||symbol_all[j].symbol=='-'){//将‘+’ ‘-’ 按顺序放入low_level
-      low_level[index_l++].symbol=symbol_all[j].symbol;
-      low_level[index_l++].pos=symbol_all[j].pos;
+      low_level[index_l].symbol=symbol_all[j].symbol;
+      low_level[index_l].pos=symbol_all[j].pos;
+      index_l++;
     }
     else if(symbol_all[j].symbol=='*'||symbol_all[j].symbol=='/'){//将‘*’ ‘/’ 按顺序放入low_level
-      high_level[index_h++].symbol=symbol_all[j].symbol;
-      high_level[index_h++].pos=symbol_all[j].pos;
+      high_level[index_h].symbol=symbol_all[j].symbol;
+      high_level[index_h].pos=symbol_all[j].pos;
+      index_h++;
     }
   }
   index_l--;
