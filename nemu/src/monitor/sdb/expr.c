@@ -299,12 +299,12 @@ int find(int p,int q){
   index_h--;
 
   if(low_level[0].symbol==0){
-    primary_symbol.symbol=high_level[1].symbol;
-    primary_symbol.pos=high_level[1].pos;
+    primary_symbol.symbol=high_level[0].symbol;
+    primary_symbol.pos=high_level[0].pos;
   }
   else{
-    primary_symbol.symbol=low_level[1].symbol;
-    primary_symbol.pos=low_level[1].pos;
+    primary_symbol.symbol=low_level[0].symbol;
+    primary_symbol.pos=low_level[0].pos;
   }
   printf("the primary symbol is %c\n",primary_symbol.symbol);
   printf("the primary pos is %d\n",primary_symbol.pos);
