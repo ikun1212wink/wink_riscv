@@ -157,7 +157,7 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
            token.str[substr_len] = '\0'; //在末尾添加一个空字符
            token.type=rules[i].token_type;//将规则的类型赋值给token.type
            tokens[nr_token] = token;
-           printf("Token %d: %s (type:%d)\n",nr_token,tokens[nr_token].str,tokens[nr_token].type);
+/*            printf("Token %d: %s (type:%d)\n",nr_token,tokens[nr_token].str,tokens[nr_token].type); */
            nr_token++;
           break;
         }
@@ -176,143 +176,168 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 
 
 //判断表达式是否被一对匹配的括号包围着, 同时检查表达式的左右括号是否匹配, 如果不匹配, 这个表达式肯定是不符合语法的
-static bool check_parentheses(int p,int q){
-  int catch[32]={};//用来存放‘（’ 和 ‘）’
-  int j=0;//记录括号的数量
-  bool flag=false;
-  if(tokens[p].type=='('&&tokens[q].type==')'){//满足开头‘（’，结尾‘）’
-    for(int i=p+1;i<=q-1;i++){ //遍历除去开头和结尾的子字符
-      if(tokens[i].type=='(' && tokens[i+1].type==')'){//出现了（）相连的情况，直接flag=false;
-        flag=false;
-        break;
-      }
-      else if((tokens[i].type=='(' && tokens[i+1].type!=')') || tokens[i].type==')'){
-        catch[j]=tokens[i].type;//将‘（’ ‘）’存入数组中
-        j++;
-      }
-    }
-    if((j-1)%2==1){//判断是否为奇数
-      for(int a=0;a<=(j-1);a+=2){
-        if(catch[a]=='(' && catch[a+1]==')'){
-          flag=true;
-  /*         printf("1\n"); */
-        }
-        else{
-          flag=false;
-          break;
-        }
-      }
-    }
-    else{
-      flag=false;
-    }
-  }
-  else{ //不满足开头‘（’，结尾‘）’
-    flag=false;
-  }
-  printf("%s\n", flag ? "true" : "false");
-/*   printf("%d %d",catch[0],catch[1]); */
-  return flag;
+bool check_parentheses(int p, int q)
+{
+	if(tokens[p].type == '(' && tokens[q].type == ')')
+	{
+		int par = 0;
+		for(int i = p; i <= q; i++)
+		{
+			if(tokens[i].type == '(') par++;
+			else if(tokens[i].type == ')') par--;
+			if(par == 0) return i == q;
+		}
+	}
+	return false;
 }
 
 
-#define MAX_SIZE 32
 //寻找主运算符 
+#define MAX_SIZE 32
+struct Pos{
+  int symbol;
+  int pos;
+};
+
 int find(int p,int q){
-  int symbol;//主运算符号
+  //主运算符号
   int index=0;
   int index_l=0;
   int index_h=0;
-  int symbols[MAX_SIZE]={};//括号以外的运算符号
-  int high_level[MAX_SIZE]={};//高优先级运算符号
-  int low_level[MAX_SIZE]={};//低优先级运算符号
-  bool insideParentheses=false;//判断是否在括号内，初始时不在
+  struct Pos symbol_all[MAX_SIZE]={
+
+  };//括号以外的运算符号
+  struct Pos high_level[MAX_SIZE]={
+
+  };//高优先级运算符号
+  struct Pos low_level[MAX_SIZE]={
+
+  };//低优先级运算符号
+  struct Pos primary_symbol;
+  bool insideParentheses=0;//判断是否在括号内，初始时不在
 
 //提取所有括号之外的运算符号
-  for(int i=p+1;i<=q-1;i++){
-    if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
-      if(!insideParentheses){//判断是否在括号内
-        switch (tokens[i].type)
-        {
-          case '+':
-            symbols[index++]='+';
-            break;
-          case '-':
-            symbols[index++]='-';
-            break;
-          case '*':
-            symbols[index++]='*';
-            break;
-          case '/':
-            symbols[index++]='/';
-            break;
-        }
-      }
-      else if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
+  for(int i=p;i<=q;i++){
+
+      if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
         insideParentheses=true;
-      }
+      } 
       else if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
         insideParentheses=false;
       }
+      if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
+        if(!insideParentheses){//判断是否在括号内
+          switch (tokens[i].type)
+          {
+            case '+':
+              symbol_all[index].symbol='+';
+              symbol_all[index].pos=i;
+              index++;
+              break;
+            case '-':
+              symbol_all[index].symbol='-';
+              symbol_all[index].pos=i;
+              index++;
+              break;
+            case '*':
+              symbol_all[index].symbol='*';
+              symbol_all[index].pos=i;
+              index++;
+              break;
+            case '/':
+              symbol_all[index].symbol='/';
+              symbol_all[index].pos=i;
+              index++;
+              break;
+          }
+        }
     }
   }
   index--;
+ 
   for(int j=0;j<=index;j++){
-    if(symbols[j]=='+'||symbols[j]=='-'){//将‘+’ ‘-’ 按顺序放入low_level
-      low_level[index_l++]=symbols[j];
+    if(symbol_all[j].symbol=='+'||symbol_all[j].symbol=='-'){//将‘+’ ‘-’ 按顺序放入low_level
+      low_level[index_l].symbol=symbol_all[j].symbol;
+      low_level[index_l].pos=symbol_all[j].pos;
+      index_l++;
     }
-    else if(symbols[j]=='*'||symbols[j]=='/'){//将‘*’ ‘/’ 按顺序放入low_level
-      high_level[index_h++]=symbols[j];
+    else if(symbol_all[j].symbol=='*'||symbol_all[j].symbol=='/'){//将‘*’ ‘/’ 按顺序放入low_level
+      high_level[index_h].symbol=symbol_all[j].symbol;
+      high_level[index_h].pos=symbol_all[j].pos;
+      index_h++;
     }
   }
   index_l--;
   index_h--;
 
-  if(low_level[0]==0){
-    symbol=high_level[0];
+  if(low_level[0].symbol==0){
+    primary_symbol.symbol=high_level[0].symbol;
+    primary_symbol.pos=high_level[0].pos;
   }
   else{
-    symbol=low_level[0];
+    primary_symbol.symbol=low_level[0].symbol;
+    primary_symbol.pos=low_level[0].pos;
   }
-
-  printf("%c\n",symbol);
-  return symbol;
+  
+ /*  printf("the primary symbol is %c\n",primary_symbol.symbol);
+  printf("the primary pos is %d\n",primary_symbol.pos); */
+  
+  return primary_symbol.pos;
 }
 
 
 
+word_t eval(int p, int q) {
 
+  if (p > q) {
 
+    return 0;
+  }
+  else if (p == q) {
+    word_t num;
+    sscanf(tokens[p].str,"%d",&num);
+    return num;
+  }
+  else if (check_parentheses(p, q) == true) {
+    return eval(p + 1, q - 1);
+  }
+  else {
+    int op =find(p,q);
+    word_t val1 = eval(p, op - 1);
+    word_t val2 = eval(op + 1, q);
 
-
-
-//对两个子表达式进行运算 word_t eval(int p,int q){
-//代码框架
-   
-
-
+    switch (tokens[op].type) {
+      case '+': return val1 + val2;
+      case '-': return val1-val2;
+      case '*': return val1*val2;
+      case '/': return val1/val2;
+      default: assert(0);
+    }
+  }
+}
 
 
 
 //函数expr(char *e, bool *success)，用于对输入的表达式进行求值
 word_t expr(char *e, bool *success) {
-  if (!make_token(e)) { //首先调用make_token()函数对表达式进行词法分析
+  if (!make_token(e)) { //首先TODO调用make_token()函数对表达式进行词法分析
     *success = false;
     return 0;
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  return eval(0,nr_token-1);
 }
 
 
-//测试用的函数
+/* //测试用的函数
 void token_text(char *e){
   make_token(e);
-/*   printf("%d\n",nr_token); */
-  check_parentheses(0,nr_token-1);
-  find(0,nr_token-1);
+// printf("%d\n",nr_token); 
+ 
+  word_t sum;
 
-}
+  sum=eval(0,nr_token-1);
+  printf("%d\n",sum);
+} */
+
