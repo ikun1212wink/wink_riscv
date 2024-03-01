@@ -272,7 +272,8 @@ int find(int p,int q){
     }
   }
   index--;
-  printf("%c%c%c%c",symbol_all[0].symbol,symbol_all[1].symbol,symbol_all[2].symbol,symbol_all[3].symbol);
+  printf("%c%d%c%d%c%d%c%d",symbol_all[0].symbol,symbol_all[1].symbol,symbol_all[2].symbol,symbol_all[3].symbol
+  ,symbol_all[0].pos,symbol_all[1].pos,symbol_all[2].pos,symbol_all[3].pos);
   for(int j=0;j<=index;j++){
     if(symbol_all[j].symbol=='+'||symbol_all[j].symbol=='-'){//将‘+’ ‘-’ 按顺序放入low_level
       low_level[index_l++].symbol=symbol_all[j].symbol;
