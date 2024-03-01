@@ -176,7 +176,7 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 
 
 //判断表达式是否被一对匹配的括号包围着, 同时检查表达式的左右括号是否匹配, 如果不匹配, 这个表达式肯定是不符合语法的
-bool check_parentheses(int p,int q){
+/* bool check_parentheses(int p,int q){
   int count=0;//对括号数量进行计数
   if(tokens[p].type!='('||tokens[q].type!=')'){
     return false;
@@ -196,6 +196,25 @@ bool check_parentheses(int p,int q){
   }
   return false;
 }
+ */
+
+
+static bool check_parentheses(int p, int q){
+  int i,cnt = 0;
+  if(tokens[p].type != '(' || tokens[q].type != ')') 
+    return false;
+  for(i = p; i <= q; i++){
+    if(tokens[p].type == '(') 
+      cnt++;
+    else if(tokens[q].type == ')') 
+      cnt--;
+    if(cnt == 0 && i<q) 
+      return false;
+  }
+  if(cnt < 0) return false;
+  return true;
+}
+
 
 //寻找主运算符 
 /* #define MAX_SIZE 32
