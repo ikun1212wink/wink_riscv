@@ -286,7 +286,7 @@ int find(int p,int q){
 }
 
 
-
+//递归运算
 word_t eval(int p, int q) {
 
   if (p > q) {
