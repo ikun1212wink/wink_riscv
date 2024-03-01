@@ -241,7 +241,7 @@ int find(int p,int q){
   bool insideParentheses=0;//判断是否在括号内，初始时不在
 
 //提取所有括号之外的运算符号
-  for(int i=p+1;i<=q-1;i++){
+  for(int i=p;i<=q;i++){
 
       if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
         insideParentheses=true;
@@ -361,7 +361,7 @@ void token_text(char *e){
  
   word_t sum;
 
-  sum=eval(0,nr_token);
+  sum=eval(0,nr_token-1);
   printf("%d\n",sum);
 }
 
