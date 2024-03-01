@@ -241,8 +241,8 @@ int find(int p,int q){
 
 //提取所有括号之外的运算符号
   for(int i=p+1;i<=q-1;i++){
-    printf("%d\t",i);
-    printf("%c\t",tokens[i].type);
+    printf("%d\n",i);
+    printf("%c\n",tokens[i].type);
     if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
       if(!insideParentheses){//判断是否在括号内
         switch (tokens[i].type)
