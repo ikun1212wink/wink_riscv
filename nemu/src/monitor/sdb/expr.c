@@ -216,7 +216,7 @@ static bool check_parentheses(int p,int q){
 }
 
 
-#define MAX_SIZE 100
+#define MAX_SIZE 32
 //寻找主运算符 
 int find(int p,int q){
   int symbol;//主运算符号
