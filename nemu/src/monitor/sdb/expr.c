@@ -198,7 +198,6 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 }
  */
 
-
 bool check_parentheses(int p, int q)
 {
 	if(tokens[p].type == '(' && tokens[q].type == ')')
@@ -217,7 +216,7 @@ bool check_parentheses(int p, int q)
 
 
 //寻找主运算符 
-/* #define MAX_SIZE 32
+#define MAX_SIZE 32
 struct Pos{
   int symbol;
   int pos;
@@ -243,7 +242,7 @@ int find(int p,int q){
 //提取所有括号之外的运算符号
   for(int i=p+1;i<=q-1;i++){
     printf("%d\n",i);
-    printf("%c\n",tokens[i].type);
+    printf("%d\n",tokens[i].type);
     if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
       if(!insideParentheses){//判断是否在括号内
         switch (tokens[i].type)
@@ -276,6 +275,9 @@ int find(int p,int q){
       else if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
         insideParentheses=false;
       }
+      else if(tokens[i].type == TK_NUMBER){
+        continue;
+      }
     }
   }
   index--;
@@ -307,17 +309,7 @@ int find(int p,int q){
   printf("the primary symbol is %c\n",primary_symbol.symbol);
   printf("the primary pos is %d\n",primary_symbol.pos);
   return primary_symbol.symbol;
-} */
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
@@ -344,6 +336,6 @@ void token_text(char *e){
   bool flag;
   flag=check_parentheses(0,nr_token-1);
   printf("%s",flag ? "true" : "false");
-
+  find(0,nr_token-1);
 }
 
