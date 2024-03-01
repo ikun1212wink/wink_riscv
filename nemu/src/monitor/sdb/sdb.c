@@ -107,7 +107,13 @@ static int cmd_p(char *args){
     printf("Unknow input, the standard format is \"p EXPR\"");
   }
   else{
-    token_text(args);
+    bool success=true;
+    word_t result =expr(args,&success);
+    if(success){
+        printf("Expression result: %d\n", result);
+    } else {
+        printf("Expression evaluation failed.\n");
+    }
   }
   return 0;
 }

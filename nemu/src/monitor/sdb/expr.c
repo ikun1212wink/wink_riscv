@@ -176,28 +176,6 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 
 
 //判断表达式是否被一对匹配的括号包围着, 同时检查表达式的左右括号是否匹配, 如果不匹配, 这个表达式肯定是不符合语法的
-/* bool check_parentheses(int p,int q){
-  int count=0;//对括号数量进行计数
-  if(tokens[p].type!='('||tokens[q].type!=')'){
-    return false;
-  }
-  else {
-    for(int i=p;i<=q;i++){
-      if(tokens[i].type=='('){
-        count++;
-      }
-      else if(tokens[i].type==')'){
-        count--;
-      }
-      if(i==q){
-        return (count==0);
-      }
-    }
-  }
-  return false;
-}
- */
-
 bool check_parentheses(int p, int q)
 {
 	if(tokens[p].type == '(' && tokens[q].type == ')')
@@ -212,8 +190,6 @@ bool check_parentheses(int p, int q)
 	}
 	return false;
 }
-
-
 
 
 //寻找主运算符 
@@ -350,9 +326,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  return eval(0,nr_token-1);
 }
 
 
