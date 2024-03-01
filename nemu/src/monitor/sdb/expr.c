@@ -199,21 +199,21 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
  */
 
 
-static bool check_parentheses(int p, int q){
-  int i,cnt = 0;
-  if(tokens[p].type != '(' || tokens[q].type != ')') 
-    return false;
-  for(i = p; i <= q; i++){
-    if(tokens[p].type == '(') 
-      cnt++;
-    else if(tokens[q].type == ')') 
-      cnt--;
-    if(cnt == 0 && i<q) 
-      return false;
-  }
-  if(cnt < 0) return false;
-  return true;
+bool check_parentheses(int p, int q)
+{
+	if(tokens[p].type == '(' && tokens[q].type == ')')
+	{
+		int par = 0;
+		for(int i = p; i <= q; i++)
+		{
+			if(tokens[i].type == '(') par++;
+			else if(tokens[i].type == ')') par--;
+			if(par == 0) return i == q;
+		}
+	}
+	return false;
 }
+
 
 
 //寻找主运算符 
