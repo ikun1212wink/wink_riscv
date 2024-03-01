@@ -215,17 +215,28 @@ static bool check_parentheses(int p,int q){
   return flag;
 }
 
-
-#define MAX_SIZE 32
 //寻找主运算符 
+#define MAX_SIZE 32
+struct Pos{
+  int symbol;
+  int pos;
+};
+
 int find(int p,int q){
-  int symbol;//主运算符号
+  //主运算符号
   int index=0;
   int index_l=0;
   int index_h=0;
-  int symbols[MAX_SIZE]={};//括号以外的运算符号
-  int high_level[MAX_SIZE]={};//高优先级运算符号
-  int low_level[MAX_SIZE]={};//低优先级运算符号
+  struct Pos symbol_all[MAX_SIZE]={
+
+  };//括号以外的运算符号
+  struct Pos high_level[MAX_SIZE]={
+
+  };//高优先级运算符号
+  struct Pos low_level[MAX_SIZE]={
+
+  };//低优先级运算符号
+  struct Pos primary_symbol;
   bool insideParentheses=false;//判断是否在括号内，初始时不在
 
 //提取所有括号之外的运算符号
@@ -235,16 +246,20 @@ int find(int p,int q){
         switch (tokens[i].type)
         {
           case '+':
-            symbols[index++]='+';
+            symbol_all[index++].symbol='+';
+            symbol_all[index++].pos=i;
             break;
           case '-':
-            symbols[index++]='-';
+            symbol_all[index++].symbol='-';
+            symbol_all[index++].pos=i;
             break;
           case '*':
-            symbols[index++]='*';
+            symbol_all[index++].symbol='*';
+            symbol_all[index++].pos=i;
             break;
           case '/':
-            symbols[index++]='/';
+            symbol_all[index++].symbol='/';
+            symbol_all[index++].pos=i;
             break;
         }
       }
@@ -258,25 +273,29 @@ int find(int p,int q){
   }
   index--;
   for(int j=0;j<=index;j++){
-    if(symbols[j]=='+'||symbols[j]=='-'){//将‘+’ ‘-’ 按顺序放入low_level
-      low_level[index_l++]=symbols[j];
+    if(symbol_all[j].symbol=='+'||symbol_all[j].symbol=='-'){//将‘+’ ‘-’ 按顺序放入low_level
+      low_level[index_l++].symbol=symbol_all[j].symbol;
+      low_level[index_l++].pos=symbol_all[j].pos;
     }
-    else if(symbols[j]=='*'||symbols[j]=='/'){//将‘*’ ‘/’ 按顺序放入low_level
-      high_level[index_h++]=symbols[j];
+    else if(symbol_all[j].symbol=='*'||symbol_all[j].symbol=='/'){//将‘*’ ‘/’ 按顺序放入low_level
+      high_level[index_h++].symbol=symbol_all[j].symbol;
+      high_level[index_h++].pos=symbol_all[j].pos;
     }
   }
   index_l--;
   index_h--;
 
-  if(low_level[0]==0){
-    symbol=high_level[0];
+  if(low_level[0].symbol==0){
+    primary_symbol.symbol=high_level[0].symbol;
+    primary_symbol.pos=high_level[0].pos;
   }
   else{
-    symbol=low_level[0];
+    primary_symbol.symbol=low_level[0].symbol;
+    primary_symbol.pos=low_level[0].pos;
   }
-
-  printf("%c\n",symbol);
-  return symbol;
+  printf("the primary symbol is %c\n",primary_symbol.symbol);
+  printf("the primary pos is %d\n",primary_symbol.pos);
+  return primary_symbol.symbol;
 }
 
 
@@ -286,9 +305,8 @@ int find(int p,int q){
 
 
 
-//对两个子表达式进行运算 word_t eval(int p,int q){
-//代码框架
-   
+
+
 
 
 
@@ -296,7 +314,7 @@ int find(int p,int q){
 
 //函数expr(char *e, bool *success)，用于对输入的表达式进行求值
 word_t expr(char *e, bool *success) {
-  if (!make_token(e)) { //首先调用make_token()函数对表达式进行词法分析
+  if (!make_token(e)) { //首先TODO调用make_token()函数对表达式进行词法分析
     *success = false;
     return 0;
   }
