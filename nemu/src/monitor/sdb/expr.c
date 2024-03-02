@@ -103,7 +103,7 @@ typedef struct token {//结构体token，表示词法分析得到的记号。它
 
 
 //定义了一个记号数组tokens和一个整数nr_token，用于存储分词后得到的token序列和token的数量
-static Token tokens[60000] __attribute__((used)) = {};
+static Token tokens[1024] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 
