@@ -200,12 +200,12 @@ int find(int p,int q){
   bool insideParentheses=0;//判断是否在括号内，初始时不在
 
 //提取所有括号之外的运算符号
-  for(int i=p;i<=q;i++){
+  for(int i=q;i<=p;i--){//从右向左遍历
 
-      if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
+      if(tokens[i].type==')'){//识别到‘（’ 说明在括号内
         insideParentheses=true;
       } 
-      else if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
+      else if(tokens[i].type=='('){//识别到‘）’ 说明出了括号
         insideParentheses=false;
       }
       if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
@@ -265,9 +265,9 @@ int find(int p,int q){
  // printf("the primary pos is %d\n",primary_symbol.pos); 
   
   return primary_symbol.pos;
-} 
+}  
 
-/* int find_major(int p, int q) {
+/*  int find_major(int p, int q) {
   int ret = -1, par = 0, op_type = 0;
   for (int i = p; i <= q; i++) {
     if (tokens[i].type == TK_NUM) {
@@ -297,11 +297,11 @@ int find(int p,int q){
   }
   if (par != 0) return -1;
   return ret;
-} */
+}  */
 
 
 
-word_t eval(int p, int q,bool *success) {
+ word_t eval(int p, int q,bool *success) {
   *success=true;
   if (p > q) {
     *success=false;
@@ -343,7 +343,7 @@ word_t eval(int p, int q,bool *success) {
       default: assert(0);
     }
   }
-}
+} 
 
 
 
