@@ -175,130 +175,44 @@ bool check_parentheses(int p, int q)
 	return false;
 }
 
-//寻找主运算符 
-#define MAX_SIZE 32
-struct Pos{
-  int symbol;
-  int pos;
-};
+//寻找主运算
 
-int find(int p,int q){
-  //主运算符号
-  int index=0;
-  int index_l=0;
-  int index_h=0;
-  struct Pos symbol_all[MAX_SIZE]={
-
-  };//括号以外的运算符号
-  struct Pos high_level[MAX_SIZE]={
-
-  };//高优先级运算符号
-  struct Pos low_level[MAX_SIZE]={
-
-  };//低优先级运算符号
-  struct Pos primary_symbol;
-  bool insideParentheses=0;//判断是否在括号内，初始时不在
-
-//提取所有括号之外的运算符号
-  for(int i=q;i<=p;i--){//从右向左遍历
-
-      if(tokens[i].type==')'){//识别到‘（’ 说明在括号内
-        insideParentheses=true;
-      } 
-      else if(tokens[i].type=='('){//识别到‘）’ 说明出了括号
-        insideParentheses=false;
-      }
-      if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
-        if(!insideParentheses){//判断是否在括号内
-          switch (tokens[i].type)
-          {
-            case '+':
-              symbol_all[index].symbol='+';
-              symbol_all[index].pos=i;
-              index++;
-              break;
-            case '-':
-              symbol_all[index].symbol='-';
-              symbol_all[index].pos=i;
-              index++;
-              break;
-            case '*':
-              symbol_all[index].symbol='*';
-              symbol_all[index].pos=i;
-              index++;
-              break;
-            case '/':
-              symbol_all[index].symbol='/';
-              symbol_all[index].pos=i;
-              index++;
-              break;
-          }
-        }
-    }
-  }
-  index--; 
-  for(int j=0;j<=index;j++){
-    if(symbol_all[j].symbol=='+'||symbol_all[j].symbol=='-'){//将‘+’ ‘-’ 按顺序放入low_level
-      low_level[index_l].symbol=symbol_all[j].symbol;
-      low_level[index_l].pos=symbol_all[j].pos;
-      index_l++;
-    }
-    else if(symbol_all[j].symbol=='*'||symbol_all[j].symbol=='/'){//将‘*’ ‘/’ 按顺序放入low_level
-      high_level[index_h].symbol=symbol_all[j].symbol;
-      high_level[index_h].pos=symbol_all[j].pos;
-      index_h++;
-    }
-  }
-  index_l--;
-  index_h--;
-
-  if(low_level[0].symbol==0){
-    primary_symbol.symbol=high_level[0].symbol;
-    primary_symbol.pos=high_level[0].pos;
-  }
-  else{
-    primary_symbol.symbol=low_level[0].symbol;
-    primary_symbol.pos=low_level[0].pos;
-  }
-  
- // printf("the primary symbol is %c\n",primary_symbol.symbol);
- // printf("the primary pos is %d\n",primary_symbol.pos); 
-  
-  return primary_symbol.pos;
-}  
-
-/*  int find_major(int p, int q) {
-  int ret = -1, par = 0, op_type = 0;
-  for (int i = p; i <= q; i++) {
+int find_major(int p, int q) {
+  int ret = -1;//主运算符位置
+  int par = 0;//括号数量
+  int op_level = 0;//运算符等级
+  for (int i = p; i <= q; i++) {//
     if (tokens[i].type == TK_NUM) {
       continue;
-    }
+    }//数字跳过
     if (tokens[i].type == '(') {
-      par++;
-    } else if (tokens[i].type == ')') {
-      if (par == 0) {
+      par++;//识别‘（’
+    }
+    else if (tokens[i].type == ')') {
+      if (par == 0) { //遇到了（））的情况，说明表达式有问题
         return -1;
       }
       par--;
-    } else if (par > 0) {
-      continue;
-    } else {
-      int tmp_type = 0;
+    } 
+    else if (par > 0) { //在括号内直接跳过
+      continue;//直接跳到i+1,直到遇到 ‘）’
+    } 
+    else {//括号外的情况
+      int tmp_level = 0;
       switch (tokens[i].type) {
-      case '*': case '/': tmp_type = 1; break;
-      case '+': case '-': tmp_type = 2; break;
+      case '*': case '/': tmp_level = 1; break; //设置*/高级
+      case '+': case '-': tmp_level = 2; break; //设置+-低级
       default: assert(0);
       }
-      if (tmp_type >= op_type) {
-        op_type = tmp_type;
+      if (tmp_level >= op_level) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
+        op_level = tmp_level;
         ret = i;
       }
     }
   }
   if (par != 0) return -1;
   return ret;
-}  */
-
+}  
 
 
  word_t eval(int p, int q,bool *success) {
@@ -320,7 +234,7 @@ int find(int p,int q){
     return eval(p + 1, q - 1,success);
   }
   else {
-    int op =find(p,q);
+    int op =find_major(p,q);
     if(op<0){
       *success=false;
       return 0;
