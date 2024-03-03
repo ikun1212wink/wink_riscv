@@ -22,8 +22,11 @@
 
 //对不同类型的字符进行标记
 enum { //定义了一些常量，其中包括TK_NOTYPE和TK_EQ等。这些常量用于表示不同的记号类型
-  TK_NOTYPE = 256, TK_EQ,TK_NOEQ,TK_AND,TK_OR,TK_NUMBER,TK_HEX
-
+  TK_NOTYPE = 256,
+  TK_EQ,
+  TK_NUM,
+  TK_REG,
+  TK_VAR,
   /* TODO: Add more token types */
 
 };
@@ -39,19 +42,17 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
+  {" +", TK_NOTYPE},    // 空格
+  {"\\+", '+'},         // 加法
+  {"-", '-'},
+  {"\\*", '*'},
+  {"/", '/'},
   {"==", TK_EQ},        // equal
-  {"!=", TK_NOEQ},      //No equal
-  {"&&",TK_AND},        //and
-  {"\\|\\|", TK_OR},    //or
-  {"\\b[0-9]+\\b", TK_NUMBER},  //number
-  {"0[xX][0-9a-fA-F]+",TK_HEX},    //十六进制 
-  {"\\-",'-'},          //minus
-  {"\\*",'*'},          //multiplication
-  {"/",'/'},            //divisions
-  {"\\(", '('},         // 左括号
-  {"\\)", ')'}          // 右括号
+  {"\\(", '('},
+  {"\\)", ')'},
+  {"[0-9]+", TK_NUM}, // TODO: non-capture notation (?:pattern) makes compilation failed
+  {"\\$\\w+", TK_REG},
+  {"[A-Za-z_]\\w*", TK_VAR},
 };
 
 //NR_REGEX表示正则表达式的数量
@@ -88,7 +89,7 @@ typedef struct token {//结构体token，表示词法分析得到的记号。它
 
 
 //定义了一个记号数组tokens和一个整数nr_token，用于存储分词后得到的token序列和token的数量
-static Token tokens[1024] __attribute__((used)) = {};
+static Token tokens[2048] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 
@@ -132,20 +133,19 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        Token token;//初始化token变量
+     /*    Token token;//初始化token变量 */
+        if(rules[i].token_type==TK_NOTYPE) break;
+        tokens[nr_token].type = rules[i].token_type;//把相应的token类型加入tokens
+        switch(rules[i].token_type){
+          case TK_NUM:
+          case TK_REG:
+          case TK_VAR:
+            strncpy(tokens[nr_token].str, substr_start, substr_len);
+            tokens[nr_token].str[substr_len] = '\0';
 
-        switch (rules[i].token_type) {
-          case TK_NOTYPE:break;
-          default: 
-           strncpy(token.str, substr_start, substr_len);//使用strncpy函数将匹配到的子字符串复制到token.str中
-           token.str[substr_len] = '\0'; //在末尾添加一个空字符
-           token.type=rules[i].token_type;//将规则的类型赋值给token.type
-           tokens[nr_token] = token;
-           //printf("Token %d: %s (type:%d)\n",nr_token,tokens[nr_token].str,tokens[nr_token].type); 
-           nr_token++;
-          break;
+          default:break;
         }
-        break;
+        nr_token++;
       }
     }
 
@@ -175,7 +175,7 @@ bool check_parentheses(int p, int q)
 	return false;
 }
 
-
+/* 
 //寻找主运算符 
 #define MAX_SIZE 32
 struct Pos{
@@ -262,38 +262,85 @@ int find(int p,int q){
     primary_symbol.pos=low_level[0].pos;
   }
   
- /*  printf("the primary symbol is %c\n",primary_symbol.symbol);
-  printf("the primary pos is %d\n",primary_symbol.pos); */
+ // printf("the primary symbol is %c\n",primary_symbol.symbol);
+ // printf("the primary pos is %d\n",primary_symbol.pos); 
   
   return primary_symbol.pos;
+} */
+
+int find_major(int p, int q) {
+  int ret = -1, par = 0, op_type = 0;
+  for (int i = p; i <= q; i++) {
+    if (tokens[i].type == TK_NUM) {
+      continue;
+    }
+    if (tokens[i].type == '(') {
+      par++;
+    } else if (tokens[i].type == ')') {
+      if (par == 0) {
+        return -1;
+      }
+      par--;
+    } else if (par > 0) {
+      continue;
+    } else {
+      int tmp_type = 0;
+      switch (tokens[i].type) {
+      case '*': case '/': tmp_type = 1; break;
+      case '+': case '-': tmp_type = 2; break;
+      default: assert(0);
+      }
+      if (tmp_type >= op_type) {
+        op_type = tmp_type;
+        ret = i;
+      }
+    }
+  }
+  if (par != 0) return -1;
+  return ret;
 }
 
 
 
-word_t eval(int p, int q) {
-
+word_t eval(int p, int q,bool *success) {
+  *success=true;
   if (p > q) {
-
+    *success=false;
     return 0;
   }
   else if (p == q) {
+    if(tokens[p].type!=TK_NUM){
+      *success=false;
+      return 0;
+    }
     word_t num;
-    sscanf(tokens[p].str,"%d",&num);
+    sscanf(tokens[p].str,"%u",&num);
     return num;
   }
   else if (check_parentheses(p, q) == true) {
-    return eval(p + 1, q - 1);
+    return eval(p + 1, q - 1,success);
   }
   else {
-    int op =find(p,q);
-    word_t val1 = eval(p, op - 1);
-    word_t val2 = eval(op + 1, q);
+    int op =find_major(p,q);
+    if(op<0){
+      *success=false;
+      return 0;
+    }
 
+    word_t val1 = eval(p, op - 1,success);
+    if(!*success) return 0;
+    word_t val2 = eval(op + 1, q,success);
+    if(!*success) return 0;
     switch (tokens[op].type) {
       case '+': return val1 + val2;
       case '-': return val1-val2;
       case '*': return val1*val2;
-      case '/': return val1/val2;
+      case '/': 
+                if(val2==0){
+                  *success=false;
+                  return 0;
+                }
+                return (sword_t)val1 / (sword_t)val2; // e.g. -1/2, may not pass the expr test
       default: assert(0);
     }
   }
@@ -309,7 +356,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  return eval(0,nr_token-1);
+  return eval(0,nr_token-1,success);
 }
 
 
