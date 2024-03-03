@@ -29,8 +29,6 @@ enum { //定义了一些常量，其中包括TK_NOTYPE和TK_EQ等。这些常量
 };
 
 
-
-
 //定义正则表达式和记号类型的定义关系
 static struct rule {//结构体rule，包含了正则表达式和记号类型的对应关系。这些规则会用于识别输入表达式中的记号
   const char *regex;//存储正则表达式的字符串
@@ -56,23 +54,12 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
   {"\\)", ')'}          // 右括号
 };
 
-
-
-
-
 //NR_REGEX表示正则表达式的数量
-#define NR_REGEX ARRLEN(rules) //#define ARRLEN(arr) (sizeof(arr) / sizeof((arr)[0]))
+#define NR_REGEX ARRLEN(rules) //#define ARRLEN(rules) (sizeof(rules) / sizeof((rules)[0]))
 //这个宏利用了 C 语言中的操作符 sizeof 来计算数组的总字节数，然后除以单个元素的字节数，从而得到数组的元素数量。
 
 
-
-
-
-
 static regex_t re[NR_REGEX] = {}; //正则表达式数组re，用于存储编译后的正则表达式。
-
-
-
 
 
 /* Rules are used for many times.
@@ -93,7 +80,6 @@ void init_regex() { //init_regex()函数中，会对每个规则进行编译，�
 }
 
 
-
 //存储子串的记号类型和具体内容
 typedef struct token {//结构体token，表示词法分析得到的记号。它包含一个整数类型字段type和一个字符数组str，用于存储记号的类型和字符串值
   int type;
@@ -101,12 +87,9 @@ typedef struct token {//结构体token，表示词法分析得到的记号。它
 } Token;
 
 
-
 //定义了一个记号数组tokens和一个整数nr_token，用于存储分词后得到的token序列和token的数量
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[1024] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
-
-
 
 
 //对给定的输入进行分词，以及正则表达式归类
@@ -117,6 +100,7 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 
   nr_token = 0;//用于记录找到的标记数量
 
+//eg. (11+12)*3-1
   while (e[position] != '\0') {//函数进入一个while循环，循环条件是尚未到达输入字符串的末尾（e[position] != '\0'）
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
@@ -126,7 +110,7 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
       //&re[i]表示要匹配的正则表达式的地址（第i个正则表达式）
       //e + position表示要匹配的输入字符串的起始位置（从当前位置开始）
       //1表示最多匹配一个结果
-      //&pmatch是一个存储匹配结果的结构体
+      //&pmatch是一个存储匹配结果的结构体（存储该匹配子串的起始位置和结束位置 rm_so和rm_eo）
       //0表示不使用任何标志位
 
       //pmatch.rm_so表示表示匹配子串的起始位置（在原始字符串中的索引）
@@ -157,7 +141,7 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
            token.str[substr_len] = '\0'; //在末尾添加一个空字符
            token.type=rules[i].token_type;//将规则的类型赋值给token.type
            tokens[nr_token] = token;
-/*            printf("Token %d: %s (type:%d)\n",nr_token,tokens[nr_token].str,tokens[nr_token].type); */
+           //printf("Token %d: %s (type:%d)\n",nr_token,tokens[nr_token].str,tokens[nr_token].type); 
            nr_token++;
           break;
         }
@@ -253,8 +237,7 @@ int find(int p,int q){
         }
     }
   }
-  index--;
- 
+  index--; 
   for(int j=0;j<=index;j++){
     if(symbol_all[j].symbol=='+'||symbol_all[j].symbol=='-'){//将‘+’ ‘-’ 按顺序放入low_level
       low_level[index_l].symbol=symbol_all[j].symbol;
