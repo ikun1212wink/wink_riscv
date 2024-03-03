@@ -121,7 +121,9 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
         char *substr_start = e + position;//定义一个指针substr_start，指向匹配到的子字符串在输入字符串中的起始位置
         int substr_len = pmatch.rm_eo;//定义一个整数substr_len，表示子字符串的长度
         //pmatch.rm_eo 用于表示正则表达式匹配子串的结束位置（在原始字符串中的索引）
-
+        if (substr_len > 32){
+          assert(0);
+        }//超过token规定的最大字符长度
         //打印匹配信息，包括规则的索引、正则表达式、位置和长度等
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
@@ -253,7 +255,7 @@ int find_major(int p, int q) {
                   *success=false;
                   return 0;
                 }
-                return (sword_t)val1 / (sword_t)val2; // e.g. -1/2, may not pass the expr test
+                return val1 / val2; // e.g. -1/2, may not pass the expr test
       default: assert(0);
     }
   }
