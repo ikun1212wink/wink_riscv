@@ -143,7 +143,6 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             tokens[nr_token].str[substr_len] = '\0';
 
-          default:break;
         }
         nr_token++;
       }
