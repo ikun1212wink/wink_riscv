@@ -145,6 +145,7 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
 
         }
         nr_token++;
+        break;
       }
     }
 
