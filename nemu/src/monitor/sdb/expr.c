@@ -125,8 +125,8 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
           assert(0);
         }//超过token规定的最大字符长度
         //打印匹配信息，包括规则的索引、正则表达式、位置和长度等
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+/*         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            i, rules[i].regex, position, substr_len, substr_len, substr_start); */
 
         position += substr_len;
         //将position增加substr_len，以便在下次循环中继续处理下一个位置
