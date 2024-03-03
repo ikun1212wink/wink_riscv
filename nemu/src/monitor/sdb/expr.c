@@ -22,8 +22,11 @@
 
 //对不同类型的字符进行标记
 enum { //定义了一些常量，其中包括TK_NOTYPE和TK_EQ等。这些常量用于表示不同的记号类型
-  TK_NOTYPE = 256, TK_EQ,TK_NOEQ,TK_AND,TK_OR,TK_NUMBER,TK_HEX
-
+  TK_NOTYPE = 256,
+  TK_EQ,
+  TK_NUM,
+  TK_REG,
+  TK_VAR,
   /* TODO: Add more token types */
 
 };
@@ -39,19 +42,17 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
+  {" +", TK_NOTYPE},    // 空格
+  {"\\+", '+'},         // 加法
+  {"-", '-'},
+  {"\\*", '*'},
+  {"/", '/'},
   {"==", TK_EQ},        // equal
-  {"!=", TK_NOEQ},      //No equal
-  {"&&",TK_AND},        //and
-  {"\\|\\|", TK_OR},    //or
-  {"\\b[0-9]+\\b", TK_NUMBER},  //number
-  {"0[xX][0-9a-fA-F]+",TK_HEX},    //十六进制 
-  {"\\-",'-'},          //minus
-  {"\\*",'*'},          //multiplication
-  {"/",'/'},            //divisions
-  {"\\(", '('},         // 左括号
-  {"\\)", ')'}          // 右括号
+  {"\\(", '('},
+  {"\\)", ')'},
+  {"[0-9]+", TK_NUM}, // TODO: non-capture notation (?:pattern) makes compilation failed
+  {"\\$\\w+", TK_REG},
+  {"[A-Za-z_]\\w*", TK_VAR},
 };
 
 //NR_REGEX表示正则表达式的数量
@@ -88,7 +89,7 @@ typedef struct token {//结构体token，表示词法分析得到的记号。它
 
 
 //定义了一个记号数组tokens和一个整数nr_token，用于存储分词后得到的token序列和token的数量
-static Token tokens[1024] __attribute__((used)) = {};
+static Token tokens[2048] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 
@@ -120,7 +121,9 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
         char *substr_start = e + position;//定义一个指针substr_start，指向匹配到的子字符串在输入字符串中的起始位置
         int substr_len = pmatch.rm_eo;//定义一个整数substr_len，表示子字符串的长度
         //pmatch.rm_eo 用于表示正则表达式匹配子串的结束位置（在原始字符串中的索引）
-
+        if (substr_len > 32){
+          assert(0);
+        }//超过token规定的最大字符长度
         //打印匹配信息，包括规则的索引、正则表达式、位置和长度等
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
@@ -132,19 +135,18 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        Token token;//初始化token变量
+     /*    Token token;//初始化token变量 */
+        if(rules[i].token_type==TK_NOTYPE) break;
+        tokens[nr_token].type = rules[i].token_type;//把相应的token类型加入tokens
+        switch(rules[i].token_type){
+          case TK_NUM:
+          case TK_REG:
+          case TK_VAR:
+            strncpy(tokens[nr_token].str, substr_start, substr_len);
+            tokens[nr_token].str[substr_len] = '\0';
 
-        switch (rules[i].token_type) {
-          case TK_NOTYPE:break;
-          default: 
-           strncpy(token.str, substr_start, substr_len);//使用strncpy函数将匹配到的子字符串复制到token.str中
-           token.str[substr_len] = '\0'; //在末尾添加一个空字符
-           token.type=rules[i].token_type;//将规则的类型赋值给token.type
-           tokens[nr_token] = token;
-           //printf("Token %d: %s (type:%d)\n",nr_token,tokens[nr_token].str,tokens[nr_token].type); 
-           nr_token++;
-          break;
         }
+        nr_token++;
         break;
       }
     }
@@ -175,129 +177,89 @@ bool check_parentheses(int p, int q)
 	return false;
 }
 
+//寻找主运算
 
-//寻找主运算符 
-#define MAX_SIZE 32
-struct Pos{
-  int symbol;
-  int pos;
-};
-
-int find(int p,int q){
-  //主运算符号
-  int index=0;
-  int index_l=0;
-  int index_h=0;
-  struct Pos symbol_all[MAX_SIZE]={
-
-  };//括号以外的运算符号
-  struct Pos high_level[MAX_SIZE]={
-
-  };//高优先级运算符号
-  struct Pos low_level[MAX_SIZE]={
-
-  };//低优先级运算符号
-  struct Pos primary_symbol;
-  bool insideParentheses=0;//判断是否在括号内，初始时不在
-
-//提取所有括号之外的运算符号
-  for(int i=p;i<=q;i++){
-
-      if(tokens[i].type=='('){//识别到‘（’ 说明在括号内
-        insideParentheses=true;
-      } 
-      else if(tokens[i].type==')'){//识别到‘）’ 说明出了括号
-        insideParentheses=false;
+int find_major(int p, int q) {
+  int ret = -1;//主运算符位置
+  int par = 0;//括号数量
+  int op_level = 0;//运算符等级
+  for (int i = p; i <= q; i++) {//
+    if (tokens[i].type == TK_NUM) {
+      continue;
+    }//数字跳过
+    if (tokens[i].type == '(') {
+      par++;//识别‘（’
+    }
+    else if (tokens[i].type == ')') {
+      if (par == 0) { //遇到了（））的情况，说明表达式有问题
+        return -1;
       }
-      if(tokens[i].type=='+'||tokens[i].type=='-'||tokens[i].type=='*'||tokens[i].type=='/'){//检索运算符号
-        if(!insideParentheses){//判断是否在括号内
-          switch (tokens[i].type)
-          {
-            case '+':
-              symbol_all[index].symbol='+';
-              symbol_all[index].pos=i;
-              index++;
-              break;
-            case '-':
-              symbol_all[index].symbol='-';
-              symbol_all[index].pos=i;
-              index++;
-              break;
-            case '*':
-              symbol_all[index].symbol='*';
-              symbol_all[index].pos=i;
-              index++;
-              break;
-            case '/':
-              symbol_all[index].symbol='/';
-              symbol_all[index].pos=i;
-              index++;
-              break;
-          }
-        }
+      par--;
+    } 
+    else if (par > 0) { //在括号内直接跳过
+      continue;//直接跳到i+1,直到遇到 ‘）’
+    } 
+    else {//括号外的情况
+      int tmp_level = 0;
+      switch (tokens[i].type) {
+      case '*': case '/': tmp_level = 1; break; //设置*/高级
+      case '+': case '-': tmp_level = 2; break; //设置+-低级
+      default: assert(0);
+      }
+      if (tmp_level >= op_level) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
+        op_level = tmp_level;
+        ret = i;
+      }
     }
   }
-  index--; 
-  for(int j=0;j<=index;j++){
-    if(symbol_all[j].symbol=='+'||symbol_all[j].symbol=='-'){//将‘+’ ‘-’ 按顺序放入low_level
-      low_level[index_l].symbol=symbol_all[j].symbol;
-      low_level[index_l].pos=symbol_all[j].pos;
-      index_l++;
-    }
-    else if(symbol_all[j].symbol=='*'||symbol_all[j].symbol=='/'){//将‘*’ ‘/’ 按顺序放入low_level
-      high_level[index_h].symbol=symbol_all[j].symbol;
-      high_level[index_h].pos=symbol_all[j].pos;
-      index_h++;
-    }
-  }
-  index_l--;
-  index_h--;
-
-  if(low_level[0].symbol==0){
-    primary_symbol.symbol=high_level[0].symbol;
-    primary_symbol.pos=high_level[0].pos;
-  }
-  else{
-    primary_symbol.symbol=low_level[0].symbol;
-    primary_symbol.pos=low_level[0].pos;
-  }
-  
- /*  printf("the primary symbol is %c\n",primary_symbol.symbol);
-  printf("the primary pos is %d\n",primary_symbol.pos); */
-  
-  return primary_symbol.pos;
-}
+  if (par != 0) return -1;
+  return ret;
+}  
 
 
-
-word_t eval(int p, int q) {
-
+ word_t eval(int p, int q,bool *success) {
+  *success=true;
   if (p > q) {
-
+    *success=false;
     return 0;
   }
   else if (p == q) {
+    if(tokens[p].type!=TK_NUM){
+      *success=false;
+      return 0;
+    }
     word_t num;
-    sscanf(tokens[p].str,"%d",&num);
+    sscanf(tokens[p].str,"%u",&num);
     return num;
   }
   else if (check_parentheses(p, q) == true) {
-    return eval(p + 1, q - 1);
+    return eval(p + 1, q - 1,success);
   }
   else {
-    int op =find(p,q);
-    word_t val1 = eval(p, op - 1);
-    word_t val2 = eval(op + 1, q);
+    int op =find_major(p,q);
+    if(op<0){
+      *success=false;
+      return 0;
+    }
 
+    word_t val1 = eval(p, op - 1,success);
+    if(!*success) return 0;
+    word_t val2 = eval(op + 1, q,success);
+    if(!*success) return 0;
     switch (tokens[op].type) {
       case '+': return val1 + val2;
       case '-': return val1-val2;
       case '*': return val1*val2;
-      case '/': return val1/val2;
+      case '/': 
+                if(val2==0){
+                  *success=false;
+                  return 0;
+                }
+                return (sword_t)val1 / (sword_t)val2; // e.g. -1/2, may not pass the expr test
       default: assert(0);
     }
   }
-}
+} 
 
 
 
@@ -309,7 +271,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  return eval(0,nr_token-1);
+  return eval(0,nr_token-1,success);
 }
 
 
