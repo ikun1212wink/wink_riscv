@@ -255,7 +255,7 @@ int find_major(int p, int q) {
                   *success=false;
                   return 0;
                 }
-                return val1 / val2; // e.g. -1/2, may not pass the expr test
+                return (sword_t)val1 / (sword_t)val2; // e.g. -1/2, may not pass the expr test
       default: assert(0);
     }
   }
