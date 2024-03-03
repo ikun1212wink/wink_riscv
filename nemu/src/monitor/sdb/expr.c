@@ -175,7 +175,6 @@ bool check_parentheses(int p, int q)
 	return false;
 }
 
-/* 
 //寻找主运算符 
 #define MAX_SIZE 32
 struct Pos{
@@ -266,9 +265,9 @@ int find(int p,int q){
  // printf("the primary pos is %d\n",primary_symbol.pos); 
   
   return primary_symbol.pos;
-} */
+} 
 
-int find_major(int p, int q) {
+/* int find_major(int p, int q) {
   int ret = -1, par = 0, op_type = 0;
   for (int i = p; i <= q; i++) {
     if (tokens[i].type == TK_NUM) {
@@ -298,7 +297,7 @@ int find_major(int p, int q) {
   }
   if (par != 0) return -1;
   return ret;
-}
+} */
 
 
 
@@ -321,7 +320,7 @@ word_t eval(int p, int q,bool *success) {
     return eval(p + 1, q - 1,success);
   }
   else {
-    int op =find_major(p,q);
+    int op =find(p,q);
     if(op<0){
       *success=false;
       return 0;
