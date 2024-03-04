@@ -89,18 +89,36 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
-  int n=0;
-  uint32_t start_address=0;
+  char *args1=strtok(args," ");
+  args=args1+strlen(args1)+1;
+  char *args2=strtok(args," ");
+  
   if(args==NULL){
     printf("Unknow input, the standard format is \"x [N] EXPR\"\n");
   }
-    sscanf(args,"%d %x",&n,&start_address);
+  else{
+    int n=0;
+    uint32_t addr=0;
+   // bool success=false;
+    //解析参数
+    sscanf(args1,"%d",&n);
+    sscanf(args2,"%x",&addr);
+    //扫描内存
+    for(int i=0;i<n;i++){
+      printf("0x%08x\n",paddr_read(addr,4));
+      addr+=4;
+    }
+  
+  }
+  return 0;
+}
+/*     sscanf(args,"%d %x",&n,&start_address);
   for(int i=0;i<n;i++){
     printf("0x%08x\n",paddr_read(start_address,4));
     start_address+=4;
   }
-  return 0;
-}
+  return 0; */
+
 
 static int cmd_p(char *args){
   if(args==NULL){
@@ -253,7 +271,7 @@ void init_sdb() { //初始化调试器相关配置
   /* Compile the regular expressions. */
   init_regex();
 
-  test_expr();
+/*   test_expr(); */
   /* Initialize the watchpoint pool. */
   init_wp_pool();
 }

@@ -24,15 +24,17 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
-  int count=0;
+  ///int count=0;
   for(int i=0;i<32;i++){
-    printf("%s:0x%08x\t",reg_name(i),cpu.gpr[i]);  
-    count++;
-    if(count==3||i==31){
+    printf("%s:\t0x%08x\t%d\n",reg_name(i),cpu.gpr[i],(int)cpu.gpr[i]);  
+/*     count++;
+    if(count==3||i==32){
       printf("\n");
       count=0;
-    }
-  }
+    }*/
+  }  
+   /* pc 寄存器 */
+  printf("pc:\t0x%08x\t%d\n", cpu.pc,(int)cpu.pc);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
