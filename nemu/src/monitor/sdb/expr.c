@@ -206,7 +206,7 @@ int find_major(int p, int q) {
       switch (tokens[i].type) {
       case '*': case '/': tmp_level = 1; break; //设置*/高级
       case '+': case '-': tmp_level = 2; break; //设置+-低级
-      default: assert(0);
+    /*   default: assert(0); */
       }
       if (tmp_level >= op_level) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
         op_level = tmp_level;
