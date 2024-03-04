@@ -89,17 +89,33 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
-  int n=0;
-  uint32_t start_address=0;
-  if(args==NULL){
+  char *args1=strtok(args," ");
+  char *args2=strtok(NULL," ");
+  
+  if(args1||args2==NULL){
     printf("Unknow input, the standard format is \"x [N] EXPR\"\n");
   }
-    sscanf(args,"%d %x",&n,&start_address);
+  else{
+    int n=0;
+    uint32_t addr=0;
+    bool success=false;
+    //解析参数
+    sscanf(args1,"%d",&n);
+    addr=expr(args2,&success);
+    //扫描内存
+    for(int i=0;i<4*n;i++){
+      uint8_t val=paddr_read(addr+i,1);
+      printf("%02x",val);
+    }
+    printf("\n");
+  }
+  return 0;
+/*     sscanf(args,"%d %x",&n,&start_address);
   for(int i=0;i<n;i++){
     printf("0x%08x\n",paddr_read(start_address,4));
     start_address+=4;
   }
-  return 0;
+  return 0; */
 }
 
 static int cmd_p(char *args){
