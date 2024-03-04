@@ -52,7 +52,8 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
   {"\\(", '('},
   {"\\)", ')'},
   //{"[0-9]+", TK_NUM}, // TODO: non-capture notation (?:pattern) makes compilation failed
-  {"(0[xX][0-9A-Fa-f]+|\\b[0-9]+\\b)", TK_NUM} ,//16进制数字
+ // {"(0[xX][0-9A-Fa-f]+|\\b[0-9]+\\b)", TK_NUM} ,//16进制数字
+  {"(0x)?[0-9]+", TK_NUM},
   {"\\$\\w+", TK_REG},
   {"[A-Za-z_]\\w*", TK_VAR},
 };
