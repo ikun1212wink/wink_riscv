@@ -271,7 +271,7 @@ void init_sdb() { //初始化调试器相关配置
   /* Compile the regular expressions. */
   init_regex();
 
-  test_expr();
+/*   test_expr(); */
   /* Initialize the watchpoint pool. */
   init_wp_pool();
 }
