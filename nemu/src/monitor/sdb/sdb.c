@@ -99,25 +99,26 @@ static int cmd_x(char *args){
   else{
     int n=0;
     uint32_t addr=0;
-    bool success=false;
+   // bool success=false;
     //解析参数
     sscanf(args1,"%d",&n);
-    addr=expr(args2,&success);
+    sscanf(args2,"%x",&addr);
     //扫描内存
-    for(int i=0;i<4*n;i++){
-      uint8_t val=paddr_read(addr+i,1);
-      printf("%02x",val);
+    for(int i=0;i<n;i++){
+      printf("0x%08x\n",paddr_read(addr,4));
+      addr+=4;
     }
-    printf("\n");
+  
   }
   return 0;
+}
 /*     sscanf(args,"%d %x",&n,&start_address);
   for(int i=0;i<n;i++){
     printf("0x%08x\n",paddr_read(start_address,4));
     start_address+=4;
   }
   return 0; */
-}
+
 
 static int cmd_p(char *args){
   if(args==NULL){
