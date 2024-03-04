@@ -25,7 +25,7 @@ enum { //定义了一些常量，其中包括TK_NOTYPE和TK_EQ等。这些常量
   TK_NOTYPE = 256,
   TK_EQ,
   TK_NUM,
-  TK_HEX,
+
   TK_REG,
   TK_VAR,
   /* TODO: Add more token types */
@@ -52,7 +52,7 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
   {"\\(", '('},
   {"\\)", ')'},
   {"[0-9]+", TK_NUM}, // TODO: non-capture notation (?:pattern) makes compilation failed
-  {"0x[0-9A-Fa-f]+", TK_HEX}, //16进制数字
+  {"(0[xX][0-9A-Fa-f]+|\\b[0-9]+\\b)", TK_NUM} ,//16进制数字
   {"\\$\\w+", TK_REG},
   {"[A-Za-z_]\\w*", TK_VAR},
 };
@@ -142,7 +142,6 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
         tokens[nr_token].type = rules[i].token_type;//把相应的token类型加入tokens
         switch(rules[i].token_type){
           case TK_NUM:
-          case TK_HEX:
           case TK_REG:
           case TK_VAR:
             strncpy(tokens[nr_token].str, substr_start, substr_len);
