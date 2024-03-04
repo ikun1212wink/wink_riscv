@@ -22,14 +22,16 @@
 
 //对不同类型的字符进行标记
 enum { //定义了一些常量，其中包括TK_NOTYPE和TK_EQ等。这些常量用于表示不同的记号类型
-  TK_NOTYPE = 256,
-  TK_EQ,
-  TK_NUM,
+  TK_NOTYPE = 256,//空格
 
-  TK_REG,
-  TK_VAR,
-  /* TODO: Add more token types */
+  TK_POS, TK_NEG, TK_DEREF,//一元运算符： + - *
 
+  TK_EQ, TK_NEQ, TK_GT, TK_LT, TK_GE, TK_LE,
+  TK_AND,
+  TK_OR,
+
+  TK_NUM, // 10 & 16
+  TK_REG
 };
 
 
@@ -38,38 +40,54 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
   const char *regex;//存储正则表达式的字符串
   int token_type;//表示与正则表达式匹配的记号的类型
 } rules[] = {//存储多个规则。规则按照优先级顺序排列，优先级较高的规则先出现
-
-  /* TODO: Add more rules.
-   * Pay attention to the precedence level of different rules.
-   */
-
   {" +", TK_NOTYPE},    // 空格
   {"\\+", '+'},         // 加法
   {"-", '-'},
   {"\\*", '*'},
   {"/", '/'},
+
   {"==", TK_EQ},        // equal
+  {"!=", TK_NEQ},
+  {"<", TK_LT},
+  {">", TK_GT},
+  {"<=", TK_LE}, 
+  {">=", TK_GE},
+
+  {"&&", TK_AND},
+  {"\\|\\|", TK_OR},
+
   {"\\(", '('},
   {"\\)", ')'},
-  //{"[0-9]+", TK_NUM}, // TODO: non-capture notation (?:pattern) makes compilation failed
- // {"(0[xX][0-9A-Fa-f]+|\\b[0-9]+\\b)", TK_NUM} ,//16进制数字
+
   {"(0x)?[0-9]+", TK_NUM},
-  {"\\$\\w+", TK_REG},
-  {"[A-Za-z_]\\w*", TK_VAR},
+  {"\\$\\w+", TK_REG}
+ 
 };
+
+static int bound_types[]={')',TK_NUM,TK_REG};//运算符的边界元素
+static bool check_type(int type,int types[]){ //判断type是否在数组types内
+  int size=3;
+  for(int i=0;i<size;i++){
+    if(type==types[i])
+      return true;
+  }
+  return false;
+}
 
 //NR_REGEX表示正则表达式的数量
 #define NR_REGEX ARRLEN(rules) //#define ARRLEN(rules) (sizeof(rules) / sizeof((rules)[0]))
 //这个宏利用了 C 语言中的操作符 sizeof 来计算数组的总字节数，然后除以单个元素的字节数，从而得到数组的元素数量。
 
 
-static regex_t re[NR_REGEX] = {}; //正则表达式数组re，用于存储编译后的正则表达式。
-
+//正则表达式数组re，用于存储编译后的正则表达式。
+static regex_t re[NR_REGEX] = {}; 
 
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
-void init_regex() { //init_regex()函数中，会对每个规则进行编译，并将编译后的结果存储在re数组中
+
+//init_regex()函数中，会对每个规则进行编译，并将编译后的结果存储在re数组中
+void init_regex() { 
   int i;
   char error_msg[128];
   int ret;
@@ -138,22 +156,30 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-     /*    Token token;//初始化token变量 */
         if(rules[i].token_type==TK_NOTYPE) break;
         tokens[nr_token].type = rules[i].token_type;//把相应的token类型加入tokens
         switch(rules[i].token_type){
           case TK_NUM:
           case TK_REG:
-          case TK_VAR:
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             tokens[nr_token].str[substr_len] = '\0';
-
+            break;
+          //判断是否是单元运算符
+          case '+': 
+          case '-': 
+          case '*':
+            if(nr_token==0||!check_type(tokens[nr_token-1].type,bound_types)){
+              switch(rules[i].token_type){
+                case '+':tokens[nr_token].type=TK_POS; break;
+                case '-':tokens[nr_token].type=TK_NEG; break;
+                case '*':tokens[nr_token].type=TK_DEREF; break;
+              }
+            }
         }
         nr_token++;
         break;
       }
     }
-
     if (i == NR_REGEX) {//在循环中没有找到匹配项则表示在当前位置没有符合任何规则的标记。此时会打印一条错误消息，并返回false
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
@@ -181,7 +207,6 @@ bool check_parentheses(int p, int q)
 }
 
 //寻找主运算
-
 int find_major(int p, int q) {
   int ret = -1;//主运算符位置
   int par = 0;//括号数量
@@ -219,6 +244,25 @@ int find_major(int p, int q) {
   return ret;
 }  
 
+//判断操作数的类型 十进制？十六进制？寄存器？
+static word_t eval_operand(int i,bool *success){
+  switch(tokens[i].type){
+    case TK_NUM:
+      if(strncmp("0x",tokens[i].str,2)){//判断是不是16进制 
+        return strtol(tokens[i].str,NULL,16);//使用 strtol 函数将其解析为十六进制整数，并将结果作为函数的返回值
+      }
+      else{
+        return strtol(tokens[i].str,NULL,10);//返回十进制整数
+      }
+      break;
+    case TK_REG:
+      return isa_reg_str2val(tokens[i].str, success);
+      break;
+    default:
+      *success=false;
+      return 0;
+  }
+}
 
  word_t eval(int p, int q,bool *success) {
   *success=true;
@@ -227,13 +271,7 @@ int find_major(int p, int q) {
     return 0;
   }
   else if (p == q) {
-    if(tokens[p].type!=TK_NUM){
-      *success=false;
-      return 0;
-    }
-    word_t num;
-    sscanf(tokens[p].str,"%u",&num);
-    return num;
+    return eval_operand(nr_token,success);
   }
   else if (check_parentheses(p, q) == true) {
     return eval(p + 1, q - 1,success);
@@ -278,14 +316,4 @@ word_t expr(char *e, bool *success) {
 }
 
 
-/* //测试用的函数
-void token_text(char *e){
-  make_token(e);
-// printf("%d\n",nr_token); 
- 
-  word_t sum;
-
-  sum=eval(0,nr_token-1);
-  printf("%d\n",sum);
-} */
 
