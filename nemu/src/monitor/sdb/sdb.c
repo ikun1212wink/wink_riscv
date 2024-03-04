@@ -90,7 +90,8 @@ static int cmd_info(char *args){
 
 static int cmd_x(char *args){
   char *args1=strtok(args," ");
-  char *args2=strtok(NULL," ");
+  args=args1+strlen(args1)+1;
+  char *args2=strtok(args," ");
   
   if(args1||args2==NULL){
     printf("Unknow input, the standard format is \"x [N] EXPR\"\n");
