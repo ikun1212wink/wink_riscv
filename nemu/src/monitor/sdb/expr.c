@@ -19,7 +19,7 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
-
+#include <memory/paddr.h>
 //对不同类型的字符进行标记
 enum { //定义了一些常量，其中包括TK_NOTYPE和TK_EQ等。这些常量用于表示不同的记号类型
   TK_NOTYPE = 256,//空格
@@ -63,10 +63,10 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
   {"\\$\\w+", TK_REG}
  
 };
-
+static int nop_types[] = {'(',')',TK_NUM,TK_REG}; // 不属于运算符号
+//static int op1_types[] = {TK_NEG, TK_POS, TK_DEREF}; // 一元运算符
 static int bound_types[]={')',TK_NUM,TK_REG};//运算符的边界元素
-static bool check_type(int type,int types[]){ //判断type是否在数组types内
-  int size=3;
+static bool check_type(int type,int types[],int size){ //判断type是否在数组types内
   for(int i=0;i<size;i++){
     if(type==types[i])
       return true;
@@ -168,7 +168,7 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
           case '+': 
           case '-': 
           case '*':
-            if(nr_token==0||!check_type(tokens[nr_token-1].type,bound_types)){
+            if(nr_token==0||!check_type(tokens[nr_token-1].type,bound_types,3)){
               switch(rules[i].token_type){
                 case '+':tokens[nr_token].type=TK_POS; break;
                 case '-':tokens[nr_token].type=TK_NEG; break;
@@ -211,10 +211,8 @@ int find_major(int p, int q) {
   int ret = -1;//主运算符位置
   int par = 0;//括号数量
   int op_level = 0;//运算符等级
+  int tmp_level=0;
   for (int i = p; i <= q; i++) {//
-    if (tokens[i].type == TK_NUM) {
-      continue;
-    }//数字跳过
     if (tokens[i].type == '(') {
       par++;//识别‘（’
     }
@@ -224,22 +222,31 @@ int find_major(int p, int q) {
       }
       par--;
     } 
+    else if(check_type(tokens[i].type,nop_types,4)){
+      continue;
+    }
     else if (par > 0) { //在括号内直接跳过
       continue;//直接跳到i+1,直到遇到 ‘）’
     } 
     else {//括号外的情况
-      int tmp_level = 0;
-      switch (tokens[i].type) {
-      case '*': case '/': tmp_level = 1; break; //设置*/高级
-      case '+': case '-': tmp_level = 2; break; //设置+-低级
-      default: assert(0);
+    tmp_level=0;
+      switch(tokens[i].type){
+        case TK_OR: tmp_level++;
+        case TK_AND: tmp_level++;
+        case TK_EQ: case TK_NEQ: tmp_level++;
+        case TK_LT: case TK_GT: case TK_GE: case TK_LE: tmp_level++;
+        case '+': case '-': tmp_level++;
+        case '*': case '/': tmp_level++;
+        case TK_NEG: case TK_DEREF: case TK_POS: tmp_level++; break;
+        default: return -1;
       }
+    }
       if (tmp_level >= op_level) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
         op_level = tmp_level;
         ret = i;
       }
     }
-  }
+  
   if (par != 0) return -1;
   return ret;
 }  
@@ -264,6 +271,41 @@ static word_t eval_operand(int i,bool *success){
   }
 }
 
+// unary operator
+static word_t calc1(int op, word_t val, bool *ok) {
+  switch (op)
+  {
+  case TK_NEG: return -val;
+  case TK_POS: return val;
+  case TK_DEREF: return paddr_read(val, 8);
+  default: *ok = false;
+  }
+  return 0;
+}
+
+// binary operator
+static word_t calc2(word_t val1, int op, word_t val2, bool *success) {
+  switch(op) {
+  case '+': return val1 + val2;
+  case '-': return val1 - val2;
+  case '*': return val1 * val2;
+  case '/': if (val2 == 0) {
+    *success = false;
+    return 0;
+  } 
+  return (sword_t)val1 / (sword_t)val2; // e.g. -1/2, may not pass the expr test
+  case TK_AND: return val1 && val2;
+  case TK_OR: return val1 || val2;
+  case TK_EQ: return val1 == val2;
+  case TK_NEQ: return val1 != val2;
+  case TK_GT: return val1 > val2;
+  case TK_LT: return val1 < val2;
+  case TK_GE: return val1 >= val2;
+  case TK_LE: return val1 <= val2;
+  default: *success = false; return 0;
+  }
+}
+
  word_t eval(int p, int q,bool *success) {
   *success=true;
   if (p > q) {
@@ -283,7 +325,7 @@ static word_t eval_operand(int i,bool *success){
       return 0;
     }
 
-    word_t val1 = eval(p, op - 1,success);
+/*     word_t val1 = eval(p, op - 1,success);
     if(!*success) return 0;
     word_t val2 = eval(op + 1, q,success);
     if(!*success) return 0;
@@ -298,6 +340,22 @@ static word_t eval_operand(int i,bool *success){
                 }
                 return (sword_t)val1 / (sword_t)val2; // e.g. -1/2, may not pass the expr test
       default: assert(0);
+    } */
+
+    bool success1, success2;
+    word_t val1 = eval(p, op-1, &success1);
+    word_t val2 = eval(op+1, q, &success2);
+
+    if (!success2) {
+      *success = false;
+      return 0;
+    }
+    if (success1) {
+      word_t ret = calc2(val1, tokens[op].type, val2, success);
+      return ret;
+    } else {
+      word_t ret =  calc1(tokens[op].type, val2, success);
+      return ret;
     }
   }
 } 
