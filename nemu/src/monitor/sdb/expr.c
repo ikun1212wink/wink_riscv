@@ -51,7 +51,7 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
   {"==", TK_EQ},        // equal
   {"\\(", '('},
   {"\\)", ')'},
-  {"[0-9]+", TK_NUM}, // TODO: non-capture notation (?:pattern) makes compilation failed
+  //{"[0-9]+", TK_NUM}, // TODO: non-capture notation (?:pattern) makes compilation failed
   {"(0[xX][0-9A-Fa-f]+|\\b[0-9]+\\b)", TK_NUM} ,//16进制数字
   {"\\$\\w+", TK_REG},
   {"[A-Za-z_]\\w*", TK_VAR},
@@ -206,7 +206,7 @@ int find_major(int p, int q) {
       switch (tokens[i].type) {
       case '*': case '/': tmp_level = 1; break; //设置*/高级
       case '+': case '-': tmp_level = 2; break; //设置+-低级
-    /*   default: assert(0); */
+      default: assert(0);
       }
       if (tmp_level >= op_level) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
         op_level = tmp_level;
