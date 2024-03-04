@@ -33,6 +33,8 @@ void isa_reg_display() {
       count=0;
     }
   }
+   /* pc 寄存器 */
+  printf("pc:0x%08x\t", cpu.pc);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
