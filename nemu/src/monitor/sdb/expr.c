@@ -274,13 +274,13 @@ static word_t eval_operand(int i,bool *success){
 }
 
 // 一元运算
-static word_t calc1(int op, word_t val, bool *ok) {
+static word_t calc1(int op, word_t val, bool *success) {
   switch (op)
   {
   case TK_NEG: return -val;
   case TK_POS: return val;
   case TK_DEREF: return paddr_read(val, 8);
-  default: *ok = false;
+  default: *success = false;
   }
   return 0;
 }
@@ -315,7 +315,7 @@ static word_t calc2(word_t val1, int op, word_t val2, bool *success) {
     return 0;
   }
   else if (p == q) {
-    return eval_operand(nr_token,success);
+    return eval_operand(p,success);
   }
   else if (check_parentheses(p, q) == true) {
     return eval(p + 1, q - 1,success);
