@@ -265,7 +265,8 @@ static word_t eval_operand(int i,bool *success){
       break;
     case TK_REG:
       *success=true;
-      return isa_reg_str2val(tokens[i].str, success);
+      char *reg=strchr(tokens[i].str,'$')+1;
+      return isa_reg_str2val(reg, success);
       break;
     default:
       *success=false;
