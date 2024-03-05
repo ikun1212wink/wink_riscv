@@ -64,7 +64,7 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
  
 };
 static int nop_types[] = {'(',')',TK_NUM,TK_REG}; // 不属于运算符号
-//static int op1_types[] = {TK_NEG, TK_POS, TK_DEREF}; // 一元运算符
+static int op1_types[] = {TK_NEG, TK_POS, TK_DEREF}; // 一元运算符
 static int bound_types[]={')',TK_NUM,TK_REG};//运算符的边界元素
 static bool check_type(int type,int types[],int size){ //判断type是否在数组types内
   for(int i=0;i<size;i++){
@@ -231,17 +231,17 @@ int find_major(int p, int q) {
     else {//括号外的情况
     tmp_level=0;
       switch(tokens[i].type){
-        case TK_OR: tmp_level++;
-        case TK_AND: tmp_level++;
-        case TK_EQ: case TK_NEQ: tmp_level++;
-        case TK_LT: case TK_GT: case TK_GE: case TK_LE: tmp_level++;
-        case '+': case '-': tmp_level++;
-        case '*': case '/': tmp_level++;
-        case TK_NEG: case TK_DEREF: case TK_POS: tmp_level++; break;
+        case TK_OR: tmp_level++;//7
+        case TK_AND: tmp_level++;//6
+        case TK_EQ: case TK_NEQ: tmp_level++;//5
+        case TK_LT: case TK_GT: case TK_GE: case TK_LE: tmp_level++;//4
+        case '+': case '-': tmp_level++;//3
+        case '*': case '/': tmp_level++;//2
+        case TK_NEG: case TK_DEREF: case TK_POS: tmp_level++; break;//1
         default: return -1;
       }
     }
-      if (tmp_level >= op_level) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
+      if (tmp_level > op_level||(tmp_level==op_level&&!check_type(tokens[i].type,op1_types,3))) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
         op_level = tmp_level;
         ret = i;
       }
@@ -271,7 +271,7 @@ static word_t eval_operand(int i,bool *success){
   }
 }
 
-// unary operator
+// 一元运算
 static word_t calc1(int op, word_t val, bool *ok) {
   switch (op)
   {
@@ -283,7 +283,7 @@ static word_t calc1(int op, word_t val, bool *ok) {
   return 0;
 }
 
-// binary operator
+// 二元运算
 static word_t calc2(word_t val1, int op, word_t val2, bool *success) {
   switch(op) {
   case '+': return val1 + val2;
