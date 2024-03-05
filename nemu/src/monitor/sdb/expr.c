@@ -256,7 +256,7 @@ static word_t eval_operand(int i,bool *success){
   switch(tokens[i].type){
     case TK_NUM:
       *success=true;
-      if(strncmp("0x",tokens[i].str,2)){//判断是不是16进制 
+      if(!strncmp("0x",tokens[i].str,2)){//判断是不是16进制 
         return strtol(tokens[i].str,NULL,16);//使用 strtol 函数将其解析为十六进制整数，并将结果作为函数的返回值
       }
       else{
