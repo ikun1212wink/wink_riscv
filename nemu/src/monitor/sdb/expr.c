@@ -279,7 +279,7 @@ static word_t calc1(int op, word_t val, bool *success) {
   {
   case TK_NEG: return -val;
   case TK_POS: return val;
-  case TK_DEREF: return paddr_read(val, 8);
+  case TK_DEREF: return paddr_read(val, 4);
   default: *success = false;
   }
   return 0;
@@ -326,23 +326,6 @@ static word_t calc2(word_t val1, int op, word_t val2, bool *success) {
       *success=false;
       return 0;
     }
-
-/*     word_t val1 = eval(p, op - 1,success);
-    if(!*success) return 0;
-    word_t val2 = eval(op + 1, q,success);
-    if(!*success) return 0;
-    switch (tokens[op].type) {
-      case '+': return val1 + val2;
-      case '-': return val1-val2;
-      case '*': return val1*val2;
-      case '/': 
-                if(val2==0){
-                  *success=false;
-                  return 0;
-                }
-                return (sword_t)val1 / (sword_t)val2; // e.g. -1/2, may not pass the expr test
-      default: assert(0);
-    } */
 
     bool success1, success2;
     word_t val1 = eval(p, op-1, &success1);
