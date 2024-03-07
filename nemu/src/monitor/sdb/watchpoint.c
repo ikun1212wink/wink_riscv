@@ -64,10 +64,10 @@ void free_wp(WP *wp){
   WP* h=head;
   //检查要释放的监视点是否是使用中的第一个监视点（即head指针指向它） 如果是将头制空
   if(h==wp){
-    head=NULL;
+    head=head->next;
   }
   else{
-    while(h&&h->next!=wp) h=h->next;
+    while(h && h->next!=wp) h=h->next;
     assert(h);//h为空指针，即没有找到要释放的监视点的前一个监视点，那么断言会触发
     h->next= wp->next;   
   }
@@ -75,6 +75,7 @@ void free_wp(WP *wp){
   free_=wp;//将要释放的监视点加入空闲监视点链表的头部
 }
 
+//监视点的值发生改变
 void wp_difftest(){
   WP* h=head; 
   while(h){
