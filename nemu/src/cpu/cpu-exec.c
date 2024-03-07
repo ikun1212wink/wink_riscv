@@ -24,7 +24,7 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 10
-
+#define CONFIG_WATCHPOINT
 //用于控制在执行指令时打印每条指令的执行步骤的数量
 //当需要执行的指令数量少于MAX_INST_TO_PRINT时，会将全局变量g_print_step设置为true，表示需要打印每条指令的执行步骤。
 //这样，在执行每条指令时，会通过调用puts函数将指令的执行步骤输出到屏幕上
@@ -123,9 +123,7 @@ void cpu_exec(uint64_t n) {
   //根据nemu_state.state的值，进行不同的处理。如果状态是结束或中止状态，则打印相关信息并返回。否则，将状态设置为运行状态。
 
   uint64_t timer_start = get_time();//get_time()函数用于获取当前时间与引导时间之间的时间差，以提供相对时间信息
-  #ifdef CONFIG_WATCHPOINT  
-  printf("you define the CONFIG_WATCHPOINT\n");
-#endif  
+
   execute(n);
 
   uint64_t timer_end = get_time();
