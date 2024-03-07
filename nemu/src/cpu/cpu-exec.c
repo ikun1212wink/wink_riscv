@@ -57,9 +57,9 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {//用于追踪指�
 /*   IFDEF(CONFIG_WATCHPOINT,wp_difftest()); */
   IFDEF(CONFIG_CONFIG_WATCHPOINT,wp_difftest());
 
-    if(nemu_state.state==NEMU_STOP){
+/*     if(nemu_state.state==NEMU_STOP){
     sdb_mainloop();
-  } 
+  }  */
 } 
 
 static void exec_once(Decode *s, vaddr_t pc) {
