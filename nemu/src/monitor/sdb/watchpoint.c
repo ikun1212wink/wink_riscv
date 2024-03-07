@@ -40,7 +40,6 @@ void init_wp_pool() {
     wp_pool[i].old=0;
 
   }
-
   //将head指针置为空，将free_指针指向监视点结构体数组的起始位置
   head = NULL;
   free_ = wp_pool;
