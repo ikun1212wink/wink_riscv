@@ -78,6 +78,7 @@ void free_wp(WP *wp){
 
 //监视点的值发生改变
 void wp_difftest(){
+  #if CONFIG_CONFIG_WATCHPOINT
   WP* h=head; 
   while(h){
     bool success;
@@ -91,6 +92,7 @@ void wp_difftest(){
     h=h->next;
 
   }
+  #endif
 }
 
 //遍历监视点
