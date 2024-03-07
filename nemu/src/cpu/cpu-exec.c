@@ -123,7 +123,9 @@ void cpu_exec(uint64_t n) {
   //根据nemu_state.state的值，进行不同的处理。如果状态是结束或中止状态，则打印相关信息并返回。否则，将状态设置为运行状态。
 
   uint64_t timer_start = get_time();//get_time()函数用于获取当前时间与引导时间之间的时间差，以提供相对时间信息
-
+  #ifdef CONFIG_WATCHPOINT  
+  printf("you define the CONFIG_WATCHPOINT\n");
+#endif  
   execute(n);
 
   uint64_t timer_end = get_time();
