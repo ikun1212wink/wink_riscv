@@ -33,7 +33,15 @@ source "src/isa/riscv32/Kconfig"
 endif
 
 
+menu "Watchpoint options"
 
+config CONFIG_WATCHPOINT
+  bool "Enable watchpoint"
+  default y
+  help
+    Define CONFIG_WATCHPOINT to enable watchpoint functionality.
+
+endmenu
 
 choice
   prompt "NEMU execution engine"
