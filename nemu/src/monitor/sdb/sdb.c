@@ -26,6 +26,10 @@ word_t paddr_read(paddr_t addr, int len);
 void init_regex(); //初始化正则表达式
 void init_wp_pool(); //初始化观察点
 
+void wp_list();
+void wp_watch();
+void wp_remove();
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() { //定义函数rl_gets()获取命令行输入，支持历史记录功能
   static char *line_read = NULL;
@@ -81,12 +85,15 @@ static int cmd_info(char *args){
   }
   else if(strcmp(args,"w")==0){
     printf("Print the watchpoint information\n");
+    wp_list();
   }
   else{
     printf("Unkonw input, print register status: \"info r\", or print watchpointer information: \"info w\"\n");
   }
   return 0;
 }
+
+
 
 static int cmd_x(char *args){
   char *args1=strtok(args," ");
@@ -136,6 +143,35 @@ static int cmd_p(char *args){
   return 0;
 }
 
+//设置监视点
+static int cmd_w(char *args){
+  if(args==NULL){
+    printf("Unkonw input, the format is \"w EXPR\"\n");
+  }
+  bool success;
+  word_t res=expr(args,&success);
+  if(!success){
+    puts("invalid expression");
+  }
+  else{
+    wp_watch(args,res);
+  }
+  return 0;
+}
+
+//删除监视点
+static int cmd_d(char *args){
+  if(args==NULL){
+    printf("Unkonw input, the format is \"d N\"\n");
+  }
+  else{
+    int no=strtol(args, NULL, 10);
+    wp_remove(no);
+  }
+  return 0;
+}
+
+
 static int cmd_help(char *args); 
 
 static struct {//命令列表
@@ -149,7 +185,9 @@ static struct {//命令列表
   { "si","Enter \"si [N]\", let the program execute N instructions, and then pause",cmd_si} ,
   { "info","Enter \"info r\" to print register status, or enter \"info w\" to print watchpointer information",cmd_info},
   { "x" ,"Enter \"x [N] EXPR\" to scan the memory",cmd_x},
-  { "p", "Enter \"p EXPR\"",cmd_p}
+  { "p", "Enter \"p EXPR\" to perform expression evaluation",cmd_p},
+  { "w", "Enter \"w EXPR\" to set the watchpoint.",cmd_w},
+  { "d", "Enter \"d N\" to delete the watchpoint.",cmd_d}
   /* TODO: Add more commands */
 
 };
