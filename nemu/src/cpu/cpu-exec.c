@@ -24,7 +24,7 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 10
-#define CONFIG_WATCHPOINT
+
 void wp_difftest();
 void sdb_mainloop();
 //用于控制在执行指令时打印每条指令的执行步骤的数量
@@ -54,8 +54,8 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {//用于追踪指�
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
   //difftest_step函数用于比较模拟器的执行结果与参考模拟器的执行结果是否一致，以检测模拟器的正确性。
 
-/*   IFDEF(CONFIG_WATCHPOINT,wp_difftest()); */
-  wp_difftest();
+  IFDEF(CONFIG_WATCHPOINT,wp_difftest());
+/*   wp_difftest(); */
   if(nemu_state.state==NEMU_STOP){
     sdb_mainloop();
   }

@@ -200,6 +200,11 @@ source "src/memory/Kconfig"
 source "src/device/Kconfig"
 endif
 
+menu "Watchpointe"
+  config WATCHPOINT
+  bool "enable watchpoint"
+  default y
+endmenu
 
 menu "Miscellaneous"
 choice
