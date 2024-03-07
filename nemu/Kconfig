@@ -32,6 +32,18 @@ if ISA_riscv
 source "src/isa/riscv32/Kconfig"
 endif
 
+
+choic 
+  prompt "Watchpoint options"
+  default  CONFIG_WATCHPOINT
+
+config CONFIG_WATCHPOINT
+  bool "Enable watchpoint"
+  default no
+  help
+    Define CONFIG_WATCHPOINT to enable watchpoint functionality.
+endchoice
+
 choice
   prompt "NEMU execution engine"
   default ENGINE_INTERPRETER
