@@ -33,7 +33,7 @@ source "src/isa/riscv32/Kconfig"
 endif
 
 
-choic 
+choice 
   prompt "Watchpoint options"
   default  CONFIG_WATCHPOINT
 
