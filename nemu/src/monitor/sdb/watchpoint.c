@@ -88,8 +88,8 @@ void wp_difftest(){
       h->old=new;
     }
     h=h->next;
+
   }
-  sdb_mainloop();
 }
 
 //遍历监视点
