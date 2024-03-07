@@ -85,7 +85,6 @@ void wp_difftest(){
     if(h->old!=new){
       nemu_state.state=NEMU_STOP;
       printf("watchpoint%d:%s\nOld value=%u\nNew value=%u\n",h->NO,h->expr,h->old,new);
-      nemu_state.state=NEMU_RUNNING;
       sdb_mainloop();
       h->old=new;
     }
