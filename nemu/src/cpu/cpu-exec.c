@@ -53,7 +53,8 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {//用于追踪指�
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
   //difftest_step函数用于比较模拟器的执行结果与参考模拟器的执行结果是否一致，以检测模拟器的正确性。
 
-  IFDEF(CONFIG_WATCHPOINT,wp_difftest());
+/*   IFDEF(CONFIG_WATCHPOINT,wp_difftest()); */
+  wp_difftest();
 } 
 
 static void exec_once(Decode *s, vaddr_t pc) {
