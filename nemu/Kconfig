@@ -39,15 +39,10 @@ choice
 
 config CONFIG_WATCHPOINT
   bool "Enable watchpoint"
-  default n
-  help
-    Define CONFIG_WATCHPOINT to enable watchpoint functionality.
-  
-config CONFIG_DISABLE_WATCHPOINT
-  bool "Disable watchpoint"
   default y
   help
-    No define CONFIG_WATCHPOINT.
+    Define CONFIG_WATCHPOINT to enable watchpoint functionality.
+
 endchoice
 
 choice
