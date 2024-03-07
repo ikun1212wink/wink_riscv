@@ -55,11 +55,10 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {//用于追踪指�
   //difftest_step函数用于比较模拟器的执行结果与参考模拟器的执行结果是否一致，以检测模拟器的正确性。
 
 /*   IFDEF(CONFIG_WATCHPOINT,wp_difftest()); */
-/*   IFDEF(CONFIG_CONFIG_WATCHPOINT,wp_difftest()); */
-wp_difftest();
-    if(nemu_state.state==NEMU_STOP){
+  wp_difftest();
+  if(nemu_state.state==NEMU_STOP){
     sdb_mainloop();
-  } 
+  }
 } 
 
 static void exec_once(Decode *s, vaddr_t pc) {
@@ -82,7 +81,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   space_len = space_len * 3 + 1;
   memset(p, ' ', space_len);
   p += space_len;
-  sdb_mainloop();
+
 #ifndef CONFIG_ISA_loongarch32r
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
