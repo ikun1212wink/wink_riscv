@@ -107,6 +107,7 @@ void wp_list(){
 //设置监视点
 void wp_watch(char *expr, word_t res) {
   WP* wp = new_wp();
+  wp->expr = malloc(strlen(expr) + 1);
   strcpy(wp->expr, expr);
   wp->old = res;
   printf("Watchpoint %d: %s\n", wp->NO, expr);
