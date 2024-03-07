@@ -83,9 +83,10 @@ void wp_difftest(){
     bool success;
     word_t new=expr(h->expr,&success);
     if(h->old!=new){
-      nemu_state.state=NEMU_STOP;
+      
       printf("watchpoint%d:%s\nOld value=%u\nNew value=%u\n",h->NO,h->expr,h->old,new);
       h->old=new;
+      nemu_state.state=NEMU_STOP;
     }
     h=h->next;
 
