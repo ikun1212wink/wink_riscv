@@ -148,13 +148,15 @@ static int cmd_w(char *args){
   if(args==NULL){
     printf("Unkonw input, the format is \"w EXPR\"\n");
   }
-  bool success;
-  word_t res=expr(args,&success);
-  if(!success){
-    puts("invalid expression");
-  }
   else{
-    wp_watch(args,res);
+    bool success;
+    word_t res=expr(args,&success);
+    if(!success){
+      puts("invalid expression");
+    }
+    else{
+      wp_watch(args,res);
+    }
   }
   return 0;
 }
@@ -312,5 +314,5 @@ void init_sdb() { //初始化调试器相关配置
 /*   test_expr(); */
   /* Initialize the watchpoint pool. */
   init_wp_pool();
-  
+
 }
