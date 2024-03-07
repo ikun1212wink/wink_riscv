@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
   init_monitor(argc, argv);
 #endif
 
-#ifndef CONFIG_WATCHPOINT  
+#ifdef CONFIG_WATCHPOINT  
   printf("you define the CONFIG_WATCHPOINT\n");
 #endif  
   /* Start engine. */
