@@ -59,12 +59,12 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
   {"\\(", '('},
   {"\\)", ')'},
 
-  {"(0x)?[0-9]+", TK_NUM},
+  {"(0x)?[0-9A-Fa-f]+", TK_NUM},
   {"\\$\\w+", TK_REG}
  
 };
 static int nop_types[] = {'(',')',TK_NUM,TK_REG}; // 不属于运算符号
-//static int op1_types[] = {TK_NEG, TK_POS, TK_DEREF}; // 一元运算符
+static int op1_types[] = {TK_NEG, TK_POS, TK_DEREF}; // 一元运算符
 static int bound_types[]={')',TK_NUM,TK_REG};//运算符的边界元素
 static bool check_type(int type,int types[],int size){ //判断type是否在数组types内
   for(int i=0;i<size;i++){
@@ -231,17 +231,17 @@ int find_major(int p, int q) {
     else {//括号外的情况
     tmp_level=0;
       switch(tokens[i].type){
-        case TK_OR: tmp_level++;
-        case TK_AND: tmp_level++;
-        case TK_EQ: case TK_NEQ: tmp_level++;
-        case TK_LT: case TK_GT: case TK_GE: case TK_LE: tmp_level++;
-        case '+': case '-': tmp_level++;
-        case '*': case '/': tmp_level++;
-        case TK_NEG: case TK_DEREF: case TK_POS: tmp_level++; break;
+        case TK_OR: tmp_level++;//7
+        case TK_AND: tmp_level++;//6
+        case TK_EQ: case TK_NEQ: tmp_level++;//5
+        case TK_LT: case TK_GT: case TK_GE: case TK_LE: tmp_level++;//4
+        case '+': case '-': tmp_level++;//3
+        case '*': case '/': tmp_level++;//2
+        case TK_NEG: case TK_DEREF: case TK_POS: tmp_level++; break;//1
         default: return -1;
       }
     }
-      if (tmp_level >= op_level) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
+      if (tmp_level > op_level||(tmp_level==op_level&&!check_type(tokens[i].type,op1_types,3))) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
         op_level = tmp_level;
         ret = i;
       }
@@ -255,7 +255,8 @@ int find_major(int p, int q) {
 static word_t eval_operand(int i,bool *success){
   switch(tokens[i].type){
     case TK_NUM:
-      if(strncmp("0x",tokens[i].str,2)){//判断是不是16进制 
+      *success=true;
+      if(!strncmp("0x",tokens[i].str,2)){//判断是不是16进制 
         return strtol(tokens[i].str,NULL,16);//使用 strtol 函数将其解析为十六进制整数，并将结果作为函数的返回值
       }
       else{
@@ -263,7 +264,9 @@ static word_t eval_operand(int i,bool *success){
       }
       break;
     case TK_REG:
-      return isa_reg_str2val(tokens[i].str, success);
+      *success=true;
+      char *reg=strchr(tokens[i].str,'$')+1;
+      return isa_reg_str2val(reg, success);
       break;
     default:
       *success=false;
@@ -271,19 +274,19 @@ static word_t eval_operand(int i,bool *success){
   }
 }
 
-// unary operator
-static word_t calc1(int op, word_t val, bool *ok) {
+// 一元运算
+static word_t calc1(int op, word_t val, bool *success) {
   switch (op)
   {
   case TK_NEG: return -val;
   case TK_POS: return val;
-  case TK_DEREF: return paddr_read(val, 8);
-  default: *ok = false;
+  case TK_DEREF: return paddr_read(val, 4);
+  default: *success = false;
   }
   return 0;
 }
 
-// binary operator
+// 二元运算
 static word_t calc2(word_t val1, int op, word_t val2, bool *success) {
   switch(op) {
   case '+': return val1 + val2;
@@ -313,7 +316,7 @@ static word_t calc2(word_t val1, int op, word_t val2, bool *success) {
     return 0;
   }
   else if (p == q) {
-    return eval_operand(nr_token,success);
+    return eval_operand(p,success);
   }
   else if (check_parentheses(p, q) == true) {
     return eval(p + 1, q - 1,success);
@@ -324,23 +327,6 @@ static word_t calc2(word_t val1, int op, word_t val2, bool *success) {
       *success=false;
       return 0;
     }
-
-/*     word_t val1 = eval(p, op - 1,success);
-    if(!*success) return 0;
-    word_t val2 = eval(op + 1, q,success);
-    if(!*success) return 0;
-    switch (tokens[op].type) {
-      case '+': return val1 + val2;
-      case '-': return val1-val2;
-      case '*': return val1*val2;
-      case '/': 
-                if(val2==0){
-                  *success=false;
-                  return 0;
-                }
-                return (sword_t)val1 / (sword_t)val2; // e.g. -1/2, may not pass the expr test
-      default: assert(0);
-    } */
 
     bool success1, success2;
     word_t val1 = eval(p, op-1, &success1);
