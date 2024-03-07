@@ -25,6 +25,7 @@
  */
 #define MAX_INST_TO_PRINT 10
 #define CONFIG_WATCHPOINT
+void wp_difftest();
 //用于控制在执行指令时打印每条指令的执行步骤的数量
 //当需要执行的指令数量少于MAX_INST_TO_PRINT时，会将全局变量g_print_step设置为true，表示需要打印每条指令的执行步骤。
 //这样，在执行每条指令时，会通过调用puts函数将指令的执行步骤输出到屏幕上
