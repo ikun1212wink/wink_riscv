@@ -67,9 +67,7 @@ void free_wp(WP *wp){
     head=NULL;
   }
   else{
-    while(h&&h->next!=wp){ 
-      h=h->next;
-    }
+    while(h&&h->next!=wp) h=h->next;
     assert(h);//h为空指针，即没有找到要释放的监视点的前一个监视点，那么断言会触发
     h->next= wp->next;   
   }
