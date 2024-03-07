@@ -17,6 +17,8 @@
 
 #define NR_WP 32
 
+void sdb_mainloop();
+
 typedef struct watchpoint {
   int NO;//监视点序号
   struct watchpoint *next;//指向下一个结构体的地址
@@ -81,7 +83,9 @@ void wp_difftest(){
     bool success;
     word_t new=expr(h->expr,&success);
     if(h->old!=new){
+      nemu_state.state=NEMU_STOP;
       printf("watchpoint%d:%s\nOld value=%u\nNew value=%u\n",h->NO,h->expr,h->old,new);
+      sdb_mainloop();
       h->old=new;
     }
     h=h->next;
