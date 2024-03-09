@@ -171,7 +171,7 @@ static int cmd_d(char *args){
 }
 
 //cmd_text用于读取input文件测试表达式求值功能
-static int cmd_text(char *args){
+static int cmd_test(char *args){
     test_expr();
     return 0; 
 }
@@ -227,7 +227,7 @@ static struct {//命令列表
   { "p", "Enter \"p EXPR\" to perform expression evaluation",cmd_p},
   { "w", "Enter \"w EXPR\" to set the watchpoint.",cmd_w},
   { "d", "Enter \"d N\" to delete the watchpoint.",cmd_d},
-  { "text","Enter \"text\" to text the expr.",cmd_text}
+  { "test","Enter \"text\" to text the expr.",cmd_test}
   /* TODO: Add more commands */
 };
 
@@ -283,7 +283,7 @@ void sdb_mainloop() {
     if (args >= str_end) { //检查指针args是否超过了字符串str的末尾位置str_end。如果超过了末尾位置，则将 args 设置为NULL
       args = NULL;
     }
-    
+
 //是否清空事件队列
 #ifdef CONFIG_DEVICE 
     extern void sdl_clear_event_queue();
