@@ -177,7 +177,7 @@ static int cmd_d(char *args){
 //测试表达式求值功能
 static int cmd_text(char *args){
     test_expr();
-    return 0;
+    return 0; 
 }
 
 static int cmd_help(char *args); 
