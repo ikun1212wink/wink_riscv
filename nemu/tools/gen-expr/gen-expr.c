@@ -101,7 +101,7 @@ int main(int argc, char* argv[]) {
         //fclose(fp) 关闭文件，释放文件资源
 
         //system()函数用于调用系统命令
-        int ret = system("gcc /tmp/.code.c -o /tmp/.expr");//将 system 函数的返回值赋给变量 ret，该返回值表示命令执行的结果
+        int ret = system("gcc /tmp/.code.c -Wall -Werror -o /tmp/.expr");//将 system 函数的返回值赋给变量 ret，该返回值表示命令执行的结果
         if (ret != 0) continue;//检查命令执行的结果。如果结果不等于 0，即编译过程中出现了错误，那么程序会跳过当前循环，继续下一次循环。
 
         fp = popen("/tmp/.expr", "r");//使用 popen 函数来打开一个管道，并执行命令 "/tmp/.expr"，然后将命令的输出连接到一个文件指针 fp

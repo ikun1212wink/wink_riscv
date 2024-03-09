@@ -25,6 +25,7 @@ static int is_batch_mode = false;//定义静态变量is_batch_mode用于指示�
 word_t paddr_read(paddr_t addr, int len);
 void init_regex(); //初始化正则表达式
 void init_wp_pool(); //初始化观察点
+void test_expr();//随机生成表达式 测试表达式功能
 
 void wp_list();
 void wp_watch();
@@ -173,6 +174,11 @@ static int cmd_d(char *args){
   return 0;
 }
 
+//测试表达式求值功能
+static int cmd_text(char *args){
+    test_expr();
+    return 0; 
+}
 
 static int cmd_help(char *args); 
 
@@ -189,7 +195,8 @@ static struct {//命令列表
   { "x" ,"Enter \"x [N] EXPR\" to scan the memory",cmd_x},
   { "p", "Enter \"p EXPR\" to perform expression evaluation",cmd_p},
   { "w", "Enter \"w EXPR\" to set the watchpoint.",cmd_w},
-  { "d", "Enter \"d N\" to delete the watchpoint.",cmd_d}
+  { "d", "Enter \"d N\" to delete the watchpoint.",cmd_d},
+  { "text","Enter \"text\" to text the expr.",cmd_text}
   /* TODO: Add more commands */
 
 };
@@ -227,8 +234,7 @@ void sdb_set_batch_mode() { //设置待处理模式
 
 
 //执行调试器的主循环逻辑
-void 
-sdb_mainloop() { 
+void sdb_mainloop() { 
 
   if (is_batch_mode) { //判断is_batch_mode,如果处于待处理模式，就开始执行CPU指令
     cmd_c(NULL);
@@ -312,7 +318,6 @@ void init_sdb() { //初始化调试器相关配置
   /* Compile the regular expressions. */
   init_regex();
 
-/*   test_expr(); */
   /* Initialize the watchpoint pool. */
   init_wp_pool();
 
