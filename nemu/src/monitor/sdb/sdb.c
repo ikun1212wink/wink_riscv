@@ -227,7 +227,8 @@ void sdb_set_batch_mode() { //设置待处理模式
 
 
 //执行调试器的主循环逻辑
-void sdb_mainloop() { 
+void 
+sdb_mainloop() { 
 
   if (is_batch_mode) { //判断is_batch_mode,如果处于待处理模式，就开始执行CPU指令
     cmd_c(NULL);

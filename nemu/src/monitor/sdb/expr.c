@@ -14,12 +14,14 @@
 ***************************************************************************************/
 
 #include <isa.h>
-
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
 #include <memory/paddr.h>
+static word_t eval_operand(int i,bool *success);
+static word_t calc1(int op, word_t val, bool *success);
+static word_t calc2(word_t val1, int op, word_t val2, bool *success);
 //对不同类型的字符进行标记
 enum { //定义了一些常量，其中包括TK_NOTYPE和TK_EQ等。这些常量用于表示不同的记号类型
   TK_NOTYPE = 256,//空格
@@ -240,16 +242,57 @@ int find_major(int p, int q) {
         case TK_NEG: case TK_DEREF: case TK_POS: tmp_level++; break;//1
         default: return -1;
       }
-    }
+    
       if (tmp_level > op_level||(tmp_level==op_level&&!check_type(tokens[i].type,op1_types,3))) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
         op_level = tmp_level;
         ret = i;
       }
     }
+  }
   
   if (par != 0) return -1;
   return ret;
 }  
+
+
+//递归运算函数
+ word_t eval(int p, int q,bool *success) {
+  *success=true;
+  if (p > q) {
+    *success=false;
+    return 0;
+  }
+  else if (p == q) {
+    return eval_operand(p,success);
+  }
+  else if (check_parentheses(p, q) == true) {
+    return eval(p + 1, q - 1,success);
+  }
+  else {
+    int op =find_major(p,q);
+    if(op<0){
+      *success=false;
+      return 0;
+    }
+
+    bool success1, success2;
+    word_t val1 = eval(p, op-1, &success1);//左
+    word_t val2 = eval(op+1, q, &success2);//右
+
+    if (!success2) {//主运算符号右边为空，直接置为错误 eg. 2+
+      *success = false;
+      return 0;
+    }
+    if (success1) {//
+      word_t ret = calc2(val1, tokens[op].type, val2, success);
+      return ret;
+    } else {
+      word_t ret =  calc1(tokens[op].type, val2, success);
+      return ret;
+    }
+  }
+} 
+
 
 //判断操作数的类型 十进制？十六进制？寄存器？
 static word_t eval_operand(int i,bool *success){
@@ -274,8 +317,8 @@ static word_t eval_operand(int i,bool *success){
   }
 }
 
-// 一元运算
-static word_t calc1(int op, word_t val, bool *success) {
+// 表达式进行一元运算
+ static word_t calc1(int op, word_t val, bool *success){
   switch (op)
   {
   case TK_NEG: return -val;
@@ -286,7 +329,7 @@ static word_t calc1(int op, word_t val, bool *success) {
   return 0;
 }
 
-// 二元运算
+// 对表达式进行二元运算
 static word_t calc2(word_t val1, int op, word_t val2, bool *success) {
   switch(op) {
   case '+': return val1 + val2;
@@ -309,42 +352,7 @@ static word_t calc2(word_t val1, int op, word_t val2, bool *success) {
   }
 }
 
- word_t eval(int p, int q,bool *success) {
-  *success=true;
-  if (p > q) {
-    *success=false;
-    return 0;
-  }
-  else if (p == q) {
-    return eval_operand(p,success);
-  }
-  else if (check_parentheses(p, q) == true) {
-    return eval(p + 1, q - 1,success);
-  }
-  else {
-    int op =find_major(p,q);
-    if(op<0){
-      *success=false;
-      return 0;
-    }
 
-    bool success1, success2;
-    word_t val1 = eval(p, op-1, &success1);
-    word_t val2 = eval(op+1, q, &success2);
-
-    if (!success2) {
-      *success = false;
-      return 0;
-    }
-    if (success1) {
-      word_t ret = calc2(val1, tokens[op].type, val2, success);
-      return ret;
-    } else {
-      word_t ret =  calc1(tokens[op].type, val2, success);
-      return ret;
-    }
-  }
-} 
 
 
 
