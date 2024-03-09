@@ -242,12 +242,13 @@ int find_major(int p, int q) {
         case TK_NEG: case TK_DEREF: case TK_POS: tmp_level++; break;//1
         default: return -1;
       }
-    }
+    
       if (tmp_level > op_level||(tmp_level==op_level&&!check_type(tokens[i].type,op1_types,3))) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
         op_level = tmp_level;
         ret = i;
       }
     }
+  }
   
   if (par != 0) return -1;
   return ret;
