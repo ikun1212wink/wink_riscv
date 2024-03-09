@@ -123,3 +123,40 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
+
+
+//导入随机生成的表达式，测试表达式求值功能
+void test_expr() {
+  FILE *fp = fopen("/home/wink/ysyx-workbench/nemu/tools/gen-expr/input", "r");
+  if (fp == NULL) perror("test_expr error");//文件打开失败，perror函数并传递参数"test_expr error"
+
+  char *e = NULL;
+  word_t correct_res;//correct_res是一个word_t类型的变量，用于存储从文件中读取的正确结果
+  size_t len = 0;//len是一个size_t类型的变量，用于存储读取的行的长度(size_t=long unsigned int)
+  ssize_t read;//read是一个ssize_t类型的变量，用于存储getline函数读取的字符数
+  bool success = false;//success是一个bool类型的变量，用于指示expr函数的计算是否成功
+
+  while (true) {//进入while循环，持续读取文件中的内容
+    if(fscanf(fp, "%u ", &correct_res) == -1) break;
+    //从文件流fp中读取一个无符号整型（%u）的值，并将其存储到correct_res变量的地址中
+    read = getline(&e, &len, fp);
+    //使用getline函数从文件流fp中读取一行文本，并将其存储在由指针e指向的内存中。同时，还会将读取到的字符数赋值给变量read
+    e[read-1] = '\0';
+    //将读取到的文本行中的最后一个字符修改为空字符('\0')，从而将文本行转换为以空字符结尾的字符串
+    word_t res = expr(e, &success);
+    
+    assert(success);//如果断言条件为假（零），则会导致程序终止，并输出相应的错误信息
+    if (res != correct_res) {//检查res变量是否等于预期的结果correct_res。如果res与correct_res不相等，代码会输出读取到的字符串e，以及预期结果和实际结果的信息
+      puts(e);
+      printf("expected: %u, got: %u\n", correct_res, res);
+      assert(0);
+    }
+  }
+
+  fclose(fp);//用于关闭之前打开的文件流fp
+  if (e) free(e);
+  //代码使用条件语句检查指针e是否为非空。如果e指针不是空指针，说明之前通过getline函数动态分配的内存存在，并且需要通过调用free函数进行释放，以防止内存泄漏
+
+  Log("expr test pass");
+}
