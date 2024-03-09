@@ -25,7 +25,7 @@ static int is_batch_mode = false;//定义静态变量is_batch_mode用于指示�
 word_t paddr_read(paddr_t addr, int len);
 void init_regex(); //初始化正则表达式
 void init_wp_pool(); //初始化观察点
-void test_expr();//导入随机生成的表达式，测试表达式求值功能
+
 
 void wp_list();
 void wp_watch();
@@ -318,3 +318,4 @@ void init_sdb() { //初始化调试器相关配置
   init_wp_pool();
 
 }
+
