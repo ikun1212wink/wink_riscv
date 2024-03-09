@@ -12,7 +12,7 @@ static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
 "  int result = %s; "
-"  printf(\"%%u\", result); "
+"  printf(\"%%d\", result); "
 "  return 0; "
 "}";
 
@@ -110,8 +110,8 @@ int main(int argc, char* argv[]) {
         fp = popen("/tmp/.expr", "r");//使用 popen 函数来打开一个管道，并执行命令 "/tmp/.expr"，然后将命令的输出连接到一个文件指针 fp
         assert(fp != NULL);
 
-        uint32_t result;
-        ret = fscanf(fp, "%u", &result);//整数变量 result，用于存储从管道中读取的结果
+        int result;
+        ret = fscanf(fp, "%d", &result);//整数变量 result，用于存储从管道中读取的结果
         //ret用于存储函数 fscanf 的返回值,函数 fscanf 返回成功匹配并赋值的输入项的个数,fscanf 函数的返回值将是 1（因为只读取了一个输入项）
         /* 添加 Werror 将除0警告转换成错误,导致编译失败*/
 
