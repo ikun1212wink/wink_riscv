@@ -17,6 +17,6 @@ NAME = gen-expr
 SRCS = gen-expr.c
 include $(NEMU_HOME)/scripts/build.mk
 mainmy:$(SRCS)
-	gcc  -g -Wall -Werror $(SRCS) -o $(NAME) -lm
+	gcc -Wall -Werror $(SRCS) -o $(NAME) -lm
 cleanmy:
 	rm -rf gen-expr input
