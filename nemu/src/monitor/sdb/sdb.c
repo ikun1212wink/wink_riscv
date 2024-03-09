@@ -26,7 +26,6 @@ word_t paddr_read(paddr_t addr, int len);
 void init_regex(); //初始化正则表达式
 void init_wp_pool(); //初始化观察点
 
-
 void wp_list();
 void wp_watch();
 void wp_remove();
@@ -313,9 +312,8 @@ void init_sdb() { //初始化调试器相关配置
   /* Compile the regular expressions. */
   init_regex();
 
-  test_expr();
+/*   test_expr(); */
   /* Initialize the watchpoint pool. */
   init_wp_pool();
 
 }
-
