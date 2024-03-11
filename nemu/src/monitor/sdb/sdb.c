@@ -114,13 +114,11 @@ static int cmd_x(char *args){
     sscanf(args1,"%d",&n);
     addr = expr(args2, &success);
     //扫描内存
-    for(int i=0;i<4*n;i++){
-/*       printf("0x%08x\n",paddr_read(addr,4));
-      addr+=4; */
-      uint8_t val= paddr_read(addr + i, 1);
-      printf("%02x ",val);
+    for(int i=0;i<n;i++){
+      printf("0x%08x\n",paddr_read(addr,4));
+      addr+=4;
     }
-    printf("\n");
+
   }
   return 0;
 }
