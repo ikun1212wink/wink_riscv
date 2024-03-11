@@ -100,9 +100,9 @@ void wp_list(){
     puts("No watchpoints.");
     return ;
   }
-  printf("%-8s%-8s\n", "Num", "What");
+  printf("%-8s %-8s\n", "Num", "What");
   while(h){
-    printf("%-8d%-8s\n", h->NO, h->expr);
+    printf("%-8d %-8s\n", h->NO, h->expr);
     h = h->next;
   }
 }

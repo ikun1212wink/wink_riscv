@@ -65,9 +65,11 @@ static struct rule {//结构体rule，包含了正则表达式和记号类型的
   {"\\$\\w+", TK_REG}
  
 };
+
 static int nop_types[] = {'(',')',TK_NUM,TK_REG}; // 不属于运算符号
 static int op1_types[] = {TK_NEG, TK_POS, TK_DEREF}; // 一元运算符
 static int bound_types[]={')',TK_NUM,TK_REG};//运算符的边界元素
+
 static bool check_type(int type,int types[],int size){ //判断type是否在数组types内
   for(int i=0;i<size;i++){
     if(type==types[i])
@@ -121,43 +123,27 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
   int position = 0;//position用于追踪当前在输入字符串中的位置
   int i; //i作为循环计数器
   regmatch_t pmatch; //pmatch是一个结构体，用于存储匹配到的子字符串的信息
-
   nr_token = 0;//用于记录找到的标记数量
-
-//eg. (11+12)*3-1
-  while (e[position] != '\0') {//函数进入一个while循环，循环条件是尚未到达输入字符串的末尾（e[position] != '\0'）
+  //函数进入一个while循环，循环条件是尚未到达输入字符串的末尾（e[position] != '\0'）
+  while (e[position] != '\0') {
     /* Try all rules one by one. */
+    //在循环内部，函数遍历一个包含正则表达式（re）和相应规则的数组。目标是找到当前位置在输入字符串中的匹配项,存入rules[i].token_type
     for (i = 0; i < NR_REGEX; i ++) {
-    //在循环内部，函数遍历一个包含正则表达式（re）和相应规则的数组。目标是找到当前位置在输入字符串中的匹配项
-      if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
       //使用regexec函数来执行正则表达式的匹配 ，整个表达式的结果是检查regexec函数的返回值是否等于0，即是否成功匹配
-      //&re[i]表示要匹配的正则表达式的地址（第i个正则表达式）
-      //e + position表示要匹配的输入字符串的起始位置（从当前位置开始）
-      //1表示最多匹配一个结果
-      //&pmatch是一个存储匹配结果的结构体（存储该匹配子串的起始位置和结束位置 rm_so和rm_eo）
-      //0表示不使用任何标志位
-
-      //pmatch.rm_so表示表示匹配子串的起始位置（在原始字符串中的索引）
-      //判断 pmatch.rm_so == 0 的目的是检查匹配子串是否从原始字符串的开头位置开始。
-      //如果 pmatch.rm_so 的值为 0，表示匹配子串的起始位置是原始字符串的开头，否则不是
-       
-        char *substr_start = e + position;//定义一个指针substr_start，指向匹配到的子字符串在输入字符串中的起始位置
+      //pmatch.rm_so表示表示匹配子串的起始位置（在原始字符串中的索引）,检查匹配子串是否从原始字符串的开头位置开始
+      if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {           
+        char *substr_start = e + position;//指针substr_start指向匹配到的子字符串在输入字符串中的起始位置
         int substr_len = pmatch.rm_eo;//定义一个整数substr_len，表示子字符串的长度
-        //pmatch.rm_eo 用于表示正则表达式匹配子串的结束位置（在原始字符串中的索引）
+        //超过token规定的最大字符长度
         if (substr_len > 32){
           assert(0);
-        }//超过token规定的最大字符长度
+        }
         //打印匹配信息，包括规则的索引、正则表达式、位置和长度等
-/*         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start); */
-
+        /* Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            i, rules[i].regex, position, substr_len, substr_len, substr_start);*/ 
         position += substr_len;
         //将position增加substr_len，以便在下次循环中继续处理下一个位置
-
-        /* TODO: Now a new token is recognized with rules[i]. Add codes
-         * to record the token in the array `tokens'. For certain types
-         * of tokens, some extra actions should be performed.
-         */
+        /* TODO: */
         if(rules[i].token_type==TK_NOTYPE) break;
         tokens[nr_token].type = rules[i].token_type;//把相应的token类型加入tokens
         switch(rules[i].token_type){
@@ -187,7 +173,6 @@ static bool make_token(char *e) {//函数make_token(char *e)，用于对给定�
       return false;
     }
   }
-
   return true;//循环结束后，函数返回true，表示成功完成了分词过程
 }
 
@@ -213,24 +198,30 @@ int find_major(int p, int q) {
   int ret = -1;//主运算符位置
   int par = 0;//括号数量
   int op_level = 0;//运算符等级
-  int tmp_level=0;
-  for (int i = p; i <= q; i++) {//
+  int tmp_level=0;//更新运算符等级
+  //遍历p到q
+  for (int i = p; i <= q; i++) {
+    //1.识别到‘（’ ，par++
     if (tokens[i].type == '(') {
-      par++;//识别‘（’
+      par++;
     }
+    //2.识别到‘)’ ，par--
     else if (tokens[i].type == ')') {
       if (par == 0) { //遇到了（））的情况，说明表达式有问题
         return -1;
       }
       par--;
     } 
+    //3.不属于运算符类型，直接跳过
     else if(check_type(tokens[i].type,nop_types,4)){
       continue;
     }
-    else if (par > 0) { //在括号内直接跳过
+    //4.在括号内直接跳过,因为主运算符不会在括号内
+    else if (par > 0) { 
       continue;//直接跳到i+1,直到遇到 ‘）’
     } 
-    else {//括号外的情况
+    //5.括号外的情况
+    else {
     tmp_level=0;
       switch(tokens[i].type){
         case TK_OR: tmp_level++;//7
@@ -242,14 +233,13 @@ int find_major(int p, int q) {
         case TK_NEG: case TK_DEREF: case TK_POS: tmp_level++; break;//1
         default: return -1;
       }
-    
-      if (tmp_level > op_level||(tmp_level==op_level&&!check_type(tokens[i].type,op1_types,3))) {//判断是否更新主符号的优先级以及位置 从右向左遍历 遇到更低或等于的优先级就进行更新
+    //判断是否更新主符号的优先级以及位置 从左向右遍历 遇到更低或等于的优先级就进行更新 1 + -2
+      if (tmp_level > op_level||(tmp_level==op_level&&!check_type(tokens[i].type,op1_types,3))) {
         op_level = tmp_level;
         ret = i;
       }
     }
   }
-  
   if (par != 0) return -1;
   return ret;
 }  
@@ -258,35 +248,33 @@ int find_major(int p, int q) {
 //递归运算函数
  word_t eval(int p, int q,bool *success) {
   *success=true;
-  if (p > q) {
+  if (p > q) {//1.p>q直接返回错误
     *success=false;
     return 0;
   }
-  else if (p == q) {
+  else if (p == q) {//2.p=q判断是十进制数/十六进制数/寄存器
     return eval_operand(p,success);
   }
-  else if (check_parentheses(p, q) == true) {
+  else if (check_parentheses(p, q) == true) {//3.p>q判断是不是（表达式)这种标准格式，是的话把括号去掉
     return eval(p + 1, q - 1,success);
   }
-  else {
-    int op =find_major(p,q);
-    if(op<0){
+  else {//4.p>q且已经去括号，进行递归运算
+    int op =find_major(p,q);//寻找主运算符的位置
+    if(op<0){//op<0,直接返回错误
       *success=false;
       return 0;
     }
-
     bool success1, success2;
-    word_t val1 = eval(p, op-1, &success1);//左
-    word_t val2 = eval(op+1, q, &success2);//右
-
-    if (!success2) {//主运算符号右边为空，直接置为错误 eg. 2+
+    word_t val1 = eval(p, op-1, &success1);//左值
+    word_t val2 = eval(op+1, q, &success2);//右值
+    if (!success2) {//主运算符号右边为空，右边进入eval,属于1.p>q,直接置为错误 eg. 2+
       *success = false;
       return 0;
     }
-    if (success1) {//
+    if (success1) {//2+2 左右都不为空 进行二元运算calc2 
       word_t ret = calc2(val1, tokens[op].type, val2, success);
       return ret;
-    } else {
+    } else {//主运算符左边为空，则说明此时的主运算符是一元运算符 进行一元运算calc1 eg.-2
       word_t ret =  calc1(tokens[op].type, val2, success);
       return ret;
     }
@@ -336,10 +324,10 @@ static word_t calc2(word_t val1, int op, word_t val2, bool *success) {
   case '-': return val1 - val2;
   case '*': return val1 * val2;
   case '/': if (val2 == 0) {
-    *success = false;
-    return 0;
-  } 
-  return (sword_t)val1 / (sword_t)val2; // e.g. -1/2, may not pass the expr test
+              *success = false;
+              return 0;
+            } 
+            return (sword_t)val1 / (sword_t)val2; // e.g. -1/2, may not pass the expr test
   case TK_AND: return val1 && val2;
   case TK_OR: return val1 || val2;
   case TK_EQ: return val1 == val2;
@@ -362,7 +350,6 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
   /* TODO: Insert codes to evaluate the expression. */
   return eval(0,nr_token-1,success);
 }

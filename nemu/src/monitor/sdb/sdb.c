@@ -22,7 +22,7 @@
 
 
 static int is_batch_mode = false;//定义静态变量is_batch_mode用于指示调试器是否处于待处理模式，默认为false
-word_t paddr_read(paddr_t addr, int len);//读取内存
+word_t vaddr_read(vaddr_t addr, int len);//读取内存
 void init_regex(); //初始化正则表达式
 void init_wp_pool(); //初始化观察点
 void test_expr();//随机生成表达式 测试表达式功能
@@ -109,16 +109,18 @@ static int cmd_x(char *args){
   else{
     int n=0;
     uint32_t addr=0;
-   // bool success=false;
+    bool success=false;
     //解析参数
     sscanf(args1,"%d",&n);
-    sscanf(args2,"%x",&addr);
+
+    addr = expr(args2, &success);
+   /*  sscanf(args2,"%x",&addr); */
     //扫描内存
     for(int i=0;i<n;i++){
-      printf("0x%08x\n",paddr_read(addr,4));
-      addr+=4;
+      printf("%-12s %-12s\n", "Addr", "Data");
+      printf("0x%08x   0x%08x\n",addr,vaddr_read(addr,4));
+      addr+=4;//一次读取四个字节，内存储存是以字节为单位的，所以地址向后移动四个字节
     }
-  
   }
   return 0;
 }

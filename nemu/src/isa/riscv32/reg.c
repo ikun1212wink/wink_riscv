@@ -26,18 +26,13 @@ const char *regs[] = {
 
 void isa_reg_display()
 {
-  /// int count=0;
+  //普通寄存器
   for (int i = 0; i < 32; i++)
   {
-    printf("%s:\t0x%08x\t%d\n", reg_name(i), cpu.gpr[i], (int)cpu.gpr[i]);
-    /*     count++;
-        if(count==3||i==32){
-          printf("\n");
-          count=0;
-        }*/
+    printf("%s:\t 0x%08x\t %u\n", reg_name(i), cpu.gpr[i], cpu.gpr[i]);
   }
-  /* pc 寄存器 */
-  printf("pc:\t0x%08x\t%d\n", cpu.pc, (int)cpu.pc);
+  //pc寄存器
+  printf("pc:\t 0x%08x\t %u\n", cpu.pc, cpu.pc); //%08x用于以固定宽度（宽度为8）和零填充的形式打印无符号整数
 }
 
 word_t isa_reg_str2val(const char *s, bool *success)
