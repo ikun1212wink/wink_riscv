@@ -117,7 +117,8 @@ static int cmd_x(char *args){
    /*  sscanf(args2,"%x",&addr); */
     //扫描内存
     for(int i=0;i<n;i++){
-      printf("0x%08x\n",vaddr_read(addr,4));
+      printf("%-18s %-18s\n", "Addr", "Data");
+      printf("0x%08x\n 0x%08x\n",addr,vaddr_read(addr,4));
       addr+=4;//一次读取四个字节，内存储存是以字节为单位的，所以地址向后移动四个字节
     }
   
