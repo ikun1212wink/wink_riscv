@@ -121,7 +121,6 @@ static int cmd_x(char *args){
       printf("0x%08x   0x%08x\n",addr,vaddr_read(addr,4));
       addr+=4;//一次读取四个字节，内存储存是以字节为单位的，所以地址向后移动四个字节
     }
-  
   }
   return 0;
 }
