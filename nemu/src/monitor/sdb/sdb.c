@@ -57,7 +57,7 @@ static int cmd_c(char *args) {
 //cmd_q()函数用于使程序停止操作
 static int cmd_q(char *args) { 
   nemu_state.state = NEMU_QUIT;
-  return -1;
+  return 0;
 }
 
 //cmd_si函数用于使程序单步执行
