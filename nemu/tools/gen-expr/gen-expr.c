@@ -19,24 +19,20 @@ static char *code_format =
 static int choose(int n) {//生成随机数
     return rand() % n;
 }
-
 static void gen(char c) {//添加括号
     char add_str[] = {c, '\0'};
     strcat(buf, add_str);
 }
-
 static void gen_num() {//添加数字
     char num_str[11];
     sprintf(num_str, "%u", choose((unsigned int)(100)));
     strcat(buf, num_str);
 }
-
 static void gen_rand_op() {//添加运算符号
     char op[] = {'+', '-', '*', '/'};
     char add[] = {op[choose(4)], '\0'};
     strcat(buf, add);
 }
-
 static void gen_space() {//生成随机空格
     for (int i = 0; i < choose(2); i++) {
         if (choose(100) >= 50) {
@@ -44,7 +40,6 @@ static void gen_space() {//生成随机空格
         }
     }
 }
-
 static void gen_rand_expr(int level) {//限制递归层级，防止越界
     gen_space();
     if (level > 0) {
@@ -82,15 +77,12 @@ int main(int argc, char* argv[]) {
     for (i = 0; i < loop; i++) {//进入循环，每次循环生成一个随机表达式，并将其存储在 buf 中
         
         memset(buf, 0, 65536);
-        gen_rand_expr(rand() % 10);//随机生成表达式
-
+        gen_rand_expr(rand() % 10);//随机生成表达式,限制递归层级不大于10层
         sprintf(code_buf, code_format, buf);
         //通过调用 sprintf(code_buf, code_format, buf)，可以将生成的表达式插入到动态生成的 C 代码模板中，
         //生成完整的 C 代码，并将其存储在 code_buf 字符数组中。%s 将被实际的生成表达式所替换，从而形成最终的 C 代码字符串
         //buf->code_format->code_buf
         //于将生成的 C 代码写入到一个临时文件中
-
-
         FILE* fp = fopen("/tmp/.code.c", "w");
         // 打开一个名为 "/tmp/.code.c" 的文件，以写入模式打开。如果文件不存在，则创建一个新文件。返回一个指向文件的指针 fp
         assert(fp != NULL);
@@ -111,12 +103,8 @@ int main(int argc, char* argv[]) {
         ret = fscanf(fp, "%d", &result);//整数变量 result，用于存储从管道中读取的结果
         //ret用于存储函数 fscanf 的返回值,函数 fscanf 返回成功匹配并赋值的输入项的个数,fscanf 函数的返回值将是 1（因为只读取了一个输入项）
         /* 添加 Werror 将除0警告转换成错误,导致编译失败*/
-
         pclose(fp);//pclose(fp) 关闭管道，释放相关资源
         printf("%u %s\n", result, buf);//%u 表示无符号整数，%s 表示字符串。result 是之前从管道中读取的结果，buf 是之前生成的表达式
     }
-
-
-
     return 0;
 }
