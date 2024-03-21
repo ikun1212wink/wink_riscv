@@ -43,6 +43,9 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
   }
 }
 
+//进行译码操作，译码的目的是得到指令的操作和操作对象
+//这主要是通过查看指令的opcode来决定的. 不同ISA的opcode会出现在指令的不同位置, 
+//我们只需要根据指令的编码格式, 从取出的指令中识别出相应的opcode即可.
 static int decode_exec(Decode *s) {
   int rd = 0;
   word_t src1 = 0, src2 = 0, imm = 0;
@@ -54,6 +57,15 @@ static int decode_exec(Decode *s) {
   __VA_ARGS__ ; \
 }
 
+//和YEMU相比, NEMU使用一种抽象层次更高的译码方式: 模式匹配, NEMU可以通过一个模式字符串来指定指令中opcode
+
+//其中INSTPAT(意思是instruction pattern)是一个宏(在nemu/include/cpu/decode.h中定义), 它用于定义一条模式匹配规则. 其格式如下:
+//             INSTPAT(模式字符串, 指令名称, 指令类型, 指令执行操作);
+
+//模式字符串中只允许出现4种字符:0表示相应的位只能匹配0；1表示相应的位只能匹配1；?表示相应的位可以匹配0或1；空格是分隔符,只用于提升模式字符串的可读性,不参与匹配
+//指令名称在代码中仅当注释使用, 不参与宏展开; 
+//指令类型用于后续译码过程;
+//指令执行操作则是通过C代码来模拟指令执行的真正行为.
   INSTPAT_START();
   INSTPAT("001111 ????? ????? ????? ????? ??????", lui    , U, R(rd) = imm << 16);
   INSTPAT("100011 ????? ????? ????? ????? ??????", lw     , I, R(rd) = Mr(src1 + imm, 4));
@@ -69,6 +81,10 @@ static int decode_exec(Decode *s) {
 }
 
 int isa_exec_once(Decode *s) {
+  //inst_fetch()进行取址，
   s->isa.inst.val = inst_fetch(&s->snpc, 4);
-  return decode_exec(s);
+  //inst_fetch()最终会根据参数len来调用vaddr_ifetch()(在nemu/src/memory/vaddr.c中定义), 
+  //而目前vaddr_ifetch()又会通过paddr_read()来访问物理内存中的内容. 因此, 取指操作的本质只不过就是一次内存的访问而已.
+  //isa_exec_once()在调用inst_fetch()的时候传入了s->snpc的地址, 因此inst_fetch()最后还会根据len来更新s->snpc, 从而让s->snpc指向下一条指令
+  return decode_exec(s);//进入decode_exec函数，进行译码相关操作
 }
