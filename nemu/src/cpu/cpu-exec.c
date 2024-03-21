@@ -58,11 +58,22 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {//用于追踪指�
 
 } 
 
+
+//事实上, exec_once()函数覆盖了指令周期的所有阶段: 取指, 译码, 执行, 更新PC
+//exec_once()接受一个Decode类型的结构体指针s, 这个结构体用于存放在执行一条指令过程中所需的信息, 
+//包括指令的PC, 下一条指令的PC等. 还有一些信息是ISA相关的
+//NEMU用一个结构类型ISADecodeInfo来对这些信息进行抽象, 具体的定义在nemu/src/isa/$ISA/include/isa-def.h中.
+//exec_once()会先把当前的PC保存到s的成员pc和snpc中, 其中s->pc就是当前指令的PC, 而s->snpc则是下一条指令的PC, 
+//这里的snpc是"static next PC"的意思
 static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
   s->snpc = pc;
-  isa_exec_once(s);
+//isa_exec_once(s)它会随着取指的过程修改s->snpc的值, 使得从isa_exec_once()返回后s->snpc正好为下一条指令的PC. 
+  isa_exec_once(s);//进入isa_exec_once函数里面执行取址操作，并更新PC
+//接下来代码将会通过s->dnpc来更新PC, 这里的dnpc是"dynamic next PC"的意思
   cpu.pc = s->dnpc;
+
+//exec_once()中剩下与trace相关的代码
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
@@ -93,7 +104,10 @@ static void execute(uint64_t n) {//静态函数execute，用于执行指定数�
   Decode s;
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc);
+    //代码会对一个用于记录客户指令的计数器加1
     g_nr_guest_inst ++;
+    //然后进行一些trace和difftest相关的操作(此时先忽略), 
+    //然后检查NEMU的状态是否为NEMU_RUNNING, 若是, 则继续执行下一条指令, 否则则退出执行指令的循环.
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
