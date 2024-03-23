@@ -68,8 +68,8 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {//用于追踪指�
 static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
   s->snpc = pc;
-//isa_exec_once(s)它会随着取指的过程修改s->snpc的值, 使得从isa_exec_once()返回后s->snpc正好为下一条指令的PC. 
-  isa_exec_once(s);//进入isa_exec_once函数里面执行取址操作，并更新PC
+//isa_exec_once(s)它会随着取指的过程修改s->snpc的值
+  isa_exec_once(s);
 //接下来代码将会通过s->dnpc来更新PC, 这里的dnpc是"dynamic next PC"的意思
   cpu.pc = s->dnpc;
 
