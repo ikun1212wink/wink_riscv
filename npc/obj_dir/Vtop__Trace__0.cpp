@@ -260,8 +260,11 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
                              [(0x1fU & (vlSelf->inst 
                                         >> 0x14U))]),32);
     bufp->chgCData(oldp+170,((0x7fU & vlSelf->inst)),7);
-    bufp->chgIData(oldp+171,((0xfffff000U & vlSelf->inst)),32);
-    bufp->chgIData(oldp+172,((((- (IData)((vlSelf->inst 
+    bufp->chgCData(oldp+171,((7U & (vlSelf->inst >> 0xcU))),3);
+    bufp->chgCData(oldp+172,((vlSelf->inst >> 0x19U)),7);
+    bufp->chgSData(oldp+173,((vlSelf->inst >> 0x14U)),12);
+    bufp->chgIData(oldp+174,((0xfffff000U & vlSelf->inst)),32);
+    bufp->chgIData(oldp+175,((((- (IData)((vlSelf->inst 
                                            >> 0x1fU))) 
                                << 0xcU) | ((0x800U 
                                             & (vlSelf->inst 
@@ -272,7 +275,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
                                               | (0x1eU 
                                                  & (vlSelf->inst 
                                                     >> 7U)))))),32);
-    bufp->chgIData(oldp+173,((((- (IData)((vlSelf->inst 
+    bufp->chgIData(oldp+176,((((- (IData)((vlSelf->inst 
                                            >> 0x1fU))) 
                                << 0xcU) | ((0xfe0U 
                                             & (vlSelf->inst 
@@ -340,13 +343,13 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
                                               >> 0x16U)));
     __Vtemp_he4d5656d__0[9U] = (0x2e0000U | (vlSelf->inst 
                                              >> 0xfU));
-    bufp->chgWData(oldp+174,(__Vtemp_he4d5656d__0),312);
-    bufp->chgIData(oldp+184,(((IData)(4U) + vlSelf->pc)),32);
-    bufp->chgCData(oldp+185,((0x1fU & (vlSelf->inst 
+    bufp->chgWData(oldp+177,(__Vtemp_he4d5656d__0),312);
+    bufp->chgIData(oldp+187,(((IData)(4U) + vlSelf->pc)),32);
+    bufp->chgCData(oldp+188,((0x1fU & (vlSelf->inst 
                                        >> 0xfU))),5);
-    bufp->chgCData(oldp+186,((0x1fU & (vlSelf->inst 
+    bufp->chgCData(oldp+189,((0x1fU & (vlSelf->inst 
                                        >> 0x14U))),5);
-    bufp->chgCData(oldp+187,((0x1fU & (vlSelf->inst 
+    bufp->chgCData(oldp+190,((0x1fU & (vlSelf->inst 
                                        >> 7U))),5);
 }
 

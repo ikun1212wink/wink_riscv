@@ -6,7 +6,8 @@ static const uint32_t img[]={
   0b00000000010100000000000010010011,
   0b00000000000100000000000100010011,
   0b00000000001000000000000100010011,
-  0b00000000010100001000000100010011
+  0b00000000010100001000000100010011,
+  0b00000000000100000000000001110011
 };
 
 VerilatedContext* contextp = NULL;
@@ -56,14 +57,17 @@ void reset(int n){
   dut.rst=0;
 }
 
+extern "C" void npc_trap(){
+  tfp->close();
+}
+
 int main(){
   uint32_t*memory=init_mem(4);
   sim_init();
   reset(10);
-  for(int i=0;i<5;i++){
+  while(1){
     dut.inst=pmem_read(memory,dut.pc);
     single_cycle();
     dump_wave();
   }
-  tfp->close();
 }
