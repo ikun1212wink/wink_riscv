@@ -37,7 +37,7 @@ void sim_init(){
   Verilated::traceEverOn(true);
   contextp=new VerilatedContext;
   tfp=new VerilatedVcdC;
-  dut.trace(tfp,5);
+  dut.trace(tfp,0);
   tfp->open("wave.vcd");
 }
 
