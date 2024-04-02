@@ -62,7 +62,7 @@ void reset(int n){
 extern "C" void npc_trap(){
   ebreak_flag=1;
   dump_wave();
-    dut.final();
+  dut.final();
   tfp->close();
 
 }
