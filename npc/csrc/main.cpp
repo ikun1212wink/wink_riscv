@@ -62,9 +62,6 @@ void reset(int n){
 extern "C" void npc_trap(){
   ebreak_flag=1;
   dump_wave();
-  tfp->close();
-  dut.final();
-  printf("trap in 0x%x\n",dut.pc);
 }
 
 int main(){
