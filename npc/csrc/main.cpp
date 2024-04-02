@@ -57,9 +57,9 @@ void reset(int n){
   dut.rst=0;
 }
 
-/* extern "C" void npc_trap(){
+extern "C" void npc_trap(){
   tfp->close();
-} */
+}
 
 int main(){
   uint32_t*memory=init_mem(4);
