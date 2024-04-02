@@ -61,16 +61,18 @@ extern "C" void npc_trap(){
 
   dump_wave();
   tfp->close();
+  dut.final();
 }
 
 int main(){
   uint32_t*memory=init_mem(5);
   sim_init();
   reset(10);
-  for(int i=0;i<4;i++){
+  while(!contextp->gotFinish()){
     dut.inst=pmem_read(memory,dut.pc);
     single_cycle();
     dump_wave();
   }
   tfp->close();
+  dut.final();
 }
