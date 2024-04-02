@@ -19,7 +19,7 @@ assign w_en=1'b1;
 assign alu_a_sel=1'b1;
 assign alu_b_sel=1'b1;
 always@(*)begin
-    if(opcode==7'b1110011 && funct12==12'b000000000001)begin
+    if(inst==32'b00000000000100000000000001110011)begin
         npc_trap();
     end
 end
