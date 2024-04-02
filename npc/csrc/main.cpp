@@ -62,9 +62,9 @@ extern "C" void npc_trap(){
 }
 
 int main(){
-  uint32_t*memory=init_mem(4);
+  uint32_t*memory=init_mem(5);
   sim_init();
-
+  reset(10);
   while(1){
     dut.inst=pmem_read(memory,dut.pc);
     single_cycle();
