@@ -3,6 +3,7 @@
 // See Vtop.h for the primary calling header
 
 #include "verilated.h"
+#include "verilated_dpi.h"
 
 #include "Vtop___024root.h"
 
@@ -156,11 +157,16 @@ VL_ATTR_COLD void Vtop___024root___dump_triggers__stl(Vtop___024root* vlSelf) {
 }
 #endif  // VL_DEBUG
 
+void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP();
+
 VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___stl_sequent__TOP__0\n"); );
     // Body
+    if ((IData)((0x100073U == (0xfff0007fU & vlSelf->inst)))) {
+        Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP();
+    }
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit 
         = (0U == vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__key_list
            [0U]);
