@@ -59,7 +59,7 @@ void reset(int n){
 
 extern "C" void npc_trap(){
   single_cycle();
-  dump_wave();
+  
   tfp->close();
 }
 
