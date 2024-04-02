@@ -2,6 +2,8 @@
 #include "verilated_vcd_c.h"
 #include "Vtop.h"
 
+int ebreak_flag=0;
+
 static const uint32_t img[]={
   0b00000000010100000000000010010011,
   0b00000000000100000000000100010011,
@@ -59,20 +61,28 @@ void reset(int n){
 
 extern "C" void npc_trap(){
 
-  dump_wave();
+  ebreak_flag=1;
+
   tfp->close();
   dut.final();
+  printf("trap in 0x%x\n",dut.pc);
 }
 
 int main(){
   uint32_t*memory=init_mem(5);
   sim_init();
   reset(10);
-  while(!contextp->gotFinish()){
+  while(1){    
+    printf("pc:0x%x\n",dut.pc);
     dut.inst=pmem_read(memory,dut.pc);
     single_cycle();
     dump_wave();
+    if(ebreak_flag==1){
+      break;
+    }
+
   }
   tfp->close();
   dut.final();
+
 }
