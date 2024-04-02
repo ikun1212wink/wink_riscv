@@ -67,7 +67,7 @@ int main(){
   uint32_t*memory=init_mem(5);
   sim_init();
   reset(10);
-  while(1){
+  for(int i=0;i<4;i++){
     dut.inst=pmem_read(memory,dut.pc);
     single_cycle();
     dump_wave();
