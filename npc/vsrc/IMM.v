@@ -3,7 +3,7 @@ module ysyx_23060240_IMM(
     output [31:0] immout
 );
 wire [6:0] opcode;
-wire [31:0] out1,ou2,out3,out4,out5,out6,out7,out8;
+wire [31:0] out1,out2,out3,out4,out5,out6,out7,out8;
 assign out1={inst[31:12],12'b0};
 assign out2={inst[31:12],12'b0};
 assign out3={{20{inst[31]}},inst[7],inst[30:25],inst[11:8],1'b0};

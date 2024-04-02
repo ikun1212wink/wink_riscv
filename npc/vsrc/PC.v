@@ -8,7 +8,7 @@ module ysyx_23060240_pc(
     assign pc_plus4=pc+32'h4;    
     always@(posedge clk)begin
         if(rst)begin
-            pc<=0;
+            pc<=2147483648; //0x80000000
         end
         else begin
             pc<=pc_plus4;

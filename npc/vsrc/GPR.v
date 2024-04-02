@@ -1,7 +1,7 @@
 module ysyx_23060240_RegisterFile #(ADDR_WIDTH = 5, DATA_WIDTH = 32) (
     input clk,
     input [DATA_WIDTH-1:0] w_data,
-    input [ADDR_WIDTH-1:0] r_rs1_addr,r_rs2_addr
+    input [ADDR_WIDTH-1:0] r_rs1_addr,r_rs2_addr,
     input [ADDR_WIDTH-1:0] w_rd_addr,
     input w_en,
     output [DATA_WIDTH-1:0] rs1_data,rs2_data
@@ -11,13 +11,13 @@ module ysyx_23060240_RegisterFile #(ADDR_WIDTH = 5, DATA_WIDTH = 32) (
     integer i;
     initial begin
         for(i=0;i<(2**ADDR_WIDTH);i=i+1)begin
-            reg_file[i] = 0;
+            rf[i] = 0;
         end
     end
 //写入寄存器
     always @(posedge clk) begin
-        if (wen&(w_rd_addr!=0)) 
-            rf[w_rd_addr] <= wdata;
+        if (w_en&(w_rd_addr!=0)) 
+            rf[w_rd_addr] <= w_data;
         else    
             rf[w_rd_addr] <= rf[w_rd_addr];
     end
