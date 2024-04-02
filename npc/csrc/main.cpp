@@ -14,8 +14,8 @@ VerilatedContext* contextp = NULL;
 VerilatedVcdC* tfp = NULL;
 static Vtop dut;
 
-uint32_t *init_mem(size_t size){
-  uint32_t* memory=(uint32_t*)malloc(size*sizeof(uint32_t) );
+uint32_t *init_mem(int num){
+  uint32_t* memory=(uint32_t*)malloc(num*sizeof(uint32_t) );
   memcpy(memory,img,sizeof(img));
   if(memory==NULL){
     exit(0);
@@ -64,7 +64,7 @@ extern "C" void npc_trap(){
 }
 
 int main(){
-  uint32_t*memory=init_mem(10);
+  uint32_t*memory=init_mem(5);
   sim_init();
   reset(10);
   while(1){
