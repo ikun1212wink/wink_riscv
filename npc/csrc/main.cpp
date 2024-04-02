@@ -72,4 +72,5 @@ int main(){
     single_cycle();
     dump_wave();
   }
+  tfp->close();
 }
