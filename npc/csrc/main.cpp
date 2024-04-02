@@ -64,7 +64,7 @@ extern "C" void npc_trap(){
 int main(){
   uint32_t*memory=init_mem(4);
   sim_init();
-  reset(1);
+
   while(1){
     dut.inst=pmem_read(memory,dut.pc);
     single_cycle();
