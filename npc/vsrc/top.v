@@ -1,8 +1,8 @@
-module ysyx_23060240_top(
+module top(
     input clk,
     input rst,
-    input inst,
-    output pc
+    input [31:0] inst,
+    output [31:0] pc
 );
 wire [31:0] alu_a,alu_b,alu_out;
 wire [31:0] rs1_data,rs2_data;
@@ -47,9 +47,8 @@ ysyx_23060240_ALU ALU(
 );
 
 ysyx_23060240_IMM IMM(
-    inst(inst),
-    immout(imm_out)
+    .inst(inst),
+    .immout(imm_out)
 );
-
 
 endmodule

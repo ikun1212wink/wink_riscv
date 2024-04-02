@@ -1,9 +1,6 @@
 #include "verilated.h"
-#include "Vtop.h"
 #include "verilated_vcd_c.h"
-
-
-
+#include "Vtop.h"
 
 static const uint32_t img[]={
   0b00000000010100000000000010010011,
@@ -12,9 +9,13 @@ static const uint32_t img[]={
   0b00000000010100001000000100010011
 };
 
+VerilatedContext* contextp = NULL;
+VerilatedVcdC* tfp = NULL;
+static Vtop dut;
+
 uint32_t *init_mem(size_t size){
   uint32_t* memory=(uint32_t*)malloc(size*sizeof(uint32_t) );
-  mempcy(memory,img,sizeof(img));
+  memcpy(memory,img,sizeof(img));
   if(memory==NULL){
     exit(0);
   }
@@ -30,14 +31,13 @@ uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){
   return memory[paddr/4];
 };
 
-static TOP_NAME dut;
 
 void sim_init(){
   Verilated::traceEverOn(true);
-  VerilatedContext* contextp=new VerilatedContext;
-  VerilatedVcdC* tfp=new VerilatedVcdC;
+  contextp=new VerilatedContext;
+  tfp=new VerilatedVcdC;
   dut.trace(tfp,5);
-  tfp->open("builds/wave.vcd");
+  tfp->open("wave.vcd");
 }
 
 void dump_wave(){
@@ -57,10 +57,10 @@ void reset(int n){
 }
 
 int main(){
-  uint32_t*memory=init_mem();
+  uint32_t*memory=init_mem(4);
   sim_init();
   reset(10);
-  for(int i=0;i<4;i++){
+  for(int i=0;i<5;i++){
     dut.inst=pmem_read(memory,dut.pc);
     single_cycle();
     dump_wave();

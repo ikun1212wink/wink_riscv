@@ -2,7 +2,7 @@ module ysyx_23060240_IDU(
     input [31:0] inst,
     output alu_a_sel,alu_b_sel,
     output w_en,
-    output [3:0] alu_func,
+    output [3:0] alu_func
 );
 wire [6:0] opcode;
 wire [2:0] funct3;
