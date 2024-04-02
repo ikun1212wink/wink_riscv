@@ -42,8 +42,10 @@ void sim_init(){
 }
 
 void dump_wave(){
-  contextp->timeInc(1);
+
+
   tfp->dump(contextp->time());
+  contextp->timeInc(1);
 }
 
 void single_cycle(){
@@ -66,9 +68,8 @@ int main(){
   sim_init();
   reset(10);
   while(1){
+    dut.inst=pmem_read(memory,dut.pc);
     single_cycle();
     dump_wave();
-    dut.inst=pmem_read(memory,dut.pc);
-
   }
 }
