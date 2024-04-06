@@ -27,6 +27,7 @@
 
 void wp_difftest();
 void sdb_mainloop();
+void output_inst();
 //用于控制在执行指令时打印每条指令的执行步骤的数量
 //当需要执行的指令数量少于MAX_INST_TO_PRINT时，会将全局变量g_print_step设置为true，表示需要打印每条指令的执行步骤。
 //这样，在执行每条指令时，会通过调用puts函数将指令的执行步骤输出到屏幕上
@@ -97,7 +98,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #else
   p[0] = '\0'; // the upstream llvm does not support loongarch32r
 #endif
-printf("0x%08x:%s\n",s->pc,s->logbuf);
+/* printf("%s\n",s->logbuf); */
 #endif
 }
 
@@ -144,6 +145,8 @@ void cpu_exec(uint64_t n) {
 
   execute(n);
 
+  output_inst();
+
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
 
@@ -160,3 +163,4 @@ void cpu_exec(uint64_t n) {
     case NEMU_QUIT: statistic();
   }
 }
+
