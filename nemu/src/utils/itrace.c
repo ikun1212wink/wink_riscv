@@ -1,14 +1,12 @@
 #include <common.h>
 //iringbuf
 #define MAX_IRINGBUF 16
-typedef struct {
-    char *logbuf;
-}ItraceNode;
-ItraceNode iringbuf[MAX_IRINGBUF];
+char logbuff[MAX_IRINGBUF][128];
 int pointer=0;
 bool full=false;
 void write_inst(char *logbuf){
-    iringbuf[pointer].logbuf=logbuf;
+    memcpy(logbuff[pointer], logbuf, strlen(logbuf) + 1);
+    printf("%s\n",logbuff[pointer]);
     if(pointer<MAX_IRINGBUF){
         pointer++;
     }
@@ -16,10 +14,6 @@ void write_inst(char *logbuf){
         pointer=0;
         full=true;
     }
-    printf("%s\n",iringbuf[pointer].logbuf);
-}
-void output_inst(){
-    printf("%s\n",iringbuf[2].logbuf);
 }
 
 
