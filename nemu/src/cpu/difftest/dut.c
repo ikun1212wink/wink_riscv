@@ -59,6 +59,7 @@ void difftest_skip_dut(int nr_ref, int nr_dut) {
   }
 }
 
+//进行各种初始化工作，完成初始化工作之后，DUT和REF就处于相同的状态了
 void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
 
@@ -99,6 +100,9 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
   }
 }
 
+//该函数会在cpu_exec主循环中被调用
+//NEMU执行完一条指令后，就在difftest_step中执行相同的指令，然后读出REF中的寄存器，并进行对比
+//不同ISA的寄存器有所不同, 框架代码把寄存器对比抽象成一个ISA相关的API, 即isa_difftest_checkregs()函数（nemu/src/isa/$ISA/difftest/dut.c）
 void difftest_step(vaddr_t pc, vaddr_t npc) {
   CPU_state ref_r;
 
