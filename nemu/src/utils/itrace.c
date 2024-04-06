@@ -18,7 +18,7 @@ void write_inst(char *logbuf){
     }
 }
 void output_inst(){
-    if(!full && !pointer){
+    if(!full){
         return ;
     }
     for(int i=0;i<MAX_IRINGBUF;i++){
