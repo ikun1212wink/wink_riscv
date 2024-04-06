@@ -144,7 +144,7 @@ void cpu_exec(uint64_t n) {
   uint64_t timer_start = get_time();//get_time()函数用于获取当前时间与引导时间之间的时间差，以提供相对时间信息
 
   execute(n);
-
+  output_inst();
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
 
