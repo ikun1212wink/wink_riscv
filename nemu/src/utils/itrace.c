@@ -18,12 +18,8 @@ void write_inst(char *logbuf){
     }
 }
 void output_inst(){
-    if(!full){
-        return ;
-    }
-    for(int i=0;i<MAX_IRINGBUF;i++){
-        printf("%s\n",iringbuf[i].logbuf);
-    }
+
+        printf("%s\n",iringbuf[1].logbuf);
 }
 
 
