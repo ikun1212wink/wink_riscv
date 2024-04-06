@@ -145,8 +145,6 @@ void cpu_exec(uint64_t n) {
 
   execute(n);
 
-  output_inst();
-
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
 
@@ -162,5 +160,6 @@ void cpu_exec(uint64_t n) {
       // fall through
     case NEMU_QUIT: statistic();
   }
+  output_inst();
 }
 
