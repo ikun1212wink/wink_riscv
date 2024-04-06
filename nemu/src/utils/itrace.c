@@ -16,10 +16,10 @@ void write_inst(char *logbuf){
         pointer=0;
         full=true;
     }
+    printf("%s\n",iringbuf[pointer].logbuf);
 }
 void output_inst(){
-
-        printf("%s\n",iringbuf[2].logbuf);
+    printf("%s\n",iringbuf[2].logbuf);
 }
 
 
