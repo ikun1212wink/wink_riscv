@@ -19,7 +19,7 @@ void write_inst(char *logbuf){
 }
 void output_inst(){
 
-        printf("%s\n",iringbuf[1].logbuf);
+        printf("%s\n",iringbuf[2].logbuf);
 }
 
 
