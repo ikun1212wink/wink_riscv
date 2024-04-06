@@ -54,6 +54,8 @@ void sim_t::diff_step(uint64_t n) {
   step(n);
 }
 
+//diff_get_regs函数实现了从sim_t类中获取寄存器状态的功能。
+//它将通用寄存器的值和程序计数器的值复制到差分测试上下文中，以便在差分测试过程中进行寄存器状态的比较和检查
 void sim_t::diff_get_regs(void* diff_context) {
   struct diff_context_t* ctx = (struct diff_context_t*)diff_context;
   for (int i = 0; i < NR_GPR; i++) {
@@ -92,6 +94,7 @@ __EXPORT void difftest_regcpy(void* dut, bool direction) {
     s->diff_set_regs(dut);
   } else {
     s->diff_get_regs(dut);
+    //调用s->diff_get_regs，该函数用于从参考设计获取寄存器状态，并将其复制到dut指向的位置，实现寄存器状态的复制
   }
 }
 
