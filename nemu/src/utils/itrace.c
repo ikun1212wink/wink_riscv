@@ -6,7 +6,7 @@ int pointer=0;
 bool full=false;
 void write_inst(char *logbuf){
     memcpy(logbuff[pointer], logbuf, strlen(logbuf) + 1);
-    printf("%s\n",logbuff[pointer]);
+    printf("%s\t%d\n",logbuff[pointer],pointer);
     if(pointer<MAX_IRINGBUF){
         pointer++;
     }
