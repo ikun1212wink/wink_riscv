@@ -96,7 +96,7 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
   if (!isa_difftest_checkregs(ref, pc)) {
     nemu_state.state = NEMU_ABORT;
     nemu_state.halt_pc = pc;
-    isa_reg_display();
+    //isa_reg_display();
   }
 }
 
@@ -128,8 +128,10 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
 
   ref_difftest_exec(1);
   ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
+  //上面代码我的理解是同步模拟器和NEMU的指令状态
 
-  checkregs(&ref_r, pc);
+
+  checkregs(&ref_r, pc);// 调用checkregs函数，将当前CPU的状态和ref_r进行比较，检查是否有寄存器状态不一致的情况
 }
 #else
 void init_difftest(char *ref_so_file, long img_size, int port) { }
