@@ -27,8 +27,10 @@ const char *regs2[] = {
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   for(int i=0;i<32;i++){
     if((ref_r->gpr[i]!=cpu.gpr[i])||(ref_r->pc!=cpu.pc)){
-      printf("ref-pc=%x\n",ref_r -> pc);
-      printf("dut-pc=%x\n",cpu.pc);
+      printf("ref-pc=0x%08x\n",ref_r -> pc);
+      printf("dut-pc=0x%08x\n",cpu.pc);
+      printf("ref:%s = 0x%08x\n",regs2[i],ref_r->gpr[i]);
+      printf("dut:%s = 0x%08x\n",reg_name(i),cpu.gpr[i]);
       return false;
     }
   }
