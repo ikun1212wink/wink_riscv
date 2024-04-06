@@ -98,7 +98,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #else
   p[0] = '\0'; // the upstream llvm does not support loongarch32r
 #endif
-/*  printf("%s\n",s->logbuf);  */
+ printf("%s\n",s->logbuf); 
 #endif
 }
 
