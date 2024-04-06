@@ -19,10 +19,10 @@ void write_inst(char *logbuf){
 void output_inst(){
     for(int i=0;i<MAX_IRINGBUF;i++){
         if(i==pointer){
-            printf("--> %s\n",logbuff[pointer]);
+            printf("--> %s\n",logbuff[i]);
         }
         else{
-            printf("    %s\n",logbuff[pointer]);
+            printf("    %s\n",logbuff[i]);
         }
     }
 }
