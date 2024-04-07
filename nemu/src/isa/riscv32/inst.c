@@ -23,7 +23,7 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
-void write_inst(char *logbuf);
+void write_inst(char *logbuf,uint32_t pc);
 
 enum {
   TYPE_I, TYPE_U, TYPE_S,
@@ -156,6 +156,6 @@ int isa_exec_once(Decode *s) {
   //函数inst_fetch()进行取址
   s->isa.inst.val = inst_fetch(&s->snpc, 4);
   //函数decode_exec()进译码
-  write_inst(s->logbuf); 
+  write_inst(s->logbuf,s->snpc); 
   return decode_exec(s);
 }
