@@ -72,7 +72,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
 //isa_exec_once(s)它会随着取指的过程修改s->snpc的值
   isa_exec_once(s);
-  write_inst(s->snpc,s->isa.inst.val); 
+  write_inst(s->pc,s->isa.inst.val); 
 //接下来代码将会通过s->dnpc来更新PC, 这里的dnpc是"dynamic next PC"的意思
   cpu.pc = s->dnpc;
 
