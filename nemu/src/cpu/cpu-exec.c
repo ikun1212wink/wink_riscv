@@ -100,7 +100,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #else
   p[0] = '\0'; // the upstream llvm does not support loongarch32r
 #endif
-
+/*  printf("%s\n",s->logbuf);  */
 #endif
 }
 
@@ -129,6 +129,7 @@ static void statistic() {
 
 void assert_fail_msg() {
   isa_reg_display();
+  output_inst();
   statistic();
 }
 
@@ -146,7 +147,6 @@ void cpu_exec(uint64_t n) {
   uint64_t timer_start = get_time();//get_time()函数用于获取当前时间与引导时间之间的时间差，以提供相对时间信息
 
   execute(n);
-  output_inst();
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
 
