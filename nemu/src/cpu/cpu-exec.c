@@ -27,6 +27,8 @@
 
 void wp_difftest();
 void sdb_mainloop();
+void output_inst();
+
 //用于控制在执行指令时打印每条指令的执行步骤的数量
 //当需要执行的指令数量少于MAX_INST_TO_PRINT时，会将全局变量g_print_step设置为true，表示需要打印每条指令的执行步骤。
 //这样，在执行每条指令时，会通过调用puts函数将指令的执行步骤输出到屏幕上
@@ -70,6 +72,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
 //isa_exec_once(s)它会随着取指的过程修改s->snpc的值
   isa_exec_once(s);
+
 //接下来代码将会通过s->dnpc来更新PC, 这里的dnpc是"dynamic next PC"的意思
   cpu.pc = s->dnpc;
 
@@ -97,6 +100,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #else
   p[0] = '\0'; // the upstream llvm does not support loongarch32r
 #endif
+/*  printf("%s\n",s->logbuf);  */
 #endif
 }
 
@@ -125,6 +129,7 @@ static void statistic() {
 
 void assert_fail_msg() {
   isa_reg_display();
+  output_inst();
   statistic();
 }
 
@@ -142,7 +147,6 @@ void cpu_exec(uint64_t n) {
   uint64_t timer_start = get_time();//get_time()函数用于获取当前时间与引导时间之间的时间差，以提供相对时间信息
 
   execute(n);
-
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
 
