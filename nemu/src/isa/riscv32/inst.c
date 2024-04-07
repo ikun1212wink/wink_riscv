@@ -24,7 +24,7 @@
 #define Mw vaddr_write
 
 
-
+void write_inst(word_t pc, uint32_t inst);
 enum {
   TYPE_I, TYPE_U, TYPE_S,
   TYPE_N, TYPE_J, TYPE_R,
@@ -156,5 +156,6 @@ int isa_exec_once(Decode *s) {
   //函数inst_fetch()进行取址
   s->isa.inst.val = inst_fetch(&s->snpc, 4);
   //函数decode_exec()进译码
+    write_inst(s->pc,s->isa.inst.val); 
   return decode_exec(s);
 }

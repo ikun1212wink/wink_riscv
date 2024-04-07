@@ -28,7 +28,7 @@
 void wp_difftest();
 void sdb_mainloop();
 void output_inst();
-void write_inst(word_t pc, uint32_t inst);
+
 //用于控制在执行指令时打印每条指令的执行步骤的数量
 //当需要执行的指令数量少于MAX_INST_TO_PRINT时，会将全局变量g_print_step设置为true，表示需要打印每条指令的执行步骤。
 //这样，在执行每条指令时，会通过调用puts函数将指令的执行步骤输出到屏幕上
@@ -72,7 +72,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
 //isa_exec_once(s)它会随着取指的过程修改s->snpc的值
   isa_exec_once(s);
-  write_inst(s->pc,s->isa.inst.val); 
+
 //接下来代码将会通过s->dnpc来更新PC, 这里的dnpc是"dynamic next PC"的意思
   cpu.pc = s->dnpc;
 
