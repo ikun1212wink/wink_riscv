@@ -22,7 +22,7 @@ void write_inst(word_t pc, uint32_t inst){
 
 void output_inst(){
     for(int i=0;i<MAX_IRINGBUF;i++){
-        if(i==pointer){
+        if(i==(pointer-1)){
             printf("--> 0x%x\t0x%x\n",iringbuf[i].pc,iringbuf[i].inst);
         }
         else{
