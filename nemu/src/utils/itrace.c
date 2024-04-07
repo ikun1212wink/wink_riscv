@@ -19,12 +19,16 @@ void write_inst(word_t pc, uint32_t inst){
 }
 
 void output_inst(){
+    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     for(int i=0;i<MAX_IRINGBUF;i++){
+        char p[128];
+        memset(p, 0, sizeof(p));
+        disassemble(p, sizeof(p), iringbuf[i].pc, (uint8_t *)&iringbuf[i].inst, 4);
         if(i==(pointer)){
-            printf("--> 0x%x:\t%08x\n",iringbuf[i].pc,iringbuf[i].inst);
+            printf("--> 0x%x:\t%08x\t%s\n",iringbuf[i].pc,iringbuf[i].inst,p);
         }
         else{
-            printf("    0x%x:\t%08x\n",iringbuf[i].pc,iringbuf[i].inst);
+            printf("    0x%x:\t%08x\t%s\n",iringbuf[i].pc,iringbuf[i].inst,p);
         }
     }
 }
