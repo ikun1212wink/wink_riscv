@@ -68,14 +68,15 @@ int vsprintf(char *out, const char *fmt, va_list ap){
     return j;
 }
 
-/* int sprintf(char *out, const char *fmt, ...) {
-  va_list args;
+int sprintf(char *out, const char *fmt, ...) {
+/*   va_list args;
   int i;
   va_start(args,fmt);
   i=vsprintf(out,fmt,args);
   va_end(args);
-  return i;
-} */
+  return i; */
+    panic("Not implemented");
+}
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
   panic("Not implemented");
