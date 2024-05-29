@@ -18,6 +18,9 @@
 #include <device/mmio.h>
 #include <isa.h>
 
+void display_pread(paddr_t addr,int len);
+void display_pwrite(paddr_t addr,int len,word_t data);
+
 #if   defined(CONFIG_PMEM_MALLOC)
 static uint8_t *pmem = NULL;
 #else // CONFIG_PMEM_GARRAY
@@ -51,6 +54,7 @@ void init_mem() {
 }
 
 word_t paddr_read(paddr_t addr, int len) { //函数paddr_read，用于从物理地址（paddr_t）处读取指定长度（len）的数据
+  IFDEF(CONFIG_MTRACE,display_pread(addr,len));
   if (likely(in_pmem(addr))) //调用in_pmem函数检查给定的地址是否在物理内存范围内
     return pmem_read(addr, len);//如果在物理内存范围内，可以直接从物理内存中读取数据，使用pmem_read函数来读取数据，并返回读取的结果
   IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));//如果给定的地址不在物理内存范围内，那么根据配置选项进行条件编译
@@ -62,6 +66,7 @@ word_t paddr_read(paddr_t addr, int len) { //函数paddr_read，用于从物理�
 }
 
 void paddr_write(paddr_t addr, int len, word_t data) {
+  IFDEF(CONFIG_MTRACE, display_pwrite(addr, len, data));
   if (likely(in_pmem(addr))) { pmem_write(addr, len, data); return; }
   IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
   out_of_bound(addr);
