@@ -131,7 +131,7 @@ menu "Testing and Debugging"
 
 config TRACE
   bool "Enable tracer"
-  default y
+
 
 config TRACE_START
   depends on TRACE
