@@ -1,10 +1,12 @@
 #include <common.h>
 //iringbuf
 #define MAX_IRINGBUF 16
+
 typedef struct {
   word_t pc;
   uint32_t inst;
 } ItraceNode;
+
 ItraceNode iringbuf[MAX_IRINGBUF];
 int pointer=-1;
 void write_inst(word_t pc, uint32_t inst){
