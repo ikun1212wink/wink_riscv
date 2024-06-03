@@ -1,4 +1,5 @@
 #include <common.h>
+#include <elf.h>
 
 //iringbuf
 #define MAX_IRINGBUF 16
@@ -46,6 +47,10 @@ void display_pwrite(paddr_t addr,int len,word_t data){
 
 
 //ftrace
+int call_depth=0;
 void trace_func_call(paddr_t pc, paddr_t target){
-    
+    printf("call from:0x%x to 0x%x\n",pc,target);
+}
+void trace_func_ret(paddr_t pc){
+    printf("return to 0x%x\n",pc);
 }
