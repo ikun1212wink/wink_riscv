@@ -45,3 +45,7 @@ void display_pwrite(paddr_t addr,int len,word_t data){
 }
 
 
+//ftrace
+void trace_func_call(paddr_t pc, paddr_t target){
+    
+}
