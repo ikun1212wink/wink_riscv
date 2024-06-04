@@ -69,12 +69,12 @@ const char *find_func_name(paddr_t addr) {
 }
 
 void trace_func_call(paddr_t pc, paddr_t target) {
-    const char *pc_name = find_func_name(pc);
-    if (pc_name ) {
-        printf("call from %s to 0x%x\n", pc_name, target);
-    } else {
+//    const char *pc_name = find_func_name(pc);
+ //   if (pc_name ) {
+ //       printf("call from %s to 0x  %x\n", pc_name, target);
+ //   } else {
         printf("call from 0x%x to 0x%x\n", pc, target);
-    }
+ //   }
 }
 
 void trace_func_ret(paddr_t pc) {
