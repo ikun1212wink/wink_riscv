@@ -53,6 +53,13 @@ Elf32_Sym *global_symtab = NULL;
 char *global_strtab = NULL;
 int global_num_symbols = 0;
 Elf32_Word global_strtab_size = 0;
+int depth=0;
+
+void print_stack_frame(int depth) {
+    for (int i = 0; i < depth; i++) {
+        printf("  "); // 每层两个空格缩进
+    }
+}
 
 // 根据地址查找函数名
 const char *find_func_name(paddr_t addr) {
@@ -69,6 +76,7 @@ const char *find_func_name(paddr_t addr) {
 }
 
 void trace_func_call(paddr_t pc, paddr_t target) {
+    print_stack_frame(depth);
     const char *targe_name = find_func_name(target);
    // char *targe_name_or="???";
     if (targe_name) {
@@ -76,9 +84,12 @@ void trace_func_call(paddr_t pc, paddr_t target) {
     } else {
        // printf("0x%x: call [%s@0x%x]\n", pc, targe_name_or,target);
     }
+    depth++;
 }
 
 void trace_func_ret(paddr_t pc) {
+    depth--;
+    print_stack_frame(depth);
     const char *func_name = find_func_name(pc);
     if (func_name) {
         printf("ret [%s]\n", func_name);
