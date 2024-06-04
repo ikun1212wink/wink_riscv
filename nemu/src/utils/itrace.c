@@ -159,17 +159,17 @@ void parse_elf(const char *elf_file) {
         fclose(file);
         return;
     }
-
-    // 遍历符号表，找到所有类型为 STT_FUNC 的符号并打印它们的名字
+    // 遍历符号表，找到所有类型为 STT_FUNC 的符号并打印它们的名字和地址
     int num_symbols = symtab_shdr->sh_size / sizeof(Elf32_Sym);
     for (int i = 0; i < num_symbols; ++i) {
         if (ELF32_ST_TYPE(symtab[i].st_info) == STT_FUNC) {
             int name_index = symtab[i].st_name;
             if (name_index < strtab_shdr->sh_size) {
-                printf("Function: %s\n", &strtab[name_index]);
+                printf("Function: %s, Address: 0x%08x\n", &strtab[name_index], symtab[i].st_value);
             }
         }
     }
+
 
     // 清理资源
     free(strtab);
