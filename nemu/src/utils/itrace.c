@@ -76,11 +76,12 @@ const char *find_func_name(paddr_t addr) {
 }
 
 void trace_func_call(paddr_t pc, paddr_t target) {
+    printf("0x%x:",pc);
     print_stack_frame(depth);
     const char *targe_name = find_func_name(target);
    // char *targe_name_or="???";
     if (targe_name) {
-        printf("0x%x: call [%s@0x%x]\n", pc, targe_name,target);
+        printf(" call [%s@0x%x]\n", targe_name,target);
     } else {
        // printf("0x%x: call [%s@0x%x]\n", pc, targe_name_or,target);
     }
@@ -88,11 +89,12 @@ void trace_func_call(paddr_t pc, paddr_t target) {
 }
 
 void trace_func_ret(paddr_t pc) {
+    printf("0x%x:",pc);
     depth--;
     print_stack_frame(depth);
     const char *func_name = find_func_name(pc);
     if (func_name) {
-        printf("ret [%s]\n", func_name);
+        printf(" ret [%s]\n", func_name);
     } else {
        // printf("return to 0x%x\n", pc);
     }
