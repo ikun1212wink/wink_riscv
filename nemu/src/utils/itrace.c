@@ -57,7 +57,7 @@ int depth=0;
 
 void print_stack_frame(int depth) {
     for (int i = 0; i < depth; i++) {
-        printf("  "); // 每层两个空格缩进
+        printf(" "); // 每层两个空格缩进
     }
 }
 
