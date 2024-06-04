@@ -77,17 +77,19 @@ const char *find_func_name(paddr_t addr) {
 
 void trace_func_call(paddr_t pc, paddr_t target,bool tail) {
     printf("0x%x:",pc);
-    if (tail){
-        printf("(tail type call)");
-    }
     print_stack_frame(depth);
     const char *targe_name = find_func_name(target);
    // char *targe_name_or="???";
     if (targe_name) {
-        printf(" call [%s@0x%x]\n", targe_name,target);
-    } else {
+        printf(" call [%s@0x%x] ", targe_name,target);
+    } 
+    //else {
        // printf("0x%x: call [%s@0x%x]\n", pc, targe_name_or,target);
+    //}
+    if (tail){
+        printf("(tail type call)");
     }
+    printf("\n");
     depth++;
 }
 
