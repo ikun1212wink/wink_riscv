@@ -69,7 +69,7 @@ const char *find_func_name(paddr_t addr) {
 }
 
 void trace_func_call(paddr_t pc, paddr_t target) {
-    const char *targe_name = find_func_name(pc);
+    const char *targe_name = find_func_name(target);
    // char *targe_name_or="???";
     if (targe_name) {
         printf("0x%x: call [%s@0x%x]\n", pc, targe_name,target);
