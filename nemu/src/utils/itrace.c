@@ -48,12 +48,42 @@ void display_pwrite(paddr_t addr,int len,word_t data){
 
 
 //ftrace
-int call_depth=0;
-void trace_func_call(paddr_t pc, paddr_t target){
-    printf("call from:0x%x to 0x%x\n",pc,target);
+// 全局变量
+Elf32_Sym *global_symtab = NULL;
+char *global_strtab = NULL;
+int global_num_symbols = 0;
+Elf32_Word global_strtab_size = 0;
+
+// 根据地址查找函数名
+const char *find_func_name(paddr_t addr) {
+    if (global_symtab == NULL || global_strtab == NULL) {
+        return NULL;
+    }
+    for (int i = 0; i < global_num_symbols; i++) {
+        Elf32_Sym sym = global_symtab[i];
+        if (ELF32_ST_TYPE(sym.st_info) == STT_FUNC && addr >= sym.st_value && addr < sym.st_value + sym.st_size) {
+            return &global_strtab[sym.st_name];
+        }
+    }
+    return NULL;
 }
-void trace_func_ret(paddr_t pc){
-    printf("return to 0x%x\n",pc);
+
+void trace_func_call(paddr_t pc, paddr_t target) {
+    const char *pc_name = find_func_name(pc);
+    if (pc_name ) {
+        printf("call from %s to 0x%x\n", pc_name, target);
+    } else {
+        printf("call from 0x%x to 0x%x\n", pc, target);
+    }
+}
+
+void trace_func_ret(paddr_t pc) {
+    const char *func_name = find_func_name(pc);
+    if (func_name) {
+        printf("return to %s\n", func_name);
+    } else {
+        printf("return to 0x%x\n", pc);
+    }
 }
 
 void parse_elf(const char *elf_file) {
@@ -63,7 +93,6 @@ void parse_elf(const char *elf_file) {
         return;
     }
 
-    // 读取 ELF 头
     Elf32_Ehdr ehdr;
     if (fread(&ehdr, 1, sizeof(ehdr), file) != sizeof(ehdr)) {
         perror("读取 ELF 头失败");
@@ -71,14 +100,29 @@ void parse_elf(const char *elf_file) {
         return;
     }
 
-    // 定位到节头表的开始位置并读取
-    fseek(file, ehdr.e_shoff, SEEK_SET);
+    if (ehdr.e_ident[EI_MAG0] != ELFMAG0 ||
+        ehdr.e_ident[EI_MAG1] != ELFMAG1 ||
+        ehdr.e_ident[EI_MAG2] != ELFMAG2 ||
+        ehdr.e_ident[EI_MAG3] != ELFMAG3) {
+        fprintf(stderr, "不是有效的 ELF 文件\n");
+        fclose(file);
+        return;
+    }
+
+    if (ehdr.e_ident[EI_CLASS] != ELFCLASS32) {
+        fprintf(stderr, "不是一个 32 位 ELF 文件\n");
+        fclose(file);
+        return;
+    }
+
     Elf32_Shdr *shdrs = malloc(ehdr.e_shnum * sizeof(Elf32_Shdr));
-    if (shdrs == NULL) {
+    if (!shdrs) {
         perror("内存分配失败");
         fclose(file);
         return;
     }
+
+    fseek(file, ehdr.e_shoff, SEEK_SET);
     if (fread(shdrs, sizeof(Elf32_Shdr), ehdr.e_shnum, file) != ehdr.e_shnum) {
         perror("读取节头表失败");
         free(shdrs);
@@ -86,99 +130,67 @@ void parse_elf(const char *elf_file) {
         return;
     }
 
-    // 定位到字符串表：节头表中第 ehdr.e_shstrndx 条目指向字符串表
-    Elf32_Shdr strTabSec = shdrs[ehdr.e_shstrndx];
-    char *strTab = malloc(strTabSec.sh_size);
-    if (strTab == NULL) {
+    // 定位到字符串表并读取
+    Elf32_Shdr shstrtab_shdr = shdrs[ehdr.e_shstrndx];
+    char *shstrtab = malloc(shstrtab_shdr.sh_size);
+    if (!shstrtab) {
         perror("内存分配失败");
         free(shdrs);
         fclose(file);
         return;
     }
-    fseek(file, strTabSec.sh_offset, SEEK_SET);
-    if (fread(strTab, 1, strTabSec.sh_size, file) != strTabSec.sh_size) {
-        perror("读取字符串表失败");
-        free(strTab);
+
+    fseek(file, shstrtab_shdr.sh_offset, SEEK_SET);
+    if (fread(shstrtab, 1, shstrtab_shdr.sh_size, file) != shstrtab_shdr.sh_size) {
+        perror("读取节头字符串表失败");
+        free(shstrtab);
         free(shdrs);
         fclose(file);
         return;
     }
 
-    // 遍历节头表，打印每个节的名称
-    for (int i = 0; i < ehdr.e_shnum; ++i) {
-        Elf32_Shdr shdr = shdrs[i];
-        if (shdr.sh_name < strTabSec.sh_size) {
-            printf("Section %d: %s\n", i, &strTab[shdr.sh_name]);
-        } else {
-            printf("Section %d: <节名超出字符串表范围>\n", i);
-        }
-    }
-
-    Elf32_Shdr *symtab_shdr = NULL;
-    Elf32_Shdr *strtab_shdr = NULL;
+    // 定位并读取符号表和对应的字符串表
     for (int i = 0; i < ehdr.e_shnum; i++) {
-        if (shdrs[i].sh_type == SHT_SYMTAB) {
-            symtab_shdr = &shdrs[i]; // 找到符号表
-        } else if (shdrs[i].sh_type == SHT_STRTAB && i != ehdr.e_shstrndx) {
-            strtab_shdr = &shdrs[i]; // 找到字符串表（除了节头字符串表）
-        }
-    }
-
-    if (!symtab_shdr || !strtab_shdr) {
-        fprintf(stderr, "符号表或字符串表没有找到\n");
-        // 清理资源
-        free(strTab);
-        free(shdrs);
-        fclose(file);
-        return;
-    }
-
-    // 读取符号表
-    Elf32_Sym *symtab = malloc(symtab_shdr->sh_size);
-    fseek(file, symtab_shdr->sh_offset, SEEK_SET);
-    if (fread(symtab, symtab_shdr->sh_size, 1, file) != 1) {
-        perror("读取符号表失败");
-        free(symtab);
-        // 清理资源
-        free(strTab);
-        free(shdrs);
-        fclose(file);
-        return;
-    }
-
-    // 读取字符串表
-    char *strtab = malloc(strtab_shdr->sh_size);
-    fseek(file, strtab_shdr->sh_offset, SEEK_SET);
-    if (fread(strtab, strtab_shdr->sh_size, 1, file) != 1) {
-        perror("读取字符串表失败");
-        free(strtab);
-        // 清理资源
-        free(symtab);
-        free(strTab);
-        free(shdrs);
-        fclose(file);
-        return;
-    }
-    // 遍历符号表，找到所有类型为 STT_FUNC 的符号并打印它们的名字和地址
-    int num_symbols = symtab_shdr->sh_size / sizeof(Elf32_Sym);
-    for (int i = 0; i < num_symbols; ++i) {
-        if (ELF32_ST_TYPE(symtab[i].st_info) == STT_FUNC) {
-            int name_index = symtab[i].st_name;
-            if (name_index < strtab_shdr->sh_size) {
-                printf("Function: %s, Address: 0x%08x\n", &strtab[name_index], symtab[i].st_value);
+        Elf32_Shdr shdr = shdrs[i];
+        if (shdr.sh_type == SHT_SYMTAB) {
+            global_symtab = malloc(shdr.sh_size);
+            if (!global_symtab) {
+                perror("内存分配失败");
+                break;
             }
+
+            fseek(file, shdr.sh_offset, SEEK_SET);
+            if (fread(global_symtab, 1, shdr.sh_size, file) != shdr.sh_size) {
+                perror("读取符号表失败");
+                free(global_symtab);
+                global_symtab = NULL;
+                break;
+            }
+            global_num_symbols = shdr.sh_size / sizeof(Elf32_Sym);
+        } else if (shdr.sh_type == SHT_STRTAB && i != ehdr.e_shstrndx) {
+            global_strtab = malloc(shdr.sh_size);
+            if (!global_strtab) {
+                perror("内存分配失败");
+                break;
+            }
+
+            fseek(file, shdr.sh_offset, SEEK_SET);
+            if (fread(global_strtab, 1, shdr.sh_size, file) != shdr.sh_size) {
+                perror("读取符号字符串表失败");
+                free(global_strtab);
+                global_strtab = NULL;
+                break;
+            }
+            global_strtab_size = shdr.sh_size;
         }
     }
-
 
     // 清理资源
-    free(strtab);
-    free(symtab);
-    free(strTab);
+    free(shstrtab);
     free(shdrs);
     fclose(file);
-
 }
+
 
 
 
