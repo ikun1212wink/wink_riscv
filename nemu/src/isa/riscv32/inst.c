@@ -113,7 +113,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("0100000 ????? ????? 101 ????? 00100 11", srai   , I, R(rd) = (sword_t)src1>>BITS(imm,4,0));
 
   INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, R(rd) = s->pc+4;s->dnpc=(src1+imm)&(~1);
-                                                                IFDEF(CONFIG_ITRACE,{
+                                                                IFDEF(CONFIG_FTRACE,{
                                                                   if(s->isa.inst.val==0x00008067){//ret指令 相当于识别到jalr x0, 0(x1)
                                                                     trace_func_ret(s->pc);
                                                                   }
@@ -127,7 +127,7 @@ static int decode_exec(Decode *s) {
                                                               );
 
   INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(rd) = s->pc + 4; s->dnpc = s->pc + imm;
-                                                                IFDEF(CONFIG_ITRACE,{
+                                                                IFDEF(CONFIG_FTRACE,{
                                                                   if(rd==1){
                                                                     trace_func_call(s->pc,s->dnpc,false);
                                                                   }
