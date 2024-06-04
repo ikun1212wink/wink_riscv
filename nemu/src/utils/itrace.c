@@ -114,10 +114,70 @@ void parse_elf(const char *elf_file) {
         }
     }
 
+    Elf32_Shdr *symtab_shdr = NULL;
+    Elf32_Shdr *strtab_shdr = NULL;
+    for (int i = 0; i < ehdr.e_shnum; i++) {
+        if (shdrs[i].sh_type == SHT_SYMTAB) {
+            symtab_shdr = &shdrs[i]; // 找到符号表
+        } else if (shdrs[i].sh_type == SHT_STRTAB && i != ehdr.e_shstrndx) {
+            strtab_shdr = &shdrs[i]; // 找到字符串表（除了节头字符串表）
+        }
+    }
+
+    if (!symtab_shdr || !strtab_shdr) {
+        fprintf(stderr, "符号表或字符串表没有找到\n");
+        // 清理资源
+        free(strTab);
+        free(shdrs);
+        fclose(file);
+        return;
+    }
+
+    // 读取符号表
+    Elf32_Sym *symtab = malloc(symtab_shdr->sh_size);
+    fseek(file, symtab_shdr->sh_offset, SEEK_SET);
+    if (fread(symtab, symtab_shdr->sh_size, 1, file) != 1) {
+        perror("读取符号表失败");
+        free(symtab);
+        // 清理资源
+        free(strTab);
+        free(shdrs);
+        fclose(file);
+        return;
+    }
+
+    // 读取字符串表
+    char *strtab = malloc(strtab_shdr->sh_size);
+    fseek(file, strtab_shdr->sh_offset, SEEK_SET);
+    if (fread(strtab, strtab_shdr->sh_size, 1, file) != 1) {
+        perror("读取字符串表失败");
+        free(strtab);
+        // 清理资源
+        free(symtab);
+        free(strTab);
+        free(shdrs);
+        fclose(file);
+        return;
+    }
+
+    // 遍历符号表，找到所有类型为 STT_FUNC 的符号并打印它们的名字
+    int num_symbols = symtab_shdr->sh_size / sizeof(Elf32_Sym);
+    for (int i = 0; i < num_symbols; ++i) {
+        if (ELF32_ST_TYPE(symtab[i].st_info) == STT_FUNC) {
+            int name_index = symtab[i].st_name;
+            if (name_index < strtab_shdr->sh_size) {
+                printf("Function: %s\n", &strtab[name_index]);
+            }
+        }
+    }
+
     // 清理资源
+    free(strtab);
+    free(symtab);
     free(strTab);
     free(shdrs);
     fclose(file);
+
 }
 
 
