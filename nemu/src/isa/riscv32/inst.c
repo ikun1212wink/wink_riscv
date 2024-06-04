@@ -23,6 +23,8 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
+void trace_func_call(paddr_t pc, paddr_t target,bool tail);
+void trace_func_ret(paddr_t pc);
 
 void write_inst(word_t pc, uint32_t inst);
 enum {
@@ -110,9 +112,28 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000000 ????? ????? 101 ????? 00100 11", srli   , I, R(rd) = src1>>BITS(imm,4,0));
   INSTPAT("0100000 ????? ????? 101 ????? 00100 11", srai   , I, R(rd) = (sword_t)src1>>BITS(imm,4,0));
 
-  INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, R(rd) = s->pc+4;s->dnpc=(src1+imm)&(~1));
-  INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(rd) = s->pc + 4; s->dnpc = s->pc + imm);
-  
+  INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, R(rd) = s->pc+4;s->dnpc=(src1+imm)&(~1);
+                                                                IFDEF(CONFIG_FTRACE,{
+                                                                  if(s->isa.inst.val==0x00008067){//ret指令 相当于识别到jalr x0, 0(x1)
+                                                                    trace_func_ret(s->pc);
+                                                                  }
+                                                                  else if(rd==1){
+                                                                    trace_func_call(s->pc, s->dnpc,false);
+                                                                  }
+                                                                  else if(rd==0&&imm==0){
+                                                                    trace_func_call(s->pc, s->dnpc,true); // jr rs1 -> jalr x0, 0(rs1), which may be other control flow e.g. 'goto','for'
+                                                                  }
+                                                                })  
+                                                              );
+
+  INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(rd) = s->pc + 4; s->dnpc = s->pc + imm;
+                                                                IFDEF(CONFIG_FTRACE,{
+                                                                  if(rd==1){
+                                                                    trace_func_call(s->pc,s->dnpc,false);
+                                                                  }
+                                                                } )
+                                                              );
+
   INSTPAT("0000000 ????? ????? 000 ????? 01100 11", add    , R, R(rd) = src1+src2);
   INSTPAT("0100000 ????? ????? 000 ????? 01100 11", sub    , R, R(rd) = src1-src2);
   INSTPAT("0000000 ????? ????? 001 ????? 01100 11", sll    , R, R(rd) = src1 << BITS(src2,4,0));//逻辑左移（不考虑符号）
