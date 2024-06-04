@@ -23,7 +23,7 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
-void trace_func_call(paddr_t pc, paddr_t target);
+void trace_func_call(paddr_t pc, paddr_t target,bool tail);
 void trace_func_ret(paddr_t pc);
 
 void write_inst(word_t pc, uint32_t inst);
@@ -118,10 +118,10 @@ static int decode_exec(Decode *s) {
                                                                     trace_func_ret(s->pc);
                                                                   }
                                                                   else if(rd==1){
-                                                                    trace_func_call(s->pc, s->dnpc);
+                                                                    trace_func_call(s->pc, s->dnpc,false);
                                                                   }
                                                                   else if(rd==0&&imm==0){
-                                                                    trace_func_call(s->pc, s->dnpc); // jr rs1 -> jalr x0, 0(rs1), which may be other control flow e.g. 'goto','for'
+                                                                    trace_func_call(s->pc, s->dnpc,true); // jr rs1 -> jalr x0, 0(rs1), which may be other control flow e.g. 'goto','for'
                                                                   }
                                                                 })  
                                                               );
@@ -129,7 +129,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(rd) = s->pc + 4; s->dnpc = s->pc + imm;
                                                                 IFDEF(CONFIG_ITRACE,{
                                                                   if(rd==1){
-                                                                    trace_func_call(s->pc,s->dnpc);
+                                                                    trace_func_call(s->pc,s->dnpc,false);
                                                                   }
                                                                 } )
                                                               );
