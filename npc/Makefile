@@ -1,6 +1,6 @@
 VSRCS = $(shell find $(abspath ./vsrc) -name "*.v")
 CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
-
+IMG ?= ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin
 
 all:
 	@echo "Write this Makefile by your self."
@@ -15,3 +15,4 @@ clean:
 	rm -rf obj_dir wave.vcd
 
 include ../Makefile
+

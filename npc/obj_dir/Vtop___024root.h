@@ -15,6 +15,9 @@ class Vtop___024root final : public VerilatedModule {
     // DESIGN SPECIFIC STATE
     VL_IN8(clk,0,0);
     VL_IN8(rst,0,0);
+    CData/*0:0*/ top__DOT__alu_a_sel;
+    CData/*0:0*/ top__DOT__IDU__DOT__imm_mux__DOT__i0__DOT__lut_out;
+    CData/*0:0*/ top__DOT__IDU__DOT__imm_mux__DOT__i0__DOT__hit;
     CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
     CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
     CData/*0:0*/ __Vtrigrprev__TOP__clk;
@@ -22,10 +25,10 @@ class Vtop___024root final : public VerilatedModule {
     VL_IN(inst,31,0);
     VL_OUT(pc,31,0);
     IData/*31:0*/ top__DOT__alu_out;
-    IData/*31:0*/ top__DOT__rs1_data;
     IData/*31:0*/ top__DOT__imm_out;
     IData/*31:0*/ top__DOT__Register__DOT__i;
     IData/*31:0*/ top__DOT__Pc__DOT__pc_plus4;
+    IData/*31:0*/ top__DOT__ALU__DOT__signed_a;
     IData/*31:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__lut_out;
     IData/*31:0*/ top__DOT__IMM__DOT__out4;
     IData/*31:0*/ top__DOT__IMM__DOT__out6;
@@ -33,6 +36,9 @@ class Vtop___024root final : public VerilatedModule {
     IData/*31:0*/ __VstlIterCount;
     IData/*31:0*/ __VicoIterCount;
     IData/*31:0*/ __VactIterCount;
+    VlUnpacked<CData/*7:0*/, 8> top__DOT__IDU__DOT__imm_mux__DOT__i0__DOT__pair_list;
+    VlUnpacked<CData/*6:0*/, 8> top__DOT__IDU__DOT__imm_mux__DOT__i0__DOT__key_list;
+    VlUnpacked<CData/*0:0*/, 8> top__DOT__IDU__DOT__imm_mux__DOT__i0__DOT__data_list;
     VlUnpacked<IData/*31:0*/, 32> top__DOT__Register__DOT__rf;
     VlUnpacked<QData/*35:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list;
     VlUnpacked<CData/*3:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__key_list;
