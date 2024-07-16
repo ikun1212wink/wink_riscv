@@ -1,10 +1,43 @@
 #include "verilated.h"
 #include "verilated_vcd_c.h"
 #include "Vtop.h"
+#include <getopt.h>
+
+#define COLOR_RED     "\033[0;31m"
+#define COLOR_GREEN   "\033[0;32m"
+#define COLOR_YELLOW  "\033[0;33m"
+#define COLOR_BLUE    "\033[0;34m"
+#define COLOR_MAGENTA "\033[0;35m"
+#define COLOR_CYAN    "\033[0;36m"
+#define COLOR_RESET   "\033[0m"
+
 
 int ebreak_flag=0;
 int mem_number;
-#define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"
+//#define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"
+static char *img_path = NULL;
+
+static int parse_args(int argc, char *argv[]) {
+  const struct option table[] = {
+    {"img"      , required_argument, NULL, 'i'},
+    {0          , 0                , NULL,  0 },
+  };
+  int o;
+  while ( (o = getopt_long(argc, argv, "i:", table, NULL)) != -1) {
+    switch (o) {
+      case 'i': img_path = optarg; return 0;
+      default:
+        printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
+        printf("\t-b,--batch              run with batch mode\n");
+        printf("\t-l,--log=FILE           output log to FILE\n");
+        printf("\t-d,--diff=REF_SO        run DiffTest with reference REF_SO\n");
+        printf("\t-p,--port=PORT          run DiffTest with port PORT\n");
+        printf("\n");
+        exit(0);
+    }
+  }
+  return 0;
+}
 
 
 
@@ -105,16 +138,18 @@ extern "C" void npc_trap(){
   dump_wave();
   dut.final();
   tfp->close();
-
+  printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
 }
 
-int main(){
-  uint32_t*memory=init_mem(IMG_PATH,&mem_number);
+int main(int argc,char *argv[]){
+  parse_args(argc, argv);
+  uint32_t*memory=init_mem(img_path,&mem_number);
   sim_init();
   reset(10);
   while(!ebreak_flag){  
-    printf("pc:0x%x\n",dut.pc);
+    printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
     dut.inst=pmem_read(memory,dut.pc);
+    printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
     dump_wave();
   }
