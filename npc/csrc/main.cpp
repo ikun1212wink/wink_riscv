@@ -3,27 +3,68 @@
 #include "Vtop.h"
 
 int ebreak_flag=0;
+int mem_number;
+#define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"
+//extern const char* IMG;
+//const char img_path[]=IMG_PATH;
 
-static const uint32_t img[]={
+/* static const uint32_t img[]={
   0b00000000010100000000000010010011,
   0b00000000000100000000000100010011,
   0b00000000001000000000000100010011,
   0b00000000010100001000000100010011,
-  0b00000000000100000000000001110011
-};
+  0b0000 0000 0001 0000 0000 0000 0111 0011
+  //00100073
+}; */
+
 
 VerilatedContext* contextp = NULL;
 VerilatedVcdC* tfp = NULL;
 static Vtop dut;
 
-uint32_t *init_mem(int num){
+/* uint32_t *init_mem(int num){
   uint32_t* memory=(uint32_t*)malloc(num*sizeof(uint32_t) );
   memcpy(memory,img,sizeof(img));
   if(memory==NULL){
     exit(0);
   }
   return memory;
+} */
+
+//初始化内存
+uint32_t* init_mem(const char* path, int* num) {
+    FILE* file = fopen(path, "rb");
+    if (!file) {
+        printf("Failed to open file: %s\n", path);
+        return NULL;
+    }
+
+    // 获取文件大小
+    fseek(file, 0, SEEK_END);
+    long fileSize = ftell(file);
+    fseek(file, 0, SEEK_SET);
+
+    // 计算需要的数组大小
+    *num = fileSize / sizeof(uint32_t);
+    uint32_t* memory = (uint32_t*)malloc(*num * sizeof(uint32_t));
+    if (!memory) {
+        printf("Memory allocation failed.\n");
+        fclose(file);
+        return NULL;
+    }
+
+    size_t bytesRead = fread(memory, sizeof(uint8_t), fileSize, file);
+    fclose(file);
+
+    if (bytesRead != fileSize) {
+        printf("Failed to read the complete file.\n");
+        free(memory);
+        return NULL;
+    }
+
+    return memory;
 }
+
 
 uint32_t guest_to_host(uint32_t addr){
   return addr-0x80000000;
@@ -64,11 +105,19 @@ extern "C" void npc_trap(){
   dump_wave();
   dut.final();
   tfp->close();
+  printf("HIT GOOD TRAP\n");
+}
 
+extern "C" void bad_trap(){
+  ebreak_flag=1;
+  dump_wave();
+  dut.final();
+  tfp->close();
+  printf("HIT BAD TRAP\n");
 }
 
 int main(){
-  uint32_t*memory=init_mem(5);
+  uint32_t*memory=init_mem(IMG_PATH,&mem_number);
   sim_init();
   reset(10);
   while(!ebreak_flag){  

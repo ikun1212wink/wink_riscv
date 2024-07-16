@@ -3,7 +3,7 @@ module ysyx_23060240_RegisterFile #(ADDR_WIDTH = 5, DATA_WIDTH = 32) (
     input [DATA_WIDTH-1:0] w_data,
     input [ADDR_WIDTH-1:0] r_rs1_addr,r_rs2_addr,
     input [ADDR_WIDTH-1:0] w_rd_addr,
-    input w_en,
+    input w_en,//寄存器写使能信号
     output [DATA_WIDTH-1:0] rs1_data,rs2_data
 );
     reg [DATA_WIDTH-1:0] rf [2**ADDR_WIDTH-1:0];
