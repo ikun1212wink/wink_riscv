@@ -180,7 +180,7 @@ assign alu_b_sel=1'b1; */
     }
 ); */
 always@(*)begin
-    if(inst==32'b00000000000100000000000001110011)begin
+    if(inst==32'b00000000000000000000000001101111)begin
         npc_trap();
     end
 end

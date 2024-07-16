@@ -2,6 +2,15 @@
 #include "verilated_vcd_c.h"
 #include "Vtop.h"
 
+#define COLOR_RED     "\033[0;31m"
+#define COLOR_GREEN   "\033[0;32m"
+#define COLOR_YELLOW  "\033[0;33m"
+#define COLOR_BLUE    "\033[0;34m"
+#define COLOR_MAGENTA "\033[0;35m"
+#define COLOR_CYAN    "\033[0;36m"
+#define COLOR_RESET   "\033[0m"
+
+
 int ebreak_flag=0;
 int mem_number;
 #define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"
@@ -105,7 +114,7 @@ extern "C" void npc_trap(){
   dump_wave();
   dut.final();
   tfp->close();
-
+  printf(COLOR_GREEN"HIT GOOD TRAP!"COLOR_RESET"\n");
 }
 
 int main(){
@@ -113,8 +122,9 @@ int main(){
   sim_init();
   reset(10);
   while(!ebreak_flag){  
-    printf("pc:0x%x\n",dut.pc);
+    printf(COLOR_BLUE "pc:  0x%x"COLOR_RESET"\n",dut.pc);
     dut.inst=pmem_read(memory,dut.pc);
+    printf(COLOR_CYAN "inst:0x%08x"COLOR_RESET"\n",dut.inst);
     single_cycle();
     dump_wave();
   }
