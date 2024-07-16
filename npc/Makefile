@@ -17,7 +17,7 @@ BIN				:= $(OBJ_DIR)/V$(TOP_NAME)
 IMG ?= ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin
 
 
-RUN_FLAGS		:= --img=${IMG} 
+RUN_FLAGS		:= -img=${IMG} 
 NPC_EXEC		:= ${BIN} ${RUN_FLAGS}
 
 .PHONY:run gdb wave clean
