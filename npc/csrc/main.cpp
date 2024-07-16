@@ -114,7 +114,7 @@ extern "C" void npc_trap(){
   dump_wave();
   dut.final();
   tfp->close();
-  printf(COLOR_GREEN"HIT GOOD TRAP!"COLOR_RESET"\n");
+  printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
 }
 
 int main(){
@@ -122,9 +122,9 @@ int main(){
   sim_init();
   reset(10);
   while(!ebreak_flag){  
-    printf(COLOR_BLUE "pc:  0x%x"COLOR_RESET"\n",dut.pc);
+    printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
     dut.inst=pmem_read(memory,dut.pc);
-    printf(COLOR_CYAN "inst:0x%08x"COLOR_RESET"\n",dut.inst);
+    printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
     dump_wave();
   }
