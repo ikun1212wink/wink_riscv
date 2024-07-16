@@ -16,14 +16,6 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP
     npc_trap();
 }
 
-extern "C" void bad_trap();
-
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__bad_trap_TOP() {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__bad_trap_TOP\n"); );
-    // Body
-    bad_trap();
-}
-
 #ifdef VL_DEBUG
 VL_ATTR_COLD void Vtop___024root___dump_triggers__ico(Vtop___024root* vlSelf);
 #endif  // VL_DEBUG

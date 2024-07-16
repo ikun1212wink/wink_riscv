@@ -16,8 +16,6 @@ extern "C" {
 
 
     // DPI IMPORTS
-    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/IDU.v:15:30
-    extern void bad_trap();
     // DPI import at /home/wink/ysyx-workbench/npc/vsrc/IDU.v:14:30
     extern void npc_trap();
 

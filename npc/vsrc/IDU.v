@@ -12,7 +12,6 @@ wire [6:0] funct7;
 wire [11:0] funct12;
 /* wire alu_a_sel_imm,alu_a_sel_pc; */
 import "DPI-C" function void npc_trap();
-import "DPI-C" function void bad_trap();
 assign opcode=inst[6:0];
 assign funct3=inst[14:12];
 assign funct7=inst[31:25];
@@ -167,6 +166,7 @@ assign w_en=1'b1;
 assign alu_a_sel_imm=1'b1;
 assign alu_a_sel_pc=1'b0;
 assign alu_b_sel=1'b1; */
+
 /* ysyx_23060240_MuxKeyWithDefault #(8,7,1) alu_a_sel(
     alu_a_sel,opcode,1'b1,{
         7'b0010111,alu_a_sel_pc,//auipc
@@ -180,9 +180,8 @@ assign alu_b_sel=1'b1; */
     }
 ); */
 always@(*)begin
-    if(inst==32'b00000000000000000000000001101111)begin
+    if(inst==32'b00000000000100000000000001110011)begin
         npc_trap();
     end
 end
-
 endmodule

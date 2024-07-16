@@ -5,8 +5,8 @@
 int ebreak_flag=0;
 int mem_number;
 #define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"
-//extern const char* IMG;
-//const char img_path[]=IMG_PATH;
+
+
 
 /* static const uint32_t img[]={
   0b00000000010100000000000010010011,
@@ -105,15 +105,7 @@ extern "C" void npc_trap(){
   dump_wave();
   dut.final();
   tfp->close();
-  printf("HIT GOOD TRAP\n");
-}
 
-extern "C" void bad_trap(){
-  ebreak_flag=1;
-  dump_wave();
-  dut.final();
-  tfp->close();
-  printf("HIT BAD TRAP\n");
 }
 
 int main(){
