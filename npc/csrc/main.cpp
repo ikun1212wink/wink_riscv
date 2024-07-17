@@ -41,29 +41,11 @@ static int parse_args(int argc, char *argv[]) {
 }
 
 
-
-/* static const uint32_t img[]={
-  0b00000000010100000000000010010011,
-  0b00000000000100000000000100010011,
-  0b00000000001000000000000100010011,
-  0b00000000010100001000000100010011,
-  0b0000 0000 0001 0000 0000 0000 0111 0011
-  //00100073
-}; */
-
-
 VerilatedContext* contextp = NULL;
 VerilatedVcdC* tfp = NULL;
 static Vtop dut;
 
-/* uint32_t *init_mem(int num){
-  uint32_t* memory=(uint32_t*)malloc(num*sizeof(uint32_t) );
-  memcpy(memory,img,sizeof(img));
-  if(memory==NULL){
-    exit(0);
-  }
-  return memory;
-} */
+
 
 //初始化内存
 uint32_t* init_mem(const char* path, int* num) {
@@ -151,7 +133,8 @@ int main(int argc,char *argv[]){
     printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
     dut.inst=pmem_read(memory,dut.pc);
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
+    dump_wave();   
     single_cycle();
-    dump_wave();
+
   }
 }

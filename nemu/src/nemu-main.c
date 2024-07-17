@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 
 
   /* Start engine. */
-  engine_start();
+  engine_start();//进入sdb_mainloop()函数
 
   return is_exit_status_bad();
 }
