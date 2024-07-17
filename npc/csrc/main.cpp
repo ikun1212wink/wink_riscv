@@ -126,19 +126,14 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
   printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
 }
 
-void execute(uint32_t*memory,uint64_t n){
-  if(ebreak_flag){
-     npc_trap();
+/* void execute(uint64_t n){
+  for (;n > 0; n --) {
+    printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
+    dut.inst=pmem_read(memory,dut.pc);
+    printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
+    single_cycle();
   }
-  else{
-    for (;n > 0; n --) {
-      printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
-      dut.inst=pmem_read(memory,dut.pc);
-      printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
-      single_cycle();
-    }
-  }
-}
+} */
 
 
 
@@ -147,12 +142,12 @@ int main(int argc,char *argv[]){
   uint32_t*memory=init_mem(img_path,&mem_number);
   sim_init();
   reset(10);
-  uint64_t n=2;
-  execute(memory,n);
-/*   while(!ebreak_flag){  
+
+
+  while(!ebreak_flag){  
     printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
     dut.inst=pmem_read(memory,dut.pc);
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
-  } */
+  }
 }
