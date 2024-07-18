@@ -1,11 +1,13 @@
 #include <cpu.h>
+#include <memory.h>
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
 
 int ebreak_flag=0;
 
- void execute(int n,uint32_t*memory){
+ void execute(int n){
+    uint32_t*memory=init_mem();
     if(n>0){
         for (;n > 0; n --) {
             printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);

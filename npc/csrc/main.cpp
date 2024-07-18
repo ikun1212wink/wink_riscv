@@ -22,9 +22,9 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
 
 int main(int argc,char *argv[]){
   parse_args(argc, argv);
-  uint32_t*memory=init_mem();
+ // uint32_t*memory=init_mem();
   sim_init();
   reset(10);
-  execute(-1,memory); 
+  execute(-1); 
   return 0;
 }
