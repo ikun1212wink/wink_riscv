@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <getopt.h>
+#include <stdio.h>
 #include "verilated.h"
 #include "verilated_vcd_c.h"
 #include "Vtop.h"
