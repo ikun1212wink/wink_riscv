@@ -9,7 +9,7 @@ VERILATOR_FLAGS += --top-module $(TOP_NAME)
 INC_PATH		?= $(NPC_HOME)/include
 #CFLAGS			+= -g -I$(INC_PATH)
 CFLAGS			+= -I$(INC_PATH)
-#LDFLAGS			+= -lreadline -lSDL2 -ldl
+
 
 OBJ_DIR			:= ./obj_dir
 BIN				:= $(OBJ_DIR)/V$(TOP_NAME)
