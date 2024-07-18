@@ -2,6 +2,7 @@
 #include <readline/history.h>
 #include <cpu.h>
 #include <monitor.h>
+#include <memory.h>
 
 //定义函数rl_gets()获取命令行输入，支持历史记录功能
 static char* rl_gets() { 
@@ -43,6 +44,33 @@ static int cmd_si(char *args){
   }
   printf("Step excute N=%d\n",n);
   execute(n);
+  return 0;
+}
+
+//cmd_x用于扫描内存
+static int cmd_x(char *args){
+  uint32_t*memory=init_mem();
+  char *args1=strtok(args," ");
+  args=args1+strlen(args1)+1;
+  char *args2=strtok(args," ");
+  
+  if(args==NULL){
+    printf("Unknow input, the standard format is \"x [N] EXPR\"\n");
+  }
+  else{
+    int n=0;
+    uint32_t addr=0;
+    bool success=false;
+    //解析参数
+    sscanf(args1,"%d",&n);
+    sscanf(args2,"%x",&addr); 
+    //扫描内存
+    printf("%-12s %-12s\n", "Addr", "Data");
+    for(int i=0;i<n;i++){
+      printf("0x%08x   0x%08x\n",addr,pmem_read(memory,addr));
+      addr+=4;//一次读取四个字节，内存储存是以字节为单位的，所以地址向后移动四个字节
+    }
+  }
   return 0;
 }
 
