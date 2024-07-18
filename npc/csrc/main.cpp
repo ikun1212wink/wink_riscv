@@ -126,11 +126,21 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
 }
 
  void execute(int n,uint32_t*memory){
-  for (;n > 0; n --) {
-    printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
-    dut.inst=pmem_read(memory,dut.pc);
-    printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
-    single_cycle();
+  if(n>0){
+    for (;n > 0; n --) {
+      printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
+      dut.inst=pmem_read(memory,dut.pc);
+      printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
+      single_cycle();
+    }
+  }
+  else {
+    while(!ebreak_flag){  
+      printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
+      dut.inst=pmem_read(memory,dut.pc);
+      printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
+      single_cycle();
+    }
   }
   dump_wave();
   dut.final();
@@ -148,7 +158,7 @@ int main(int argc,char *argv[]){
     printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   }
   else {
-    execute(2,memory);
+    execute(-1,memory);
   }
 
 /*   while(!ebreak_flag){  
