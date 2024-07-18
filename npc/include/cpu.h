@@ -3,6 +3,6 @@
 #include <common.h>
 #include <memory.h>
 #include <sim.h>
-void execute(int n,uint32_t*memory);
+void execute(int n);
 extern int ebreak_flag;
 #endif  //!__CPU__H__
