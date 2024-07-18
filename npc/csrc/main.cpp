@@ -109,7 +109,7 @@ int main(int argc,char *argv[]){
     single_cycle();
   } */
 
-  execute(0,memory); 
+  execute(2,memory); 
   if(ebreak_flag){
     printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   }
