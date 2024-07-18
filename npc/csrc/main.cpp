@@ -1,20 +1,21 @@
 #include <common.h>
-#include <utils.h>
-#include <memory.h>
-//#include <monitor.h>
-//#include <sim.h>
+
+#define COLOR_RED     "\033[0;31m"
+#define COLOR_GREEN   "\033[0;32m"
+#define COLOR_YELLOW  "\033[0;33m"
+#define COLOR_BLUE    "\033[0;34m"
+#define COLOR_MAGENTA "\033[0;35m"
+#define COLOR_CYAN    "\033[0;36m"
+#define COLOR_RESET   "\033[0m"
+
+
 int ebreak_flag=0;
-int *mem_number;
-char *img_path =NULL;
-/* extern VerilatedContext* contextp;
-extern VerilatedVcdC* tfp ;
-extern Vtop dut; */
-VerilatedContext* contextp = NULL;
-VerilatedVcdC* tfp = NULL;
-static Vtop dut;
+int mem_number;
+//#define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"
+static char *img_path = NULL;
 
-
-int parse_args(int argc, char *argv[]) {
+//对命令行参数进行解析
+static int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
     {"img"      , required_argument, NULL, 'i'},
     {0          , 0                , NULL,  0 },
@@ -37,6 +38,55 @@ int parse_args(int argc, char *argv[]) {
 }
 
 
+VerilatedContext* contextp = NULL;
+VerilatedVcdC* tfp = NULL;
+static Vtop dut;
+
+
+
+
+uint32_t* init_mem(const char* path, int* num) { //初始化内存
+    FILE* file = fopen(path, "rb");
+    if (!file) {
+        printf("Failed to open file: %s\n", path);
+        return NULL;
+    }
+
+    // 获取文件大小
+    fseek(file, 0, SEEK_END);
+    long fileSize = ftell(file);
+    fseek(file, 0, SEEK_SET);
+
+    // 计算需要的数组大小
+    *num = fileSize / sizeof(uint32_t);
+    uint32_t* memory = (uint32_t*)malloc(*num * sizeof(uint32_t));
+    if (!memory) {
+        printf("Memory allocation failed.\n");
+        fclose(file);
+        return NULL;
+    }
+
+    size_t bytesRead = fread(memory, sizeof(uint8_t), fileSize, file);
+    fclose(file);
+
+    if (bytesRead != fileSize) {
+        printf("Failed to read the complete file.\n");
+        free(memory);
+        return NULL;
+    }
+
+    return memory;
+}
+
+
+uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
+  return addr-0x80000000;
+}
+
+uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){ //物理地址读取函数
+  uint32_t paddr=guest_to_host(vaddr);
+  return memory[paddr/4];
+};
 
 
 void sim_init(){ //波形仿真使能函数
@@ -96,21 +146,17 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
 
 
 
-int main(int argc,char *argv[]){  
-  printf("11");
+int main(int argc,char *argv[]){
+  parse_args(argc, argv);
+  uint32_t*memory=init_mem(img_path,&mem_number);
   sim_init();
   reset(10);
-  parse_args(argc, argv);
-  uint32_t*memory=init_mem(img_path,mem_number);
- // uint32_t*memory=init_monitor(argc,argv);
-
-
   if(ebreak_flag){
     printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   }
   else {
     execute(-1,memory);
-  } 
+  }
 
 /*   while(!ebreak_flag){  
     printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);

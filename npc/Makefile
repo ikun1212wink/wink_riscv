@@ -7,7 +7,7 @@ VERILATOR_FLAGS +=-cc --exe --trace --build  -j
 VERILATOR_FLAGS += --top-module $(TOP_NAME)
 
 INC_PATH		?= $(NPC_HOME)/include
-#CFLAGS			+= -g -I$(INC_PATH)  "-g进行调试"
+#CFLAGS			+= -g -I$(INC_PATH)
 CFLAGS			+= -I$(INC_PATH)
 #LDFLAGS			+= -lreadline -lSDL2 -ldl
 
@@ -22,7 +22,7 @@ NPC_EXEC		:= ${BIN} ${RUN_FLAGS}
 
 .PHONY:run gdb wave clean
 
-com:${CSRCS} ${VSRCS} 
+com:${CSRCS} ${VSRCS}
 	@verilator ${VERILATOR_FLAGS} ${CSRCS} ${VSRCS} $(addprefix -CFLAGS , $(CFLAGS))
 run:com
 	$(call git_commit, "sim RTL")
@@ -34,4 +34,3 @@ clean:
 
 
 include ../Makefile
-
