@@ -108,7 +108,7 @@ int main(int argc,char *argv[]){
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
   } */
-  execute(-1,memory);
+  execute(12,memory);
   printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
   return 0;
 }
