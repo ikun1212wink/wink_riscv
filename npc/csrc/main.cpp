@@ -25,6 +25,7 @@ int main(int argc,char *argv[]){
  // uint32_t*memory=init_mem();
   sim_init();
   reset(10);
-  execute(2); 
+  //execute(2); 
+  sdb_mainloop();
   return 0;
 }

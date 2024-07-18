@@ -9,7 +9,7 @@ VERILATOR_FLAGS += --top-module $(TOP_NAME)
 INC_PATH		?= $(NPC_HOME)/include
 #CFLAGS			+= -g -I$(INC_PATH)
 CFLAGS			+= -I$(INC_PATH)
-#LDFLAGS			+= -lreadline -lSDL2 -ldl
+
 
 OBJ_DIR			:= ./obj_dir
 BIN				:= $(OBJ_DIR)/V$(TOP_NAME)
@@ -23,7 +23,7 @@ NPC_EXEC		:= ${BIN} ${RUN_FLAGS}
 .PHONY:run gdb wave clean
 
 com:${CSRCS} ${VSRCS}
-	@verilator ${VERILATOR_FLAGS} ${CSRCS} ${VSRCS} $(addprefix -CFLAGS , $(CFLAGS))
+	@verilator ${VERILATOR_FLAGS} ${CSRCS} ${VSRCS} $(addprefix -CFLAGS , $(CFLAGS)) -LDFLAGS -lSDL2 -LDFLAGS -lreadline
 run:com
 	$(call git_commit, "sim RTL")
 	@${NPC_EXEC}
