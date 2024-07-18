@@ -10,7 +10,7 @@ extern VerilatedVcdC* tfp ;
 extern Vtop dut;
 
 
-int mem_number;
+
 
 extern "C" void npc_trap(){//HIT GOOD TRAP
   ebreak_flag=1;
@@ -22,7 +22,7 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
 
 int main(int argc,char *argv[]){
   parse_args(argc, argv);
-  uint32_t*memory=init_mem(&mem_number);
+  uint32_t*memory=init_mem();
   sim_init();
   reset(10);
   execute(-1,memory); 
