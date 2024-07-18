@@ -74,8 +74,11 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
       printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
       single_cycle();
     }
+    dump_wave();
+    dut.final();
+    tfp->close();
   }
-  else {
+  else if(n<0) {
     while(!ebreak_flag){  
       printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
       dut.inst=pmem_read(memory,dut.pc);
@@ -83,9 +86,6 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
       single_cycle();
     }
   }
-  dump_wave();
-  dut.final();
-  tfp->close();
 } 
 
 
@@ -108,7 +108,7 @@ int main(int argc,char *argv[]){
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
   } */
-  execute(11,memory);
+  execute(-1,memory);
   printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
   return 0;
 }
