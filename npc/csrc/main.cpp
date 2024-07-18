@@ -77,6 +77,7 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
 
 
 int main(int argc,char *argv[]){  
+  printf("11");
   sim_init();
   reset(10);
   //parse_args(argc, argv);
@@ -84,7 +85,7 @@ int main(int argc,char *argv[]){
   uint32_t*memory=init_monitor(argc,argv);
 
 
-   if(ebreak_flag){
+  if(ebreak_flag){
     printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   }
   else {
