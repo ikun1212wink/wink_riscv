@@ -1,39 +1,15 @@
 #include <common.h>
 #include <monitor.h>
-
+#include <sim.h>
 extern char *img_path;
 int ebreak_flag=0;
 int mem_number;
-//#define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"
-/* static char *img_path = NULL;
-
-//对命令行参数进行解析
-static int parse_args(int argc, char *argv[]) {
-  const struct option table[] = {
-    {"img"      , required_argument, NULL, 'i'},
-    {0          , 0                , NULL,  0 },
-  };
-  int o;
-  while ( (o = getopt_long(argc, argv, "i:", table, NULL)) != -1) {
-    switch (o) {
-      case 'i': img_path = optarg; return 0;
-      default:
-        printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
-        printf("\t-b,--batch              run with batch mode\n");
-        printf("\t-l,--log=FILE           output log to FILE\n");
-        printf("\t-d,--diff=REF_SO        run DiffTest with reference REF_SO\n");
-        printf("\t-p,--port=PORT          run DiffTest with port PORT\n");
-        printf("\n");
-        exit(0);
-    }
-  }
-  return 0;
-} */
 
 
-VerilatedContext* contextp = NULL;
-VerilatedVcdC* tfp = NULL;
-static Vtop dut;
+
+extern VerilatedContext* contextp ;
+extern VerilatedVcdC* tfp ;
+extern Vtop dut;
 
 
 
@@ -82,7 +58,7 @@ uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){ //物理地址读取函数
 };
 
 
-void sim_init(){ //波形仿真使能函数
+/* void sim_init(){ //波形仿真使能函数
   Verilated::traceEverOn(true);
   contextp=new VerilatedContext;
   tfp=new VerilatedVcdC;
@@ -106,7 +82,7 @@ void reset(int n){ //复位函数
   dut.rst=1;
   while(n-->0) single_cycle();
   dut.rst=0;
-}
+} */
 
 extern "C" void npc_trap(){//HIT GOOD TRAP
   ebreak_flag=1;
