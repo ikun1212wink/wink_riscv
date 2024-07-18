@@ -85,7 +85,8 @@ static struct {
 } cmd_table [] = {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
-  { "si","Enter \"si [N]\", let the program execute N instructions, and then pause",cmd_si} 
+  { "si","Enter \"si [N]\", let the program execute N instructions, and then pause",cmd_si},
+  { "x" ,"Enter \"x [N] EXPR\" to scan the memory",cmd_x} 
   /* TODO: Add more commands */
 };
 
