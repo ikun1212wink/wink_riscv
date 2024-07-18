@@ -1,6 +1,7 @@
 #include <memory.h>
 #include <monitor.h>
 extern char *img_path;
+int mem_number;
 uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
 }
@@ -10,7 +11,8 @@ uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){ //物理地址读取函数
   return memory[paddr/4];
 }
 
-uint32_t* init_mem(int* num) { //初始化内存
+uint32_t* init_mem() { //初始化内存
+    int* num=&mem_number;
     FILE* file = fopen(img_path, "rb");
     if (!file) {
         printf("Failed to open file: %s\n", img_path);
