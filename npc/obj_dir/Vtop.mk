@@ -42,13 +42,17 @@ VM_USER_LDLIBS = \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
+	cpu-exe \
 	main \
+	memory \
 	monitor \
 	sim \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
 	/home/wink/ysyx-workbench/npc/csrc \
+	/home/wink/ysyx-workbench/npc/csrc/cpu \
+	/home/wink/ysyx-workbench/npc/csrc/memory \
 	/home/wink/ysyx-workbench/npc/csrc/monitor \
 	/home/wink/ysyx-workbench/npc/csrc/sim \
 
@@ -62,7 +66,11 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
+cpu-exe.o: /home/wink/ysyx-workbench/npc/csrc/cpu/cpu-exe.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 main.o: /home/wink/ysyx-workbench/npc/csrc/main.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+memory.o: /home/wink/ysyx-workbench/npc/csrc/memory/memory.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 monitor.o: /home/wink/ysyx-workbench/npc/csrc/monitor/monitor.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

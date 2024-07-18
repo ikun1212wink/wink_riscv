@@ -1,20 +1,18 @@
 #include <common.h>
 #include <monitor.h>
 #include <sim.h>
+#include <memory.h>
+#include <cpu.h>
 extern char *img_path;
-int ebreak_flag=0;
-int mem_number;
-
-
-
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
 
+extern int ebreak_flag;
+int mem_number;
 
 
-
-uint32_t* init_mem(const char* path, int* num) { //初始化内存
+/* uint32_t* init_mem(const char* path, int* num) { //初始化内存
     FILE* file = fopen(path, "rb");
     if (!file) {
         printf("Failed to open file: %s\n", path);
@@ -45,9 +43,9 @@ uint32_t* init_mem(const char* path, int* num) { //初始化内存
     }
 
     return memory;
-}
+} */
 
-
+/* 
 uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
 }
@@ -55,34 +53,9 @@ uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
 uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){ //物理地址读取函数
   uint32_t paddr=guest_to_host(vaddr);
   return memory[paddr/4];
-};
-
-
-/* void sim_init(){ //波形仿真使能函数
-  Verilated::traceEverOn(true);
-  contextp=new VerilatedContext;
-  tfp=new VerilatedVcdC;
-  dut.trace(tfp,0);
-  tfp->open("wave.vcd");
-}
-
-void dump_wave(){//波形记录函数
-  tfp->dump(contextp->time());
-  contextp->timeInc(1);
-}
-
-void single_cycle(){//时钟驱动函数
-  dut.clk=0;dut.eval();
-  dump_wave();
-  dut.clk=1;dut.eval();
-  dump_wave();
-}
-
-void reset(int n){ //复位函数
-  dut.rst=1;
-  while(n-->0) single_cycle();
-  dut.rst=0;
 } */
+
+
 
 extern "C" void npc_trap(){//HIT GOOD TRAP
   ebreak_flag=1;
@@ -91,7 +64,7 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
   tfp->close();
 }
 
- void execute(int n,uint32_t*memory){
+/*  void execute(int n,uint32_t*memory){
   if(n>0){
     for (;n > 0; n --) {
       printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
@@ -99,8 +72,11 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
       printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
       single_cycle();
     }
+    dump_wave();
+    dut.final();
+    tfp->close();
   }
-  else {
+  else if(n<0) {
     while(!ebreak_flag){  
       printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
       dut.inst=pmem_read(memory,dut.pc);
@@ -108,10 +84,10 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
       single_cycle();
     }
   }
-  dump_wave();
-  dut.final();
-  tfp->close();
-} 
+  else {
+    printf(COLOR_RED "Please input N>0 and N instructions are executed or input N<0 to execute all the instructions!!!" COLOR_RESET "\n");
+  }
+}  */
 
 
 
@@ -120,12 +96,12 @@ int main(int argc,char *argv[]){
   uint32_t*memory=init_mem(img_path,&mem_number);
   sim_init();
   reset(10);
-  if(ebreak_flag){
+/*   if(ebreak_flag){
     printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   }
   else {
     execute(-1,memory);
-  }
+  } */
 
 /*   while(!ebreak_flag){  
     printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
@@ -133,6 +109,11 @@ int main(int argc,char *argv[]){
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
   } */
-  printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
+
+  execute(-1,memory); 
+/*   if(ebreak_flag){
+    printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
+  }
+  printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n"); */
   return 0;
 }
