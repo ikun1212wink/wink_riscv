@@ -1,11 +1,11 @@
 #include <common.h>
+#include <monitor.h>
 
-
-
+extern char *img_path;
 int ebreak_flag=0;
 int mem_number;
 //#define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"
-static char *img_path = NULL;
+/* static char *img_path = NULL;
 
 //对命令行参数进行解析
 static int parse_args(int argc, char *argv[]) {
@@ -28,7 +28,7 @@ static int parse_args(int argc, char *argv[]) {
     }
   }
   return 0;
-}
+} */
 
 
 VerilatedContext* contextp = NULL;
