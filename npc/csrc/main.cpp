@@ -148,7 +148,7 @@ int main(int argc,char *argv[]){
     printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   }
   else {
-    execute(3,memory);
+    execute(-1,memory);
   }
 
 /*   while(!ebreak_flag){  
