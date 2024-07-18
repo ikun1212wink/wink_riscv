@@ -111,9 +111,9 @@ int main(int argc,char *argv[]){
   } */
 
   execute(-1,memory); 
-  if(ebreak_flag){
+/*   if(ebreak_flag){
     printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   }
-  printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
+  printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n"); */
   return 0;
 }

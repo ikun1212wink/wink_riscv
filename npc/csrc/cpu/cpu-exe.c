@@ -28,4 +28,8 @@ int ebreak_flag=0;
   else {
     printf(COLOR_RED "Please input N>0 and N instructions are executed or input N<0 to execute all the instructions!!!" COLOR_RESET "\n");
   }
+    if(ebreak_flag){
+        printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
+    }
+    printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
 } 
