@@ -2,12 +2,13 @@
 #include <monitor.h>
 #include <sim.h>
 #include <memory.h>
+#include <cpu.h>
 extern char *img_path;
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
 
-int ebreak_flag=0;
+extern int ebreak_flag;
 int mem_number;
 
 
@@ -63,7 +64,7 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
   tfp->close();
 }
 
- void execute(int n,uint32_t*memory){
+/*  void execute(int n,uint32_t*memory){
   if(n>0){
     for (;n > 0; n --) {
       printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
@@ -86,7 +87,7 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
   else {
     printf(COLOR_RED "Please input N>0 and N instructions are executed or input N<0 to execute all the instructions!!!" COLOR_RESET "\n");
   }
-} 
+}  */
 
 
 
