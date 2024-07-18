@@ -46,6 +46,7 @@ VM_USER_CLASSES = \
 	main \
 	memory \
 	monitor \
+	sdb \
 	sim \
 
 # User .cpp directories (from .cpp's on Verilator command line)
@@ -54,6 +55,7 @@ VM_USER_DIR = \
 	/home/wink/ysyx-workbench/npc/csrc/cpu \
 	/home/wink/ysyx-workbench/npc/csrc/memory \
 	/home/wink/ysyx-workbench/npc/csrc/monitor \
+	/home/wink/ysyx-workbench/npc/csrc/monitor/sdb \
 	/home/wink/ysyx-workbench/npc/csrc/sim \
 
 
@@ -73,6 +75,8 @@ main.o: /home/wink/ysyx-workbench/npc/csrc/main.cpp
 memory.o: /home/wink/ysyx-workbench/npc/csrc/memory/memory.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 monitor.o: /home/wink/ysyx-workbench/npc/csrc/monitor/monitor.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+sdb.o: /home/wink/ysyx-workbench/npc/csrc/monitor/sdb/sdb.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 sim.o: /home/wink/ysyx-workbench/npc/csrc/sim/sim.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
