@@ -1,6 +1,8 @@
-/* #include <readline/readline.h>
+#include <readline/readline.h>
 #include <readline/history.h>
 #include <cpu.h>
+#include <monitor.h>
+
 //定义函数rl_gets()获取命令行输入，支持历史记录功能
 static char* rl_gets() { 
   static char *line_read = NULL;
@@ -21,7 +23,7 @@ static char* rl_gets() {
 
 //cmd_c()函数用于使程序继续执行操作
 static int cmd_c(char *args) { 
-  cpu_exec(-1);
+  execute(-1);
   return 0;
 }
 
@@ -40,7 +42,50 @@ static int cmd_si(char *args){
     } 
   }
   printf("Step excute N=%d\n",n);
-  cpu_exec(n);
+  execute(n);
+  return 0;
+}
+
+//cmd_help用于提供命令帮助
+static int cmd_help(char *args); 
+
+//命令列表
+static struct {
+  const char *name;
+  const char *description;
+  int (*handler) (char *);
+} cmd_table [] = {
+  { "help", "Display information about all supported commands", cmd_help },
+  { "c", "Continue the execution of the program", cmd_c },
+  { "si","Enter \"si [N]\", let the program execute N instructions, and then pause",cmd_si} 
+  /* TODO: Add more commands */
+};
+
+//定义宏NR_CMD，记录命令表中命令的总数
+#define NR_CMD ARRLEN(cmd_table) 
+
+
+//cmd_help用于提供命令帮助
+static int cmd_help(char *args){  
+  /* extract the first argument */
+  char *arg = strtok(NULL, " ");
+  int i;
+
+  if (arg == NULL) {
+    /* no argument given */
+    for (i = 0; i < NR_CMD; i ++) {
+      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+    }
+  }
+  else {
+    for (i = 0; i < NR_CMD; i ++) {
+      if (strcmp(arg, cmd_table[i].name) == 0) {
+        printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+        return 0;
+      }
+    }
+    printf("Unknown command '%s'\n", arg);
+  }
   return 0;
 }
 
@@ -77,4 +122,4 @@ void sdb_mainloop() {
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
     //如果循环结束时，遍历至i等于NR_CMD，表示未找到匹配的命令，打印“没有找到该命令“
   }
-} */
+}
