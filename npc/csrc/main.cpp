@@ -83,6 +83,9 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
       single_cycle();
     }
   }
+  else {
+    printf(COLOR_RED "Please input N>0 and N instructions are executed or input N<0 to execute all the instructions!!!" COLOR_RESET "\n");
+  }
 } 
 
 
