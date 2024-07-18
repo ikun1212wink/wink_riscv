@@ -17,6 +17,7 @@ int mem_number;
 //#define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"
 static char *img_path = NULL;
 
+//对命令行参数进行解析
 static int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
     {"img"      , required_argument, NULL, 'i'},
@@ -40,32 +41,14 @@ static int parse_args(int argc, char *argv[]) {
 }
 
 
-
-/* static const uint32_t img[]={
-  0b00000000010100000000000010010011,
-  0b00000000000100000000000100010011,
-  0b00000000001000000000000100010011,
-  0b00000000010100001000000100010011,
-  0b0000 0000 0001 0000 0000 0000 0111 0011
-  //00100073
-}; */
-
-
 VerilatedContext* contextp = NULL;
 VerilatedVcdC* tfp = NULL;
 static Vtop dut;
 
-/* uint32_t *init_mem(int num){
-  uint32_t* memory=(uint32_t*)malloc(num*sizeof(uint32_t) );
-  memcpy(memory,img,sizeof(img));
-  if(memory==NULL){
-    exit(0);
-  }
-  return memory;
-} */
 
-//初始化内存
-uint32_t* init_mem(const char* path, int* num) {
+
+
+uint32_t* init_mem(const char* path, int* num) { //初始化内存
     FILE* file = fopen(path, "rb");
     if (!file) {
         printf("Failed to open file: %s\n", path);
@@ -99,17 +82,17 @@ uint32_t* init_mem(const char* path, int* num) {
 }
 
 
-uint32_t guest_to_host(uint32_t addr){
+uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
 }
 
-uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){
+uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){ //物理地址读取函数
   uint32_t paddr=guest_to_host(vaddr);
   return memory[paddr/4];
 };
 
 
-void sim_init(){
+void sim_init(){ //波形仿真使能函数
   Verilated::traceEverOn(true);
   contextp=new VerilatedContext;
   tfp=new VerilatedVcdC;
@@ -117,40 +100,73 @@ void sim_init(){
   tfp->open("wave.vcd");
 }
 
-void dump_wave(){
+void dump_wave(){//波形记录函数
   tfp->dump(contextp->time());
   contextp->timeInc(1);
 }
 
-void single_cycle(){
+void single_cycle(){//时钟驱动函数
   dut.clk=0;dut.eval();
+  dump_wave();
   dut.clk=1;dut.eval();
+  dump_wave();
 }
 
-void reset(int n){
+void reset(int n){ //复位函数
   dut.rst=1;
   while(n-->0) single_cycle();
   dut.rst=0;
 }
 
-extern "C" void npc_trap(){
+extern "C" void npc_trap(){//HIT GOOD TRAP
   ebreak_flag=1;
   dump_wave();
   dut.final();
   tfp->close();
-  printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
 }
+
+ void execute(int n,uint32_t*memory){
+  if(n>0){
+    for (;n > 0; n --) {
+      printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
+      dut.inst=pmem_read(memory,dut.pc);
+      printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
+      single_cycle();
+    }
+  }
+  else {
+    while(!ebreak_flag){  
+      printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
+      dut.inst=pmem_read(memory,dut.pc);
+      printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
+      single_cycle();
+    }
+  }
+  dump_wave();
+  dut.final();
+  tfp->close();
+} 
+
+
 
 int main(int argc,char *argv[]){
   parse_args(argc, argv);
   uint32_t*memory=init_mem(img_path,&mem_number);
   sim_init();
   reset(10);
-  while(!ebreak_flag){  
+  if(ebreak_flag){
+    printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
+  }
+  else {
+    execute(-1,memory);
+  }
+
+/*   while(!ebreak_flag){  
     printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
     dut.inst=pmem_read(memory,dut.pc);
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
-    dump_wave();
-  }
+  } */
+  printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
+  return 0;
 }
