@@ -1,20 +1,17 @@
 #include <common.h>
 #include <monitor.h>
 #include <sim.h>
+#include <memory.h>
 extern char *img_path;
-int ebreak_flag=0;
-int mem_number;
-
-
-
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
 
+int ebreak_flag=0;
+int mem_number;
 
 
-
-uint32_t* init_mem(const char* path, int* num) { //初始化内存
+/* uint32_t* init_mem(const char* path, int* num) { //初始化内存
     FILE* file = fopen(path, "rb");
     if (!file) {
         printf("Failed to open file: %s\n", path);
@@ -45,9 +42,9 @@ uint32_t* init_mem(const char* path, int* num) { //初始化内存
     }
 
     return memory;
-}
+} */
 
-
+/* 
 uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
 }
@@ -55,34 +52,9 @@ uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
 uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){ //物理地址读取函数
   uint32_t paddr=guest_to_host(vaddr);
   return memory[paddr/4];
-};
-
-
-/* void sim_init(){ //波形仿真使能函数
-  Verilated::traceEverOn(true);
-  contextp=new VerilatedContext;
-  tfp=new VerilatedVcdC;
-  dut.trace(tfp,0);
-  tfp->open("wave.vcd");
-}
-
-void dump_wave(){//波形记录函数
-  tfp->dump(contextp->time());
-  contextp->timeInc(1);
-}
-
-void single_cycle(){//时钟驱动函数
-  dut.clk=0;dut.eval();
-  dump_wave();
-  dut.clk=1;dut.eval();
-  dump_wave();
-}
-
-void reset(int n){ //复位函数
-  dut.rst=1;
-  while(n-->0) single_cycle();
-  dut.rst=0;
 } */
+
+
 
 extern "C" void npc_trap(){//HIT GOOD TRAP
   ebreak_flag=1;
