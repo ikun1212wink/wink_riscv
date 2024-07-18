@@ -105,10 +105,11 @@ int main(int argc,char *argv[]){
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
   } */
-  if(ebreak_flag){
+
+  execute(-1,memory); 
+   if(ebreak_flag){
     printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   }
-  execute(-1,memory);
   printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
   return 0;
 }
