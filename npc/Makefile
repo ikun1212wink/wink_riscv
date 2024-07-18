@@ -7,7 +7,7 @@ VERILATOR_FLAGS +=-cc --exe --trace --build  -j
 VERILATOR_FLAGS += --top-module $(TOP_NAME)
 
 INC_PATH		?= $(NPC_HOME)/include
-#CFLAGS			+= -g -I$(INC_PATH)
+#CFLAGS			+= -g -I$(INC_PATH)  "-g进行调试"
 CFLAGS			+= -I$(INC_PATH)
 #LDFLAGS			+= -lreadline -lSDL2 -ldl
 

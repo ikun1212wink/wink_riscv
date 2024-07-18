@@ -1,7 +1,5 @@
 #include <common.h>
-#include "verilated.h"
-#include "verilated_vcd_c.h"
-#include "Vtop.h"
+
 
 #define COLOR_RED     "\033[0;31m"
 #define COLOR_GREEN   "\033[0;32m"
