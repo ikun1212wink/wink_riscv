@@ -4,8 +4,8 @@
 #include <monitor.h>
 #include <sim.h>
 int ebreak_flag=0;
-int mem_number;
-static char *img_path = NULL;
+int *mem_number;
+extern char *img_path ;
 extern VerilatedContext* contextp;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
@@ -80,9 +80,9 @@ int main(int argc,char *argv[]){
   printf("11");
   sim_init();
   reset(10);
-  //parse_args(argc, argv);
-  //uint32_t*memory=init_mem();
-  uint32_t*memory=init_monitor(argc,argv);
+  parse_args(argc, argv);
+  uint32_t*memory=init_mem(img_path,mem_number);
+ // uint32_t*memory=init_monitor(argc,argv);
 
 
   if(ebreak_flag){

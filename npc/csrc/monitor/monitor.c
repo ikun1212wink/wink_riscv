@@ -4,7 +4,7 @@
 #include <utils.h>
 #include <stdio.h>
 //对命令行参数进行解析
-static char *img_path = NULL;
+char *img_path = NULL;
 int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
     {"img"      , required_argument, NULL, 'i'},
@@ -27,8 +27,7 @@ int parse_args(int argc, char *argv[]) {
   return 0;
 }
 
-uint32_t* init_mem() { //初始化内存
-    int* num;
+uint32_t* init_mem(char *img_path,int* num) { //初始化内存
     FILE* file = fopen(img_path, "rb");
     if (!file) {
         printf("Failed to open file: %s\n", img_path);
@@ -85,8 +84,8 @@ uint32_t* init_mem() { //初始化内存
 
 uint32_t* init_monitor(int argc, char *argv[]){
     parse_args(argc, argv);
-    uint32_t*memory=init_mem();
-    return memory;
+    //uint32_t*memory=init_mem();
+    //return memory;
     //execute(2,memory);
 }
 
