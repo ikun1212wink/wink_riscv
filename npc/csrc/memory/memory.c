@@ -4,13 +4,13 @@ extern char *img_path;
 uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
 }
-
+int* num;
 uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){ //物理地址读取函数
   uint32_t paddr=guest_to_host(vaddr);
   return memory[paddr/4];
 }
 
-uint32_t* init_mem(int* num) { //初始化内存
+uint32_t* init_mem() { //初始化内存
     FILE* file = fopen(img_path, "rb");
     if (!file) {
         printf("Failed to open file: %s\n", img_path);
