@@ -1,4 +1,4 @@
-#include <sim.h>
+/* #include <sim.h>
 VerilatedContext* contextp = NULL;
 VerilatedVcdC* tfp = NULL;
 Vtop dut;
@@ -31,4 +31,4 @@ void reset(int n){
   dut.rst=1;
   while(n-->0) single_cycle();
   dut.rst=0;
-}
+} */
