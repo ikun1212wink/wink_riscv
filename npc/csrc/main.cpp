@@ -132,6 +132,9 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
   }
+  dump_wave();
+  dut.final();
+  tfp->close();
 } 
 
 
@@ -154,6 +157,5 @@ int main(int argc,char *argv[]){
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
   } */
-  printf(COLOR_GREEN "HIT  TRAP!" COLOR_RESET "\n");
   return 0;
 }
