@@ -1,4 +1,4 @@
-#include <monitor.h>
+/* #include <monitor.h>
 #include <common.h>
 #include <memory.h>
 #include <utils.h>
@@ -82,10 +82,10 @@ uint32_t* init_mem(char *img_path,int* num) { //初始化内存
   tfp->close();
 }  */
 
-uint32_t* init_monitor(int argc, char *argv[]){
+/* uint32_t* init_monitor(int argc, char *argv[]){
     parse_args(argc, argv);
     //uint32_t*memory=init_mem();
     //return memory;
     //execute(2,memory);
-}
+}  */
 

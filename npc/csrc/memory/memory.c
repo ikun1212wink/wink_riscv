@@ -1,6 +1,6 @@
 #include <memory.h>
 
-/* uint32_t* init_mem(const char* path, int* num) { //初始化内存
+uint32_t* init_mem(const char* path, int* num) { //初始化内存
     FILE* file = fopen(path, "rb");
     if (!file) {
         printf("Failed to open file: %s\n", path);
@@ -31,7 +31,7 @@
     }
 
     return memory;
-} */
+}
 
 uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
