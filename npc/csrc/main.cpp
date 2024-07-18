@@ -154,6 +154,6 @@ int main(int argc,char *argv[]){
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
   } */
-  printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
+  printf(COLOR_GREEN "HIT  TRAP!" COLOR_RESET "\n");
   return 0;
 }
