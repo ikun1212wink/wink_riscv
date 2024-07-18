@@ -64,10 +64,7 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
 }
 
  void execute(int n,uint32_t*memory){
-  if(ebreak_flag){
-    printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
-  }
-  else if(n>0){
+  if(n>0){
     for (;n > 0; n --) {
       printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
       dut.inst=pmem_read(memory,dut.pc);
@@ -108,6 +105,9 @@ int main(int argc,char *argv[]){
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
   } */
+  if(ebreak_flag){
+    printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
+  }
   execute(-1,memory);
   printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
   return 0;
