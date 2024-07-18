@@ -1,7 +1,6 @@
 #include <memory.h>
 #include <monitor.h>
 extern char *img_path;
-int *mem_number;
 uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
 }
@@ -11,7 +10,7 @@ uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){ //物理地址读取函数
   return memory[paddr/4];
 }
 
-uint32_t* init_mem() { //初始化内存
+uint32_t* init_mem(int* num) { //初始化内存
     FILE* file = fopen(img_path, "rb");
     if (!file) {
         printf("Failed to open file: %s\n", img_path);
@@ -24,8 +23,8 @@ uint32_t* init_mem() { //初始化内存
     fseek(file, 0, SEEK_SET);
 
     // 计算需要的数组大小
-    *mem_number = fileSize / sizeof(uint32_t);
-    uint32_t* memory = (uint32_t*)malloc(*mem_number * sizeof(uint32_t));
+    *num = fileSize / sizeof(uint32_t);
+    uint32_t* memory = (uint32_t*)malloc(*num * sizeof(uint32_t));
     if (!memory) {
         printf("Memory allocation failed.\n");
         fclose(file);
