@@ -23,3 +23,20 @@ int parse_args(int argc, char *argv[]) {
   }
   return 0;
 }
+
+void welcome() {
+/*   Log("Trace: %s", MUXDEF(CONFIG_TRACE, ANSI_FMT("ON", ANSI_FG_GREEN), ANSI_FMT("OFF", ANSI_FG_RED)));
+  IFDEF(CONFIG_TRACE, Log("If trace is enabled, a log file will be generated "
+        "to record the trace. This may lead to a large log file. "
+        "If it is not necessary, you can disable it in menuconfig"));
+  Log("Build time: %s, %s", __TIME__, __DATE__); */
+  printf(COLOR_YELLOW "Welcome to RISCV32E-NPC!\n" COLOR_RESET);
+  printf(COLOR_YELLOW "For help, type \"help\"\n" COLOR_RESET);
+/*   Log("Exercise: Please remove me in the source code and compile NEMU again."); */
+  //assert(0);
+}
+
+void init_monitor(int argc, char *argv[]) {
+  parse_args(argc, argv);
+  welcome();
+}
