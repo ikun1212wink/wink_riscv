@@ -65,7 +65,7 @@ static int cmd_x(char *args){
     sscanf(args1,"%d",&n);
     sscanf(args2,"%x",&addr); 
     //扫描内存
-    printf("%-12s %-12s\n", "Addr", "Data");
+    printf("%-12s %-12s\n", COLOR_BLUE "Addr" COLOR_RESET , COLOR_CYAN "Data" COLOR_RESET );
     for(int i=0;i<n;i++){
       printf("0x%08x   0x%08x\n",addr,pmem_read(memory,addr));
       addr+=4;//一次读取四个字节，内存储存是以字节为单位的，所以地址向后移动四个字节
