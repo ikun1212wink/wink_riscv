@@ -1,6 +1,6 @@
 #include <common.h>
 #include <utils.h>
-#include <memorynpc.h>
+#include <memory.h>
 int ebreak_flag=0;
 int mem_number;
 //#define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"

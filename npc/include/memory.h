@@ -1,5 +1,5 @@
-#ifndef __MEMORYNPC_H__
-#define __MEMORYNPC_H__
+#ifndef __MEMORY_H__
+#define __MEMORY_H__
 
 #include <common.h>
 uint32_t* init_mem(const char* path, int* num);

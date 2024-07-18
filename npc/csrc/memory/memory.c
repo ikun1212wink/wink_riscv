@@ -1,4 +1,4 @@
-#include <memorynpc.h>
+#include <memory.h>
 
 uint32_t* init_mem(const char* path, int* num) { //初始化内存
     FILE* file = fopen(path, "rb");
