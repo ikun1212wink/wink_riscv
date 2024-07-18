@@ -25,6 +25,6 @@ int main(int argc,char *argv[]){
  // uint32_t*memory=init_mem();
   sim_init();
   reset(10);
-  execute(-1); 
+  execute(2); 
   return 0;
 }
