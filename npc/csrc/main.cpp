@@ -148,7 +148,7 @@ int main(int argc,char *argv[]){
     printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   }
   else {
-    execute(-1,memory);
+    execute(2,memory);
   }
 
 /*   while(!ebreak_flag){  
@@ -157,5 +157,6 @@ int main(int argc,char *argv[]){
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     single_cycle();
   } */
+  printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
   return 0;
 }
