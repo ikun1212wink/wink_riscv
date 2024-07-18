@@ -119,11 +119,11 @@ void reset(int n){ //复位函数
 }
 
 extern "C" void npc_trap(){//HIT GOOD TRAP
+  printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   ebreak_flag=1;
   dump_wave();
   dut.final();
   tfp->close();
-  printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
 }
 
 /* void execute(uint64_t n){
