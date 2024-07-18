@@ -1,6 +1,6 @@
 #include <common.h>
 #include <utils.h>
-
+#include <memorynpc.h>
 int ebreak_flag=0;
 int mem_number;
 //#define IMG_PATH "/home/wink/ysyx-workbench/am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin"
@@ -37,7 +37,7 @@ static Vtop dut;
 
 
 
-uint32_t* init_mem(const char* path, int* num) { //初始化内存
+/* uint32_t* init_mem(const char* path, int* num) { //初始化内存
     FILE* file = fopen(path, "rb");
     if (!file) {
         printf("Failed to open file: %s\n", path);
@@ -68,17 +68,17 @@ uint32_t* init_mem(const char* path, int* num) { //初始化内存
     }
 
     return memory;
-}
+} */
 
 
-uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
+/* uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
-}
+} */
 
-uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){ //物理地址读取函数
+/* uint32_t pmem_read(uint32_t*memory,uint32_t vaddr){ //物理地址读取函数
   uint32_t paddr=guest_to_host(vaddr);
   return memory[paddr/4];
-};
+}; */
 
 
 void sim_init(){ //波形仿真使能函数
