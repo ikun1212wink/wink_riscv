@@ -106,8 +106,8 @@ int main(int argc,char *argv[]){
     single_cycle();
   } */
 
-  execute(-1,memory); 
-   if(ebreak_flag){
+  execute(0,memory); 
+  if(ebreak_flag){
     printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
   }
   printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
