@@ -10,12 +10,13 @@ int ebreak_flag=0;
  void execute(int n){
     uint32_t*memory=init_mem();
     if(n>0){
-        for (;n > 0; n --) {
+        for (;n > 0; n --) {    
+            single_cycle();
             printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
             dut.inst=pmem_read(memory,dut.pc);
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
             reg_p();
-            single_cycle();
+        
         }
         dump_wave();
         dut.final();
