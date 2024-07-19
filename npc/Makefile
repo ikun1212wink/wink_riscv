@@ -3,9 +3,9 @@ CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*
 HSRCS = $(shell find $(abspath ./include) -name "*.h")
 
 #itrace
-CSRC += csrc/utils/disasm.cc
-CFLAGS += $(shell llvm-config --cxxflags) -fPIE
-LDFLAGS += $(shell llvm-config --libs)
+#CSRCS += csrc/utils/disasm.cc
+#CFLAGS += $(shell llvm-config --cxxflags) -fPIE
+#LDFLAGS += $(shell llvm-config --libs)
 
 TOP_NAME := top
 VERILATOR_FLAGS +=-cc --exe --trace --build  -j 
