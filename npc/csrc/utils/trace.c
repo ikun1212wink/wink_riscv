@@ -2,7 +2,7 @@
 #include <sim.h>
 #include <memory.h>
 #include <locale.h>
-
+void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 void itrace(){
 /*     char logbuf[1000000000000000];
     char *p=logbuf;
@@ -22,12 +22,12 @@ void itrace(){
     disassemble(p, logbuf + sizeof(logbuf) - p,
     dut.pc, (uint8_t *)&dut.inst, ilen);  */
 
-    char result[256];
+    char result[256000000];
 
     // 定义指令地址和指令数据
     uint64_t pc = 0x12345678;
     uint8_t code[] = {0x90, 0x90, 0x90, 0x90}; // 示例数据，你需要提供实际的指令数据和长度
-void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+
     // 调用 disassemble 函数获取反汇编结果
     disassemble(result, sizeof(result), pc, code, sizeof(code));
 
