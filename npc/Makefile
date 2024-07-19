@@ -5,7 +5,7 @@ HSRCS = $(shell find $(abspath ./include) -name "*.h")
 #itrace
 #CSRCS += csrc/utils/disasm.cc
 #CFLAGS += $(shell llvm-config --cxxflags) -fPIE
-#LDFLAGS += $(shell llvm-config --libs)
+LDFLAGS += $(shell llvm-config --libs)
 
 TOP_NAME := top
 VERILATOR_FLAGS +=-cc --exe --trace --build  -j 
