@@ -29,7 +29,7 @@ void itrace(){
     uint8_t code[] = {0x90, 0x90, 0x90, 0x90}; // 示例数据，你需要提供实际的指令数据和长度
 
     // 调用 disassemble 函数获取反汇编结果
-    disassemble(result, sizeof(result), pc, code, sizeof(code));
+    disassemble(result, 100000000, pc, code, sizeof(code));
 
     printf("%s\n",result);
 }
