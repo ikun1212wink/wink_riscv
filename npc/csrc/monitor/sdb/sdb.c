@@ -3,6 +3,7 @@
 #include <cpu.h>
 #include <monitor.h>
 #include <memory.h>
+#include <sim.h>
 
 //定义函数rl_gets()获取命令行输入，支持历史记录功能
 static char* rl_gets() { 
@@ -81,7 +82,7 @@ static int cmd_info(char *args){
   }
   else if(strcmp(args,"r")==0){
     printf("Print the register status\n");
-    isa_reg_display();
+    reg_p();
   }
 
   else{
@@ -102,7 +103,8 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "si","Enter \"si [N]\", let the program execute N instructions, and then pause",cmd_si},
-  { "x" ,"Enter \"x [N] EXPR\" to scan the memory",cmd_x} 
+  { "x" ,"Enter \"x [N] EXPR\" to scan the memory",cmd_x},
+  { "info","Enter \"info r\" to print register status",cmd_info} 
   /* TODO: Add more commands */
 };
 
