@@ -14,7 +14,7 @@ void sim_init(){ //波形仿真使能函数
 
 void dump_wave(){//波形记录函数
   tfp->dump(contextp->time());
-  contextp->timeInc(0.1);
+  contextp->timeInc(10);
 }
 
 void single_cycle(){//时钟驱动函数
