@@ -19,7 +19,7 @@ void itrace(){
     space_len = space_len * 3 + 1;
     memset(p, ' ', space_len);
     p += space_len;
-    disassemble(p, sizeof(logbuf) - (p - logbuf),
-    dut.pc, (uint8_t *)&dut.inst, ilen); 
+  disassemble(p, logbuf + sizeof(logbuf) - p,
+      MUXDEF(CONFIG_ISA_x86, dut.pc, dut.pc), (uint8_t *)&dut.inst, ilen);
     printf("%s\n",logbuf);
 }
