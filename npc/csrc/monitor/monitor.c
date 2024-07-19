@@ -1,5 +1,6 @@
 #include <monitor.h>
 #define CONFIG_ISA_riscv 1
+#define CONFIG_ITRACE 1
 void init_disasm(const char *triple);
 char *img_path = NULL;
 //对命令行参数进行解析

@@ -135,7 +135,7 @@ void init_monitor(int argc, char *argv[]) {
   /* Initialize elf */
   parse_elf(elf_file);
 
-/* #ifndef CONFIG_ISA_loongarch32r
+#ifndef CONFIG_ISA_loongarch32r
   IFDEF(CONFIG_ITRACE, init_disasm(
     MUXDEF(CONFIG_ISA_x86,     "i686",
     MUXDEF(CONFIG_ISA_mips32,  "mipsel",
@@ -144,7 +144,7 @@ void init_monitor(int argc, char *argv[]) {
                                "riscv32"),
                                "bad"))) "-pc-linux-gnu"
   ));
-#endif */
+#endif
 
   /* Display welcome message. */
   welcome();
