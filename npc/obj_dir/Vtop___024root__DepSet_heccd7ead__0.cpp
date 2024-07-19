@@ -1643,7 +1643,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___nba_sequent__TOP__1\n"); );
     // Body
-    vlSelf->pc = ((IData)(vlSelf->rst) ? 0x80000000U
+    vlSelf->pc = ((IData)(vlSelf->rst) ? 0x7ffffffcU
                    : (((0x6fU == (0x7fU & vlSelf->inst)) 
                        | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgExtracted_hfdabf472__0))
                        ? vlSelf->top__DOT__alu_out : vlSelf->top__DOT__Pc__DOT__pc_plus4));

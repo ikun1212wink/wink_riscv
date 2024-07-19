@@ -10,7 +10,7 @@ module ysyx_23060240_pc(
     assign pc_plus4=pc+32'h4;    
     always@(negedge clk)begin
         if(rst)begin
-            pc<=2147483648; //0x80000000
+            pc<=2147483644; //0x7FFF FFFC
         end
         else begin
             if(jump_en)begin
