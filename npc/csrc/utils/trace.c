@@ -6,8 +6,8 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 void itrace(){
     char logbuf[128];
     char *p=logbuf;
-    /* p += snprintf(p, sizeof(logbuf), FMT_WORD ":", dut.pc);
-    int ilen=4;
+    p += snprintf(p, sizeof(logbuf), FMT_WORD ":", dut.pc);
+/*     int ilen=4;
     int i;
     uint8_t *inst = (uint8_t *)&dut.inst;
     for (i = ilen - 1; i >= 0; i --) {
@@ -21,4 +21,5 @@ void itrace(){
     p += space_len;
     disassemble(p, logbuf + sizeof(logbuf) - p,
     dut.pc, (uint8_t *)&dut.inst, ilen); */
+    printf("%s\n",logbuf);
 }
