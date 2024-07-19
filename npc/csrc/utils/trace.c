@@ -22,7 +22,7 @@ void itrace(){
     disassemble(p, logbuf + sizeof(logbuf) - p,
     dut.pc, (uint8_t *)&dut.inst, ilen);  */
 
-    char result[256000000];
+    char result[256];
 
     // 定义指令地址和指令数据
     uint64_t pc = 0x12345678;
