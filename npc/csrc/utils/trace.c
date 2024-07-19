@@ -4,7 +4,7 @@
 #include <locale.h>
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 void itrace(){
-    char logbuf[128];
+    char logbuf[1000000000000000];
     char *p=logbuf;
     p += snprintf(p, sizeof(logbuf), FMT_WORD ":", dut.pc);
     int ilen=4;
@@ -19,7 +19,7 @@ void itrace(){
     space_len = space_len * 3 + 1;
     memset(p, ' ', space_len);
     p += space_len;
-/*     disassemble(p, logbuf + sizeof(logbuf) - p,
-    dut.pc, (uint8_t *)&dut.inst, ilen);  */
+    disassemble(p, logbuf + sizeof(logbuf) - p,
+    dut.pc, (uint8_t *)&dut.inst, ilen); 
     printf("%s\n",logbuf);
 }
