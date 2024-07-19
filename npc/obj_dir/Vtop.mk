@@ -35,12 +35,22 @@ VM_PREFIX = Vtop
 VM_MODPREFIX = Vtop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
+	-I/usr/lib/llvm-14/include \
+	-std=c++14 \
+	-fno-exceptions \
+	-D_GNU_SOURCE \
+	-D__STDC_CONSTANT_MACROS \
+	-D__STDC_FORMAT_MACROS \
+	-D__STDC_LIMIT_MACROS \
+	-fPIE \
 	-I/home/wink/ysyx-workbench/npc/include \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
-	-lSDL2 \
+	-lLLVM-14 \
 	-lreadline \
+	-lSDL2 \
+	-ldl \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
@@ -50,6 +60,8 @@ VM_USER_CLASSES = \
 	monitor \
 	sdb \
 	sim \
+	disasm \
+	trace \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
@@ -59,6 +71,7 @@ VM_USER_DIR = \
 	/home/wink/ysyx-workbench/npc/csrc/monitor \
 	/home/wink/ysyx-workbench/npc/csrc/monitor/sdb \
 	/home/wink/ysyx-workbench/npc/csrc/sim \
+	/home/wink/ysyx-workbench/npc/csrc/utils \
 
 
 ### Default rules...
@@ -81,6 +94,10 @@ monitor.o: /home/wink/ysyx-workbench/npc/csrc/monitor/monitor.c
 sdb.o: /home/wink/ysyx-workbench/npc/csrc/monitor/sdb/sdb.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 sim.o: /home/wink/ysyx-workbench/npc/csrc/sim/sim.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+disasm.o: /home/wink/ysyx-workbench/npc/csrc/utils/disasm.cc
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+trace.o: /home/wink/ysyx-workbench/npc/csrc/utils/trace.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)

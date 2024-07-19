@@ -2,9 +2,15 @@ VSRCS = $(shell find $(abspath ./vsrc) -name "*.v")
 CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 HSRCS = $(shell find $(abspath ./include) -name "*.h")
 
+#itrace
+CSRC += csrc/utils/disasm.cc
+CFLAGS += $(shell llvm-config --cxxflags) -fPIE
+LDFLAGS += $(shell llvm-config --libs)
+
 TOP_NAME := top
 VERILATOR_FLAGS +=-cc --exe --trace --build  -j 
 VERILATOR_FLAGS += --top-module $(TOP_NAME)
+LDFLAGS += -lreadline -lSDL2 -ldl
 
 INC_PATH		?= $(NPC_HOME)/include
 #CFLAGS			+= -g -I$(INC_PATH)
@@ -23,7 +29,7 @@ NPC_EXEC		:= ${BIN} ${RUN_FLAGS}
 .PHONY:run gdb wave clean
 
 com:${CSRCS} ${VSRCS}
-	@verilator ${VERILATOR_FLAGS} ${CSRCS} ${VSRCS} $(addprefix -CFLAGS , $(CFLAGS)) -LDFLAGS -lSDL2 -LDFLAGS -lreadline
+	@verilator ${VERILATOR_FLAGS} ${CSRCS} ${VSRCS} $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) 
 run:com
 	$(call git_commit, "sim RTL")
 	@${NPC_EXEC}

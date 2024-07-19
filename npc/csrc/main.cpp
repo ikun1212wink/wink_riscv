@@ -3,7 +3,7 @@
 #include <sim.h>
 #include <memory.h>
 #include <cpu.h>
-
+void init_disasm(const char *triple);
 extern char *img_path;
 extern int ebreak_flag;
 extern VerilatedContext* contextp ;
@@ -22,6 +22,7 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
 
 
 int main(int argc,char *argv[]){
+
   init_monitor(argc, argv);
  // uint32_t*memory=init_mem();
   sim_init();
