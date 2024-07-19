@@ -1,5 +1,6 @@
 #include <cpu.h>
 #include <memory.h>
+#include <sim.h>
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
@@ -9,9 +10,9 @@ int ebreak_flag=0;
  void execute(int n){
     uint32_t*memory=init_mem();
     if(n>0){
-        for (;n > 0; n --) {
+        for (;n > 0; n --) {     
             printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
-            dut.inst=pmem_read(memory,dut.pc);
+            dut.inst=pmem_read(memory,dut.pc);//这个函数是每个周期才会执行一次（下降沿），而PC增加是在上升沿，所以就错开了半个周期
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
             single_cycle();
         }
@@ -24,6 +25,7 @@ int ebreak_flag=0;
             printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
             dut.inst=pmem_read(memory,dut.pc);
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
+            reg_p();
             single_cycle();
         }
     }
