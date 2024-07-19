@@ -74,6 +74,22 @@ static int cmd_x(char *args){
   return 0;
 }
 
+//cmd_info用于打印寄存器
+static int cmd_info(char *args){
+  if(args==NULL){
+    printf("Unkonw input, print register status: \"info r\"\n");
+  }
+  else if(strcmp(args,"r")==0){
+    printf("Print the register status\n");
+    isa_reg_display();
+  }
+
+  else{
+    printf("Unkonw input, print register status: \"info r\"\n");
+  }
+  return 0;
+}
+
 //cmd_help用于提供命令帮助
 static int cmd_help(char *args); 
 
