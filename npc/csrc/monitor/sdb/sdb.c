@@ -5,6 +5,7 @@
 #include <memory.h>
 #include <sim.h>
 
+int quit_sdb;
 //定义函数rl_gets()获取命令行输入，支持历史记录功能
 static char* rl_gets() { 
   static char *line_read = NULL;
@@ -91,6 +92,11 @@ static int cmd_info(char *args){
   return 0;
 }
 
+static int cmd_q(char *args) { 
+  quit_sdb=1;
+  return 0;
+}
+
 //cmd_help用于提供命令帮助
 static int cmd_help(char *args); 
 
@@ -104,7 +110,8 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "si","Enter \"si [N]\", let the program execute N instructions, and then pause",cmd_si},
   { "x" ,"Enter \"x [N] EXPR\" to scan the memory",cmd_x},
-  { "info","Enter \"info r\" to print register status",cmd_info} 
+  { "info","Enter \"info r\" to print register status",cmd_info} ,
+  { "q", "Exit NEMU", cmd_q }
   /* TODO: Add more commands */
 };
 
@@ -168,5 +175,8 @@ void sdb_mainloop() {
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
     //如果循环结束时，遍历至i等于NR_CMD，表示未找到匹配的命令，打印“没有找到该命令“
+    if(quit_sdb=1){
+      break;
+    }
   }
 }
