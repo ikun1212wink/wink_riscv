@@ -34,7 +34,6 @@ void reset(int n){ //复位函数
 
 void reg_p(){
   Vtop___024root* root = dut.rootp;
-  single_cycle();
   for(int i=0; i < 32; i++){
     printf("reg[%d]:0x%08x\n",i,root->top__DOT__Register__DOT__rf[i]);
   }
