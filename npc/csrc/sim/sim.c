@@ -26,7 +26,11 @@ void single_cycle(){//时钟驱动函数
 
 void reset(int n){ //复位函数
   dut.rst=1;
-  while(n-->0) single_cycle();
+  while(n-->0){
+    single_cycle();
+    dut.clk=0;dut.eval();
+    dump_wave();
+  } 
   dut.rst=0;
 }
 

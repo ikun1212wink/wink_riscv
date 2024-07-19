@@ -8,9 +8,9 @@ module ysyx_23060240_pc(
 //每个时钟周期pc+4
     wire [31:0] pc_plus4;
     assign pc_plus4=pc+32'h4;    
-    always@(negedge clk)begin
+    always@(posedge clk)begin
         if(rst)begin
-            pc<=2147483644; //0x7FFF FFFC
+            pc<=2147483648; //0x80000000
         end
         else begin
             if(jump_en)begin
