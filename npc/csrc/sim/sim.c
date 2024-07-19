@@ -28,7 +28,6 @@ void reset(int n){ //复位函数
   dut.rst=1;
   while(n-->0){
     single_cycle();
-    dump_wave();
   } 
   dut.rst=0;
 }
