@@ -2,9 +2,9 @@
 #include <sim.h>
 #include <memory.h>
 #include <locale.h>
-    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 void itrace(){
-    char logbuf[128];
+    char logbuf[1280000];
     char *p=logbuf;
     p += snprintf(p, sizeof(logbuf), FMT_WORD ":", dut.pc);
     int ilen=4;
