@@ -1,4 +1,5 @@
 #include <sim.h>
+#include "Vtop___024root.h"
 VerilatedContext* contextp = NULL;
 VerilatedVcdC* tfp = NULL;
 Vtop dut;
@@ -27,4 +28,11 @@ void reset(int n){ //复位函数
   dut.rst=1;
   while(n-->0) single_cycle();
   dut.rst=0;
+}
+
+void reg_p(){
+  Vtop___024root* root = dut.rootp;
+  for(int i=0; i < 32; i++){
+    printf("%x\n",root->top__DOT__Register__DOT__rf[i]);
+  }
 }

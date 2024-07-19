@@ -4,6 +4,7 @@
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
+void reg_p();
 void sim_init();
 void dump_wave();
 void single_cycle();

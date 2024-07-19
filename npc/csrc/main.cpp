@@ -3,6 +3,7 @@
 #include <sim.h>
 #include <memory.h>
 #include <cpu.h>
+
 extern char *img_path;
 extern int ebreak_flag;
 extern VerilatedContext* contextp ;
@@ -25,7 +26,9 @@ int main(int argc,char *argv[]){
  // uint32_t*memory=init_mem();
   sim_init();
   reset(10);
+  reg_p();
   //execute(2); 
-  sdb_mainloop();
+
+ // sdb_mainloop();
   return 0;
 }
