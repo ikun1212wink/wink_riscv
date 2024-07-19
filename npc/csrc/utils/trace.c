@@ -21,5 +21,5 @@ void itrace(){
     p += space_len;
     disassemble(p, logbuf + sizeof(logbuf) - p,
     dut.pc, (uint8_t *)&dut.inst, ilen);
-    printf("%s\n",logbuf);
+   // printf("%s\n",logbuf);
 }
