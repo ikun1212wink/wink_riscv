@@ -1,5 +1,6 @@
 #include <monitor.h>
-
+#define CONFIG_ISA_riscv 1
+void init_disasm(const char *triple);
 char *img_path = NULL;
 //对命令行参数进行解析
 int parse_args(int argc, char *argv[]) {
@@ -39,4 +40,14 @@ void welcome() {
 void init_monitor(int argc, char *argv[]) {
   parse_args(argc, argv);
   welcome();
+  #ifndef CONFIG_ISA_loongarch32r
+  IFDEF(CONFIG_ITRACE, init_disasm(
+    MUXDEF(CONFIG_ISA_x86,     "i686",
+    MUXDEF(CONFIG_ISA_mips32,  "mipsel",
+    MUXDEF(CONFIG_ISA_riscv,
+      MUXDEF(CONFIG_RV64,      "riscv64",
+                               "riscv32"),
+                               "bad"))) "-pc-linux-gnu"
+  ));
+#endif
 }

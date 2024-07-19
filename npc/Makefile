@@ -3,9 +3,11 @@ CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*
 HSRCS = $(shell find $(abspath ./include) -name "*.h")
 
 #itrace
-#CSRCS += csrc/utils/disasm.cc
-#CFLAGS += $(shell llvm-config --cxxflags) -fPIE
+CXXSRC += csrc/utils/disasm.cc
+CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs)
+CXX :=clang++
+
 
 TOP_NAME := top
 VERILATOR_FLAGS +=-cc --exe --trace --build  -j 
@@ -29,7 +31,7 @@ NPC_EXEC		:= ${BIN} ${RUN_FLAGS}
 .PHONY:run gdb wave clean
 
 com:${CSRCS} ${VSRCS}
-	@verilator ${VERILATOR_FLAGS} ${CSRCS} ${VSRCS} $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) 
+	@verilator ${VERILATOR_FLAGS} ${CSRCS} ${VSRCS} $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS))
 run:com
 	$(call git_commit, "sim RTL")
 	@${NPC_EXEC}
