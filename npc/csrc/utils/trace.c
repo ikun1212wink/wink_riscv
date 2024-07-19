@@ -7,10 +7,10 @@ void itrace(){
     char logbuf[128];
     char *p=logbuf;
     p += snprintf(p, sizeof(logbuf), FMT_WORD ":", dut.pc);
-/*     int ilen=4;
+    int ilen=4;
     int i;
     uint8_t *inst = (uint8_t *)&dut.inst;
-    for (i = ilen - 1; i >= 0; i --) {
+/*     for (i = ilen - 1; i >= 0; i --) {
         p += snprintf(p, 4, " %02x", inst[i]);
     }
     int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
