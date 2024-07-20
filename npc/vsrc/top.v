@@ -4,7 +4,10 @@ module top(
     input [31:0] inst,
     output [31:0] pc
 );
-wire [31:0] alu_a,alu_b,alu_out;
+wire jal;
+wire jalr;
+wire [31:0] alu_a,alu_b;
+wire [31:0] alu_out;
 wire alu_a_sel,alu_b_sel;//加法器输入数据类型选择
 wire [3:0] alu_func;//加法器功能选择
 
@@ -44,7 +47,9 @@ ysyx_23060240_IDU IDU(
     .w_en(w_en),
     .alu_func(alu_func),
     .jump_en(jump_en),//
-    .w_sel(w_sel)//
+    .w_sel(w_sel),//
+    .is_jal(jal),
+    .is_jalr(jalr)
 );
 
 ysyx_23060240_RegisterFile Register(
@@ -77,5 +82,31 @@ ysyx_23060240_IMM IMM(
     .inst(inst),
     .immout(imm_out)
 );
+
+import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
+import "DPI-C" function void trace_func_ret(input int pc);
+//import "DPI-C" function void trace_func_ret(input int pc);
+
+always@(negedge clk)begin
+    if(jal)begin
+        if(inst[11:7]==1)begin
+            trace_func_call(pc,alu_out,1'b0);
+        end
+    end
+end
+
+always@(negedge clk)begin
+    if(jalr)begin
+        if(inst==32'h00008067)begin
+            trace_func_ret(pc);
+        end
+        else if(inst[11:7]==1)begin
+            trace_func_call(pc,alu_out,1'b0);
+        end
+        else if((inst[11:7]==0)&&(imm_out==32'b0))begin//识别到尾调用，goto...
+            trace_func_call(pc,alu_out,1'b1);
+        end
+    end
+end
 
 endmodule

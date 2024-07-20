@@ -6,6 +6,7 @@ HSRCS = $(shell find $(abspath ./include) -name "*.h")
 CXXSRC += csrc/utils/disasm.cc
 CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs)
+ARGS ?= -e ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.elf
 CXX :=clang++
 
 
@@ -26,7 +27,7 @@ IMG ?= ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin
 
 
 RUN_FLAGS		:= --img=${IMG} 
-NPC_EXEC		:= ${BIN} ${RUN_FLAGS}
+NPC_EXEC		:= ${BIN} ${ARGS} ${RUN_FLAGS}
 
 .PHONY:run gdb wave clean
 

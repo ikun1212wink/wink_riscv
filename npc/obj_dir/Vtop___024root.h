@@ -17,9 +17,9 @@ class Vtop___024root final : public VerilatedModule {
     struct {
         VL_IN8(clk,0,0);
         VL_IN8(rst,0,0);
+        CData/*0:0*/ top__DOT__jalr;
         CData/*3:0*/ top__DOT__alu_func;
         CData/*1:0*/ top__DOT__w_sel;
-        CData/*0:0*/ top__DOT__IDU__DOT__is_jalr;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lb;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lh;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lw;
@@ -48,7 +48,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT__is_b_type;
         CData/*0:0*/ top__DOT__IDU__DOT__is_r_type;
         CData/*0:0*/ top__DOT__IDU__DOT__is_s_type;
-        CData/*0:0*/ top__DOT__IDU__DOT____VdfgExtracted_hfdabf472__0;
+        CData/*0:0*/ top__DOT__IDU__DOT____VdfgExtracted_h834c0bbe__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h42947eb4__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h26e5c323__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h873f971e__0;
@@ -86,8 +86,8 @@ class Vtop___024root final : public VerilatedModule {
     };
     VlTriggerVec<1> __VstlTriggered;
     VlTriggerVec<1> __VicoTriggered;
-    VlTriggerVec<1> __VactTriggered;
-    VlTriggerVec<1> __VnbaTriggered;
+    VlTriggerVec<2> __VactTriggered;
+    VlTriggerVec<2> __VnbaTriggered;
 
     // INTERNAL VARIABLES
     Vtop__Syms* const vlSymsp;
