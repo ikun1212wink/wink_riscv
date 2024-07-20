@@ -183,7 +183,7 @@ extern "C" void trace_func_ret(uint32_t pc) {
     print_stack_frame(depth);
     const char *func_name = find_func_name(pc);
     if (func_name) {
-        printf(" ret [%s]\n", func_name);
+        printf(" leave [%s]\n", func_name);
     } else {
        // printf("return to 0x%x\n", pc);
     }
