@@ -44,3 +44,21 @@ uint32_t* init_mem() { //初始化内存
 
     return memory;
 }
+
+long img_size(){
+  if(img_path==NULL){
+    printf("No image is given. Use the default build-in image.\n");
+    return 4096; // built-in image size
+  }
+  FILE *fp = fopen(img_path, "rb");
+  if (!fp) {
+    printf("Failed to open file: %s\n", img_path);
+    return -1;
+  }
+
+  fseek(fp, 0, SEEK_END);
+  long size = ftell(fp);
+
+  printf("The image is %s, size = %ld\n", img_path, size);
+  return size;
+}

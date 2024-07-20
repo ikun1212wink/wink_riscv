@@ -9,6 +9,7 @@ extern Vtop dut;
 int ebreak_flag=0;
 
  void execute(int n){
+    img_size();
     uint32_t*memory=init_mem();
     if(n>0){
         for (;n > 0; n --) {     
