@@ -84,6 +84,7 @@ ysyx_23060240_IMM IMM(
 );
 
 import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
+import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
 always@(negedge clk)begin
@@ -94,5 +95,18 @@ always@(negedge clk)begin
     end
 end
 
+always@(negedge clk)begin
+    if(jalr)begin
+        if(inst==32'h00008067)begin
+            trace_func_ret(pc);
+        end
+        else if(inst[11:7]==1)begin
+            trace_func_call(pc,alu_out,1'b0);
+        end
+        else if((inst[11:7]==0)&&(imm_out==32'b0))begin//识别到尾调用，goto...
+            trace_func_call(pc,alu_out,1'b1);
+        end
+    end
+end
 
 endmodule

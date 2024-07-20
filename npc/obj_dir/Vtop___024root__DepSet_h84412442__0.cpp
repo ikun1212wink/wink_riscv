@@ -22,6 +22,16 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(ID
     trace_func_call(pc__Vcvt, alu_out__Vcvt, tail__Vcvt);
 }
 
+extern "C" void trace_func_ret(int pc);
+
+VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__trace_func_ret_TOP(IData/*31:0*/ pc) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__trace_func_ret_TOP\n"); );
+    // Body
+    int pc__Vcvt;
+    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
+    trace_func_ret(pc__Vcvt);
+}
+
 extern "C" void npc_trap();
 
 VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP() {

@@ -20,6 +20,8 @@ extern "C" {
     extern void npc_trap();
     // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:86:30
     extern void trace_func_call(int pc, int alu_out, svBit tail);
+    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:87:30
+    extern void trace_func_ret(int pc);
 
 #ifdef __cplusplus
 }
