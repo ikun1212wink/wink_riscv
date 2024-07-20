@@ -59,6 +59,6 @@ long img_size(){
   fseek(fp, 0, SEEK_END);
   long size = ftell(fp);
 
-  printf("The image is %s, size = %ld\n", img_path, size);
+  printf(COLOR_BLUE "The image is %s, size = %ld\n" COLOR_RESET, img_path, size);
   return size;
 }
