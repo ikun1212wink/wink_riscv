@@ -17,8 +17,7 @@ class Vtop___024root final : public VerilatedModule {
     struct {
         VL_IN8(clk,0,0);
         VL_IN8(rst,0,0);
-        VL_OUT8(jal,0,0);
-        VL_OUT8(jalr,0,0);
+        CData/*0:0*/ top__DOT__jalr;
         CData/*3:0*/ top__DOT__alu_func;
         CData/*1:0*/ top__DOT__w_sel;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lb;
@@ -61,7 +60,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ __VactContinue;
         VL_IN(inst,31,0);
         VL_OUT(pc,31,0);
-        VL_OUT(alu_out,31,0);
+        IData/*31:0*/ top__DOT__alu_out;
         IData/*31:0*/ top__DOT__rs2_data;
         IData/*31:0*/ top__DOT__imm_out;
         IData/*31:0*/ top__DOT__Register__DOT__i;
@@ -79,9 +78,9 @@ class Vtop___024root final : public VerilatedModule {
         VlUnpacked<CData/*3:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__key_list;
         VlUnpacked<IData/*31:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list;
         VlUnpacked<QData/*38:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list;
+        VlUnpacked<CData/*6:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list;
     };
     struct {
-        VlUnpacked<CData/*6:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list;
         VlUnpacked<IData/*31:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__data_list;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };

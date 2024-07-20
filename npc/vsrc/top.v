@@ -2,14 +2,12 @@ module top(
     input clk,
     input rst,
     input [31:0] inst,
-    output [31:0] pc,
-//用于实现ftrace
-    output jal,
-    output jalr,
-    output [31:0] alu_out //next pc
+    output [31:0] pc
 );
+wire jal;
+wire jalr;
 wire [31:0] alu_a,alu_b;
-//wire [31:0] alu_out;
+wire [31:0] alu_out;
 wire alu_a_sel,alu_b_sel;//加法器输入数据类型选择
 wire [3:0] alu_func;//加法器功能选择
 
@@ -84,5 +82,17 @@ ysyx_23060240_IMM IMM(
     .inst(inst),
     .immout(imm_out)
 );
+
+import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
+//import "DPI-C" function void trace_func_ret(input int pc);
+
+always@(*)begin
+    if(jal)begin
+        if(inst[11:7]==1)begin
+            trace_func_call(pc,alu_out,1'b0);
+        end
+    end
+end
+
 
 endmodule

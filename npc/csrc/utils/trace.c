@@ -159,7 +159,7 @@ void print_stack_frame(int depth) {
     }
 }
 
-void trace_func_call(uint32_t pc, uint32_t target,bool tail) {
+extern "C" void trace_func_call(uint32_t pc, uint32_t target,bool tail) {
     printf("0x%x:",pc);
     print_stack_frame(depth);
     const char *targe_name = find_func_name(target);
@@ -177,7 +177,7 @@ void trace_func_call(uint32_t pc, uint32_t target,bool tail) {
     depth++;
 }
 
-void trace_func_ret(uint32_t pc) {
+extern "C" void trace_func_ret(uint32_t pc) {
     printf("0x%x:",pc);
     depth--;
     print_stack_frame(depth);
@@ -188,3 +188,4 @@ void trace_func_ret(uint32_t pc) {
        // printf("return to 0x%x\n", pc);
     }
 }
+
