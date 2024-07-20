@@ -2,9 +2,14 @@ module top(
     input clk,
     input rst,
     input [31:0] inst,
-    output [31:0] pc
+    output [31:0] pc,
+//用于实现ftrace
+    output jal,
+    output jalr,
+    output [31:0] alu_out //next pc
 );
-wire [31:0] alu_a,alu_b,alu_out;
+wire [31:0] alu_a,alu_b;
+//wire [31:0] alu_out;
 wire alu_a_sel,alu_b_sel;//加法器输入数据类型选择
 wire [3:0] alu_func;//加法器功能选择
 
@@ -44,7 +49,9 @@ ysyx_23060240_IDU IDU(
     .w_en(w_en),
     .alu_func(alu_func),
     .jump_en(jump_en),//
-    .w_sel(w_sel)//
+    .w_sel(w_sel),//
+    .is_jal(jal),
+    .is_jalr(jalr)
 );
 
 ysyx_23060240_RegisterFile Register(

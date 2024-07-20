@@ -4,7 +4,10 @@ module ysyx_23060240_IDU(
     output w_en,
     output reg [1:0] w_sel,//后续使用模块译码
     output jump_en,
-    output reg [3:0] alu_func//后续使用模块译码
+    output reg [3:0] alu_func,//后续使用模块译码
+    //用于ftrace
+    output is_jal,
+    output is_jalr
 );
 wire [6:0] opcode;
 wire [2:0] funct3;
@@ -12,6 +15,7 @@ wire [6:0] funct7;
 wire [11:0] funct12;
 /* wire alu_a_sel_imm,alu_a_sel_pc; */
 import "DPI-C" function void npc_trap();
+
 assign opcode=inst[6:0];
 assign funct3=inst[14:12];
 assign funct7=inst[31:25];
@@ -20,8 +24,8 @@ assign funct12=inst[31:20];
 //指令名称
 wire    is_lui;
 wire    is_auipc;
-wire    is_jal;
-wire    is_jalr;
+//wire    is_jal;
+//wire    is_jalr;
 wire    is_beq;
 wire    is_bne;
 wire    is_blt;
