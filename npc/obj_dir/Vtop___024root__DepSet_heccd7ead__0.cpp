@@ -8,7 +8,6 @@
 #include "Vtop___024root.h"
 
 void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP();
-void Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(IData/*31:0*/ pc, IData/*31:0*/ alu_out, CData/*0:0*/ tail);
 
 VL_INLINE_OPT void Vtop___024root___ico_sequent__TOP__0(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -1567,11 +1566,6 @@ VL_INLINE_OPT void Vtop___024root___ico_sequent__TOP__0(Vtop___024root* vlSelf) 
                           [0xfU]))) & vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list
               [0xfU]));
     vlSelf->top__DOT__alu_out = vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__lut_out;
-    if ((0x6fU == (0x7fU & vlSelf->inst))) {
-        if ((1U == (0x1fU & (vlSelf->inst >> 7U)))) {
-            Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(vlSelf->pc, vlSelf->top__DOT__alu_out, 0U);
-        }
-    }
 }
 
 void Vtop___024root___eval_ico(Vtop___024root* vlSelf) {
@@ -1591,10 +1585,24 @@ void Vtop___024root___eval_act(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_act\n"); );
 }
 
+void Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(IData/*31:0*/ pc, IData/*31:0*/ alu_out, CData/*0:0*/ tail);
+
 VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___nba_sequent__TOP__0\n"); );
+    // Body
+    if ((0x6fU == (0x7fU & vlSelf->inst))) {
+        if ((1U == (0x1fU & (vlSelf->inst >> 7U)))) {
+            Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(vlSelf->pc, vlSelf->top__DOT__alu_out, 0U);
+        }
+    }
+}
+
+VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___nba_sequent__TOP__1\n"); );
     // Init
     CData/*4:0*/ __Vdlyvdim0__top__DOT__Register__DOT__rf__v0;
     __Vdlyvdim0__top__DOT__Register__DOT__rf__v0 = 0;
@@ -1648,10 +1656,10 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
                                            + vlSelf->pc);
 }
 
-VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) {
+VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__2(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___nba_sequent__TOP__1\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___nba_sequent__TOP__2\n"); );
     // Body
     if (vlSelf->top__DOT__IDU__DOT__is_r_type) {
         vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[1U] 
@@ -1821,11 +1829,6 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
                           [0xfU]))) & vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list
               [0xfU]));
     vlSelf->top__DOT__alu_out = vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__lut_out;
-    if ((0x6fU == (0x7fU & vlSelf->inst))) {
-        if ((1U == (0x1fU & (vlSelf->inst >> 7U)))) {
-            Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(vlSelf->pc, vlSelf->top__DOT__alu_out, 0U);
-        }
-    }
 }
 
 void Vtop___024root___eval_nba(Vtop___024root* vlSelf) {
@@ -1835,8 +1838,11 @@ void Vtop___024root___eval_nba(Vtop___024root* vlSelf) {
     // Body
     if (vlSelf->__VnbaTriggered.at(0U)) {
         Vtop___024root___nba_sequent__TOP__0(vlSelf);
-        vlSelf->__Vm_traceActivity[2U] = 1U;
+    }
+    if (vlSelf->__VnbaTriggered.at(1U)) {
         Vtop___024root___nba_sequent__TOP__1(vlSelf);
+        vlSelf->__Vm_traceActivity[2U] = 1U;
+        Vtop___024root___nba_sequent__TOP__2(vlSelf);
     }
 }
 
@@ -1858,7 +1864,7 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval\n"); );
     // Init
     CData/*0:0*/ __VicoContinue;
-    VlTriggerVec<1> __VpreTriggered;
+    VlTriggerVec<2> __VpreTriggered;
     IData/*31:0*/ __VnbaIterCount;
     CData/*0:0*/ __VnbaContinue;
     // Body

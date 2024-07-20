@@ -86,7 +86,7 @@ ysyx_23060240_IMM IMM(
 import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
-always@(*)begin
+always@(negedge clk)begin
     if(jal)begin
         if(inst[11:7]==1)begin
             trace_func_call(pc,alu_out,1'b0);

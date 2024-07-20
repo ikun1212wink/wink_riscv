@@ -158,7 +158,6 @@ VL_ATTR_COLD void Vtop___024root___dump_triggers__stl(Vtop___024root* vlSelf) {
 #endif  // VL_DEBUG
 
 void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP();
-void Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(IData/*31:0*/ pc, IData/*31:0*/ alu_out, CData/*0:0*/ tail);
 
 VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -1719,11 +1718,6 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                           [0xfU]))) & vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list
               [0xfU]));
     vlSelf->top__DOT__alu_out = vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__lut_out;
-    if ((0x6fU == (0x7fU & vlSelf->inst))) {
-        if ((1U == (0x1fU & (vlSelf->inst >> 7U)))) {
-            Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(vlSelf->pc, vlSelf->top__DOT__alu_out, 0U);
-        }
-    }
 }
 
 VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
@@ -1764,7 +1758,10 @@ VL_ATTR_COLD void Vtop___024root___dump_triggers__act(Vtop___024root* vlSelf) {
         VL_DBG_MSGF("         No triggers active\n");
     }
     if (vlSelf->__VactTriggered.at(0U)) {
-        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge clk)\n");
+        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(negedge clk)\n");
+    }
+    if (vlSelf->__VactTriggered.at(1U)) {
+        VL_DBG_MSGF("         'act' region trigger index 1 is active: @(posedge clk)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -1779,7 +1776,10 @@ VL_ATTR_COLD void Vtop___024root___dump_triggers__nba(Vtop___024root* vlSelf) {
         VL_DBG_MSGF("         No triggers active\n");
     }
     if (vlSelf->__VnbaTriggered.at(0U)) {
-        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge clk)\n");
+        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(negedge clk)\n");
+    }
+    if (vlSelf->__VnbaTriggered.at(1U)) {
+        VL_DBG_MSGF("         'nba' region trigger index 1 is active: @(posedge clk)\n");
     }
 }
 #endif  // VL_DEBUG
