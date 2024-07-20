@@ -4,6 +4,7 @@
 #include <memory.h>
 #include <cpu.h>
 #include <trace.h>
+
 void init_disasm(const char *triple);
 extern char *img_path;
 extern int ebreak_flag;
