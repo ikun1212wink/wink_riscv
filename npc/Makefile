@@ -6,7 +6,7 @@ HSRCS = $(shell find $(abspath ./include) -name "*.h")
 CXXSRC += csrc/utils/disasm.cc
 CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs)
-NPCFLAGS ?=
+ARGS ?=
 CXX :=clang++
 
 
