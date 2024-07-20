@@ -3,11 +3,14 @@ CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*
 HSRCS = $(shell find $(abspath ./include) -name "*.h")
 
 #itrace ftrace
-CXXSRC += csrc/utils/disasm.cc
+#CXXSRC += csrc/utils/disasm.cc
 #CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs)
 ARGS_ELF ?= -e ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.elf
 #CXX :=clang++
+
+#difftest
+ARGS_DIFF ?= -d ../nemu/build/riscv32-nemu-interpreter-so
 
 #verilator
 TOP_NAME := top
@@ -28,7 +31,7 @@ IMG ?= ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin
 
 
 RUN_FLAGS		:= --img=${IMG} 
-NPC_EXEC		:= ${BIN} ${ARGS_ELF} ${RUN_FLAGS}
+NPC_EXEC		:= ${BIN} $(ARGS_DIFF) ${ARGS_ELF} ${RUN_FLAGS}
 
 .PHONY:run gdb wave clean
 

@@ -7,7 +7,7 @@ void init_disasm(const char *triple);
 char *img_path = NULL;
 void parse_elf(const char *elf_file);
 static char *elf_file = NULL;
-
+static char *diff_so_file = NULL;
 //对命令行参数进行解析
 int parse_args(int argc, char *argv[]) {
   const struct option table[] = {
@@ -16,10 +16,11 @@ int parse_args(int argc, char *argv[]) {
     {0          , 0                , NULL,  0 },
   };
   int o;
-  while ( (o = getopt_long(argc, argv, "i:e:", table, NULL)) != -1) {
+  while ( (o = getopt_long(argc, argv, "d:i:e:", table, NULL)) != -1) {
     switch (o) {
-      case 'i': img_path = optarg; return 0;
+      case 'd': diff_so_file = optarg; break;
       case 'e': elf_file = optarg; break;
+      case 'i': img_path = optarg; return 0;
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
         printf("\t-b,--batch              run with batch mode\n");
@@ -50,6 +51,7 @@ void init_monitor(int argc, char *argv[]) {
   welcome();
   /* Initialize elf */
   parse_elf(elf_file);
+  //static char *diff_so_file_test = diff_so_file ;
   #ifndef CONFIG_ISA_loongarch32r
   IFDEF(CONFIG_ITRACE, init_disasm(
     MUXDEF(CONFIG_ISA_x86,     "i686",
