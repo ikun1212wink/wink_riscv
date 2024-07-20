@@ -31,6 +31,7 @@ __EXPORT void difftest_regcpy(void *dut, bool direction) {//待实现
 
 // 让REF执行`n`条指令
 __EXPORT void difftest_exec(uint64_t n) {//待实现
+  cpu_exec(n);
   assert(0);
 }
 
