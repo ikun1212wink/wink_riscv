@@ -74,9 +74,8 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
       "If it is not necessary, you can turn it off in menuconfig.", ref_so_file);
   
     
-
+//我知道了，写在这里不能实时改变npc结构体的值，要写在cpu那里
   memcpy(&npc_dut.pc,&dut.pc,sizeof(dut.pc));
-  printf("%x\n",dut.pc);
   memcpy(npc_dut.gpr,&(dut.rootp->top__DOT__Register__DOT__rf),sizeof(dut.rootp->top__DOT__Register__DOT__rf));
 
   uint32_t reset_vector=(uint32_t)0x80000000;
@@ -127,6 +126,8 @@ static void checkregs(NPC_CPU_state *ref, vaddr_t pc) {
 //NEMU执行完一条指令后，就在difftest_step中执行相同的指令，然后读出REF中的寄存器，并进行对比
 //不同ISA的寄存器有所不同, 框架代码把寄存器对比抽象成一个ISA相关的API, 即isa_difftest_checkregs()函数（nemu/src/isa/$ISA/difftest/dut.c）
 void difftest_step(vaddr_t pc, vaddr_t npc) {
+  memcpy(&npc_dut.pc,&dut.pc,sizeof(dut.pc));
+  memcpy(npc_dut.gpr,&(dut.rootp->top__DOT__Register__DOT__rf),sizeof(dut.rootp->top__DOT__Register__DOT__rf));
   NPC_CPU_state ref_r;
   //skip_dut_nr_inst=0
   if (skip_dut_nr_inst > 0) {
@@ -143,14 +144,14 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
       assert(0);
     return;
   }
-printf("%d\n",is_skip_ref);
+//is_skip_ref=0;
   if (is_skip_ref) {
     // to skip the checking of an instruction, just copy the reg state to reference design
     ref_difftest_regcpy(&npc_dut, DIFFTEST_TO_REF);
     is_skip_ref = false;
     return;
   }
-
+//问题出在这里
   ref_difftest_exec(1);
   ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
   //上面代码我的理解是同步模拟器和NEMU的指令状态
