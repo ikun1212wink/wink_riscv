@@ -24,10 +24,10 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
 
 
 int main(int argc,char *argv[]){
-
+  sim_init();
   init_monitor(argc, argv);
  // uint32_t*memory=init_mem();
-  sim_init();
+
   reset(10);
 
  // execute(-1); 
