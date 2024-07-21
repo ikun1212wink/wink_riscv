@@ -19,7 +19,14 @@ class Vtop___024root final : public VerilatedModule {
         VL_IN8(rst,0,0);
         CData/*0:0*/ top__DOT__jalr;
         CData/*3:0*/ top__DOT__alu_func;
+        CData/*2:0*/ top__DOT__branch_type;
         CData/*1:0*/ top__DOT__w_sel;
+        CData/*0:0*/ top__DOT__jump_branch;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_beq;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_bne;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_blt;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_bge;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_bltu;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lb;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lh;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lw;
@@ -56,12 +63,13 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_hd3ddd1c8__0;
         CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
         CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
+        CData/*4:0*/ __Vtableidx1;
         CData/*0:0*/ __Vtrigrprev__TOP__clk;
         CData/*0:0*/ __VactContinue;
+        SData/*8:0*/ __Vtableidx2;
         VL_IN(inst,31,0);
         VL_OUT(pc,31,0);
         IData/*31:0*/ top__DOT__alu_out;
-        IData/*31:0*/ top__DOT__rs2_data;
         IData/*31:0*/ top__DOT__imm_out;
         IData/*31:0*/ top__DOT__Register__DOT__i;
         IData/*31:0*/ top__DOT__Pc__DOT__pc_plus4;
@@ -70,6 +78,10 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__lut_out;
         IData/*31:0*/ top__DOT__IMM__DOT__out5;
         IData/*31:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__lut_out;
+        IData/*31:0*/ top__DOT__BSU__DOT__signed_rs1;
+    };
+    struct {
+        IData/*31:0*/ top__DOT__BSU__DOT__signed_rs2;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VicoIterCount;
         IData/*31:0*/ __VactIterCount;
@@ -79,8 +91,6 @@ class Vtop___024root final : public VerilatedModule {
         VlUnpacked<IData/*31:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list;
         VlUnpacked<QData/*38:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list;
-    };
-    struct {
         VlUnpacked<IData/*31:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__data_list;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };

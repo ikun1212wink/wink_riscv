@@ -4,19 +4,27 @@ module top(
     input [31:0] inst,
     output [31:0] pc
 );
+//ftrace用
 wire jal;
 wire jalr;
+
 wire [31:0] alu_a,alu_b;
 wire [31:0] alu_out;
 wire alu_a_sel,alu_b_sel;//加法器输入数据类型选择
 wire [3:0] alu_func;//加法器功能选择
+wire [2:0] branch_type;//分支类型
 
 wire [31:0] rs1_data,rs2_data;
 wire w_en;//写寄存器信号
 wire [1:0] w_sel;//写入寄存器的数据类型选择
 reg [31:0] w_data;//写入寄存器的数据
 
-wire jump_en;//跳转信号
+//跳转信号
+wire jump_jtype;//jal jalr 
+wire jump_branch;//b type
+//总跳转信号
+wire jump_en;
+
 wire [31:0] pc_plus4;
 
 wire [31:0] imm_out;
@@ -25,6 +33,8 @@ assign alu_a=alu_a_sel ? rs1_data : pc ;
 assign alu_b=alu_b_sel ? imm_out : rs2_data;
 
 assign pc_plus4=pc+32'h4;
+
+assign jump_en=jump_jtype||jump_branch;
 
 //对写入寄存器的数据类型进行选择
 always@(*)
@@ -46,8 +56,9 @@ ysyx_23060240_IDU IDU(
     .alu_b_sel(alu_b_sel),
     .w_en(w_en),
     .alu_func(alu_func),
-    .jump_en(jump_en),//
+    .jump_jtype(jump_jtype),//
     .w_sel(w_sel),//
+    .branch_type(branch_type),//
     .is_jal(jal),
     .is_jalr(jalr)
 );
@@ -81,6 +92,13 @@ ysyx_23060240_ALU ALU(
 ysyx_23060240_IMM IMM(
     .inst(inst),
     .immout(imm_out)
+);
+
+ysyx_23060240_BSU BSU(
+    .rs1(rs1_data),
+    .rs2(rs2_data),
+    .branch_type(branch_type),
+    .jump_branch(jump_branch)
 );
 
 import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);

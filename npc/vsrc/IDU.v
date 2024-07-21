@@ -3,7 +3,8 @@ module ysyx_23060240_IDU(
     output alu_a_sel,alu_b_sel,
     output w_en,
     output reg [1:0] w_sel,//后续使用模块译码
-    output jump_en,
+    output jump_jtype,
+    output reg [2:0] branch_type,//后续使用模块译码
     output reg [3:0] alu_func,//后续使用模块译码
     //用于ftrace
     output is_jal,
@@ -140,7 +141,21 @@ begin
     end
 end  
 //跳转使能
-assign jump_en = is_jump_type|is_jalr|is_jal;
+assign jump_jtype = is_jump_type|is_jalr|is_jal;
+
+//分支类型选择
+always@(*)begin
+    case({is_beq, is_bne, is_blt, is_bge, is_bltu, is_bge})
+        6'b100000:branch_type=3'b001;//分支类型1：相等分支
+        6'b010000:branch_type=3'b010;//分支类型2：不相等分支
+        6'b001000:branch_type=3'b011;//分支类型3：小于时分支
+        6'b000100:branch_type=3'b100;//分支类型4：大于等于时分支
+        6'b000010:branch_type=3'b101;//分支类型5：无符号小于分支
+        6'b000001:branch_type=3'b110;//分支类型6：无符号大于等于分支
+        default:branch_type=3'b000;
+    endcase
+end
+
 //加法器a口数据选择
 assign alu_a_sel    = is_s_type|is_i_type|is_r_type;
 //加法器b口数据选择
