@@ -21,8 +21,8 @@
 // `direction`指定拷贝的方向, `DIFFTEST_TO_DUT`表示往DUT拷贝, `DIFFTEST_TO_REF`表示往REF拷贝
 __EXPORT void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {//待实现
   if(direction==DIFFTEST_TO_REF){
-    uint8_t *host_addr = guest_to_host(addr);
-    memcpy(host_addr, buf, n);
+  //  uint8_t *host_addr = guest_to_host(addr);
+    memcpy(&addr, buf, n);
   }
   else {
     uint8_t *host_addr = guest_to_host(addr);
