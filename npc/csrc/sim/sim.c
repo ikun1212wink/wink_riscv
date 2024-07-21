@@ -34,7 +34,7 @@ void reset(int n){ //复位函数
 
 void reg_p(){
   Vtop___024root* root = dut.rootp;
-  printf("$0(0):     0x%08x\n",root->top__DOT__Register__DOT__rf[0]);
+  printf("$0(0):     0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[0]);
   printf("ra(1):     0x%08x\n",root->top__DOT__Register__DOT__rf[1]);
   printf("sp(2):     0x%08x\n",root->top__DOT__Register__DOT__rf[2]);
   printf("gp(3):     0x%08x\n",root->top__DOT__Register__DOT__rf[3]);
