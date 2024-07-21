@@ -18,6 +18,7 @@ int ebreak_flag=0;
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
             itrace();
             single_cycle();
+            printf("%x\n",dut.pc);
             difftest_step(dut.pc,dut.pc);
         }
         dump_wave();
