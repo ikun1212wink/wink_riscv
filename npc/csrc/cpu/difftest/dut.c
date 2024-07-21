@@ -74,7 +74,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
       "If it is not necessary, you can turn it off in menuconfig.", ref_so_file);
   
     
-//我知道了，写在这里不能实时改变npc结构体的值，要写在cpu那里
+//我知道了，写在这里不能实时改变npc结构体的值，要写在执行那里
   memcpy(&npc_dut.pc,&dut.pc,sizeof(dut.pc));
   memcpy(npc_dut.gpr,&(dut.rootp->top__DOT__Register__DOT__rf),sizeof(dut.rootp->top__DOT__Register__DOT__rf));
 
@@ -84,7 +84,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   ref_difftest_init(port);
   ref_difftest_memcpy(reset_vector,npc_guest_to_host, img_size, DIFFTEST_TO_REF);
   ref_difftest_regcpy(&npc_dut, DIFFTEST_TO_REF);
-  printf("%x\n",npc_dut.pc);
+//  printf("%x\n",npc_dut.pc);
 }
 
 
