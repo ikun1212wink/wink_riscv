@@ -174,7 +174,7 @@ VL_INLINE_OPT void Vtop___024root___ico_sequent__TOP__0(Vtop___024root* vlSelf) 
                                                   == 
                                                   (0x707fU 
                                                    & vlSelf->inst)));
-    vlSelf->top__DOT__IDU__DOT__is_addi = (IData)((0x13U 
+    vlSelf->top__DOT__IDU__DOT__is_addi = (IData)((0x12U 
                                                    == 
                                                    (0x707fU 
                                                     & vlSelf->inst)));
@@ -1391,7 +1391,7 @@ VL_INLINE_OPT void Vtop___024root___ico_sequent__TOP__0(Vtop___024root* vlSelf) 
             = vlSelf->top__DOT__imm_out;
         vlSelf->top__DOT__ALU__DOT__signed_b = vlSelf->top__DOT__imm_out;
     }
-    vlSelf->top__DOT__IDU__DOT____VdfgTmp_h42947eb4__0 
+    vlSelf->top__DOT__IDU__DOT____VdfgTmp_hdeacc951__0 
         = (((IData)(vlSelf->top__DOT__jalr) | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lb) 
                                                | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lh) 
                                                   | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lw) 
@@ -1410,7 +1410,7 @@ VL_INLINE_OPT void Vtop___024root___ico_sequent__TOP__0(Vtop___024root* vlSelf) 
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list[1U] 
         = (0xe00000000ULL | (QData)((IData)(vlSelf->top__DOT__ALU__DOT__signed_b)));
     vlSelf->top__DOT__ALU__DOT__signed_a = (((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
-                                             | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h42947eb4__0))
+                                             | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_hdeacc951__0))
                                              ? vlSelf->top__DOT__Register__DOT__rf
                                             [(0x1fU 
                                               & (vlSelf->inst 
@@ -1626,7 +1626,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
                                                          == 
                                                          (0x7fU 
                                                           & vlSelf->inst)) 
-                                                        | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h42947eb4__0))) 
+                                                        | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_hdeacc951__0))) 
                                                     & (0U 
                                                        != 
                                                        (0x1fU 
@@ -1682,7 +1682,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__2(Vtop___024root* vlSelf) 
         vlSelf->top__DOT__ALU__DOT__signed_b = vlSelf->top__DOT__imm_out;
     }
     vlSelf->top__DOT__ALU__DOT__signed_a = (((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
-                                             | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h42947eb4__0))
+                                             | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_hdeacc951__0))
                                              ? vlSelf->top__DOT__Register__DOT__rf
                                             [(0x1fU 
                                               & (vlSelf->inst 

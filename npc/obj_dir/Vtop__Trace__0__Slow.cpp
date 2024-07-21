@@ -286,7 +286,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+25,(vlSelf->top__DOT__Register__DOT__i),32);
     bufp->fullBit(oldp+26,(vlSelf->top__DOT__jalr));
     bufp->fullBit(oldp+27,(((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
-                            | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h42947eb4__0))));
+                            | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_hdeacc951__0))));
     bufp->fullBit(oldp+28,((1U & (~ (IData)(vlSelf->top__DOT__IDU__DOT__is_r_type)))));
     bufp->fullCData(oldp+29,(vlSelf->top__DOT__alu_func),4);
     bufp->fullCData(oldp+30,(vlSelf->top__DOT__w_sel),2);
@@ -532,7 +532,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
                                          >> 0xfU))]),32);
     bufp->fullBit(oldp+207,(((IData)(vlSelf->top__DOT__IDU__DOT__is_u_type) 
                              | ((0x6fU == (0x7fU & vlSelf->inst)) 
-                                | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h42947eb4__0)))));
+                                | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_hdeacc951__0)))));
     bufp->fullIData(oldp+208,(((2U & (IData)(vlSelf->top__DOT__w_sel))
                                 ? ((1U & (IData)(vlSelf->top__DOT__w_sel))
                                     ? 0U : vlSelf->top__DOT__alu_out)

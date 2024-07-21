@@ -55,7 +55,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
     if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[1U])) {
         bufp->chgBit(oldp+25,(vlSelf->top__DOT__jalr));
         bufp->chgBit(oldp+26,(((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
-                               | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h42947eb4__0))));
+                               | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_hdeacc951__0))));
         bufp->chgBit(oldp+27,((1U & (~ (IData)(vlSelf->top__DOT__IDU__DOT__is_r_type)))));
         bufp->chgCData(oldp+28,(vlSelf->top__DOT__alu_func),4);
         bufp->chgCData(oldp+29,(vlSelf->top__DOT__w_sel),2);
@@ -312,7 +312,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
                                         >> 0xfU))]),32);
     bufp->chgBit(oldp+206,(((IData)(vlSelf->top__DOT__IDU__DOT__is_u_type) 
                             | ((0x6fU == (0x7fU & vlSelf->inst)) 
-                               | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h42947eb4__0)))));
+                               | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_hdeacc951__0)))));
     bufp->chgIData(oldp+207,(((2U & (IData)(vlSelf->top__DOT__w_sel))
                                ? ((1U & (IData)(vlSelf->top__DOT__w_sel))
                                    ? 0U : vlSelf->top__DOT__alu_out)
