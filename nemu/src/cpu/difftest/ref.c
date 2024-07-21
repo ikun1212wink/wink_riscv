@@ -34,10 +34,10 @@ __EXPORT void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction)
 // `direction`为`DIFFTEST_TO_REF`时, 设置REF的寄存器状态为`dut`;
 __EXPORT void difftest_regcpy(void *dut, bool direction) {//待实现
   if(direction==DIFFTEST_TO_REF){
-    memcpy(&cpu,dut,siseof(CPU_state));
+    memcpy(&cpu,dut,sizeof(CPU_state));
   }
   else{
-    memcpy(dut,&cpu,siseof(CPU_state));
+    memcpy(dut,&cpu,sizeof(CPU_state));
   }
 }
 
