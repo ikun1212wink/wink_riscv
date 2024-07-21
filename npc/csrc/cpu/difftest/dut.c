@@ -102,6 +102,9 @@ bool isa_difftest_checkregs(NPC_CPU_state *ref_r, vaddr_t pc) {
       printf("dut-pc=0x%08x\n",npc_dut.pc-4);
       printf("ref:%s = 0x%08x\n",regs2[i],ref_r->gpr[i]);
       printf("dut:%s = 0x%08x\n",regs2[i],npc_dut.gpr[i]);
+
+      reg_p();
+
       return false;
     }
   }
