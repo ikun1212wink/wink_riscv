@@ -78,7 +78,7 @@ assign  is_lhu  = (opcode == 7'h03) && (funct3 ==3'h5) ;
 assign  is_sb   = (opcode == 7'h23) && (funct3 ==3'h0) ;
 assign  is_sh   = (opcode == 7'h23) && (funct3 ==3'h1) ;
 assign  is_sw   = (opcode == 7'h23) && (funct3 ==3'h2) ;
-assign  is_addi = (opcode == 7'h12) && (funct3 ==3'h0) ;
+assign  is_addi = (opcode == 7'h13) && (funct3 ==3'h0) ;
 assign  is_slti = (opcode == 7'h13) && (funct3 ==3'h2) ;
 assign  is_sltiu= (opcode == 7'h13) && (funct3 ==3'h3) ;
 assign  is_xori = (opcode == 7'h13) && (funct3 ==3'h4) ;
