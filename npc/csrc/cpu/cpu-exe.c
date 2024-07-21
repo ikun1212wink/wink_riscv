@@ -11,7 +11,6 @@ int ebreak_flag=0;
 
  void execute(int n){
     uint32_t*memory=init_mem();
-    dut.pc=0x80000000;
     if(n>0){
         for (;n > 0; n --) {     
             printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
