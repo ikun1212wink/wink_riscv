@@ -19,6 +19,7 @@ int ebreak_flag=0;
             itrace();
             single_cycle();
             //printf("%x\n",dut.pc);
+            reg_p();
             difftest_step(dut.pc+4,dut.pc);
         }
         dump_wave();
