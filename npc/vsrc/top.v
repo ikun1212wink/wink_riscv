@@ -33,7 +33,7 @@ begin
     2'b00:  w_data = 32'h0;
     2'b01:  w_data = pc_plus4;
     2'b10:  w_data = alu_out;
-    2'b11:  w_data = 32'h0;
+    2'b11:  w_data = 32'h0;//数据从内存写入寄存器（待完成）
     default:w_data = 32'h0;
     endcase
 end

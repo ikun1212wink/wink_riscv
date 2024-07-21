@@ -145,21 +145,32 @@ assign jump_en = is_jump_type|is_jalr|is_jal;
 assign alu_a_sel    = is_s_type|is_i_type|is_r_type;
 //加法器b口数据选择
 assign alu_b_sel    =  ~is_r_type ;
+
 //加法器模式选择（后面要改用标准译码器模块）
 always@(*)
 begin
-    case({(is_auipc|is_jal|is_jalr|is_b_type|is_s_type|is_lb|is_lh|is_lw|is_lbu|is_lhu|is_add|is_addi),is_sub,(is_sll|is_slli),(is_srl|is_srli),(is_sra|is_srai),(is_slt|is_slti),(is_sltu|is_sltiu),(is_xor|is_xori),(is_or|is_ori),(is_and|is_andi),is_lui})
-        11'b10000000000:  alu_func=4'b0000;
-        11'b01000000000:  alu_func=4'b1000;
-        11'b00100000000:  alu_func=4'b0001;
-        11'b00010000000:  alu_func=4'b0101;
-        11'b00001000000:  alu_func=4'b1101;
-        11'b00000100000:  alu_func=4'b0010;
-        11'b00000010000:  alu_func=4'b0011;
-        11'b00000001000:  alu_func=4'b0100;
-        11'b00000000100:  alu_func=4'b0110;
-        11'b00000000010:  alu_func=4'b0111;
-        11'b00000000001:  alu_func=4'b1110; 
+    case({(is_auipc|is_jal|is_jalr|is_b_type|is_s_type|is_lb|is_lh|is_lw|is_lbu|is_lhu|is_add|is_addi),
+            is_sub,
+            (is_sll|is_slli),
+            (is_srl|is_srli),
+            (is_sra|is_srai),
+            (is_slt|is_slti),
+            (is_sltu|is_sltiu),
+            (is_xor|is_xori),
+            (is_or|is_ori),
+            (is_and|is_andi),
+             is_lui })
+        11'b10000000000:  alu_func=4'b0000;//ALU功能0  直接相加 
+        11'b01000000000:  alu_func=4'b1000;//ALU功能8  直接相减
+        11'b00100000000:  alu_func=4'b0001;//ALU功能1  （sll）左移rs2的低五位,空位补0  (slli)左移shamt的低五位,空位补0,仅当shamt[5]=0该指令有效
+        11'b00010000000:  alu_func=4'b0101;//ALU功能5  （srl,srli）作用和功能1同理
+        11'b00001000000:  alu_func=4'b1101;//ALU功能13 （sra,srai）sra:rs1右移rs2的第五位，高位用rs1的最高位填充   
+        11'b00000100000:  alu_func=4'b0010;//ALU功能2  （slt,slti）slt:视为补码比较rs1,rs2,rs1更小，向rd写入1 
+        11'b00000010000:  alu_func=4'b0011;//ALU功能3  （sltu,sltiu）和功能2差不多，但是看成无符号数
+        11'b00000001000:  alu_func=4'b0100;//ALU功能4  （xor,xori）rs1和rs2/imm 按位异或，结果写入rd 
+        11'b00000000100:  alu_func=4'b0110;//ALU功能6  （or,ori） rs1和rs2/imm按位或写入rd
+        11'b00000000010:  alu_func=4'b0111;//ALU功能7  （and,andi） rs1和rs2/imm按位与写入rd
+        11'b00000000001:  alu_func=4'b1110;//ALU功能14  lui 将20位的imm符号拓展后左移12位，并将低12位置0,结果写入rd 
         default:alu_func=4'b0000;
     endcase
 end

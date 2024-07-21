@@ -53,13 +53,11 @@ VL_ATTR_COLD void Vtop___024root___eval_initial__TOP(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[4U] = 0U;
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[5U] = 0U;
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[6U] = 0U;
-    vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[8U] = 0U;
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list[0U] = 0xf00000000ULL;
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list[3U] = 0xc00000000ULL;
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list[4U] = 0xb00000000ULL;
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list[5U] = 0xa00000000ULL;
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list[6U] = 0x900000000ULL;
-    vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list[8U] = 0x700000000ULL;
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[0U] = 0x13U;
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[1U] = 0x23U;
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[2U] = 3U;
@@ -1575,6 +1573,9 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list[7U] 
         = (0x800000000ULL | (QData)((IData)((vlSelf->top__DOT__ALU__DOT__signed_a 
                                              - vlSelf->top__DOT__ALU__DOT__signed_b))));
+    vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list[8U] 
+        = (0x700000000ULL | (QData)((IData)((vlSelf->top__DOT__ALU__DOT__signed_a 
+                                             & vlSelf->top__DOT__ALU__DOT__signed_b))));
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list[9U] 
         = (0x600000000ULL | (QData)((IData)((vlSelf->top__DOT__ALU__DOT__signed_a 
                                              | vlSelf->top__DOT__ALU__DOT__signed_b))));
@@ -1604,6 +1605,8 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                          (0x1fU & vlSelf->top__DOT__ALU__DOT__signed_b));
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[7U] 
         = (vlSelf->top__DOT__ALU__DOT__signed_a - vlSelf->top__DOT__ALU__DOT__signed_b);
+    vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[8U] 
+        = (vlSelf->top__DOT__ALU__DOT__signed_a & vlSelf->top__DOT__ALU__DOT__signed_b);
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[9U] 
         = (vlSelf->top__DOT__ALU__DOT__signed_a | vlSelf->top__DOT__ALU__DOT__signed_b);
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[0xaU] 
