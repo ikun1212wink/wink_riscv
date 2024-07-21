@@ -78,7 +78,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   memcpy(&npc_dut.pc,&dut.pc,sizeof(dut.pc));
   memcpy(npc_dut.gpr,&(dut.rootp->top__DOT__Register__DOT__rf),sizeof(dut.rootp->top__DOT__Register__DOT__rf));
 
-  uint32_t reset_vector=(uint32_t)0xFFFFFFFF;
+  uint32_t reset_vector=(uint32_t)0x80000000;
   uint32_t *npc_guest_to_host=init_mem();//npc程序实际位置的指针
 
   ref_difftest_init(port);
