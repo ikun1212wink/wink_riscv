@@ -128,7 +128,7 @@ static void checkregs(NPC_CPU_state *ref, vaddr_t pc) {
 //不同ISA的寄存器有所不同, 框架代码把寄存器对比抽象成一个ISA相关的API, 即isa_difftest_checkregs()函数（nemu/src/isa/$ISA/difftest/dut.c）
 void difftest_step(vaddr_t pc, vaddr_t npc) {
   NPC_CPU_state ref_r;
-printf("%d\n",skip_dut_nr_inst);
+  //skip_dut_nr_inst=0
   if (skip_dut_nr_inst > 0) {
     ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
     if (ref_r.pc == npc) {
@@ -143,7 +143,7 @@ printf("%d\n",skip_dut_nr_inst);
       assert(0);
     return;
   }
-
+printf("%d\n",is_skip_ref);
   if (is_skip_ref) {
     // to skip the checking of an instruction, just copy the reg state to reference design
     ref_difftest_regcpy(&npc_dut, DIFFTEST_TO_REF);
