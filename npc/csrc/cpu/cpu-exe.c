@@ -2,6 +2,7 @@
 #include <memory.h>
 #include <sim.h>
 #include <trace.h>
+#include <difftest.h>
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
@@ -17,6 +18,8 @@ int ebreak_flag=0;
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
             itrace();
             single_cycle();
+            //printf("%x\n",dut.pc);
+            difftest_step(dut.pc+4,dut.pc);
         }
         dump_wave();
         dut.final();

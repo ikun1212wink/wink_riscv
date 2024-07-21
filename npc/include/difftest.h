@@ -10,5 +10,5 @@ typedef struct
     word_t gpr[32];
     vaddr_t pc;
 }NPC_CPU_state;
-
+void difftest_step(vaddr_t pc, vaddr_t npc);
 #endif  //!__DIFFTEST__H__
