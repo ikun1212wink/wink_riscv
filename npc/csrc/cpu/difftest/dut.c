@@ -84,6 +84,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   ref_difftest_init(port);
   ref_difftest_memcpy(reset_vector,npc_guest_to_host, img_size, DIFFTEST_TO_REF);
   ref_difftest_regcpy(&npc_dut, DIFFTEST_TO_REF);
+  printf("%x\n",npc_dut.pc);
 }
 
 
@@ -145,7 +146,6 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
   if (is_skip_ref) {
     // to skip the checking of an instruction, just copy the reg state to reference design
     ref_difftest_regcpy(&npc_dut, DIFFTEST_TO_REF);
-    printf("%x\n",npc_dut.pc);
     is_skip_ref = false;
     return;
   }
