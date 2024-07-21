@@ -1,6 +1,7 @@
 #ifndef __SIM__H__
 #define __SIM__H__
 #include <common.h>
+#include "Vtop___024root.h"
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;

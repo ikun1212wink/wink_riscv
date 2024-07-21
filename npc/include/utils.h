@@ -28,4 +28,6 @@
     _Log(ANSI_FMT("[%s:%d %s] " format, COLOR_BLUE) "\n", \
         __FILE__, __LINE__, __func__, ## __VA_ARGS__)
 
+
+
 #endif  //!__UTILS__H__
