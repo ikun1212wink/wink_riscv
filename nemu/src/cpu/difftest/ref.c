@@ -28,7 +28,6 @@ __EXPORT void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction)
     uint8_t *host_addr = guest_to_host(addr);
     memcpy(buf, host_addr, n);
   }
-  assert(0);
 }
 
 // `direction`为`DIFFTEST_TO_DUT`时, 获取REF的寄存器状态到`dut`;
@@ -40,13 +39,11 @@ __EXPORT void difftest_regcpy(void *dut, bool direction) {//待实现
   else{
     memcpy(dut,&cpu,siseof(CPU_state));
   }
-  assert(0);
 }
 
 // 让REF执行`n`条指令
 __EXPORT void difftest_exec(uint64_t n) {//待实现
   cpu_exec(n);
-  assert(0);
 }
 
 __EXPORT void difftest_raise_intr(word_t NO) {//这个是为中断准备的，暂不实现
