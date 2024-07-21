@@ -76,6 +76,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
     
 
   memcpy(&npc_dut.pc,&dut.pc,sizeof(dut.pc));
+    printf("%x\n",dut.pc);
   memcpy(npc_dut.gpr,&(dut.rootp->top__DOT__Register__DOT__rf),sizeof(dut.rootp->top__DOT__Register__DOT__rf));
 
   uint32_t reset_vector=(uint32_t)0x80000000;
