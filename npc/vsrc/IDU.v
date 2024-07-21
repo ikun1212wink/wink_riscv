@@ -6,6 +6,8 @@ module ysyx_23060240_IDU(
     output jump_jtype,
     output reg [2:0] branch_type,//后续使用模块译码
     output reg [3:0] alu_func,//后续使用模块译码
+    output reg [2:0] memory_rd_ctrl,//后续使用模块译码
+    output reg [1:0] memory_wr_ctrl,//后续使用模块译码
     //用于ftrace
     output is_jal,
     output is_jalr
@@ -190,25 +192,30 @@ begin
     endcase
 end
 
-/* assign alu_func=4'b0000;
-assign w_en=1'b1;
+//[2:0]memory_rd_ctrl 读内存模式选择器
+always@(*)
+begin
+    case({is_lb,is_lbu,is_lh,is_lhu,is_lw})
+        5'b10000:  memory_rd_ctrl=3'b001;
+        5'b01000:  memory_rd_ctrl=3'b010;
+        5'b00100:  memory_rd_ctrl=3'b011;
+        5'b00010:  memory_rd_ctrl=3'b100;
+        5'b00001:  memory_rd_ctrl=3'b101;
+        default:memory_rd_ctrl=3'b000;
+    endcase
+end
 
-assign alu_a_sel_imm=1'b1;
-assign alu_a_sel_pc=1'b0;
-assign alu_b_sel=1'b1; */
+//[1:0]memory_wr_ctrl 写内存模式选择器
+always@(*)
+begin
+    case({is_sb,is_sh,is_sw})
+        3'b100:  memory_wr_ctrl=2'b01;
+        3'b010:  memory_wr_ctrl=2'b10;
+        3'b001:  memory_wr_ctrl=2'b11;
+        default:memory_wr_ctrl=2'b00;
+    endcase
+end  
 
-/* ysyx_23060240_MuxKeyWithDefault #(8,7,1) alu_a_sel(
-    alu_a_sel,opcode,1'b1,{
-        7'b0010111,alu_a_sel_pc,//auipc
-        7'b0110111,alu_a_sel_imm,//lui
-        7'b1100011,alu_a_sel_imm,//beq,bne,blt,bge,bltu,bgeu
-        7'b1101111,alu_a_sel_imm,//jal
-        7'b1100111,alu_a_sel_imm,//jalr
-        7'b0000011,alu_a_sel_imm,//lb,lh,lw,lbu,lhu
-        7'b0100011,alu_a_sel_imm,//sb,sh,sw
-        7'b0010011,alu_a_sel_imm//addi,slti,sltiu,xori,ori,andi,slli,srli,srai
-    }
-); */
 always@(*)begin
     if(inst==32'b00000000000000000000000001101111)begin
         npc_trap();

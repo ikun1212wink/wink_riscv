@@ -13,6 +13,8 @@ wire [31:0] alu_out;
 wire alu_a_sel,alu_b_sel;//加法器输入数据类型选择
 wire [3:0] alu_func;//加法器功能选择
 wire [2:0] branch_type;//分支类型
+wire [2:0] memory_rd_ctrl;//内存读取模式选择
+wire [1:0] memory_wr_ctrl;//写内存模式选择
 
 wire [31:0] rs1_data,rs2_data;
 wire w_en;//写寄存器信号
@@ -59,6 +61,8 @@ ysyx_23060240_IDU IDU(
     .jump_jtype(jump_jtype),//
     .w_sel(w_sel),//
     .branch_type(branch_type),//
+    .memory_rd_ctrl(memory_rd_ctrl),
+    .memory_wr_ctrl(memory_wr_ctrl),
     .is_jal(jal),
     .is_jalr(jalr)
 );

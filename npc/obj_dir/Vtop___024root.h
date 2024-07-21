@@ -20,6 +20,8 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__jalr;
         CData/*3:0*/ top__DOT__alu_func;
         CData/*2:0*/ top__DOT__branch_type;
+        CData/*2:0*/ top__DOT__memory_rd_ctrl;
+        CData/*1:0*/ top__DOT__memory_wr_ctrl;
         CData/*1:0*/ top__DOT__w_sel;
         CData/*0:0*/ top__DOT__jump_branch;
         CData/*0:0*/ top__DOT__IDU__DOT__is_beq;
@@ -32,6 +34,9 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT__is_lw;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lbu;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lhu;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_sb;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_sh;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_sw;
         CData/*0:0*/ top__DOT__IDU__DOT__is_addi;
         CData/*0:0*/ top__DOT__IDU__DOT__is_slti;
         CData/*0:0*/ top__DOT__IDU__DOT__is_sltiu;
@@ -64,14 +69,18 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
         CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
         CData/*4:0*/ __Vtableidx1;
+        CData/*4:0*/ __Vtableidx2;
+        CData/*2:0*/ __Vtableidx3;
         CData/*0:0*/ __Vtrigrprev__TOP__clk;
         CData/*0:0*/ __VactContinue;
-        SData/*8:0*/ __Vtableidx2;
+        SData/*8:0*/ __Vtableidx4;
         VL_IN(inst,31,0);
         VL_OUT(pc,31,0);
         IData/*31:0*/ top__DOT__alu_out;
         IData/*31:0*/ top__DOT__imm_out;
         IData/*31:0*/ top__DOT__Register__DOT__i;
+    };
+    struct {
         IData/*31:0*/ top__DOT__Pc__DOT__pc_plus4;
         IData/*31:0*/ top__DOT__ALU__DOT__signed_a;
         IData/*31:0*/ top__DOT__ALU__DOT__signed_b;
@@ -79,8 +88,6 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__IMM__DOT__out5;
         IData/*31:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__lut_out;
         IData/*31:0*/ top__DOT__BSU__DOT__signed_rs1;
-    };
-    struct {
         IData/*31:0*/ top__DOT__BSU__DOT__signed_rs2;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VicoIterCount;
