@@ -52,6 +52,20 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TO
     pmem_read__Vfuncrtn = pmem_read__Vfuncrtn__Vcvt;
 }
 
+extern "C" void pmem_write(int mem_wr_addr, int mem_wr_data, char memory_wr_ctrl);
+
+VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_write_TOP(IData/*31:0*/ mem_wr_addr, IData/*31:0*/ mem_wr_data, CData/*7:0*/ memory_wr_ctrl) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_write_TOP\n"); );
+    // Body
+    int mem_wr_addr__Vcvt;
+    for (size_t mem_wr_addr__Vidx = 0; mem_wr_addr__Vidx < 1; ++mem_wr_addr__Vidx) mem_wr_addr__Vcvt = mem_wr_addr;
+    int mem_wr_data__Vcvt;
+    for (size_t mem_wr_data__Vidx = 0; mem_wr_data__Vidx < 1; ++mem_wr_data__Vidx) mem_wr_data__Vcvt = mem_wr_data;
+    char memory_wr_ctrl__Vcvt;
+    for (size_t memory_wr_ctrl__Vidx = 0; memory_wr_ctrl__Vidx < 1; ++memory_wr_ctrl__Vidx) memory_wr_ctrl__Vcvt = memory_wr_ctrl;
+    pmem_write(mem_wr_addr__Vcvt, mem_wr_data__Vcvt, memory_wr_ctrl__Vcvt);
+}
+
 VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__pmem_read_TOP(IData/*31:0*/ pc, IData/*31:0*/ &pmem_read__Vfuncrtn) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__pmem_read_TOP\n"); );
     // Body

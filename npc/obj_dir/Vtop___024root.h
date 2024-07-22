@@ -21,7 +21,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*3:0*/ top__DOT__alu_func;
         CData/*2:0*/ top__DOT__branch_type;
         CData/*2:0*/ top__DOT__memory_rd_ctrl;
-        CData/*1:0*/ top__DOT__memory_wr_ctrl;
+        CData/*7:0*/ top__DOT__memory_wr_ctrl;
         CData/*0:0*/ top__DOT__mem_rd_en;
         CData/*1:0*/ top__DOT__w_sel;
         CData/*0:0*/ top__DOT__jump_branch;
@@ -78,9 +78,10 @@ class Vtop___024root final : public VerilatedModule {
         VL_OUT(inst,31,0);
         VL_OUT(pc,31,0);
         IData/*31:0*/ top__DOT__alu_out;
-        IData/*31:0*/ top__DOT__imm_out;
+        IData/*31:0*/ top__DOT__w_data;
     };
     struct {
+        IData/*31:0*/ top__DOT__imm_out;
         IData/*31:0*/ top__DOT__Register__DOT__i;
         IData/*31:0*/ top__DOT__Pc__DOT__pc_plus4;
         IData/*31:0*/ top__DOT__ALU__DOT__signed_a;
@@ -92,7 +93,7 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__BSU__DOT__signed_rs2;
         IData/*31:0*/ top__DOT__MEM__DOT__mem_out;
         IData/*31:0*/ __Vfunc_top__DOT__MEM__DOT__pmem_read__5__Vfuncout;
-        IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__pmem_read__6__Vfuncout;
+        IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__pmem_read__7__Vfuncout;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
         VlUnpacked<IData/*31:0*/, 32> top__DOT__Register__DOT__rf;
