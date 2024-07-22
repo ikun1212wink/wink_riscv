@@ -9,6 +9,7 @@ module ysyx_23060240_MEM(
 
     output reg [31:0] mem_rd_data
 );
+
 reg [31:0] mem_out;
 //import "DPI-C" function int pmem_read(input uint32_t mem_rd_addr);
 import "DPI-C" function int pmem_read(input int mem_rd_addr);
