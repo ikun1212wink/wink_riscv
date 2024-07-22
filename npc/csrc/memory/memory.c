@@ -89,13 +89,15 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
       new_mem_word=(0xFF00&old_mem_word)+(0x00FF&wdata);
       printf("2\n");
     break;
-    case 3:
+    case 3://sw
       new_mem_word=wdata;
-        printf("3\n");
+      printf("3\n");
     break;  
     default:
       new_mem_word=0;
+      printf("4\n");
     break;
   }
+    printf("%x\n",new_mem_word);
   memory[img_wr_addr]=new_mem_word;
 }
