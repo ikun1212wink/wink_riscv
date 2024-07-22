@@ -2,7 +2,7 @@
 #include <monitor.h>
 extern char *img_path;
 int mem_number;
-//extern uint32_t* memory;
+extern uint32_t* memory;
 uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
 }
@@ -29,23 +29,23 @@ uint32_t* init_mem() {
     // 计算需要的数组大小
     *num = fileSize / sizeof(uint32_t);
   //  *num +=2000000000;
-    uint32_t* memory = (uint32_t*)malloc(0x8000000);
-    if (!memory) {
+    uint32_t* memory_malloc = (uint32_t*)malloc(0x8000000);
+    if (!memory_malloc) {
         printf("Memory allocation failed.\n");
         fclose(file);
         return NULL;
     }
 
-    size_t bytesRead = fread(memory, sizeof(uint8_t), fileSize, file);
+    size_t bytesRead = fread(memory_malloc, sizeof(uint8_t), fileSize, file);
     fclose(file);
 
     if (bytesRead != fileSize) {
         printf("Failed to read the complete file.\n");
-        free(memory);
+        free(memory_malloc);
         return NULL;
     }
 
-    return memory;
+    return memory_malloc;
 }
 
 //得到内存的大小
@@ -69,14 +69,14 @@ long img_size(){
 
 
 extern "C" uint32_t pmem_read(int raddr) {
-  uint32_t*memory=init_mem();
+
   // 总是读取地址为`raddr & ~0x3u`的4字节返回
   uint32_t aligned_addr = raddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_rd_addr = guest_to_host(aligned_addr);//内存内的地址
   return memory[img_rd_addr/4];
 }
 extern "C" void pmem_write(int waddr, int wdata, char select) {
-  uint32_t*memory=init_mem();
+
   uint32_t aligned_addr = waddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_wr_addr = guest_to_host(aligned_addr);
   uint32_t old_mem_word = memory[img_wr_addr];
