@@ -3,7 +3,7 @@
 #include <cpu.h>
 extern char *img_path;
 int mem_number;
-uint32_t *memory;
+uint32_t memory[0x8000000];
 uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
 }
@@ -14,7 +14,7 @@ uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
 } */
 
 //初始化内存,返回内存的地址
-uint32_t* init_mem() { 
+  uint32_t* init_mem() { 
     int* num=&mem_number;
     FILE* file = fopen(img_path, "rb");
     if (!file) {
@@ -30,7 +30,7 @@ uint32_t* init_mem() {
     // 计算需要的数组大小
     *num = fileSize / sizeof(uint32_t);
   //  *num +=2000000000;
-    memory = (uint32_t*)malloc(0x8000000);
+    //memory = (uint32_t*)malloc(0x8000000);
     if (!memory) {
         printf("Memory allocation failed.\n");
         fclose(file);
@@ -46,7 +46,7 @@ uint32_t* init_mem() {
         return NULL;
     }
 
-    //return memory;
+    return memory;
 }
 
 //得到内存的大小

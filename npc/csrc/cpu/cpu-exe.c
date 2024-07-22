@@ -9,7 +9,7 @@ extern Vtop dut;
 int ebreak_flag=0;
 
  void execute(int n){
-    init_mem();
+    uint32_t *mem= init_mem();
     if(n>0){
         for (;n > 0; n --) {     
             printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
