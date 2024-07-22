@@ -18,6 +18,7 @@ wire [2:0] memory_rd_ctrl;//内存读取模式选择
 wire [7:0] memory_wr_ctrl;//写内存模式选择
 wire mem_rd_en;//存储器读使能
 wire mem_wr_en;//存储器写使能
+wire [31:0] mem_rd_data;//存储器读出的数据
 
 wire [31:0] rs1_data,rs2_data;
 wire w_en;//写寄存器信号
@@ -48,7 +49,7 @@ begin
     2'b00:  w_data = 32'h0;
     2'b01:  w_data = pc_plus4;
     2'b10:  w_data = alu_out;
-    2'b11:  w_data = 32'h0;//数据从内存写入寄存器（待完成）
+    2'b11:  w_data = mem_rd_data;//数据从内存写入寄存器（待完成）
     default:w_data = 32'h0;
     endcase
 end
@@ -118,7 +119,7 @@ ysyx_23060240_MEM MEM(
     .mem_wr_data(rs2_data),
     .mem_rd_addr(alu_out),
     .mem_wr_addr(alu_out),
-    .mem_rd_data(w_data)
+    .mem_rd_data(mem_rd_data)
 );
 
 ysyx_23060240_IFU IFU(
