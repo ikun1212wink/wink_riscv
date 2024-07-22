@@ -44,6 +44,7 @@ extern const VlUnpacked<CData/*2:0*/, 32> Vtop__ConstPool__TABLE_h03e0431e_0;
 extern const VlUnpacked<CData/*7:0*/, 8> Vtop__ConstPool__TABLE_h074114c1_0;
 extern const VlUnpacked<CData/*2:0*/, 32> Vtop__ConstPool__TABLE_hfe40056e_0;
 extern const VlUnpacked<CData/*0:0*/, 512> Vtop__ConstPool__TABLE_hab390d39_0;
+void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_write_TOP(IData/*31:0*/ mem_wr_addr, IData/*31:0*/ mem_wr_data, CData/*7:0*/ memory_wr_ctrl);
 void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TOP(IData/*31:0*/ mem_rd_addr, IData/*31:0*/ &pmem_read__Vfuncrtn);
 
 VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) {
@@ -142,8 +143,8 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
                        ? vlSelf->top__DOT__alu_out : vlSelf->top__DOT__Pc__DOT__pc_plus4));
     vlSelf->top__DOT__Pc__DOT__pc_plus4 = ((IData)(4U) 
                                            + vlSelf->pc);
-    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__pmem_read__6__Vfuncout);
-    vlSelf->inst = vlSelf->__Vfunc_top__DOT__IFU__DOT__pmem_read__6__Vfuncout;
+    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__pmem_read__7__Vfuncout);
+    vlSelf->inst = vlSelf->__Vfunc_top__DOT__IFU__DOT__pmem_read__7__Vfuncout;
     if ((0x6fU == vlSelf->inst)) {
         Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP();
     }
@@ -1742,6 +1743,9 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
                           [0xfU]))) & vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list
               [0xfU]));
     vlSelf->top__DOT__alu_out = vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__lut_out;
+    if (vlSelf->top__DOT__IDU__DOT__is_s_type) {
+        Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_write_TOP(vlSelf->top__DOT__alu_out, vlSelf->top__DOT__BSU__DOT__signed_rs2, (IData)(vlSelf->top__DOT__memory_wr_ctrl));
+    }
     if (vlSelf->top__DOT__mem_rd_en) {
         Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TOP(vlSelf->top__DOT__alu_out, vlSelf->__Vfunc_top__DOT__MEM__DOT__pmem_read__5__Vfuncout);
         vlSelf->top__DOT__MEM__DOT__mem_out = vlSelf->__Vfunc_top__DOT__MEM__DOT__pmem_read__5__Vfuncout;

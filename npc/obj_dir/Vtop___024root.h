@@ -92,7 +92,7 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__BSU__DOT__signed_rs2;
         IData/*31:0*/ top__DOT__MEM__DOT__mem_out;
         IData/*31:0*/ __Vfunc_top__DOT__MEM__DOT__pmem_read__5__Vfuncout;
-        IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__pmem_read__6__Vfuncout;
+        IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__pmem_read__7__Vfuncout;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
         VlUnpacked<IData/*31:0*/, 32> top__DOT__Register__DOT__rf;
