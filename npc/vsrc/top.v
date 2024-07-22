@@ -18,7 +18,6 @@ wire [2:0] memory_rd_ctrl;//内存读取模式选择
 wire [7:0] memory_wr_ctrl;//写内存模式选择
 wire mem_rd_en;//存储器读使能
 wire mem_wr_en;//存储器写使能
-assign mem_wr_en=1'b1;
 wire [31:0] mem_rd_data;//存储器读出的数据
 
 wire [31:0] rs1_data,rs2_data;
