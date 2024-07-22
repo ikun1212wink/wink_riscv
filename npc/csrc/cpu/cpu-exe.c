@@ -17,10 +17,11 @@ int exe=0;
             //dut.inst=pmem_read(memory,dut.pc);//这个函数是每个周期才会执行一次（下降沿），而PC增加是在上升沿，所以就错开了半个周期
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
             itrace();
+            difftest_step(dut.pc+4,dut.pc);
             single_cycle();
             //printf("%x\n",dut.pc);
             reg_p();
-            difftest_step(dut.pc+4,dut.pc);
+            
         }
         dump_wave();
         dut.final();
@@ -34,9 +35,10 @@ int exe=0;
             //dut.inst=pmem_read(memory,dut.pc);
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
             itrace();
+            difftest_step(dut.pc+4,dut.pc);
             single_cycle();
             reg_p();
-            difftest_step(dut.pc+4,dut.pc);
+            
         }
     }
     else {
