@@ -27,6 +27,7 @@ uint32_t* init_mem() {
 
     // 计算需要的数组大小
     *num = fileSize / sizeof(uint32_t);
+    *num +=1000;
     uint32_t* memory = (uint32_t*)malloc(*num * sizeof(uint32_t));
     if (!memory) {
         printf("Memory allocation failed.\n");
@@ -70,11 +71,28 @@ extern "C" uint32_t pmem_read(int raddr) {
   uint32_t*memory=init_mem();
   uint32_t aligned_addr = raddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_rd_addr = guest_to_host(aligned_addr);//内存内的地址
-  printf("%x\n",memory[img_rd_addr/4]);
   return memory[img_rd_addr/4];
 }
-extern "C" void pmem_write(int waddr, int wdata, char wmask) {
-  // 总是往地址为`waddr & ~0x3u`的4字节按写掩码`wmask`写入`wdata`
-  // `wmask`中每比特表示`wdata`中1个字节的掩码,
-  // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
+extern "C" void pmem_write(int waddr, int wdata, char select) {
+  uint32_t*memory=init_mem();
+  uint32_t aligned_addr = waddr & ~0x3u;//对齐地址，4字节为单位
+  uint32_t img_wr_addr = guest_to_host(aligned_addr);
+  uint32_t old_mem_word = memory[img_wr_addr];
+  uint32_t new_mem_word;
+  switch (select)
+  {
+    case 1://sb存字节
+      new_mem_word=(0xFFF0&old_mem_word)+(0x000F&wdata);
+    break;
+    case 2://sw存半字
+      new_mem_word=(0xFF00&old_mem_word)+(0x00FF&wdata);
+    break;
+    case 3:
+      new_mem_word=wdata;
+    break;  
+    default:
+      new_mem_word=0;
+    break;
+  }
+  memory[img_wr_addr]=new_mem_word;
 }

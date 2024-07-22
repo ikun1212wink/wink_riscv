@@ -6,5 +6,5 @@ uint32_t pmem_read(uint32_t*memory,uint32_t vaddr);
 uint32_t* init_mem();
 long img_size();
 extern "C" uint32_t pmem_read(int raddr);
-extern "C" void pmem_write(int waddr, int wdata, char wmask);
+extern "C" void pmem_write(int waddr, int wdata, char select);
 #endif  //!__MEMORY__H__

@@ -7,7 +7,7 @@ module ysyx_23060240_IDU(
     output reg [2:0] branch_type,//后续使用模块译码
     output reg [3:0] alu_func,//后续使用模块译码
     output reg [2:0] memory_rd_ctrl,//后续使用模块译码
-    output reg [1:0] memory_wr_ctrl,//后续使用模块译码
+    output reg [7:0] memory_wr_ctrl,//后续使用模块译码
     output mem_rd_en,
     output mem_wr_en,
     //用于ftrace
@@ -216,10 +216,10 @@ end
 always@(*)
 begin
     case({is_sb,is_sh,is_sw})
-        3'b100:  memory_wr_ctrl=2'b01;
-        3'b010:  memory_wr_ctrl=2'b10;
-        3'b001:  memory_wr_ctrl=2'b11;
-        default:memory_wr_ctrl=2'b00;
+        3'b100:  memory_wr_ctrl=8'b00000001;
+        3'b010:  memory_wr_ctrl=8'b00000010;
+        3'b001:  memory_wr_ctrl=8'b00000011;
+        default:memory_wr_ctrl=8'b00000000;
     endcase
 end  
 
