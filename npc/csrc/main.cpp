@@ -30,8 +30,8 @@ int main(int argc,char *argv[]){
 
   reset(10);
 
-  execute(-1); 
+  //execute(-1); 
 
-  //sdb_mainloop();
+  sdb_mainloop();
   return 0;
 }

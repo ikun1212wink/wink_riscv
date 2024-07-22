@@ -9,13 +9,13 @@ module ysyx_23060240_MEM(
 
     output reg [31:0] mem_rd_data
 );
-wire [31:0] mem_out;
+reg [31:0] mem_out;
 //import "DPI-C" function int pmem_read(input uint32_t mem_rd_addr);
 import "DPI-C" function int pmem_read(input int mem_rd_addr);
 /* verilator lint_off LATCH */
 always@(*)begin
     if(mem_rd_en)begin
-        mem_rd_data=pmem_read(mem_rd_addr);
+        mem_out=pmem_read(mem_rd_addr);
     end
 end
 endmodule

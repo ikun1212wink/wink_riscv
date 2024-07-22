@@ -78,10 +78,9 @@ class Vtop___024root final : public VerilatedModule {
         VL_OUT(inst,31,0);
         VL_OUT(pc,31,0);
         IData/*31:0*/ top__DOT__alu_out;
-        IData/*31:0*/ top__DOT__w_data;
+        IData/*31:0*/ top__DOT__imm_out;
     };
     struct {
-        IData/*31:0*/ top__DOT__imm_out;
         IData/*31:0*/ top__DOT__Register__DOT__i;
         IData/*31:0*/ top__DOT__Pc__DOT__pc_plus4;
         IData/*31:0*/ top__DOT__ALU__DOT__signed_a;
