@@ -2,6 +2,7 @@
 #include <monitor.h>
 extern char *img_path;
 int mem_number;
+extern uint32_t* memory;
 uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
   return addr-0x80000000;
 }
@@ -66,7 +67,7 @@ long img_size(){
   return size;
 }
 
-  uint32_t*memory=init_mem();
+
 extern "C" uint32_t pmem_read(int raddr) {
   // 总是读取地址为`raddr & ~0x3u`的4字节返回
   uint32_t aligned_addr = raddr & ~0x3u;//对齐地址，4字节为单位
