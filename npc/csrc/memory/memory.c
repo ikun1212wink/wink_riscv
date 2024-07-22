@@ -100,4 +100,6 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
   }
     printf("%x\n",new_mem_word);
   memory[img_wr_addr]=new_mem_word;
+    printf("%x\n",img_wr_addr);
+    printf("%x\n",memory[img_wr_addr]);
 }
