@@ -83,13 +83,15 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
   {
     case 1://sb存字节
       new_mem_word=(0xFFF0&old_mem_word)+(0x000F&wdata);
+        printf("1\n");
     break;
-    case 2://sw存半字
+    case 2://sh存半字
       new_mem_word=(0xFF00&old_mem_word)+(0x00FF&wdata);
-      printf("1111\n");
+      printf("2\n");
     break;
     case 3:
       new_mem_word=wdata;
+        printf("3\n");
     break;  
     default:
       new_mem_word=0;
