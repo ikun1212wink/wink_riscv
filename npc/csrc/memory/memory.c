@@ -28,7 +28,7 @@ uint32_t* init_mem() {
     // 计算需要的数组大小
     *num = fileSize / sizeof(uint32_t);
   //  *num +=2000000000;
-    uint32_t* memory = (uint32_t*)malloc(*num * sizeof(uint32_t));
+    uint32_t* memory = (uint32_t*)malloc(0x8000000);
     if (!memory) {
         printf("Memory allocation failed.\n");
         fclose(file);
@@ -38,11 +38,11 @@ uint32_t* init_mem() {
     size_t bytesRead = fread(memory, sizeof(uint8_t), fileSize, file);
     fclose(file);
 
-    if (bytesRead != fileSize) {
+/*     if (bytesRead != fileSize) {
         printf("Failed to read the complete file.\n");
         free(memory);
         return NULL;
-    }
+    } */
 
     return memory;
 }
