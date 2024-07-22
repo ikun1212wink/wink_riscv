@@ -1,5 +1,6 @@
 #include <memory.h>
 #include <monitor.h>
+#include <cpu.h>
 extern char *img_path;
 int mem_number;
 extern uint32_t* memory;
