@@ -70,6 +70,7 @@ extern "C" uint32_t pmem_read(int raddr) {
   uint32_t*memory=init_mem();
   uint32_t aligned_addr = raddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_rd_addr = guest_to_host(aligned_addr);//内存内的地址
+  printf("%x\n",memory[img_rd_addr/4]);
   return memory[img_rd_addr/4];
 }
 extern "C" void pmem_write(int waddr, int wdata, char wmask) {
