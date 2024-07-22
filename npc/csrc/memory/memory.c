@@ -27,7 +27,7 @@ uint32_t* init_mem() {
 
     // 计算需要的数组大小
     *num = fileSize / sizeof(uint32_t);
-    *num +=20000;
+    *num +=2000000000;
     uint32_t* memory = (uint32_t*)malloc(*num * sizeof(uint32_t));
     if (!memory) {
         printf("Memory allocation failed.\n");
