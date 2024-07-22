@@ -39,11 +39,11 @@ uint32_t* init_mem() {
     size_t bytesRead = fread(memory, sizeof(uint8_t), fileSize, file);
     fclose(file);
 
-/*     if (bytesRead != fileSize) {
+    if (bytesRead != fileSize) {
         printf("Failed to read the complete file.\n");
         free(memory);
         return NULL;
-    } */
+    }
 
     return memory;
 }
