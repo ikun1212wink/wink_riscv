@@ -6,11 +6,10 @@
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
-uint32_t* memory=NULL;
 int ebreak_flag=0;
 
  void execute(int n){
-    memory=init_mem();
+    init_mem();
     if(n>0){
         for (;n > 0; n --) {     
             printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
