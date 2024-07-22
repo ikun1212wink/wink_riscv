@@ -32,6 +32,8 @@ int ebreak_flag=0;
             //dut.inst=pmem_read(memory,dut.pc);
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
             single_cycle();
+            itrace();
+            reg_p();
             difftest_step(dut.pc+4,dut.pc);
         }
     }
