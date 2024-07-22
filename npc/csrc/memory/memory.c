@@ -43,7 +43,7 @@ uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
 
     if (bytesRead != fileSize) {
         printf("Failed to read the complete file.\n");
-        free(memory);
+       // free(memory);
         return NULL;
     }
 
