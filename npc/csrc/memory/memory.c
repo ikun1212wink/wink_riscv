@@ -15,6 +15,7 @@ uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
 
 //初始化内存,返回内存的地址
   uint32_t* init_mem() { 
+    printf("init memoty!!!\n");
     int* num=&mem_number;
     FILE* file = fopen(img_path, "rb");
     if (!file) {
