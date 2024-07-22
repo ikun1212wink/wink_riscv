@@ -1,12 +1,13 @@
 module top(
     input clk,
     input rst,
-    input [31:0] inst,
+    output [31:0] inst,
     output [31:0] pc
 );
 //ftrace用
 wire jal;
 wire jalr;
+
 
 wire [31:0] alu_a,alu_b;
 wire [31:0] alu_out;
@@ -15,6 +16,8 @@ wire [3:0] alu_func;//加法器功能选择
 wire [2:0] branch_type;//分支类型
 wire [2:0] memory_rd_ctrl;//内存读取模式选择
 wire [1:0] memory_wr_ctrl;//写内存模式选择
+wire mem_rd_en;//存储器读使能
+wire mem_wr_en;//存储器写使能
 
 wire [31:0] rs1_data,rs2_data;
 wire w_en;//写寄存器信号
@@ -63,6 +66,8 @@ ysyx_23060240_IDU IDU(
     .branch_type(branch_type),//
     .memory_rd_ctrl(memory_rd_ctrl),
     .memory_wr_ctrl(memory_wr_ctrl),
+    .mem_rd_en(mem_rd_en),
+    .mem_wr_en(mem_wr_en),
     .is_jal(jal),
     .is_jalr(jalr)
 );
@@ -103,6 +108,22 @@ ysyx_23060240_BSU BSU(
     .rs2(rs2_data),
     .branch_type(branch_type),
     .jump_branch(jump_branch)
+);
+
+ysyx_23060240_MEM MEM(
+    .mem_rd_en(mem_rd_en),
+    .mem_wr_en(mem_wr_en),
+    .memory_rd_ctrl(memory_rd_ctrl),
+    .memory_wr_ctrl(memory_wr_ctrl),
+    .mem_wr_data(rs2_data),
+    .mem_rd_addr(alu_out),
+    .mem_wr_addr(alu_out),
+    .mem_rd_data(w_data)
+);
+
+ysyx_23060240_IFU IFU(
+    .pc(pc),
+    .inst(inst)
 );
 
 import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);

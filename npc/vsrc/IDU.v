@@ -8,6 +8,8 @@ module ysyx_23060240_IDU(
     output reg [3:0] alu_func,//后续使用模块译码
     output reg [2:0] memory_rd_ctrl,//后续使用模块译码
     output reg [1:0] memory_wr_ctrl,//后续使用模块译码
+    output mem_rd_en,
+    output mem_wr_en,
     //用于ftrace
     output is_jal,
     output is_jalr
@@ -124,6 +126,11 @@ assign  is_s_type   = is_sb | is_sh | is_sw ;
 
 //寄存器写使能信号
 assign w_en     =  is_u_type|is_jump_type|is_i_type|is_r_type;
+//存储器读使能
+assign mem_rd_en = is_lb|is_lh|is_lw|is_lbu|is_lhu;
+assign mem_wr_en = is_sb|is_sh|is_sw;
+//存储器写使能
+
 //寄存器写入数据类型选择（后面要改用标准译码器模块）
 always@(*)
 begin

@@ -69,7 +69,7 @@ static int cmd_x(char *args){
     //扫描内存
     printf("%-12s %-12s\n", "Addr", "Data");
     for(int i=0;i<n;i++){
-      printf("0x%08x   0x%08x\n",addr,pmem_read(memory,addr));
+      printf("0x%08x   0x%08x\n",addr,pmem_read(addr));
       addr+=4;//一次读取四个字节，内存储存是以字节为单位的，所以地址向后移动四个字节
     }
   }

@@ -14,7 +14,7 @@ int ebreak_flag=0;
     if(n>0){
         for (;n > 0; n --) {     
             printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
-            dut.inst=pmem_read(memory,dut.pc);//这个函数是每个周期才会执行一次（下降沿），而PC增加是在上升沿，所以就错开了半个周期
+            //dut.inst=pmem_read(memory,dut.pc);//这个函数是每个周期才会执行一次（下降沿），而PC增加是在上升沿，所以就错开了半个周期
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
             itrace();
             single_cycle();
@@ -29,7 +29,7 @@ int ebreak_flag=0;
     else if(n<0) {
         while(!ebreak_flag){  
             printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
-            dut.inst=pmem_read(memory,dut.pc);
+            //dut.inst=pmem_read(memory,dut.pc);
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
             single_cycle();
         }
