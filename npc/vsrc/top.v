@@ -111,7 +111,6 @@ ysyx_23060240_BSU BSU(
 );
 
 ysyx_23060240_MEM MEM(
-    .pc(pc),
     .mem_rd_en(mem_rd_en),
     .mem_wr_en(mem_wr_en),
     .memory_rd_ctrl(memory_rd_ctrl),
@@ -119,7 +118,11 @@ ysyx_23060240_MEM MEM(
     .mem_wr_data(rs2_data),
     .mem_rd_addr(alu_out),
     .mem_wr_addr(alu_out),
-    .mem_rd_data(w_data),
+    .mem_rd_data(w_data)
+);
+
+ysyx_23060240_IFU IFU(
+    .pc(pc),
     .inst(inst)
 );
 
