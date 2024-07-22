@@ -5,4 +5,5 @@
 #include <sim.h>
 void execute(int n);
 extern int ebreak_flag;
+extern uint32_t* memory;
 #endif  //!__CPU__H__

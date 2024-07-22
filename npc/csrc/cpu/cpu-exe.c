@@ -6,7 +6,7 @@
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
-uint32_t* memory;
+uint32_t* memory=NULL;
 int ebreak_flag=0;
 
  void execute(int n){
