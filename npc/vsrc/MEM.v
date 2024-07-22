@@ -32,9 +32,9 @@ always@(*)begin
     endcase
 end
 /* verilator lint_off LATCH */
-always@(*)begin
+/* always@(*)begin
     if(mem_wr_en)begin
       pmem_write(mem_wr_addr,mem_wr_data,memory_wr_ctrl);
     end
-end
+end */
 endmodule
