@@ -6,7 +6,7 @@ HSRCS = $(shell find $(abspath ./include) -name "*.h")
 #CXXSRC += csrc/utils/disasm.cc
 #CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs)
-ARGS_ELF ?= -e ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.elf
+ARGS_ELF ?= -e ../am-kernels/tests/cpu-tests/build/add-riscv32e-npc.elf
 #CXX :=clang++
 
 #difftest
@@ -27,7 +27,7 @@ CFLAGS			+= -I$(INC_PATH)
 OBJ_DIR			:= ./obj_dir
 BIN				:= $(OBJ_DIR)/V$(TOP_NAME)
 
-IMG ?= ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin
+IMG ?= ../am-kernels/tests/cpu-tests/build/add-riscv32e-npc.bin
 
 
 RUN_FLAGS		:= --img=${IMG} 

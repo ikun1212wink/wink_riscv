@@ -51,7 +51,7 @@ static int cmd_si(char *args){
 
 //cmd_x用于扫描内存
 static int cmd_x(char *args){
-  uint32_t*memory=init_mem();
+  //uint32_t*memory=init_mem();
   char *args1=strtok(args," ");
   args=args1+strlen(args1)+1;
   char *args2=strtok(args," ");
