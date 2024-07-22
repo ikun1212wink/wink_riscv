@@ -67,20 +67,20 @@ long img_size(){
   return size;
 }
 
-uint32_t* memory_p;
+
 
 extern "C" uint32_t pmem_read(int raddr) {
-
+  uint32_t* memory=init_mem();
   // 总是读取地址为`raddr & ~0x3u`的4字节返回
   uint32_t aligned_addr = raddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_rd_addr = guest_to_host(aligned_addr);//内存内的地址
-  return memory_p[img_rd_addr/4];
+  return memory[img_rd_addr/4];
 }
 extern "C" void pmem_write(int waddr, int wdata, char select) {
-  memory_p=init_mem();
+  uint32_t* memory=init_mem();
   uint32_t aligned_addr = waddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_wr_addr = guest_to_host(aligned_addr);
-  uint32_t old_mem_word = memory_p[img_wr_addr];
+  uint32_t old_mem_word = memory[img_wr_addr];
   uint32_t new_mem_word;
   switch (select)
   {
@@ -102,7 +102,7 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
     break;
   }
     printf("%x\n",new_mem_word);
-  memory_p[img_wr_addr]=new_mem_word;
+  memory[img_wr_addr]=new_mem_word;
     printf("%x\n",img_wr_addr);
-    printf("%x\n",memory_p[img_wr_addr]);
+    printf("%x\n",memory[img_wr_addr]);
 }
