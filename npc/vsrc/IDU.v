@@ -3,8 +3,13 @@ module ysyx_23060240_IDU(
     output alu_a_sel,alu_b_sel,
     output w_en,
     output reg [1:0] w_sel,//后续使用模块译码
-    output jump_en,
+    output jump_jtype,
+    output reg [2:0] branch_type,//后续使用模块译码
     output reg [3:0] alu_func,//后续使用模块译码
+    output reg [2:0] memory_rd_ctrl,//后续使用模块译码
+    output reg [1:0] memory_wr_ctrl,//后续使用模块译码
+    output mem_rd_en,
+    output mem_wr_en,
     //用于ftrace
     output is_jal,
     output is_jalr
@@ -121,6 +126,11 @@ assign  is_s_type   = is_sb | is_sh | is_sw ;
 
 //寄存器写使能信号
 assign w_en     =  is_u_type|is_jump_type|is_i_type|is_r_type;
+//存储器读使能
+assign mem_rd_en = is_lb|is_lh|is_lw|is_lbu|is_lhu;
+assign mem_wr_en = is_sb|is_sh|is_sw;
+//存储器写使能
+
 //寄存器写入数据类型选择（后面要改用标准译码器模块）
 always@(*)
 begin
@@ -140,49 +150,79 @@ begin
     end
 end  
 //跳转使能
-assign jump_en = is_jump_type|is_jalr|is_jal;
+assign jump_jtype = is_jump_type|is_jalr|is_jal;
+
+//分支类型选择
+always@(*)begin
+    case({is_beq, is_bne, is_blt, is_bge, is_bltu, is_bge})
+        6'b100000:branch_type=3'b001;//分支类型1：相等分支
+        6'b010000:branch_type=3'b010;//分支类型2：不相等分支
+        6'b001000:branch_type=3'b011;//分支类型3：小于时分支
+        6'b000100:branch_type=3'b100;//分支类型4：大于等于时分支
+        6'b000010:branch_type=3'b101;//分支类型5：无符号小于分支
+        6'b000001:branch_type=3'b110;//分支类型6：无符号大于等于分支
+        default:branch_type=3'b000;
+    endcase
+end
+
 //加法器a口数据选择
 assign alu_a_sel    = is_s_type|is_i_type|is_r_type;
 //加法器b口数据选择
 assign alu_b_sel    =  ~is_r_type ;
+
 //加法器模式选择（后面要改用标准译码器模块）
 always@(*)
 begin
-    case({(is_auipc|is_jal|is_jalr|is_b_type|is_s_type|is_lb|is_lh|is_lw|is_lbu|is_lhu|is_add|is_addi),is_sub,(is_sll|is_slli),(is_srl|is_srli),(is_sra|is_srai),(is_slt|is_slti),(is_sltu|is_sltiu),(is_xor|is_xori),(is_or|is_ori),(is_and|is_andi),is_lui})
-        11'b10000000000:  alu_func=4'b0000;
-        11'b01000000000:  alu_func=4'b1000;
-        11'b00100000000:  alu_func=4'b0001;
-        11'b00010000000:  alu_func=4'b0101;
-        11'b00001000000:  alu_func=4'b1101;
-        11'b00000100000:  alu_func=4'b0010;
-        11'b00000010000:  alu_func=4'b0011;
-        11'b00000001000:  alu_func=4'b0100;
-        11'b00000000100:  alu_func=4'b0110;
-        11'b00000000010:  alu_func=4'b0111;
-        11'b00000000001:  alu_func=4'b1110; 
+    case({(is_auipc|is_jal|is_jalr|is_b_type|is_s_type|is_lb|is_lh|is_lw|is_lbu|is_lhu|is_add|is_addi),
+            is_sub,
+            (is_sll|is_slli),
+            (is_srl|is_srli),
+            (is_sra|is_srai),
+            (is_slt|is_slti),
+            (is_sltu|is_sltiu),
+            (is_xor|is_xori),
+            (is_or|is_ori),
+            (is_and|is_andi),
+             is_lui })
+        11'b10000000000:  alu_func=4'b0000;//ALU功能0  直接相加 
+        11'b01000000000:  alu_func=4'b1000;//ALU功能8  直接相减
+        11'b00100000000:  alu_func=4'b0001;//ALU功能1  （sll）左移rs2的低五位,空位补0  (slli)左移shamt的低五位,空位补0,仅当shamt[5]=0该指令有效
+        11'b00010000000:  alu_func=4'b0101;//ALU功能5  （srl,srli）作用和功能1同理
+        11'b00001000000:  alu_func=4'b1101;//ALU功能13 （sra,srai）sra:rs1右移rs2的第五位，高位用rs1的最高位填充   
+        11'b00000100000:  alu_func=4'b0010;//ALU功能2  （slt,slti）slt:视为补码比较rs1,rs2,rs1更小，向rd写入1 
+        11'b00000010000:  alu_func=4'b0011;//ALU功能3  （sltu,sltiu）和功能2差不多，但是看成无符号数
+        11'b00000001000:  alu_func=4'b0100;//ALU功能4  （xor,xori）rs1和rs2/imm 按位异或，结果写入rd 
+        11'b00000000100:  alu_func=4'b0110;//ALU功能6  （or,ori） rs1和rs2/imm按位或写入rd
+        11'b00000000010:  alu_func=4'b0111;//ALU功能7  （and,andi） rs1和rs2/imm按位与写入rd
+        11'b00000000001:  alu_func=4'b1110;//ALU功能14  lui 将20位的imm符号拓展后左移12位，并将低12位置0,结果写入rd 
         default:alu_func=4'b0000;
     endcase
 end
 
-/* assign alu_func=4'b0000;
-assign w_en=1'b1;
+//[2:0]memory_rd_ctrl 读内存模式选择器
+always@(*)
+begin
+    case({is_lb,is_lbu,is_lh,is_lhu,is_lw})
+        5'b10000:  memory_rd_ctrl=3'b001;
+        5'b01000:  memory_rd_ctrl=3'b010;
+        5'b00100:  memory_rd_ctrl=3'b011;
+        5'b00010:  memory_rd_ctrl=3'b100;
+        5'b00001:  memory_rd_ctrl=3'b101;
+        default:memory_rd_ctrl=3'b000;
+    endcase
+end
 
-assign alu_a_sel_imm=1'b1;
-assign alu_a_sel_pc=1'b0;
-assign alu_b_sel=1'b1; */
+//[1:0]memory_wr_ctrl 写内存模式选择器
+always@(*)
+begin
+    case({is_sb,is_sh,is_sw})
+        3'b100:  memory_wr_ctrl=2'b01;
+        3'b010:  memory_wr_ctrl=2'b10;
+        3'b001:  memory_wr_ctrl=2'b11;
+        default:memory_wr_ctrl=2'b00;
+    endcase
+end  
 
-/* ysyx_23060240_MuxKeyWithDefault #(8,7,1) alu_a_sel(
-    alu_a_sel,opcode,1'b1,{
-        7'b0010111,alu_a_sel_pc,//auipc
-        7'b0110111,alu_a_sel_imm,//lui
-        7'b1100011,alu_a_sel_imm,//beq,bne,blt,bge,bltu,bgeu
-        7'b1101111,alu_a_sel_imm,//jal
-        7'b1100111,alu_a_sel_imm,//jalr
-        7'b0000011,alu_a_sel_imm,//lb,lh,lw,lbu,lhu
-        7'b0100011,alu_a_sel_imm,//sb,sh,sw
-        7'b0010011,alu_a_sel_imm//addi,slti,sltiu,xori,ori,andi,slli,srli,srai
-    }
-); */
 always@(*)begin
     if(inst==32'b00000000000000000000000001101111)begin
         npc_trap();

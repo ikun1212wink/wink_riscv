@@ -14,31 +14,31 @@ assign unsigned_b=SrcB;
 assign signed_a=SrcA;
 assign signed_b=SrcB;
 
-assign a0=signed_a+signed_b;
-assign a1=signed_a<<signed_b[4:0];
-assign a2=signed_a<signed_b?1:0;
-assign a3=unsigned_a<unsigned_b?1:0;
+assign a0=signed_a+signed_b;//ALU功能0  直接相加 
+assign a1=signed_a<<signed_b[4:0];//ALU功能1  （sll）左移rs2的低五位,空位补0  (slli)左移shamt的低五位,空位补0,仅当shamt[5]=0该指令有效
+assign a2=signed_a<signed_b?1:0;//ALU功能2  （slt,slti）slt:视为补码比较rs1,rs2,rs1更小，向rd写入1 
+assign a3=unsigned_a<unsigned_b?1:0;//ALU功能3  （sltu,sltiu）和功能2差不多，但是看成无符号数
 
-assign a4=signed_a^signed_b;
-assign a5=signed_a>>signed_b[4:0];
-assign a6=signed_a|signed_b;
-assign a7=32'h0;
+assign a4=signed_a^signed_b;//ALU功能4  （xor,xori）rs1和rs2/imm 按位异或，结果写入rd 
+assign a5=signed_a>>signed_b[4:0];//ALU功能5  （srl,srli）作用和功能1同理
+assign a6=signed_a|signed_b;//ALU功能6  （or,ori） rs1/rs2按位或写入rd
+assign a7=signed_a&signed_b;
 
-assign a8=signed_a-signed_b;
+assign a8=signed_a-signed_b;//ALU功能8  直接相减
 assign a9=32'h0;
 assign a10=32'h0;
 assign a11=32'h0;
 
 assign a12=32'h0;
-assign a13=signed_a>>>signed_b[4:0];
-assign a14=signed_b;
+assign a13=signed_a>>>signed_b[4:0];//ALU功能13 （sra,srai）sra:rs1右移rs2的第五位，高位用rs1的最高位填充 
+assign a14=signed_b;//ALU功能14  lui 将20位的imm符号拓展后左移12位，并将低12位置0,结果写入rd
 assign a15=32'h0;
 
 ysyx_23060240_MuxKey #(16,4,32) alumux(
         ALUout,
         alu_func,
     {
-        4'b0000,a0,//直接相加
+        4'b0000,a0,
         4'b0001,a1,
         4'b0010,a2,
         4'b0011,a3,

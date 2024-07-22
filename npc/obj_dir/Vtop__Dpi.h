@@ -16,11 +16,13 @@ extern "C" {
 
 
     // DPI IMPORTS
-    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/IDU.v:17:30
+    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/IDU.v:22:30
     extern void npc_trap();
-    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:86:30
+    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/MEM.v:15:29
+    extern int pmem_read(int mem_rd_addr);
+    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:126:30
     extern void trace_func_call(int pc, int alu_out, svBit tail);
-    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:87:30
+    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:127:30
     extern void trace_func_ret(int pc);
 
 #ifdef __cplusplus
