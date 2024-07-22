@@ -40,15 +40,15 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP
     npc_trap();
 }
 
-extern "C" int pmem_read(int mem_rd_addr);
+extern "C" int pmem_read(int pc);
 
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TOP(IData/*31:0*/ mem_rd_addr, IData/*31:0*/ &pmem_read__Vfuncrtn) {
+VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TOP(IData/*31:0*/ pc, IData/*31:0*/ &pmem_read__Vfuncrtn) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TOP\n"); );
     // Body
-    int mem_rd_addr__Vcvt;
-    for (size_t mem_rd_addr__Vidx = 0; mem_rd_addr__Vidx < 1; ++mem_rd_addr__Vidx) mem_rd_addr__Vcvt = mem_rd_addr;
+    int pc__Vcvt;
+    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
     int pmem_read__Vfuncrtn__Vcvt;
-    pmem_read__Vfuncrtn__Vcvt = pmem_read(mem_rd_addr__Vcvt);
+    pmem_read__Vfuncrtn__Vcvt = pmem_read(pc__Vcvt);
     pmem_read__Vfuncrtn = pmem_read__Vfuncrtn__Vcvt;
 }
 

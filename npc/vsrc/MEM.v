@@ -12,10 +12,11 @@ module ysyx_23060240_MEM(
     output [31:0] mem_rd_data
 );
 wire [31:0] mem_out;
-import "DPI-C" function int pmem_read(input int mem_rd_addr);
+//import "DPI-C" function int pmem_read(input uint32_t mem_rd_addr);
+import "DPI-C" function int pmem_read(input int pc);
 
-assign mem_out= (mem_rd_en==1)? pmem_read(mem_rd_addr) : 0;
+//assign mem_out= (mem_rd_en==1)? pmem_read(mem_rd_addr) : 0;
 always@(*)begin
-   // inst=pmem_read(pc);//取指令
+    inst=pmem_read(pc);//取指令
 end
 endmodule
