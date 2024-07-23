@@ -18,7 +18,7 @@ import "DPI-C" function void pmem_write(
 );
 /* verilator lint_off LATCH */
 always@(*)begin
-    if(mem_rd_en)begin
+    if(mem_rd_en==1)begin
         mem_out=pmem_read(mem_rd_addr);
     end
 end
