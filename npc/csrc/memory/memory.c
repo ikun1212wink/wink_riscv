@@ -84,19 +84,21 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
   uint32_t img_wr_addr = guest_to_host(aligned_addr);
   uint32_t old_mem_word = memory[img_wr_addr];
   uint32_t new_mem_word;
+
+  int addr_select=waddr&0x0003;
   switch (select)
   {
     case 1://sb存字节
-      if(waddr&0x0003==0x0000){
+      if(addr_select==0){
         new_mem_word=(0xFFF0&old_mem_word)+(0x000F&wdata);
         printf("%x\n",new_mem_word);
         printf("00\n");
       }
-      else if(waddr&0x0003==0x0001){
+      else if(addr_select==1){
         new_mem_word=(0xFF0F&old_mem_word)+(0x00F0&wdata);
          printf("01\n");
       }
-      else if(waddr&0x0003==0x0002){
+      else if(addr_select==2){
         new_mem_word=(0xF0FF&old_mem_word)+(0x0F00&wdata);
          printf("10\n");
       }
@@ -110,7 +112,7 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
 
     break;
     case 2://sh存半字
-      if(waddr&0x0003==0){
+      if(addr_select==0){
         new_mem_word=(0xFF00&old_mem_word)+(0x00FF&wdata);
       }
       else{
