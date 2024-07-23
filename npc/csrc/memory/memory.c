@@ -95,7 +95,9 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
         printf("00\n");
       }
       else if(addr_select==1){
+        printf("%x\n",old_mem_word);
         new_mem_word=(0xFFFF00FF&old_mem_word)|((0x000000FF&wdata)<<8);
+         printf("%x\n",new_mem_word);
          printf("01\n");
       }
       else if(addr_select==2){
