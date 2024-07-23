@@ -82,7 +82,7 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
   //uint32_t* memory=init_mem();
   uint32_t aligned_addr = waddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_wr_addr = guest_to_host(aligned_addr);
-  uint32_t old_mem_word = memory[img_wr_addr];
+  uint32_t old_mem_word = memory[img_wr_addr/4];
   uint32_t new_mem_word;
 
   int addr_select=waddr&0x00000003;
