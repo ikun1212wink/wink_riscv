@@ -87,24 +87,34 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
   switch (select)
   {
     case 1://sb存字节
-      new_mem_word=(0xFFF0&old_mem_word)+(0x000F&wdata);
-        printf("1\n");
+      if(waddr&0x00000003==0){
+        new_mem_word=(0xFFF0&old_mem_word)+(0x000F&wdata);
+      }
+      else if(waddr&0x00000003==1){
+        new_mem_word=(0xFF0F&old_mem_word)+(0x00F0&wdata);
+      }
+      else if(waddr&0x00000003==2){
+        new_mem_word=(0xF0FF&old_mem_word)+(0x0F00&wdata);
+      }
+      else{
+        new_mem_word=(0x0FFF&old_mem_word)+(0xF000&wdata);
+      }
+
     break;
     case 2://sh存半字
-      new_mem_word=(0xFF00&old_mem_word)+(0x00FF&wdata);
-      printf("2\n");
+      if(waddr&0x00000003==0){
+        new_mem_word=(0xFF00&old_mem_word)+(0x00FF&wdata);
+      }
+      else{
+        new_mem_word=(0x00FF&old_mem_word)+(0xFF00&wdata);
+      }
     break;
     case 3://sw
       new_mem_word=wdata;
-      printf("3\n");
     break;  
     default:
       new_mem_word=0;
-      printf("4\n");
     break;
   }
-    printf("%x\n",new_mem_word);
   memory[img_wr_addr/4]=new_mem_word;
-    printf("%x\n",img_wr_addr);
-    printf("%x\n",memory[img_wr_addr]);
 }
