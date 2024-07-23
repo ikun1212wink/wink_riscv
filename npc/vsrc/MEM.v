@@ -35,7 +35,7 @@ end
 always@(*)begin
     case(memory_rd_ctrl)
         3'b001:mem_rd_data={{24{mem_move_out[7]}},mem_move_out[7:0]};//lb
-        3'b010:mem_rd_data={24'h0,mem_move_out[7:0]};//lbu
+        3'b010:mem_rd_data={{24{mem_move_out[7]}},mem_move_out[7:0]};//lbu
         3'b011:mem_rd_data={{16{mem_move_out[15]}},mem_move_out[15:0]};//lh
         3'b100:mem_rd_data={16'h0,mem_move_out[15:0]};//lhu
         3'b101:mem_rd_data={mem_move_out[31:0]};//lw
