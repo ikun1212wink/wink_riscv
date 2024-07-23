@@ -104,13 +104,8 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
                                                          | (0xffffU 
                                                             & vlSelf->top__DOT__MEM__DOT__mem_move_out))
                                                          : 
-                                                        (((- (IData)(
-                                                                     (1U 
-                                                                      & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
-                                                                         >> 7U)))) 
-                                                          << 8U) 
-                                                         | (0xffU 
-                                                            & vlSelf->top__DOT__MEM__DOT__mem_move_out)))
+                                                        (0xffU 
+                                                         & vlSelf->top__DOT__MEM__DOT__mem_move_out))
                                                         : 
                                                        ((1U 
                                                          & (IData)(vlSelf->top__DOT__memory_rd_ctrl))

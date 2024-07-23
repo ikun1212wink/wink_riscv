@@ -81,13 +81,8 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
                                               << 0x10U) 
                                              | (0xffffU 
                                                 & vlSelf->top__DOT__MEM__DOT__mem_move_out))
-                                          : (((- (IData)(
-                                                         (1U 
-                                                          & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
-                                                             >> 7U)))) 
-                                              << 8U) 
-                                             | (0xffU 
-                                                & vlSelf->top__DOT__MEM__DOT__mem_move_out)))
+                                          : (0xffU 
+                                             & vlSelf->top__DOT__MEM__DOT__mem_move_out))
                                       : ((1U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                           ? (((- (IData)(
                                                          (1U 
@@ -377,14 +372,8 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
                                                    << 0x10U) 
                                                   | (0xffffU 
                                                      & vlSelf->top__DOT__MEM__DOT__mem_move_out))
-                                               : ((
-                                                   (- (IData)(
-                                                              (1U 
-                                                               & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
-                                                                  >> 7U)))) 
-                                                   << 8U) 
-                                                  | (0xffU 
-                                                     & vlSelf->top__DOT__MEM__DOT__mem_move_out)))
+                                               : (0xffU 
+                                                  & vlSelf->top__DOT__MEM__DOT__mem_move_out))
                                            : ((1U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                                ? ((
                                                    (- (IData)(

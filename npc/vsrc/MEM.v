@@ -26,16 +26,16 @@ end
 always@(*)begin
     case(mem_rd_addr[1:0])
         2'b00:mem_move_out=mem_out;
-        2'b01:mem_move_out={8'h0,mem_out[31:8]};
-        2'b10:mem_move_out={16'h0,mem_out[31:16]};
-        2'b11:mem_move_out={24'h0,mem_out[31:24]};
+        2'b01:mem_move_out=mem_out>>8;
+        2'b10:mem_move_out=mem_out>>16;
+        2'b11:mem_move_out=mem_out>>24;
     endcase
 end
 
 always@(*)begin
     case(memory_rd_ctrl)
         3'b001:mem_rd_data={{24{mem_move_out[7]}},mem_move_out[7:0]};//lb
-        3'b010:mem_rd_data={{24{mem_move_out[7]}},mem_move_out[7:0]};//lbu
+        3'b010:mem_rd_data={24'h0,mem_move_out[7:0]};//lbu
         3'b011:mem_rd_data={{16{mem_move_out[15]}},mem_move_out[15:0]};//lh
         3'b100:mem_rd_data={16'h0,mem_move_out[15:0]};//lhu
         3'b101:mem_rd_data={mem_move_out[31:0]};//lw
