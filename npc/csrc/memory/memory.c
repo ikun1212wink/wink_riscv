@@ -102,6 +102,7 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
       }
       else{
         new_mem_word=(0x0FFF&old_mem_word)+(0xF000&wdata);
+         printf("%x\n",new_mem_word);
          printf("11\n");
       }
 
