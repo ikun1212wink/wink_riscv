@@ -102,14 +102,13 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
         new_mem_word=(0xFF00FFFF&old_mem_word)+((0x000000FF&wdata)<<16);
          printf("10\n");
       }
-      else{
+      else if(addr_select==3){
         new_mem_word=(0x00FFFFFF&old_mem_word)+((0x000000FF&wdata)<<24);
         printf("%x\n",waddr&0x0003);
         printf("%x\n",waddr);
-         printf("%x\n",new_mem_word);
-         printf("11\n");
+        printf("%x\n",new_mem_word);
+        printf("11\n");
       }
-
     break;
     case 2://sh存半字
       if(addr_select==0){
@@ -120,10 +119,10 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
       }
     break;
     case 3://sw
-      new_mem_word=wdata;
+        new_mem_word=wdata;
     break;  
     default:
-      new_mem_word=0;
+        new_mem_word=0;
     break;
   }
   memory[img_wr_addr/4]=new_mem_word;
