@@ -19,9 +19,9 @@ always@(*)begin
         3'b001:jump_branch=(signed_rs1==signed_rs2?1:0);//分支类型1：相等分支 beq
         3'b010:jump_branch=(signed_rs1!=signed_rs2?1:0);//分支类型2：不相等分支 bne
         3'b011:jump_branch=(signed_rs1<signed_rs2?1:0);//分支类型3：小于时分支 blt
-        3'b100:jump_branch=(signed_rs1>=signed_rs2?1:0);//分支类型4：大于等于时分支 bge
+        3'b100:jump_branch=(signed_rs1>=signed_rs2)?1:0;//分支类型4：大于等于时分支 bge
         3'b101:jump_branch=(unsigned_rs1<unsigned_rs2?1:0);//分支类型5：无符号小于分支 bltu
-        3'b110:jump_branch=(unsigned_rs1>=unsigned_rs2?1:0);//分支类型6：无符号大于等于分支 bgeu
+        3'b110:jump_branch=(unsigned_rs1>=unsigned_rs2)?1:0;//分支类型6：无符号大于等于分支 bgeu
         default:jump_branch=0;
     endcase
 end
