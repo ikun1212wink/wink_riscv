@@ -2,7 +2,7 @@
 #include <utils.h>
 #include <memory.h>
 #include <sim.h>
-#define CONFIG_DIFFTEST 1
+//#define CONFIG_DIFFTEST 1
 NPC_CPU_state npc_dut;
 extern int quit_sdb;
 
