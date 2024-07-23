@@ -545,7 +545,7 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                                         << 7U) | ((
                                                    VL_LTS_III(32, vlSelf->top__DOT__BSU__DOT__signed_rs1, vlSelf->top__DOT__BSU__DOT__signed_rs2) 
                                                    << 6U) 
-                                                  | ((VL_GTES_III(32, vlSelf->top__DOT__BSU__DOT__signed_rs1, vlSelf->top__DOT__BSU__DOT__signed_rs2) 
+                                                  | ((VL_GTS_III(32, vlSelf->top__DOT__BSU__DOT__signed_rs1, vlSelf->top__DOT__BSU__DOT__signed_rs2) 
                                                       << 5U) 
                                                      | (((vlSelf->top__DOT__BSU__DOT__signed_rs1 
                                                           < vlSelf->top__DOT__BSU__DOT__signed_rs2) 
