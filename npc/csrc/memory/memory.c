@@ -82,29 +82,50 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
   //uint32_t* memory=init_mem();
   uint32_t aligned_addr = waddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_wr_addr = guest_to_host(aligned_addr);
-  uint32_t old_mem_word = memory[img_wr_addr];
+  uint32_t old_mem_word = memory[img_wr_addr/4];
   uint32_t new_mem_word;
+
+  int addr_select=waddr&0x00000003;
   switch (select)
   {
     case 1://sb存字节
-      new_mem_word=(0xFFF0&old_mem_word)+(0x000F&wdata);
-        printf("1\n");
+      if(addr_select==0){
+        new_mem_word=(0xFFFFFF00&old_mem_word)|(0x000000FF&wdata);
+        printf("%x\n",new_mem_word);
+        printf("00\n");
+      }
+      else if(addr_select==1){
+        printf("%x\n",old_mem_word);
+        new_mem_word=(0xFFFF00FF&old_mem_word)|((0x000000FF&wdata)<<8);
+         printf("%x\n",new_mem_word);
+         printf("01\n");
+      }
+      else if(addr_select==2){
+        new_mem_word=(0xFF00FFFF&old_mem_word)|((0x000000FF&wdata)<<16);
+         printf("10\n");
+      }
+      else if(addr_select==3){
+        new_mem_word=(0x00FFFFFF&old_mem_word)|((0x000000FF&wdata)<<24);
+        printf("%x\n",waddr&0x0003);
+        printf("%x\n",waddr);
+        printf("%x\n",new_mem_word);
+        printf("11\n");
+      }
     break;
     case 2://sh存半字
-      new_mem_word=(0xFF00&old_mem_word)+(0x00FF&wdata);
-      printf("2\n");
+      if(addr_select==0){
+        new_mem_word=(0xFFFF0000&old_mem_word)+(0x0000FFFF&wdata);
+      }
+      else{
+        new_mem_word=(0x0000FFFF&old_mem_word)+((0x0000FFFF&wdata)<<16);
+      }
     break;
     case 3://sw
-      new_mem_word=wdata;
-      printf("3\n");
+        new_mem_word=wdata;
     break;  
     default:
-      new_mem_word=0;
-      printf("4\n");
+        new_mem_word=0;
     break;
   }
-    printf("%x\n",new_mem_word);
   memory[img_wr_addr/4]=new_mem_word;
-    printf("%x\n",img_wr_addr);
-    printf("%x\n",memory[img_wr_addr]);
 }

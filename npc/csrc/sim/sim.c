@@ -55,7 +55,7 @@ void reg_p(){
   printf("a4(14):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[14]);
   printf("a5(15):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[15]);
 
-  printf("a6(16):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[16]);
+ /*  printf("a6(16):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[16]);
   printf("a7(17):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[17]);
   printf("s2(18):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[18]);
   printf("s3(19):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[19]);
@@ -73,5 +73,5 @@ void reg_p(){
   printf("t3(28):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[28]);
   printf("t4(29):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[29]);
   printf("t5(30):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[30]);
-  printf("t6(31):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[31]);
+  printf("t6(31):    0x%08x\n",dut.rootp->top__DOT__Register__DOT__rf[31]); */
 }

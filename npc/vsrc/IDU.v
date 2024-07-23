@@ -154,7 +154,7 @@ assign jump_jtype = is_jump_type|is_jalr|is_jal;
 
 //分支类型选择
 always@(*)begin
-    case({is_beq, is_bne, is_blt, is_bge, is_bltu, is_bge})
+    case({is_beq, is_bne, is_blt, is_bge, is_bltu, is_bgeu})
         6'b100000:branch_type=3'b001;//分支类型1：相等分支
         6'b010000:branch_type=3'b010;//分支类型2：不相等分支
         6'b001000:branch_type=3'b011;//分支类型3：小于时分支
