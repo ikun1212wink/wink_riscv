@@ -1777,6 +1777,24 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
         Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TOP(vlSelf->top__DOT__alu_out, vlSelf->__Vfunc_top__DOT__MEM__DOT__pmem_read__5__Vfuncout);
         vlSelf->top__DOT__MEM__DOT__mem_out = vlSelf->__Vfunc_top__DOT__MEM__DOT__pmem_read__5__Vfuncout;
     }
+    vlSelf->top__DOT__MEM__DOT__mem_move_out = ((2U 
+                                                 & vlSelf->top__DOT__alu_out)
+                                                 ? 
+                                                ((1U 
+                                                  & vlSelf->top__DOT__alu_out)
+                                                  ? 
+                                                 (vlSelf->top__DOT__MEM__DOT__mem_out 
+                                                  >> 0x18U)
+                                                  : 
+                                                 (vlSelf->top__DOT__MEM__DOT__mem_out 
+                                                  >> 0x10U))
+                                                 : 
+                                                ((1U 
+                                                  & vlSelf->top__DOT__alu_out)
+                                                  ? 
+                                                 (vlSelf->top__DOT__MEM__DOT__mem_out 
+                                                  >> 8U)
+                                                  : vlSelf->top__DOT__MEM__DOT__mem_out));
 }
 
 VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
@@ -1920,6 +1938,7 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__BSU__DOT__signed_rs1 = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__BSU__DOT__signed_rs2 = VL_RAND_RESET_I(32);
+    vlSelf->top__DOT__MEM__DOT__mem_move_out = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__MEM__DOT__mem_out = VL_RAND_RESET_I(32);
     vlSelf->__Vfunc_top__DOT__MEM__DOT__pmem_read__5__Vfuncout = 0;
     vlSelf->__Vfunc_top__DOT__IFU__DOT__pmem_read__7__Vfuncout = 0;
