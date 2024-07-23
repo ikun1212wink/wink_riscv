@@ -30,6 +30,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT__is_blt;
         CData/*0:0*/ top__DOT__IDU__DOT__is_bge;
         CData/*0:0*/ top__DOT__IDU__DOT__is_bltu;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_bgeu;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lb;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lh;
         CData/*0:0*/ top__DOT__IDU__DOT__is_lw;
@@ -69,7 +70,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_hd3ddd1c8__0;
         CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
         CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
-        CData/*4:0*/ __Vtableidx1;
+        CData/*5:0*/ __Vtableidx1;
         CData/*4:0*/ __Vtableidx2;
         CData/*2:0*/ __Vtableidx3;
         CData/*0:0*/ __Vtrigrprev__TOP__clk;
@@ -78,9 +79,9 @@ class Vtop___024root final : public VerilatedModule {
         VL_OUT(inst,31,0);
         VL_OUT(pc,31,0);
         IData/*31:0*/ top__DOT__alu_out;
-        IData/*31:0*/ top__DOT__imm_out;
     };
     struct {
+        IData/*31:0*/ top__DOT__imm_out;
         IData/*31:0*/ top__DOT__Register__DOT__i;
         IData/*31:0*/ top__DOT__Pc__DOT__pc_plus4;
         IData/*31:0*/ top__DOT__ALU__DOT__signed_a;
