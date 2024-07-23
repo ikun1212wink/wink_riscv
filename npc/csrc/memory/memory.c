@@ -87,13 +87,13 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
   switch (select)
   {
     case 1://sb存字节
-      if(waddr&0x00000003==0){
+      if(waddr&0x0003==0){
         new_mem_word=(0xFFF0&old_mem_word)+(0x000F&wdata);
       }
-      else if(waddr&0x00000003==1){
+      else if(waddr&0x0003==1){
         new_mem_word=(0xFF0F&old_mem_word)+(0x00F0&wdata);
       }
-      else if(waddr&0x00000003==2){
+      else if(waddr&0x0003==2){
         new_mem_word=(0xF0FF&old_mem_word)+(0x0F00&wdata);
       }
       else{
@@ -102,7 +102,7 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
 
     break;
     case 2://sh存半字
-      if(waddr&0x00000003==0){
+      if(waddr&0x0003==0){
         new_mem_word=(0xFF00&old_mem_word)+(0x00FF&wdata);
       }
       else{
