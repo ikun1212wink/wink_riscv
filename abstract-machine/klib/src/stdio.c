@@ -10,11 +10,12 @@ static char HEX[] = "0123456789ABCDEF";
 int printf(const char *fmt, ...) {
     va_list args;
     va_start(args,fmt);
-    char *out=(char*)malloc(4000 * sizeof(char));
+   // char *out=(char*)malloc(4000 * sizeof(char));
+    char out[128];
     int ret= vsprintf(out, fmt, args);
     putstr(out);
     va_end(args);
-    free(out);
+    //free(out);
     return ret;
 }
 
