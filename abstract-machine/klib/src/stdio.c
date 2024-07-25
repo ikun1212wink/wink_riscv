@@ -64,8 +64,8 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                             j++;
                         }
                         break;
-                    default:
-                      assert(0);
+/*                     default:
+                      assert(0); */
                 }
             state=0;
             break;
