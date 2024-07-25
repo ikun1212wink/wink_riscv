@@ -10,11 +10,12 @@ static char HEX[] = "0123456789ABCDEF";
 int printf(const char *fmt, ...) {
     va_list args;
     va_start(args,fmt);
-    char *out=(char*)malloc(4000 * sizeof(char));
+    //char *out=(char*)malloc(4000 * sizeof(char));
+    char out[128];
     int ret= vsprintf(out, fmt, args);
     putstr(out);
     va_end(args);
-    free(out);
+    //free(out);
     return ret;
 }
 
@@ -22,6 +23,7 @@ int vsprintf(char *out, const char *fmt, va_list ap){
     char buffer[128];
     char *txt;//字符串类型和字符类型
     int num,len;
+    int width=0;
     int state=0;
     int i,j;
     for(i=0,j=0;fmt[i]!='\0';i++){
@@ -36,38 +38,95 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                 }
                 break;
             case 1://类型匹配
-                switch(fmt[i]){
-                    case 's':
-                        txt=va_arg(ap,char*);
-                        for(int k=0;txt[k]!='\0';k++){
-                            out[j]=txt[k];
+                if (fmt[i] >= '0' && fmt[i] <= '9') {
+                    width = width * 10 + (fmt[i] - '0'); // 解析字段宽度
+                } 
+                else {
+                    switch(fmt[i]){
+                        case 's':
+    /*                      txt=va_arg(ap,char*);
+                            for(int k=0;txt[k]!='\0';k++){
+                                out[j]=txt[k];
+                                j++;
+                            }
+                            break; */
+                            txt = va_arg(ap, char *);
+                                len = 0;
+                                while (txt[len] != '\0') len++;
+                                for (int k = 0; k < len && k < width; k++) {
+                                    out[j] = txt[k];
+                                    j++;
+                                }
+                                for (int k = len; k < width; k++) {
+                                    out[j] = ' ';
+                                    j++;
+                                }
+                                break;
+
+
+                        case 'd':
+    /*                      num=va_arg(ap,int);
+                            if(num==0){
+                                out[j]='0';
+                                j++;
+                                break;
+                            }
+                            if(num<0){
+                                out[j]='-';
+                                j++;
+                                num=-num;
+                            }
+                            for(len=0;num;num/=10,len++){
+                                buffer[len]=HEX[num%10];
+                            }
+                            for(int k=len-1;k>=0;k--){
+                                out[j]=buffer[k];
+                                j++;
+                            }
+                            break; */
+
+                                num = va_arg(ap, int);
+                                if (num == 0) {
+                                    out[j] = '0';
+                                    j++;
+                                    break;
+                                }
+                                if (num < 0) {
+                                    out[j] = '-';
+                                    j++;
+                                    num = -num;
+                                }
+                                len = 0;
+                                do {
+                                    buffer[len++] = HEX[num % 10];
+                                    num /= 10;
+                                } while (num);
+                                while (len < width) {
+                                    buffer[len++] = ' ';
+                                }
+                                while (len > 0) {
+                                    out[j] = buffer[--len];
+                                    j++;
+                                }
+                                break;
+
+                        case 'c':
+    /*                      out[j]=va_arg(ap,int);
                             j++;
-                        }
-                        break;
-                    case 'd':
-                        num=va_arg(ap,int);
-                        if(num==0){
-                            out[j]='0';
-                            j++;
-                            break;
-                        }
-                        if(num<0){
-                            out[j]='-';
-                            j++;
-                            num=-num;
-                        }
-                        for(len=0;num;num/=10,len++){
-                            buffer[len]=HEX[num%10];
-                        }
-                        for(int k=len-1;k>=0;k--){
-                            out[j]=buffer[k];
-                            j++;
-                        }
-                        break;
-                    default:
-                      assert(0);
+                            break; */
+                            out[j] = va_arg(ap, int);
+                                j++;
+                                for (int k = 1; k < width; k++) {
+                                    out[j] = ' ';
+                                    j++;
+                                }
+                                break;
+                        default:
+                        assert(0);
+                    }
                 }
             state=0;
+            width=0;
             break;
         }
     }
