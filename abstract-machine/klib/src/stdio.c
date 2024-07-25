@@ -69,8 +69,9 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                         out[j]=va_arg(ap,int);
                         j++;
                         break;
-                    default:      
-                      putch(fmt[i]); 
+                    default: 
+                         putch(fmt[i-1]); 
+                        putch(fmt[i]); 
                       assert(0);
                 }
             state=0;
