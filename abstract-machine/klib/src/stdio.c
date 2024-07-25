@@ -11,7 +11,7 @@ int printf(const char *fmt, ...) {
     va_list args;
     va_start(args,fmt);
     //char *out=(char*)malloc(4000 * sizeof(char));
-    char out[128];
+    char out[1280];
     int ret= vsprintf(out, fmt, args);
     putstr(out);
     va_end(args);
