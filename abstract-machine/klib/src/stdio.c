@@ -10,7 +10,7 @@ static char HEX[] = "0123456789ABCDEF";
 int printf(const char *fmt, ...) {
     va_list args;
     va_start(args,fmt);
-   // char *out=(char*)malloc(4000 * sizeof(char));
+    //char *out=(char*)malloc(4000 * sizeof(char));
     char out[128];
     int ret= vsprintf(out, fmt, args);
     putstr(out);
@@ -70,10 +70,10 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                         j++;
                         break;
                     default:
-                        putch(fmt[i-3]); 
+/*                         putch(fmt[i-3]); 
                         putch(fmt[i-2]); 
                         putch(fmt[i-1]); 
-                        putch(fmt[i]); 
+                        putch(fmt[i]);  */
                       assert(0);
                 }
             state=0;
