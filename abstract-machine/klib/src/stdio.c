@@ -10,8 +10,8 @@ static char HEX[] = "0123456789ABCDEF";
 int printf(const char *fmt, ...) {
     va_list args;
     va_start(args,fmt);
-    char *out=(char*)malloc(4000 * sizeof(char));
-    //char out[128];
+    //char *out=(char*)malloc(4000 * sizeof(char));
+    char out[128];
     int ret= vsprintf(out, fmt, args);
     putstr(out);
     va_end(args);
@@ -39,6 +39,7 @@ int vsprintf(char *out, const char *fmt, va_list ap){
             case 1://类型匹配
                 switch(fmt[i]){
                     case 's':
+                    putch(fmt[i]); 
                         txt=va_arg(ap,char*);
                         for(int k=0;txt[k]!='\0';k++){
                             out[j]=txt[k];
@@ -46,6 +47,7 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                         }
                         break;
                     case 'd':
+                    putch(fmt[i]); 
                         num=va_arg(ap,int);
                         if(num==0){
                             out[j]='0';
@@ -66,6 +68,7 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                         }
                         break;
                     case 'c':
+                    putch(fmt[i]); 
                         out[j]=va_arg(ap,int);
                         j++;
                         break;
