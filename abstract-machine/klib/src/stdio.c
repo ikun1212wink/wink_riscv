@@ -70,10 +70,7 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                         j++;
                         break;
                     default:
-/*                         putch(fmt[i-3]); 
-                        putch(fmt[i-2]); 
-                        putch(fmt[i-1]); 
-                        putch(fmt[i]);  */
+                        putch(fmt[i]); 
                       assert(0);
                 }
             state=0;
