@@ -8,7 +8,7 @@
 static char HEX[] = "0123456789ABCDEF";
 
 int printf(const char *fmt, ...) {
- return 0;
+  panic("Not implemented");
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap){
