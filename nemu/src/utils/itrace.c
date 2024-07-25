@@ -23,7 +23,8 @@ void write_inst(word_t pc, uint32_t inst){
     iringbuf[pointer].inst = inst;
 }
 
-void output_inst(){
+//itrace
+/* void output_inst(){
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     for(int i=0;i<MAX_IRINGBUF;i++){
         char p[128];
@@ -36,7 +37,7 @@ void output_inst(){
             printf("    0x%x:\t%08x\t%s\n",iringbuf[i].pc,iringbuf[i].inst,p);
         }
     }
-}
+} */
 
 //mtrace
 void display_pread(paddr_t addr,int len){
