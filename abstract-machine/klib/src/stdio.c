@@ -64,6 +64,10 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                             j++;
                         }
                         break;
+                    case 'c':
+                        out[j]=va_arg(ap,int);
+                        j++;
+                        break;
                     default:
                       assert(0);
                 }
