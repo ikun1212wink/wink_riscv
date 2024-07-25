@@ -19,6 +19,8 @@
 #include <cpu/difftest.h>
 
 typedef void(*io_callback_t)(uint32_t, int, bool);
+//这是一个函数指针，格式：typedef 函数返回值类型 (* 名为io_callback_t函数指针类型) (函数参数列表);
+
 uint8_t* new_space(int size);
 
 typedef struct {
@@ -30,7 +32,7 @@ typedef struct {
   io_callback_t callback;
 } IOMap;
 
-static inline bool map_inside(IOMap *map, paddr_t addr) {
+static inline bool map_inside(IOMap *map, paddr_t addr) {//检查地址是否在映射的地址范围？
   return (addr >= map->low && addr <= map->high);
 }
 
