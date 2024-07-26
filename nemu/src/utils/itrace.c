@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <device/map.h>
 #include <stdarg.h>
-#define DTRACE
 //iringbuf
 #define MAX_IRINGBUF 16
 
