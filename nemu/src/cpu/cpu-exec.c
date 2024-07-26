@@ -129,7 +129,7 @@ static void statistic() {
 
 void assert_fail_msg() {
   isa_reg_display();
-  #ifdef  ITRACE
+  #ifdef  CONFIG_ITRACE
       output_inst();
   #endif  //ITRACE
 

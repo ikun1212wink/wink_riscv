@@ -154,6 +154,9 @@ config MTRACE
 config FTRACE
   bool "enable the function tracer"
 
+config DTRACE
+  bool "enable the device tracer"
+
 config ITRACE_COND
   depends on ITRACE
   string "Only trace instructions when the condition is true"

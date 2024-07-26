@@ -18,9 +18,6 @@
 #include <memory/vaddr.h>
 #include <device/map.h>
 #include <trace.h>
-//#define DTRACE
-void trace_dread(paddr_t addr, int len, IOMap *map);
-void trace_dwrite(paddr_t addr, int len, word_t data, IOMap *map);
 #define IO_SPACE_MAX (2 * 1024 * 1024)
 
 static uint8_t *io_space = NULL;
@@ -63,7 +60,7 @@ word_t map_read(paddr_t addr, int len, IOMap *map) {
   paddr_t offset = addr - map->low;
   invoke_callback(map->callback, offset, len, false); // prepare data to read
   word_t ret = host_read(map->space + offset, len);
-  #ifdef  DTRACE
+  #ifdef  CONFIG_DTRACE
     trace_dread(addr,len,map);
   #endif  //DTRACE
  
@@ -76,7 +73,7 @@ void map_write(paddr_t addr, int len, word_t data, IOMap *map) {
   paddr_t offset = addr - map->low;
   host_write(map->space + offset, len, data);
   invoke_callback(map->callback, offset, len, true);
-  #ifdef  DTRACE
+  #ifdef  CONFIG_DTRACE
     trace_dwrite(addr,len,data,map);
   #endif  //
   
