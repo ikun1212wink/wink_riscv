@@ -17,6 +17,7 @@
 #include <memory/host.h>
 #include <memory/vaddr.h>
 #include <device/map.h>
+#include <trace.h>
 //#define DTRACE
 void trace_dread(paddr_t addr, int len, IOMap *map);
 void trace_dwrite(paddr_t addr, int len, word_t data, IOMap *map);
