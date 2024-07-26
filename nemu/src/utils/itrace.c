@@ -2,6 +2,8 @@
 #include <elf.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <device/map.h>
+#include <stdarg.h>
 //iringbuf
 #define MAX_IRINGBUF 16
 
@@ -22,6 +24,34 @@ void write_inst(word_t pc, uint32_t inst){
     iringbuf[pointer].pc = pc;
     iringbuf[pointer].inst = inst;
 }
+
+void dtrace_write(const char *format, ...) {
+    // 打开一个名为 "dtrace.log" 的日志文件，以追加模式写入
+    FILE *f = fopen("dtrace.log", "a");
+    if (f == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    va_list args;
+    va_start(args, format);
+
+    vfprintf(f, format, args);  // 将格式化后的字符串写入到日志文件中
+
+    va_end(args);
+    fclose(f);  // 关闭文件
+}
+
+void trace_dread(paddr_t addr, int len, IOMap *map) {
+	dtrace_write("dtrace: read %10s at " FMT_PADDR ",%d\n",
+		map->name, addr, len);
+}
+
+void trace_dwrite(paddr_t addr, int len, word_t data, IOMap *map) {
+	dtrace_write("dtrace: write %10s at " FMT_PADDR ",%d with " FMT_WORD "\n",
+		map->name, addr, len, data);
+}
+
 
 //itrace
 /* void output_inst(){
