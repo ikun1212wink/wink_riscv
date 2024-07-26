@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <device/map.h>
 #include <stdarg.h>
+#define DTRACE
 //iringbuf
 #define MAX_IRINGBUF 16
 
@@ -68,8 +69,8 @@ void trace_dwrite(paddr_t addr, int len, word_t data, IOMap *map) {
             printf("    0x%x:\t%08x\t%s\n",iringbuf[i].pc,iringbuf[i].inst,p);
         }
     }
-} */
-
+}
+ */
 //mtrace
 void display_pread(paddr_t addr,int len){
     printf("pread at "FMT_PADDR", len=%d\n",addr,len);
