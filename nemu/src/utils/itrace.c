@@ -54,7 +54,7 @@ void trace_dwrite(paddr_t addr, int len, word_t data, IOMap *map) {
 		map->name, addr, len, data);
 }
 
-#ifdef  ITRACE
+#ifdef  CONFIG_ITRACE
     void output_inst(){
     for(int i=0;i<MAX_IRINGBUF;i++){
         char p[128];
