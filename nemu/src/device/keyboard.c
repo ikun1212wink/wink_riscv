@@ -42,7 +42,7 @@ enum {
 static uint32_t keymap[256] = {};
 
 static void init_keymap() {
-  MAP(NEMU_KEYS, SDL_KEYMAP)
+  MAP(NEMU_KEYS, SDL_KEYMAP)//#define MAP(c, f) c(f)
 }
 
 #define KEY_QUEUE_LEN 1024
