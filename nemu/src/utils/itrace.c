@@ -2,8 +2,12 @@
 #include <elf.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <device/map.h>
+#include <stdarg.h>
+#include <trace.h>
 //iringbuf
 #define MAX_IRINGBUF 16
+
 
 typedef struct {
   word_t pc;
@@ -23,9 +27,35 @@ void write_inst(word_t pc, uint32_t inst){
     iringbuf[pointer].inst = inst;
 }
 
-//itrace
-/* void output_inst(){
-    void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+void dtrace_write(const char *format, ...) {
+    // 打开一个名为 "dtrace.log" 的日志文件，以追加模式写入
+    FILE *f = fopen("dtrace.log", "a");
+    if (f == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    va_list args;
+    va_start(args, format);
+
+    vfprintf(f, format, args);  // 将格式化后的字符串写入到日志文件中
+
+    va_end(args);
+    fclose(f);  // 关闭文件
+}
+
+void trace_dread(paddr_t addr, int len, IOMap *map) {
+	dtrace_write("dtrace: read %10s at " FMT_PADDR ",%d\n",
+		map->name, addr, len);
+}
+
+void trace_dwrite(paddr_t addr, int len, word_t data, IOMap *map) {
+	dtrace_write("dtrace: write %10s at " FMT_PADDR ",%d with " FMT_WORD "\n",
+		map->name, addr, len, data);
+}
+
+#ifdef  ITRACE
+    void output_inst(){
     for(int i=0;i<MAX_IRINGBUF;i++){
         char p[128];
         memset(p, 0, sizeof(p));
@@ -37,7 +67,9 @@ void write_inst(word_t pc, uint32_t inst){
             printf("    0x%x:\t%08x\t%s\n",iringbuf[i].pc,iringbuf[i].inst,p);
         }
     }
-} */
+}
+#endif  //ITRACE
+
 
 //mtrace
 void display_pread(paddr_t addr,int len){

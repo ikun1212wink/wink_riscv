@@ -17,7 +17,7 @@
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
 #include <locale.h>
-
+#include <trace.h>
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the `si' command.
@@ -27,7 +27,7 @@
 
 void wp_difftest();
 void sdb_mainloop();
-//void output_inst();
+
 
 //用于控制在执行指令时打印每条指令的执行步骤的数量
 //当需要执行的指令数量少于MAX_INST_TO_PRINT时，会将全局变量g_print_step设置为true，表示需要打印每条指令的执行步骤。
@@ -129,7 +129,10 @@ static void statistic() {
 
 void assert_fail_msg() {
   isa_reg_display();
-  //output_inst();
+  #ifdef  ITRACE
+      output_inst();
+  #endif  //ITRACE
+
   statistic();
 }
 
