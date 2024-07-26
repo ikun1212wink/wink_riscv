@@ -2,14 +2,24 @@
 #include <nemu.h>
 
 #define SYNC_ADDR (VGACTL_ADDR + 4)
-
+#define N   32
+uint32_t h;
+uint32_t w;
 void __am_gpu_init() {
+  int i;
+/*   int w = 0;  // TODO: get the correct width
+  int h = 0;  // TODO: get the correct height */
+  int w_init =  w/ N;
+  int h_init =  h/ N;
+  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
+  for (i = 0; i < w_init * h_init; i ++) fb[i] = i;
+    outl(SYNC_ADDR, 1);
 }
 //AM显示控制器信息, 可读出屏幕大小信息width和height. 另外AM假设系统在运行过程中, 屏幕大小不会发生变化.
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   uint32_t screen_wh=inl(VGACTL_ADDR);
-  uint32_t h=screen_wh&0x0000FFFF;
-  uint32_t w=screen_wh>>16;
+  h=screen_wh&0x0000FFFF;
+  w=screen_wh>>16;
   *cfg = (AM_GPU_CONFIG_T) {
     .present = true, .has_accel = false,
     .width = w, .height = h,
