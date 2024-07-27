@@ -27,7 +27,7 @@ CFLAGS			+= -I$(INC_PATH)
 OBJ_DIR			:= ./obj_dir
 BIN				:= $(OBJ_DIR)/V$(TOP_NAME)
 
-IMG ?= ../am-kernels/tests/cpu-tests/build/hello-str-riscv32e-npc.bin
+IMG ?= ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.bin
 
 
 RUN_FLAGS		:= --img=${IMG} 
