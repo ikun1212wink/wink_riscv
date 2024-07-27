@@ -132,7 +132,7 @@ import "DPI-C" function void trace_func_call(input int pc, input int alu_out,inp
 import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
-/* always@(negedge clk)begin
+always@(negedge clk)begin
     if(jal)begin
         if(inst[11:7]==1)begin
             trace_func_call(pc,alu_out,1'b0);
@@ -152,6 +152,6 @@ always@(negedge clk)begin
             trace_func_call(pc,alu_out,1'b1);
         end
     end
-end */
+end
 
 endmodule
