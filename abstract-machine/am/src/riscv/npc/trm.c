@@ -1,5 +1,6 @@
 #include <am.h>
 #include <klib-macros.h>
+#include </home/wink/ysyx-workbench/abstract-machine/am/src/riscv/riscv.h>
 # define DEVICE_BASE 0xa0000000
 #define SERIAL_PORT     (DEVICE_BASE + 0x00003f8)
 
@@ -17,7 +18,7 @@ Area heap = RANGE(&_heap_start, PMEM_END);
 static const char mainargs[] = MAINARGS;
 
 void putch(char ch) {
-/*   outb(SERIAL_PORT, ch); */
+  outb(SERIAL_PORT, ch);
 }
 
 void halt(int code) {
