@@ -73,7 +73,7 @@ long img_size(){
 
 
 extern "C" uint32_t pmem_read(int raddr) {
-  difftest_skip_ref();
+ // difftest_skip_ref();
   //uint32_t* memory=init_mem();
   // 总是读取地址为`raddr & ~0x3u`的4字节返回
   uint32_t aligned_addr = raddr & ~0x3u;//对齐地址，4字节为单位
