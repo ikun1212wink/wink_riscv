@@ -19,9 +19,7 @@ int exe=0;
             itrace(); */
         
             single_cycle(); 
-            if(dut.pc==0xa00003f8){
-                 difftest_skip_ref() ;
-            }else
+            difftest_skip_ref();
             difftest_step(dut.pc,dut.pc);
             //printf("%x\n",dut.pc);
            // reg_p();
@@ -41,11 +39,8 @@ int exe=0;
             itrace(); */
             
             single_cycle();
-            if(dut.pc==0xa00003f8){
-                 difftest_skip_ref() ;
-            }else{
+            difftest_skip_ref();
             difftest_step(dut.pc,dut.pc);
-            }
            // reg_p();
             
         }
