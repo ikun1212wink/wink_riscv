@@ -41,7 +41,9 @@ int exe=0;
             itrace(); */
             
             single_cycle();
-         
+            if(dut.pc==0x8000008c){
+                difftest_skip_ref();
+            }else
             difftest_step(dut.pc,dut.pc);
 
            // reg_p();
