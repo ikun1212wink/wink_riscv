@@ -42,7 +42,7 @@ int exe=0;
             
            
           //  difftest_skip_ref();
-            difftest_step(dut.pc,dut.pc);
+            difftest_step(dut.pc+4,dut.pc);
             single_cycle();
 
            // reg_p();
