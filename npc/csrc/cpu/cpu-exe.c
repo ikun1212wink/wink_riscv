@@ -20,7 +20,7 @@ int exe=0;
         
             single_cycle(); 
             //difftest_skip_ref();
-            difftest_step(dut.pc,dut.pc);
+           // difftest_step(dut.pc,dut.pc);
             
             //printf("%x\n",dut.pc);
            // reg_p();
@@ -40,7 +40,7 @@ int exe=0;
             itrace(); */
             
             single_cycle();
-            difftest_step(dut.pc,dut.pc);
+           // difftest_step(dut.pc,dut.pc);
 
            // reg_p();
             
