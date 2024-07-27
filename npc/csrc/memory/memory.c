@@ -73,7 +73,7 @@ long img_size(){
 
 
 extern "C" uint32_t pmem_read(int raddr) {
-  if(raddr>=0x88000000){
+  if(raddr>=0x87ffffff){
     difftest_skip_ref();
   }
   //uint32_t* memory=init_mem();
@@ -83,7 +83,7 @@ extern "C" uint32_t pmem_read(int raddr) {
   return memory[img_rd_addr/4];
 }
 extern "C" void pmem_write(int waddr, int wdata, char select) {
-  if(waddr>=0x88000000){
+  if(waddr>=0x87ffffff){
     difftest_skip_ref();
   }
 //  difftest_skip_ref();
