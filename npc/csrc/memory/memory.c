@@ -1,6 +1,7 @@
 #include <memory.h>
 #include <monitor.h>
 #include <cpu.h>
+#include <difftest.h>
 extern char *img_path;
 int mem_number;
 uint32_t memory[0x8000000];
@@ -117,6 +118,7 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
     break;
   }
   if(waddr==0xa00003f8){
+    difftest_skip_ref() ;
     memory[img_wr_addr/4]=new_mem_word;
     char data = (char)(memory[img_wr_addr / 4] & 0xFF);  // 获取低字节的数据
     putchar(data);
