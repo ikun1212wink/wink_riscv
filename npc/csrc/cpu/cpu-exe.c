@@ -28,7 +28,7 @@ int exe=0;
         }
         dump_wave();
         dut.final();
-        tfp->close();
+       // tfp->close();
     }
     else if(n<0) {
         while(!ebreak_flag){  
