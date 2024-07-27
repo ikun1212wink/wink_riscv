@@ -31,8 +31,10 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t *pixels = ctl->pixels;
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   uint32_t screen_w = inl(VGACTL_ADDR) >> 16;
+  //用于遍历要绘制的像素区域。在每个像素位置上，将pixels中的像素值复制到图形缓冲区中相应的位置
   for (int i = y; i < y+h; i++) {
     for (int j = x; j < x+w; j++) {
+      //计算要绘制像素的位置，将 pixels 中对应位置的像素值复制到图形缓冲区中
       fb[screen_w*i+j] = pixels[w*(i-y)+(j-x)];
     }
   }
