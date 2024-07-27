@@ -19,8 +19,10 @@ int exe=0;
             itrace(); */
         
             single_cycle(); 
+
             //difftest_skip_ref();
             difftest_step(dut.pc,dut.pc);
+            
             //printf("%x\n",dut.pc);
            // reg_p();
             
@@ -38,9 +40,11 @@ int exe=0;
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
             itrace(); */
             
-            single_cycle();
+           
           //  difftest_skip_ref();
             difftest_step(dut.pc,dut.pc);
+            single_cycle();
+
            // reg_p();
             
         }
