@@ -19,7 +19,7 @@ int exe=0;
             itrace(); */
         
             single_cycle(); 
-           // difftest_skip_ref();
+            //difftest_skip_ref();
             difftest_step(dut.pc,dut.pc);
             //printf("%x\n",dut.pc);
            // reg_p();
