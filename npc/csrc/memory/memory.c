@@ -80,7 +80,7 @@ extern "C" uint32_t pmem_read(int raddr) {
   return memory[img_rd_addr/4];
 }
 extern "C" void pmem_write(int waddr, int wdata, char select) {
-      difftest_skip_ref();
+      //difftest_skip_ref();
   //uint32_t* memory=init_mem();
   uint32_t aligned_addr = waddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_wr_addr = guest_to_host(aligned_addr);

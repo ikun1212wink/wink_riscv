@@ -41,9 +41,9 @@ int exe=0;
             itrace(); */
             
             single_cycle();
-          difftest_skip_ref();
+         
             difftest_step(dut.pc,dut.pc);
-       
+        difftest_skip_ref();
 
            // reg_p();
             
