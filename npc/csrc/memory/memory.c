@@ -73,7 +73,7 @@ long img_size(){
 
 
 extern "C" uint32_t pmem_read(int raddr) {
-  if(raddr>=0x80000092){
+  if(raddr>=0x80000091){
     difftest_skip_ref();
   }
   //uint32_t* memory=init_mem();
