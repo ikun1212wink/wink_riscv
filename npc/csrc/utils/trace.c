@@ -166,6 +166,7 @@ extern "C" void trace_func_call(uint32_t pc, uint32_t target,bool tail) {
    // char *targe_name_or="???";
     if (targe_name) {
         printf(" call [%s@0x%x] ", targe_name,target);
+       
     } 
     //else {
        // printf("0x%x: call [%s@0x%x]\n", pc, targe_name_or,target);
@@ -175,6 +176,7 @@ extern "C" void trace_func_call(uint32_t pc, uint32_t target,bool tail) {
     }
     printf("\n");
     depth++;
+    return;
 }
 
 extern "C" void trace_func_ret(uint32_t pc) {
@@ -184,8 +186,10 @@ extern "C" void trace_func_ret(uint32_t pc) {
     const char *func_name = find_func_name(pc);
     if (func_name) {
         printf(" leave [%s]\n", func_name);
+      
     } else {
        // printf("return to 0x%x\n", pc);
     }
+    return;
 }
 
