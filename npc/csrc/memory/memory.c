@@ -1,6 +1,8 @@
 #include <memory.h>
 #include <monitor.h>
 #include <cpu.h>
+#include <difftest.h>
+#include <utils.h>
 extern char *img_path;
 int mem_number;
 uint32_t memory[0x8000000];
@@ -76,9 +78,23 @@ extern "C" uint32_t pmem_read(int raddr) {
   // 总是读取地址为`raddr & ~0x3u`的4字节返回
   uint32_t aligned_addr = raddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_rd_addr = guest_to_host(aligned_addr);//内存内的地址
-  return memory[img_rd_addr/4];
+
+
+  uint64_t us=get_time();
+  if(raddr==0xa0000048){
+    return (uint32_t)us;
+  }
+  else if(raddr==0xa000005c){
+    return (uint32_t)(us >> 32);
+  }
+  else{
+    return memory[img_rd_addr/4];
+  }
+
 }
+
 extern "C" void pmem_write(int waddr, int wdata, char select) {
+//  difftest_skip_ref();
   //uint32_t* memory=init_mem();
   uint32_t aligned_addr = waddr & ~0x3u;//对齐地址，4字节为单位
   uint32_t img_wr_addr = guest_to_host(aligned_addr);
@@ -125,3 +141,4 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
     memory[img_wr_addr/4]=new_mem_word;
   }
 }
+

@@ -54,6 +54,7 @@ VM_USER_CLASSES = \
 	sdb \
 	sim \
 	disasm \
+	time \
 	trace \
 
 # User .cpp directories (from .cpp's on Verilator command line)
@@ -92,6 +93,8 @@ sdb.o: /home/wink/ysyx-workbench/npc/csrc/monitor/sdb/sdb.c
 sim.o: /home/wink/ysyx-workbench/npc/csrc/sim/sim.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 disasm.o: /home/wink/ysyx-workbench/npc/csrc/utils/disasm.cc
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+time.o: /home/wink/ysyx-workbench/npc/csrc/utils/time.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 trace.o: /home/wink/ysyx-workbench/npc/csrc/utils/trace.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

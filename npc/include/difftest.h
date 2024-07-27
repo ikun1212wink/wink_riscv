@@ -11,4 +11,5 @@ typedef struct
     vaddr_t pc;
 }NPC_CPU_state;
 void difftest_step(vaddr_t pc, vaddr_t npc);
+void difftest_skip_ref();
 #endif  //!__DIFFTEST__H__
