@@ -119,7 +119,7 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
   if(waddr==0xa00003f8){
     memory[img_wr_addr/4]=new_mem_word;
     char *data=(char*)memory[img_wr_addr/4];
-  //  putchar(*data);
+    putchar(*data);
   }
   else{
     memory[img_wr_addr/4]=new_mem_word;
