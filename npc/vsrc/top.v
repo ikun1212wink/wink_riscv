@@ -128,7 +128,7 @@ ysyx_23060240_IFU IFU(
     .inst(inst)
 );
 
-import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
+/* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
 import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
@@ -153,5 +153,5 @@ always@(negedge clk)begin
         end
     end
 end
-
+ */
 endmodule
