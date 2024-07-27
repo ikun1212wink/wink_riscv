@@ -3,7 +3,7 @@
 // ----------- log -----------
 #include <common.h>
 
-
+uint64_t get_time();
 #define ANSI_FMT(str, fmt) fmt str "\033[0m"
 
 #define log_write(...) IFDEF(CONFIG_TARGET_NATIVE_ELF, \
