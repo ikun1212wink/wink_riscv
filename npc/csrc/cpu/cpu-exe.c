@@ -20,7 +20,7 @@ int exe=0;
         
             single_cycle(); difftest_step(dut.pc,dut.pc);
             //printf("%x\n",dut.pc);
-            reg_p();
+           // reg_p();
             
         }
         dump_wave();
@@ -37,7 +37,7 @@ int exe=0;
             itrace();
             
             single_cycle();difftest_step(dut.pc,dut.pc);
-            reg_p();
+           // reg_p();
             
         }
     }

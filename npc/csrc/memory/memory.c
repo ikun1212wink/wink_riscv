@@ -84,7 +84,6 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
   uint32_t img_wr_addr = guest_to_host(aligned_addr);
   uint32_t old_mem_word = memory[img_wr_addr/4];
   uint32_t new_mem_word;
-
   int addr_select=waddr&0x00000003;
   switch (select)
   {
@@ -117,5 +116,12 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
         new_mem_word=0;
     break;
   }
-  memory[img_wr_addr/4]=new_mem_word;
+  if(waddr==0xa00003f8){
+    memory[img_wr_addr/4]=new_mem_word;
+    char data = (char)(memory[img_wr_addr / 4] & 0xFF);  // 获取低字节的数据
+    putchar(data);
+  }
+  else{
+    memory[img_wr_addr/4]=new_mem_word;
+  }
 }
