@@ -27,6 +27,31 @@ void write_inst(word_t pc, uint32_t inst){
     iringbuf[pointer].inst = inst;
 }
 
+void etrace_write(const char *format, ...) {
+    // 打开一个名为 "etrace.log" 的日志文件，以追加模式写入
+    FILE *f = fopen("etrace.log", "a");
+    if (f == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    va_list args;
+    va_start(args, format);
+
+    vfprintf(f, format, args);  // 将格式化后的字符串写入到日志文件中
+
+    va_end(args);
+    fclose(f);  // 关闭文件
+}
+
+void etrace(word_t mcause,word_t mstatus,word_t mepc,word_t mtvec){
+    etrace_write("ETRACE LOG\n \
+              the mcause is 0x%08x\n \
+              the mstatus is 0x%08x\n \
+              the mepc is 0x%08x\n \
+              the mtvec is 0x%08x\n ", mcause, mstatus, mepc, mtvec);
+}
+
 void dtrace_write(const char *format, ...) {
     // 打开一个名为 "dtrace.log" 的日志文件，以追加模式写入
     FILE *f = fopen("dtrace.log", "a");
