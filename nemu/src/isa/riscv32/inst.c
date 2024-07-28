@@ -23,6 +23,21 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
+static vaddr_t *csr_register(word_t imm) {
+  switch (imm)
+  {
+  case 0x341: return &(cpu.mepc);
+  case 0x342: return &(cpu.mcause);
+  case 0x300: return &(cpu.mstatus);
+  case 0x305: return &(cpu.mtvec);
+  default: panic("Unknown csr");
+  }
+}
+
+#define ECALL(dnpc) { bool success; dnpc = (  isa_raise_intr( isa_reg_str2val("a7", &success), s->pc )  ); }
+#define CSR(i) *csr_register(i)
+
+
 void trace_func_call(paddr_t pc, paddr_t target,bool tail);
 void trace_func_ret(paddr_t pc);
 
@@ -126,6 +141,10 @@ static int decode_exec(Decode *s) {
                                                                 })  
                                                               );
 
+  INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, CSR(imm)= CSR(imm)|src1 ; R(rd)=CSR(imm) );//csrrs
+  INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, CSR(imm)= src1 ; R(rd)=CSR(imm) );//csrrw
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , I, ECALL(s->dnpc));
+
   INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(rd) = s->pc + 4; s->dnpc = s->pc + imm;
                                                                 IFDEF(CONFIG_FTRACE,{
                                                                   if(rd==1){
@@ -152,6 +171,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000001 ????? ????? 011 ????? 01100 11", mulhu  , R, R(rd) = (((uint64_t)(word_t)src1 * (uint64_t)(word_t)src2) >> 32));
   INSTPAT("0000001 ????? ????? 101 ????? 01100 11", divu   , R, R(rd) = src1 / src2);
   INSTPAT("0000001 ????? ????? 111 ????? 01100 11", remu   , R, R(rd) = src1 % src2);//无符号取余
+  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc=cpu.mepc );
 
   INSTPAT("??????? ????? ????? 000 ????? 11000 11", beq    , B, s->dnpc = (src1==src2) ? s->pc+imm : s->dnpc);
   INSTPAT("??????? ????? ????? 001 ????? 11000 11", bnq    , B, s->dnpc = (src1!=src2) ? s->pc+imm : s->dnpc);
@@ -166,6 +186,8 @@ static int decode_exec(Decode *s) {
 
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
+
+
   INSTPAT_END();
 //进入INSTPAT（）中，它会调用decode_operand()函数匹配指令中对应的寄存器和立即数，然后按“指令执行操作”中的内容进行操作
 

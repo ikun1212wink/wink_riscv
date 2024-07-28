@@ -20,16 +20,23 @@ typedef struct {
 // Arch-dependent processor context
 typedef struct Context Context;
 
+
+//操作系统处理过程中所需要的要素一：引发这次执行切换的原因
+//CTE的第一个抽象API，记录异常切换的原因
+//event表示事件编号  cause和ref是一些描述事件的补充信息
+//msg是事件信息字符串
+//在PA中我们只会用到event
 // An event of type @event, caused by @cause of pointer @ref
 typedef struct {
   enum {
     EVENT_NULL = 0,
-    EVENT_YIELD, EVENT_SYSCALL, EVENT_PAGEFAULT, EVENT_ERROR,
+    EVENT_YIELD , EVENT_SYSCALL, EVENT_PAGEFAULT, EVENT_ERROR,
     EVENT_IRQ_TIMER, EVENT_IRQ_IODEV,
   } event;
   uintptr_t cause, ref;
   const char *msg;
 } Event;
+
 
 // A protected address space with user memory @area
 // and arch-dependent @ptr

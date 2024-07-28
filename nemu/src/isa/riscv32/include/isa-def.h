@@ -22,6 +22,10 @@
 typedef struct {
   word_t gpr[MUXDEF(CONFIG_RVE, 16, 32)];//如果 CONFIG_RVE 宏定义为真值（非零），则宏MUXDEF返回结果16，否则返回结果32
   vaddr_t pc;
+  word_t mepc;//存放触发异常的PC
+  word_t mcause;//存放异常的原因
+  word_t mstatus;//存放处理器状态
+  word_t mtvec;//存放异常处理的入口地址
 } MUXDEF(CONFIG_RV64, riscv64_CPU_state, riscv32_CPU_state);
 
 // 根据宏CONFIG_RV64的定义来决定具体是哪个类型。该结构体类型只有一个成员变量inst，是一个联合体，其中包含一个uint32_t类型的val字段

@@ -15,12 +15,14 @@
 
 #include <isa.h>
 
+//返回异常函数入口
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
    */
-
-  return 0;
+  cpu.mcause=0xb;
+  cpu.mepc=epc;
+  return cpu.mtvec;
 }
 
 word_t isa_query_intr() {
