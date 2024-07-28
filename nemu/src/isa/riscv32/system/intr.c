@@ -14,7 +14,8 @@
 ***************************************************************************************/
 
 #include <isa.h>
-
+#include <common.h>
+#include <trace.h>
 //返回异常函数入口
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
@@ -22,6 +23,9 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    */
   cpu.mcause=0xb;
   cpu.mepc=epc;
+  #ifdef  CONFIG_ETRACE
+  etrace(cpu.mcause,cpu.mstatus,cpu.mepc,cpu.mtvec);
+  #endif  //CONFIG_ETRACE
   return cpu.mtvec;
 }
 
