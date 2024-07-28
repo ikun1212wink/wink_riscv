@@ -7,6 +7,7 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 //__am_irq_handle通过判断程序上下文内容（比如在riscv-nemu中通过分支mcause的值）来构造事件
 //最终将事件和上下文一并通过回调函数传给操作系统，开始真正的异常处理....
 Context* __am_irq_handle(Context *c) {
+  printf("hellohi%x\n",c->mcause);
   if (user_handler) {
     Event ev = {0};
     printf("hellohi%x\n",c->mcause);
