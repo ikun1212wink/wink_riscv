@@ -10,7 +10,7 @@ Context* __am_irq_handle(Context *c) {
 /*   printf("hellohi%x\n",c->mcause); */
   if (user_handler) {
     Event ev = {0};
-/*     printf("hellohi%x\n",c->mcause); */
+    putch(c->mcause);
     switch (c->mcause) {
       case 11:ev.event = EVENT_YIELD; break;
       default: ev.event = EVENT_ERROR; break;
