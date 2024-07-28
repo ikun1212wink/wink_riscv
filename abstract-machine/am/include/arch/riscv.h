@@ -11,10 +11,10 @@
 //mcause寄存器：存放触异常的原因
 struct Context {
   // TODO: fix the order of these members to match trap.S  
-  void* pdir;  
+
   uintptr_t gpr[NR_REGS];
   uintptr_t mcause, mstatus, mepc;
-
+  void* pdir;  
 
 /*   uintptr_t mepc, mcause, gpr[NR_REGS], mstatus;
   void *pdir; */
