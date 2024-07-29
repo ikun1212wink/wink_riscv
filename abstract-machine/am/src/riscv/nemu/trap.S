@@ -57,7 +57,7 @@ __am_asm_trap:
   or t1, t1, a0
   csrw mstatus, t1
 
- // mv a0, sp
+  mv a0, sp
   jal __am_irq_handle
  // mv sp, a0
 
