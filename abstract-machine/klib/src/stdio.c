@@ -122,6 +122,9 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                                 }
                                 break;
                         default:
+                         putch(fmt[i-1]);
+                        putch(fmt[i]);
+                         putch(fmt[i+1]);
                         assert(0);
                     }
                 }
