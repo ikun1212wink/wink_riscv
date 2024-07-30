@@ -92,6 +92,33 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                                     j++;
                                 }
                                 break;
+                        case 'l':
+                            if (fmt[++i] == 'd') {
+                                num = va_arg(ap, long);
+                                if (num == 0) {
+                                    out[j] = '0';
+                                    j++;
+                                    break;
+                                }
+                                if (num < 0) {
+                                    out[j] = '-';
+                                    j++;
+                                    num = -num;
+                                }
+                                len = 0;
+                                do {
+                                    buffer[len++] = HEX[num % 10];
+                                    num /= 10;
+                                } while (num);
+                                while (len < width) {
+                                    buffer[len++] = ' ';
+                                }
+                                while (len > 0) {
+                                    out[j] = buffer[--len];
+                                    j++;
+                                }
+                            }
+                            break;
                         default:
                         putch(fmt[i-1]);
                         putch(fmt[i]);
