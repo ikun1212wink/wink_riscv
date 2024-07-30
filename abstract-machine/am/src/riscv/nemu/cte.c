@@ -43,7 +43,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   Context *c=(Context *)kstack.end-1;
   c->mepc=(uintptr_t)entry;
   c->mstatus=0x1800;
-  c->mcause=0xb;
+  //c->mcause=0xb;
   c->gpr[10]=(uintptr_t)arg;//a0寄存器用来传递函数参数，以及保存函数的返回值
   return c;
 }
