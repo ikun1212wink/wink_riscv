@@ -35,8 +35,17 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
   return true;
 }
 
+//kcontext用来创建上下文，并把返回的指针记录到PCB的cp中
+//kstack是栈的范围，entry是内核线程的入口，arg则是内核线程的参数
+//kcontext()要求内核线程不能从entry返回, 否则其行为是未定义的.
+//需要在kstack的底部创建一个以entry为入口的上下文结构(目前你可以先忽略arg参数), 然后返回这一结构的指针.
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
-  return NULL;
+  Context *c=(Context *)kstack.end-1;
+  c->mepc=(uintptr_t)entry;
+  c->mstatus=0x1800;
+  c->mcause=0xb;
+  c->gpr[10]=(uintptr_t)arg;//a0寄存器用来传递函数参数，以及保存函数的返回值
+  return c;
 }
 
 
