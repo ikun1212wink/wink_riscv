@@ -44,6 +44,12 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                 else {
                     switch(fmt[i]){
                         case 's':
+    /*                      txt=va_arg(ap,char*);
+                            for(int k=0;txt[k]!='\0';k++){
+                                out[j]=txt[k];
+                                j++;
+                            }
+                            break; */
                             txt = va_arg(ap, char *);
                                 len = 0;
                                 while (txt[len] != '\0') len++;
@@ -59,6 +65,26 @@ int vsprintf(char *out, const char *fmt, va_list ap){
 
 
                         case 'd':
+    /*                      num=va_arg(ap,int);
+                            if(num==0){
+                                out[j]='0';
+                                j++;
+                                break;
+                            }
+                            if(num<0){
+                                out[j]='-';
+                                j++;
+                                num=-num;
+                            }
+                            for(len=0;num;num/=10,len++){
+                                buffer[len]=HEX[num%10];
+                            }
+                            for(int k=len-1;k>=0;k--){
+                                out[j]=buffer[k];
+                                j++;
+                            }
+                            break; */
+
                                 num = va_arg(ap, int);
                                 if (num == 0) {
                                     out[j] = '0';
@@ -85,6 +111,9 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                                 break;
 
                         case 'c':
+    /*                      out[j]=va_arg(ap,int);
+                            j++;
+                            break; */
                             out[j] = va_arg(ap, int);
                                 j++;
                                 for (int k = 1; k < width; k++) {
@@ -92,37 +121,7 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                                     j++;
                                 }
                                 break;
-                        case 'l':
-                            if (fmt[++i] == 'd') {
-                                num = va_arg(ap, long);
-                                if (num == 0) {
-                                    out[j] = '0';
-                                    j++;
-                                    break;
-                                }
-                                if (num < 0) {
-                                    out[j] = '-';
-                                    j++;
-                                    num = -num;
-                                }
-                                len = 0;
-                                do {
-                                    buffer[len++] = HEX[num % 10];
-                                    num /= 10;
-                                } while (num);
-                                while (len < width) {
-                                    buffer[len++] = ' ';
-                                }
-                                while (len > 0) {
-                                    out[j] = buffer[--len];
-                                    j++;
-                                }
-                            }
-                            break;
                         default:
-                        putch(fmt[i-1]);
-                        putch(fmt[i]);
-                        putch(fmt[i+1]);
                         assert(0);
                     }
                 }
