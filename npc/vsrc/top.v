@@ -46,7 +46,7 @@ wire [31:0] imm_out;
 
 assign alu_a=alu_a_sel ? rs1_data : pc ;
 assign alu_b=(alu_b_sel==2'b00) ? rs2_data :
-             (alu_b_sel==2'b01) ? r_csr_data :
+             (alu_b_sel==2'b01) ? 0 :
              (alu_b_sel==2'b10) ? 32'h0 :
              (alu_b_sel==2'b11) ? imm_out : 32'h0;
 
@@ -103,7 +103,7 @@ ysyx_23060240_RegisterFile Register(
 ysyx_23060240_pc Pc(
     .clk(clk),
     .rst(rst),
-    .jump_en(jump_en),
+    .jump_en(jump_en||jump_ecall),
     .jump_pc(jump_pc),
     .pc(pc)
 );
