@@ -143,7 +143,7 @@ ysyx_23060240_IFU IFU(
     .inst(inst)
 );
 
-ysyx_23060240_CSR CSR(
+/* ysyx_23060240_CSR CSR(
     .pc(pc),
     .clk(clk),
     .r_csr_addr(inst[31:20]),
@@ -154,7 +154,7 @@ ysyx_23060240_CSR CSR(
     .jump_mret(jump_mret),
     .jump_ecall(jump_ecall),
     .r_csr_data(r_csr_data)
-);
+); */
 
 /* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
 import "DPI-C" function void trace_func_ret(input int pc);
