@@ -9,11 +9,11 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 Context* __am_irq_handle(Context *c) {//参数是汇编trap.s中 mv a0,sp中a0寄存器传进来的
   if (user_handler) {
     Event ev = {0};
-    c->mcause=0xb;
     switch (c->mcause) {
       case 0xb:ev.event = EVENT_YIELD; c->mepc+=4; break;
       default: ev.event = EVENT_ERROR; break;
     }
+    ev.event=EVENT_YIELD;
     c = user_handler(ev, c);
     assert(c != NULL);
   }
