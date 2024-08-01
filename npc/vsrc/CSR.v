@@ -33,7 +33,7 @@ module ysyx_23060240_CSR(
         if(w_csr_en)begin
             if(csr_addr==12'h300)begin
                 //csr_mstatus<=w_csr_data;
-                csr_mstatus<=32'h1800;
+                csr_mstatus<=w_csr_data;
             end
             else if(csr_addr==12'h305)begin
                 csr_mtvec<=w_csr_data;
@@ -43,7 +43,7 @@ module ysyx_23060240_CSR(
             end
             else if(csr_addr==12'h342)begin
                 //csr_mcause<=w_csr_data;
-                csr_mcause<=32'hb;
+                csr_mcause<=w_csr_data;
             end
             else begin
                 csr_mstatus<=csr_mstatus;
