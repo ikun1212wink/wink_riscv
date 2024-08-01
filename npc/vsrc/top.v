@@ -146,14 +146,13 @@ ysyx_23060240_IFU IFU(
 ysyx_23060240_CSR CSR(
     .pc(pc),
     .clk(clk),
-    .r_csr_addr(inst[31:20]),
-    .w_csr_addr(inst[31:20]),
+    .csr_addr(inst[31:20]),
     .w_csr_data(alu_out),
     .w_csr_en(w_csr_en),
     .r_csr_en(r_csr_en),
     .jump_mret(jump_mret),
     .jump_ecall(jump_ecall),
-    .csr_mepc(r_csr_data)
+    .r_csr_data(r_csr_data)
 );
 
 /* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);

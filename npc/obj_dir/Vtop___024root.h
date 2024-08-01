@@ -64,6 +64,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT__is_csrrs;
         CData/*0:0*/ top__DOT__IDU__DOT__is_csrrw;
         CData/*0:0*/ top__DOT__IDU__DOT__is_ecall;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_mret;
         CData/*0:0*/ top__DOT__IDU__DOT__is_u_type;
         CData/*0:0*/ top__DOT__IDU__DOT__is_b_type;
         CData/*0:0*/ top__DOT__IDU__DOT__is_r_type;
@@ -78,9 +79,9 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
         CData/*5:0*/ __Vtableidx1;
         CData/*4:0*/ __Vtableidx2;
-        CData/*2:0*/ __Vtableidx3;
     };
     struct {
+        CData/*2:0*/ __Vtableidx3;
         CData/*0:0*/ __Vtrigrprev__TOP__clk;
         CData/*0:0*/ __VactContinue;
         SData/*8:0*/ __Vtableidx4;
@@ -101,6 +102,7 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__BSU__DOT__signed_rs2;
         IData/*31:0*/ top__DOT__MEM__DOT__mem_move_out;
         IData/*31:0*/ top__DOT__MEM__DOT__mem_out;
+        IData/*31:0*/ top__DOT__CSR__DOT__csr_mepc;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mcause;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mstatus;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mtvec;
