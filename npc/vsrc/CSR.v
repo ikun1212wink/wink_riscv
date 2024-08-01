@@ -26,7 +26,7 @@ module ysyx_23060240_CSR(
         csr_mtvec=32'h0;
     end
     //写csr寄存器
-    always@(negedge clk)begin
+/*     always@(negedge clk)begin
         if(w_csr_en)begin
             if(csr_addr==12'h300)begin
                 //csr_mstatus<=w_csr_data;
@@ -59,7 +59,7 @@ module ysyx_23060240_CSR(
             csr_mepc<=csr_mepc;
             csr_mcause<=csr_mcause;
         end
-    end
+    end */
     //读取csr寄存器
     assign r_csr_data = ((csr_addr==12'h300)&&(r_csr_en)) ? csr_mstatus:
                         ((csr_addr==12'h305)&&(r_csr_en)) ? csr_mtvec:
