@@ -148,7 +148,7 @@ assign w_en     =  is_u_type|is_jump_type|is_i_type|is_r_type |is_csrrs |is_csrr
 //存储器读使能
 assign mem_rd_en = is_lb|is_lh|is_lw|is_lbu|is_lhu;
 //存储器写使能
-assign mem_wr_en = is_sb|is_sh|is_sw;
+assign mem_wr_en = is_s_type;
 //系统寄存器写使能
 assign w_csr_en = is_csrrs|is_csrrw;
 //系统寄存器读使能

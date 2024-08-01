@@ -60,7 +60,7 @@ begin
     case(w_sel)   
     3'b001:  w_data = pc_plus4;
     3'b010:  w_data = alu_out;
-    3'b011:  w_data = mem_rd_data;//数据从内存写入寄存器（待完成） 
+    3'b011:  w_data = mem_rd_data;
     3'b100:  w_data = r_csr_data;
     default: w_data =32'h0;
     endcase
