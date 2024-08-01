@@ -62,7 +62,6 @@ begin
     2'b01:  w_data = pc_plus4;
     2'b10:  w_data = alu_out;
     2'b11:  w_data = mem_rd_data;//数据从内存写入寄存器（待完成）
-    default:w_data = 32'h0;
     endcase
 end
 
@@ -143,7 +142,7 @@ ysyx_23060240_IFU IFU(
     .inst(inst)
 );
 
-/* ysyx_23060240_CSR CSR(
+ysyx_23060240_CSR CSR(
     .pc(pc),
     .clk(clk),
     .r_csr_addr(inst[31:20]),
@@ -154,7 +153,7 @@ ysyx_23060240_IFU IFU(
     .jump_mret(jump_mret),
     .jump_ecall(jump_ecall),
     .r_csr_data(r_csr_data)
-); */
+);
 
 /* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
 import "DPI-C" function void trace_func_ret(input int pc);
