@@ -58,7 +58,7 @@ assign jump_en=jump_jtype||jump_branch;
 always@(*)
 begin
     case(w_sel)
-    3'b000:  w_data = r_csr_data;
+   // 3'b000:  w_data = r_csr_data;
     3'b001:  w_data = pc_plus4;
     3'b010:  w_data = alu_out;
     3'b011:  w_data = mem_rd_data;//数据从内存写入寄存器（待完成）
@@ -152,8 +152,8 @@ ysyx_23060240_CSR CSR(
     .w_csr_en(w_csr_en),
     .r_csr_en(r_csr_en),
     .jump_mret(jump_mret),
-    .jump_ecall(jump_ecall)
-    //.r_csr_data(r_csr_data)
+    .jump_ecall(jump_ecall),
+    .r_csr_data(r_csr_data)
 );
 
 /* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
