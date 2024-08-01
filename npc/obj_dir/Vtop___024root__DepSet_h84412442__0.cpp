@@ -63,9 +63,17 @@ void Vtop___024root___eval_triggers__act(Vtop___024root* vlSelf) {
     // Body
     vlSelf->__VactTriggered.at(0U) = ((IData)(vlSelf->clk) 
                                       & (~ (IData)(vlSelf->__Vtrigrprev__TOP__clk)));
-    vlSelf->__VactTriggered.at(1U) = ((~ (IData)(vlSelf->clk)) 
+    vlSelf->__VactTriggered.at(1U) = ((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
+                                      != (IData)(vlSelf->__Vtrigrprev__TOP__top__DOT__IDU__DOT__is_s_type));
+    vlSelf->__VactTriggered.at(2U) = ((~ (IData)(vlSelf->clk)) 
                                       & (IData)(vlSelf->__Vtrigrprev__TOP__clk));
     vlSelf->__Vtrigrprev__TOP__clk = vlSelf->clk;
+    vlSelf->__Vtrigrprev__TOP__top__DOT__IDU__DOT__is_s_type 
+        = vlSelf->top__DOT__IDU__DOT__is_s_type;
+    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->__VactDidInit))))) {
+        vlSelf->__VactDidInit = 1U;
+        vlSelf->__VactTriggered.at(1U) = 1U;
+    }
 #ifdef VL_DEBUG
     if (VL_UNLIKELY(vlSymsp->_vm_contextp__->debug())) {
         Vtop___024root___dump_triggers__act(vlSelf);
