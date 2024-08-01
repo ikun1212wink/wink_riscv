@@ -60,7 +60,7 @@ module ysyx_23060240_CSR(
             csr_mcause<=csr_mcause;
         end
     end */
-    always@(posedge clk)begin
+    always@(negedge clk)begin
         if(w_csr_en)begin
         csr_mstatus<=w_csr_data;
         end
