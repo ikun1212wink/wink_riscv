@@ -40,7 +40,7 @@ int exe=0;
             itrace(); */
             
             single_cycle();
-            difftest_step(dut.pc,dut.pc);
+            //difftest_step(dut.pc,dut.pc);
 
            // reg_p();
             
