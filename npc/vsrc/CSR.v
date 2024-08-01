@@ -61,7 +61,7 @@ module ysyx_23060240_CSR(
         end
     end */
     always@(posedge clk)begin
-        csr_mstatus<=csr_mstatus;
+        csr_mstatus<=w_csr_data;
     end
     
     //读取csr寄存器

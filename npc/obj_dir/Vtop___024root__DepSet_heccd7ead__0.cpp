@@ -32,7 +32,6 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     IData/*31:0*/ __Vdlyvval__top__DOT__Register__DOT__rf__v0;
     __Vdlyvval__top__DOT__Register__DOT__rf__v0 = 0;
     // Body
-    vlSelf->top__DOT__CSR__DOT__csr_mstatus = vlSelf->top__DOT__CSR__DOT__csr_mstatus;
     __Vdlyvval__top__DOT__Register__DOT__rf__v0 = (
                                                    (((IData)(vlSelf->top__DOT__IDU__DOT__is_u_type) 
                                                      | ((0x6fU 
@@ -56,6 +55,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
                                                        >> 7U))]);
     __Vdlyvdim0__top__DOT__Register__DOT__rf__v0 = 
         (0x1fU & (vlSelf->inst >> 7U));
+    vlSelf->top__DOT__CSR__DOT__csr_mstatus = vlSelf->top__DOT__alu_out;
     vlSelf->pc = ((IData)(vlSelf->rst) ? 0x80000000U
                    : (((IData)(vlSelf->top__DOT__jump_en) 
                        | (IData)(vlSelf->top__DOT__IDU__DOT__is_ecall))
