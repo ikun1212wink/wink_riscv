@@ -8,11 +8,13 @@ module ysyx_23060240_CSR(
     input r_csr_en,
     input jump_mret,
     input jump_ecall,
-    output reg [31:0] r_csr_data
+    output reg [31:0] csr_mepc
+
+    
 );
  // wire [31:0] r_csr_data;
  
-    reg [31:0] csr_mepc;
+   // reg [31:0] csr_mepc;
     reg [31:0] csr_mcause;
     reg [31:0] csr_mstatus;
     reg [31:0] csr_mtvec;
@@ -66,12 +68,4 @@ module ysyx_23060240_CSR(
                         ((r_csr_addr==12'h342)&&(r_csr_en)) ? csr_mcause: 
                         (jump_ecall==1'b1)    ? csr_mtvec : 
                         (jump_mret ==1'b1)    ? csr_mepc  : 32'h0; */
-    always@(*)begin
-        if(((r_csr_addr==12'h300)&&(r_csr_en)))begin
-            r_csr_data=csr_mstatus;
-        end
-        else begin
-            r_csr_data=1;
-        end
-    end
 endmodule
