@@ -58,7 +58,7 @@ module ysyx_23060240_CSR(
         end
     end
     //读取csr寄存器
-    assign r_csr_data =csr_mstatus; /* ((r_csr_addr==12'h300)&&(r_csr_en)) ? csr_mstatus:
+    assign r_csr_data = 1; /* ((r_csr_addr==12'h300)&&(r_csr_en)) ? csr_mstatus:
                         ((r_csr_addr==12'h305)&&(r_csr_en)) ? csr_mtvec:
                         ((r_csr_addr==12'h341)&&(r_csr_en)) ? csr_mepc:
                         ((r_csr_addr==12'h342)&&(r_csr_en)) ? csr_mcause: 

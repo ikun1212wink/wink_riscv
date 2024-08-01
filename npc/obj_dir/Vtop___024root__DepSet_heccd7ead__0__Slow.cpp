@@ -21,7 +21,6 @@ VL_ATTR_COLD void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_initial\n"); );
     // Body
     Vtop___024root___eval_initial__TOP(vlSelf);
-    vlSelf->__Vm_traceActivity[3U] = 1U;
     vlSelf->__Vm_traceActivity[2U] = 1U;
     vlSelf->__Vm_traceActivity[1U] = 1U;
     vlSelf->__Vm_traceActivity[0U] = 1U;
@@ -1681,9 +1680,8 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
             = vlSelf->top__DOT__BSU__DOT__signed_rs2;
         vlSelf->top__DOT__ALU__DOT__signed_b = vlSelf->top__DOT__BSU__DOT__signed_rs2;
     } else if ((1U == (IData)(vlSelf->top__DOT__alu_b_sel))) {
-        vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[1U] 
-            = vlSelf->top__DOT__CSR__DOT__csr_mstatus;
-        vlSelf->top__DOT__ALU__DOT__signed_b = vlSelf->top__DOT__CSR__DOT__csr_mstatus;
+        vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[1U] = 1U;
+        vlSelf->top__DOT__ALU__DOT__signed_b = 1U;
     } else if ((2U == (IData)(vlSelf->top__DOT__alu_b_sel))) {
         vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[1U] = 0U;
         vlSelf->top__DOT__ALU__DOT__signed_b = 0U;
@@ -1880,7 +1878,7 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__w_data = ((4U & (IData)(vlSelf->top__DOT__w_sel))
                                  ? ((2U & (IData)(vlSelf->top__DOT__w_sel))
                                      ? 0U : ((1U & (IData)(vlSelf->top__DOT__w_sel))
-                                              ? 0U : vlSelf->top__DOT__CSR__DOT__csr_mstatus))
+                                              ? 0U : 1U))
                                  : ((2U & (IData)(vlSelf->top__DOT__w_sel))
                                      ? ((1U & (IData)(vlSelf->top__DOT__w_sel))
                                          ? ((4U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
@@ -1936,7 +1934,6 @@ VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
     // Body
     if (vlSelf->__VstlTriggered.at(0U)) {
         Vtop___024root___stl_sequent__TOP__0(vlSelf);
-        vlSelf->__Vm_traceActivity[3U] = 1U;
         vlSelf->__Vm_traceActivity[2U] = 1U;
         vlSelf->__Vm_traceActivity[1U] = 1U;
         vlSelf->__Vm_traceActivity[0U] = 1U;
@@ -2093,7 +2090,7 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->__Vtableidx3 = 0;
     vlSelf->__Vtableidx4 = 0;
     vlSelf->__Vtrigrprev__TOP__clk = VL_RAND_RESET_I(1);
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 3; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;
     }
 }
