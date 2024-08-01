@@ -410,13 +410,13 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
                                                    & vlSelf->inst)));
     vlSelf->top__DOT__IDU__DOT____VdfgTmp_h873f971e__0 
         = (IData)((0x5013U == (0x707fU & vlSelf->inst)));
-    vlSelf->top__DOT__IDU__DOT__is_csrrw = (IData)(
-                                                   (0x1073U 
+    vlSelf->top__DOT__IDU__DOT__is_csrrs = (IData)(
+                                                   (0x2073U 
                                                     == 
                                                     (0x707fU 
                                                      & vlSelf->inst)));
-    vlSelf->top__DOT__IDU__DOT__is_csrrs = (IData)(
-                                                   (0x2073U 
+    vlSelf->top__DOT__IDU__DOT__is_csrrw = (IData)(
+                                                   (0x1073U 
                                                     == 
                                                     (0x707fU 
                                                      & vlSelf->inst)));

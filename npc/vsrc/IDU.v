@@ -1,7 +1,7 @@
 module ysyx_23060240_IDU(
     input [31:0] inst,
     output alu_a_sel,
-    output [1:0] alu_b_sel,
+    output reg [1:0] alu_b_sel,
     output w_en,
     output reg [2:0] w_sel,//后续使用模块译码
     output jump_jtype,
@@ -199,9 +199,25 @@ end
 assign alu_a_sel    = is_s_type|is_i_type|is_r_type;
 
 //加法器b口数据选择
-assign alu_b_sel    =  (is_r_type==1'b1) ? 2'b00 :
+/* assign alu_b_sel    =  (is_r_type==1'b1) ? 2'b00 :
                        (is_csrrs ==1'b1) ? 2'b01 :
-                       (is_csrrw ==1'b1) ? 2'b10 : 2'b11;
+                       (is_csrrw ==1'b1) ? 2'b10 : 2'b11; */
+
+always@(*)begin
+    if(is_r_type)begin
+        alu_b_sel=2'b00;
+    end
+    else if(is_csrrs)begin
+        alu_b_sel=2'b01;
+    end
+    else if(is_csrrw)begin
+        alu_b_sel=2'b10;
+    end
+    else begin
+        alu_b_sel=2'b11;
+    end
+end
+
 //加法器模式选择（后面要改用标准译码器模块）
 always@(*)
 begin
