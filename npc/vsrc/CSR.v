@@ -68,7 +68,7 @@ module ysyx_23060240_CSR(
                         (jump_mret ==1'b1)    ? csr_mepc  : 32'h0; */
     always@(*)begin
         if(((r_csr_addr==12'h300)&&(r_csr_en)))begin
-            r_csr_data=1;
+            r_csr_data=csr_mstatus;
         end
         else begin
             r_csr_data=1;
