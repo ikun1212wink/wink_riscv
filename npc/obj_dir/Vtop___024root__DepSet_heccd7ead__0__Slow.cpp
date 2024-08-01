@@ -608,6 +608,22 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                                                  ((IData)(vlSelf->top__DOT__IDU__DOT__is_mret)
                                                    ? vlSelf->top__DOT__CSR__DOT__csr_mepc
                                                    : 0U))))));
+    vlSelf->top__DOT__IDU__DOT__is_i_type = ((IData)(vlSelf->top__DOT__jalr) 
+                                             | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lb) 
+                                                | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lh) 
+                                                   | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lw) 
+                                                      | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lbu) 
+                                                         | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lhu) 
+                                                            | ((IData)(vlSelf->top__DOT__IDU__DOT__is_addi) 
+                                                               | ((IData)(vlSelf->top__DOT__IDU__DOT__is_slti) 
+                                                                  | ((IData)(vlSelf->top__DOT__IDU__DOT__is_sltiu) 
+                                                                     | ((IData)(vlSelf->top__DOT__IDU__DOT__is_xori) 
+                                                                        | ((IData)(vlSelf->top__DOT__IDU__DOT__is_ori) 
+                                                                           | ((IData)(vlSelf->top__DOT__IDU__DOT__is_andi) 
+                                                                              | ((IData)(vlSelf->top__DOT__IDU__DOT__is_slli) 
+                                                                                | ((IData)(vlSelf->top__DOT__IDU__DOT__is_srli) 
+                                                                                | ((IData)(vlSelf->top__DOT__IDU__DOT__is_srai) 
+                                                                                | (IData)(vlSelf->top__DOT__w_csr_en))))))))))))))));
     vlSelf->top__DOT__alu_func = (((((((((0x400U == 
                                           ((((((((((((((0x17U 
                                                         == 
@@ -1679,32 +1695,16 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                                                  ((IData)(vlSelf->top__DOT__w_csr_en)
                                                    ? 4U
                                                    : 0U))));
-    vlSelf->top__DOT__IDU__DOT____VdfgTmp_h57f462a7__0 
-        = (((IData)(vlSelf->top__DOT__jalr) | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lb) 
-                                               | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lh) 
-                                                  | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lw) 
-                                                     | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lbu) 
-                                                        | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lhu) 
-                                                           | ((IData)(vlSelf->top__DOT__IDU__DOT__is_addi) 
-                                                              | ((IData)(vlSelf->top__DOT__IDU__DOT__is_slti) 
-                                                                 | ((IData)(vlSelf->top__DOT__IDU__DOT__is_sltiu) 
-                                                                    | ((IData)(vlSelf->top__DOT__IDU__DOT__is_xori) 
-                                                                       | ((IData)(vlSelf->top__DOT__IDU__DOT__is_ori) 
-                                                                          | ((IData)(vlSelf->top__DOT__IDU__DOT__is_andi) 
-                                                                             | ((IData)(vlSelf->top__DOT__IDU__DOT__is_slli) 
-                                                                                | ((IData)(vlSelf->top__DOT__IDU__DOT__is_srli) 
-                                                                                | ((IData)(vlSelf->top__DOT__IDU__DOT__is_srai) 
-                                                                                | (IData)(vlSelf->top__DOT__w_csr_en)))))))))))))))) 
-           | (IData)(vlSelf->top__DOT__IDU__DOT__is_r_type));
+    vlSelf->top__DOT__ALU__DOT__signed_a = (((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
+                                             | ((IData)(vlSelf->top__DOT__IDU__DOT__is_i_type) 
+                                                | (IData)(vlSelf->top__DOT__IDU__DOT__is_r_type)))
+                                             ? vlSelf->top__DOT__BSU__DOT__signed_rs1
+                                             : vlSelf->pc);
     vlSelf->top__DOT__alu_b_sel = ((IData)(vlSelf->top__DOT__IDU__DOT__is_r_type)
                                     ? 0U : ((IData)(vlSelf->top__DOT__IDU__DOT__is_csrrs)
                                              ? 1U : 
                                             ((IData)(vlSelf->top__DOT__IDU__DOT__is_csrrw)
                                               ? 2U : 3U)));
-    vlSelf->top__DOT__ALU__DOT__signed_a = (((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
-                                             | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h57f462a7__0))
-                                             ? vlSelf->top__DOT__BSU__DOT__signed_rs1
-                                             : vlSelf->pc);
     if ((0U == (IData)(vlSelf->top__DOT__alu_b_sel))) {
         vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[1U] 
             = vlSelf->top__DOT__BSU__DOT__signed_rs2;
@@ -2072,9 +2072,9 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__IDU__DOT__is_u_type = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__IDU__DOT__is_b_type = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__IDU__DOT__is_r_type = VL_RAND_RESET_I(1);
+    vlSelf->top__DOT__IDU__DOT__is_i_type = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__IDU__DOT__is_s_type = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__IDU__DOT____VdfgExtracted_h834c0bbe__0 = VL_RAND_RESET_I(1);
-    vlSelf->top__DOT__IDU__DOT____VdfgTmp_h57f462a7__0 = 0;
     vlSelf->top__DOT__IDU__DOT____VdfgTmp_h26e5c323__0 = 0;
     vlSelf->top__DOT__IDU__DOT____VdfgTmp_h873f971e__0 = 0;
     vlSelf->top__DOT__IDU__DOT____VdfgTmp_he69f398c__0 = 0;

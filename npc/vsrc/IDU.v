@@ -144,7 +144,7 @@ assign  is_i_type   = is_jalr | is_lb   | is_lh    | is_lw   | is_lbu | is_lhu
 assign  is_s_type   = is_sb | is_sh | is_sw ;
 
 //寄存器写使能信号
-assign w_en     =  is_u_type|is_jump_type|is_i_type|is_r_type;
+assign w_en     =  is_u_type|is_jump_type|is_i_type|is_r_type |is_csrrs |is_csrrw ;
 //存储器读使能
 assign mem_rd_en = is_lb|is_lh|is_lw|is_lbu|is_lhu;
 //存储器写使能

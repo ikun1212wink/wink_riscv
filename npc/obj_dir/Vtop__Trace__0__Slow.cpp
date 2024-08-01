@@ -362,7 +362,8 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+31,(vlSelf->top__DOT__w_csr_en));
     bufp->fullIData(oldp+32,(vlSelf->top__DOT__ALU__DOT__signed_a),32);
     bufp->fullBit(oldp+33,(((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
-                            | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h57f462a7__0))));
+                            | ((IData)(vlSelf->top__DOT__IDU__DOT__is_i_type) 
+                               | (IData)(vlSelf->top__DOT__IDU__DOT__is_r_type)))));
     bufp->fullCData(oldp+34,(vlSelf->top__DOT__alu_b_sel),2);
     bufp->fullCData(oldp+35,(vlSelf->top__DOT__alu_func),4);
     bufp->fullCData(oldp+36,(vlSelf->top__DOT__branch_type),3);
@@ -417,22 +418,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+85,(vlSelf->top__DOT__IDU__DOT__is_u_type));
     bufp->fullBit(oldp+86,(vlSelf->top__DOT__IDU__DOT__is_b_type));
     bufp->fullBit(oldp+87,(vlSelf->top__DOT__IDU__DOT__is_r_type));
-    bufp->fullBit(oldp+88,(((IData)(vlSelf->top__DOT__jalr) 
-                            | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lb) 
-                               | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lh) 
-                                  | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lw) 
-                                     | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lbu) 
-                                        | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lhu) 
-                                           | ((IData)(vlSelf->top__DOT__IDU__DOT__is_addi) 
-                                              | ((IData)(vlSelf->top__DOT__IDU__DOT__is_slti) 
-                                                 | ((IData)(vlSelf->top__DOT__IDU__DOT__is_sltiu) 
-                                                    | ((IData)(vlSelf->top__DOT__IDU__DOT__is_xori) 
-                                                       | ((IData)(vlSelf->top__DOT__IDU__DOT__is_ori) 
-                                                          | ((IData)(vlSelf->top__DOT__IDU__DOT__is_andi) 
-                                                             | ((IData)(vlSelf->top__DOT__IDU__DOT__is_slli) 
-                                                                | ((IData)(vlSelf->top__DOT__IDU__DOT__is_srli) 
-                                                                   | ((IData)(vlSelf->top__DOT__IDU__DOT__is_srai) 
-                                                                      | (IData)(vlSelf->top__DOT__w_csr_en))))))))))))))))));
+    bufp->fullBit(oldp+88,(vlSelf->top__DOT__IDU__DOT__is_i_type));
     bufp->fullIData(oldp+89,(vlSelf->top__DOT__IMM__DOT__out5),32);
     bufp->fullQData(oldp+90,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list[0]),39);
     bufp->fullQData(oldp+92,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list[1]),39);
@@ -665,7 +651,9 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+238,((0x6fU == (0x7fU & vlSelf->inst))));
     bufp->fullBit(oldp+239,(((IData)(vlSelf->top__DOT__IDU__DOT__is_u_type) 
                              | ((0x6fU == (0x7fU & vlSelf->inst)) 
-                                | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h57f462a7__0)))));
+                                | ((IData)(vlSelf->top__DOT__IDU__DOT__is_i_type) 
+                                   | ((IData)(vlSelf->top__DOT__IDU__DOT__is_r_type) 
+                                      | (IData)(vlSelf->top__DOT__w_csr_en)))))));
     bufp->fullBit(oldp+240,(((0x6fU == (0x7fU & vlSelf->inst)) 
                              | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgExtracted_h834c0bbe__0))));
     bufp->fullIData(oldp+241,(((IData)(4U) + vlSelf->pc)),32);
