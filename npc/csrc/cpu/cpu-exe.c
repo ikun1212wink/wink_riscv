@@ -37,9 +37,9 @@ int exe=0;
             printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
             //dut.inst=pmem_read(memory,dut.pc);
             printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
-            itrace();
+            itrace(); */
             
-            single_cycle(); */
+            single_cycle();
            // difftest_step(dut.pc,dut.pc);
 
            // reg_p();
