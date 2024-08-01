@@ -379,46 +379,56 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
     bufp->chgBit(oldp+237,(((IData)(vlSelf->top__DOT__IDU__DOT__is_u_type) 
                             | ((0x6fU == (0x7fU & vlSelf->inst)) 
                                | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h57f462a7__0)))));
-    bufp->chgIData(oldp+238,(((1U == (IData)(vlSelf->top__DOT__w_sel))
-                               ? ((IData)(4U) + vlSelf->pc)
-                               : ((2U == (IData)(vlSelf->top__DOT__w_sel))
-                                   ? vlSelf->top__DOT__alu_out
-                                   : ((3U == (IData)(vlSelf->top__DOT__w_sel))
-                                       ? ((4U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                           ? ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                               ? 0U
-                                               : ((1U 
-                                                   & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                                   ? vlSelf->top__DOT__MEM__DOT__mem_move_out
-                                                   : 
-                                                  (0xffffU 
-                                                   & vlSelf->top__DOT__MEM__DOT__mem_move_out)))
-                                           : ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                               ? ((1U 
-                                                   & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                                   ? 
-                                                  (((- (IData)(
-                                                               (1U 
-                                                                & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
-                                                                   >> 0xfU)))) 
-                                                    << 0x10U) 
-                                                   | (0xffffU 
-                                                      & vlSelf->top__DOT__MEM__DOT__mem_move_out))
-                                                   : 
-                                                  (0xffU 
-                                                   & vlSelf->top__DOT__MEM__DOT__mem_move_out))
-                                               : ((1U 
-                                                   & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                                   ? 
-                                                  (((- (IData)(
-                                                               (1U 
-                                                                & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
-                                                                   >> 7U)))) 
-                                                    << 8U) 
-                                                   | (0xffU 
-                                                      & vlSelf->top__DOT__MEM__DOT__mem_move_out))
-                                                   : 0U)))
-                                       : 0U)))),32);
+    bufp->chgIData(oldp+238,(((4U & (IData)(vlSelf->top__DOT__w_sel))
+                               ? 0U : ((2U & (IData)(vlSelf->top__DOT__w_sel))
+                                        ? ((1U & (IData)(vlSelf->top__DOT__w_sel))
+                                            ? ((4U 
+                                                & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                ? (
+                                                   (2U 
+                                                    & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                    ? 0U
+                                                    : 
+                                                   ((1U 
+                                                     & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                     ? vlSelf->top__DOT__MEM__DOT__mem_move_out
+                                                     : 
+                                                    (0xffffU 
+                                                     & vlSelf->top__DOT__MEM__DOT__mem_move_out)))
+                                                : (
+                                                   (2U 
+                                                    & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                    ? 
+                                                   ((1U 
+                                                     & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                     ? 
+                                                    (((- (IData)(
+                                                                 (1U 
+                                                                  & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
+                                                                     >> 0xfU)))) 
+                                                      << 0x10U) 
+                                                     | (0xffffU 
+                                                        & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                                     : 
+                                                    (0xffU 
+                                                     & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                                    : 
+                                                   ((1U 
+                                                     & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                     ? 
+                                                    (((- (IData)(
+                                                                 (1U 
+                                                                  & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
+                                                                     >> 7U)))) 
+                                                      << 8U) 
+                                                     | (0xffU 
+                                                        & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                                     : 0U)))
+                                            : vlSelf->top__DOT__alu_out)
+                                        : ((1U & (IData)(vlSelf->top__DOT__w_sel))
+                                            ? ((IData)(4U) 
+                                               + vlSelf->pc)
+                                            : vlSelf->top__DOT__r_csr_data)))),32);
     bufp->chgBit(oldp+239,(((0x6fU == (0x7fU & vlSelf->inst)) 
                             | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgExtracted_h834c0bbe__0))));
     bufp->chgIData(oldp+240,(((IData)(4U) + vlSelf->pc)),32);

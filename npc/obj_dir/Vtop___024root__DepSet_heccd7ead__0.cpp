@@ -120,18 +120,15 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
                                                         & (vlSelf->inst 
                                                            >> 7U))))
                                                     ? 
-                                                   ((1U 
-                                                     == (IData)(vlSelf->top__DOT__w_sel))
-                                                     ? 
-                                                    ((IData)(4U) 
-                                                     + vlSelf->pc)
+                                                   ((4U 
+                                                     & (IData)(vlSelf->top__DOT__w_sel))
+                                                     ? 0U
                                                      : 
                                                     ((2U 
-                                                      == (IData)(vlSelf->top__DOT__w_sel))
-                                                      ? vlSelf->top__DOT__alu_out
-                                                      : 
-                                                     ((3U 
-                                                       == (IData)(vlSelf->top__DOT__w_sel))
+                                                      & (IData)(vlSelf->top__DOT__w_sel))
+                                                      ? 
+                                                     ((1U 
+                                                       & (IData)(vlSelf->top__DOT__w_sel))
                                                        ? 
                                                       ((4U 
                                                         & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
@@ -175,7 +172,14 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
                                                           | (0xffU 
                                                              & vlSelf->top__DOT__MEM__DOT__mem_move_out))
                                                           : 0U)))
-                                                       : 0U)))
+                                                       : vlSelf->top__DOT__alu_out)
+                                                      : 
+                                                     ((1U 
+                                                       & (IData)(vlSelf->top__DOT__w_sel))
+                                                       ? 
+                                                      ((IData)(4U) 
+                                                       + vlSelf->pc)
+                                                       : vlSelf->top__DOT__r_csr_data)))
                                                     : 
                                                    vlSelf->top__DOT__Register__DOT__rf
                                                    [

@@ -30,7 +30,7 @@ reg [31:0] w_data;//写入寄存器的数据
 wire [31:0] jump_pc;//PC跳转的值
 
 assign jump_pc = (jump_en==1'b1) ? alu_out : 
-                 ((jump_ecall|jump_mret)==1'b1) ? r_csr_data : 32'h0;
+                 ((jump_ecall||jump_mret)==1'b1) ? r_csr_data : 32'h0;
 
 //跳转信号
 wire jump_jtype;//jal jalr 
@@ -58,7 +58,7 @@ assign jump_en=jump_jtype||jump_branch;
 always@(*)
 begin
     case(w_sel)
-   // 3'b000:  w_data = r_csr_data;
+    3'b000:  w_data = r_csr_data;
     3'b001:  w_data = pc_plus4;
     3'b010:  w_data = alu_out;
     3'b011:  w_data = mem_rd_data;//数据从内存写入寄存器（待完成）
