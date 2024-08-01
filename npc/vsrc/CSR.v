@@ -8,7 +8,7 @@ module ysyx_23060240_CSR(
     input r_csr_en,
     input jump_mret,
     input jump_ecall,
-    output [31:0] r_csr_data
+    output reg [31:0] r_csr_data
 );
  // wire [31:0] r_csr_data;
  
@@ -17,15 +17,6 @@ module ysyx_23060240_CSR(
     reg [31:0] csr_mstatus;
     reg [31:0] csr_mtvec;
 
-    wire [31:0] csr_mepc_w;
-    wire [31:0] csr_mcause_w;
-    wire [31:0] csr_mstatus_w;
-    wire [31:0] csr_mtvec_w;
-
-    assign csr_mepc_w=csr_mepc;
-    assign csr_mcause_w=csr_mcause;
-    assign csr_mstatus_w=csr_mstatus;
-    assign csr_mtvec_w=csr_mtvec;
 
     initial begin
         csr_mstatus=32'h1800;
@@ -69,10 +60,18 @@ module ysyx_23060240_CSR(
         end
     end
     //读取csr寄存器
-    assign r_csr_data = ((r_csr_addr==12'h300)&&(r_csr_en)) ? csr_mstatus_w:
-                        ((r_csr_addr==12'h305)&&(r_csr_en)) ? csr_mtvec_w:
-                        ((r_csr_addr==12'h341)&&(r_csr_en)) ? csr_mepc_w:
-                        ((r_csr_addr==12'h342)&&(r_csr_en)) ? csr_mcause_w: 
-                        (jump_ecall==1'b1)    ? csr_mtvec_w : 
-                        (jump_mret ==1'b1)    ? csr_mepc_w  : 32'h0;
+/*     assign r_csr_data = ((r_csr_addr==12'h300)&&(r_csr_en)) ? csr_mstatus:
+                        ((r_csr_addr==12'h305)&&(r_csr_en)) ? csr_mtvec:
+                        ((r_csr_addr==12'h341)&&(r_csr_en)) ? csr_mepc:
+                        ((r_csr_addr==12'h342)&&(r_csr_en)) ? csr_mcause: 
+                        (jump_ecall==1'b1)    ? csr_mtvec : 
+                        (jump_mret ==1'b1)    ? csr_mepc  : 32'h0; */
+    always@(*)begin
+        if(((r_csr_addr==12'h300)&&(r_csr_en)))begin
+            r_csr_data=csr_mstatus;
+        end
+        else begin
+            r_csr_data=csr_mstatus;
+        end
+    end
 endmodule
