@@ -105,7 +105,7 @@ ysyx_23060240_RegisterFile Register(
 ysyx_23060240_pc Pc(
     .clk(clk),
     .rst(rst),
-    .jump_en(jump_en||jump_ecall),
+    .jump_en(jump_en||jump_ecall||jump_mret),
     .jump_pc(jump_pc),
     .pc(pc)
 );
