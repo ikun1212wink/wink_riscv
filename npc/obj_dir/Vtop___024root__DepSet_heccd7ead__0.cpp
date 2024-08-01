@@ -192,6 +192,8 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list[7U] 
         = (0x1700000000ULL | (QData)((IData)((0xfffff000U 
                                               & vlSelf->inst))));
+    vlSelf->top__DOT__BSU__DOT__signed_rs2 = vlSelf->top__DOT__Register__DOT__rf
+        [(0x1fU & (vlSelf->inst >> 0x14U))];
     vlSelf->top__DOT__IDU__DOT__is_u_type = ((0x37U 
                                               == (0x7fU 
                                                   & vlSelf->inst)) 
@@ -269,8 +271,6 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
                                                     == vlSelf->inst));
     vlSelf->top__DOT__IDU__DOT__is_mret = (IData)((0x30200073U 
                                                    == vlSelf->inst));
-    vlSelf->top__DOT__BSU__DOT__signed_rs2 = vlSelf->top__DOT__Register__DOT__rf
-        [(0x1fU & (vlSelf->inst >> 0x14U))];
     vlSelf->top__DOT__IDU__DOT__is_sb = (IData)((0x23U 
                                                  == 
                                                  (0x707fU 
@@ -1684,15 +1684,15 @@ VL_INLINE_OPT void Vtop___024root___nba_comb__TOP__0(Vtop___024root* vlSelf) {
                                                    : 0U))))));
     if ((0U == (IData)(vlSelf->top__DOT__alu_b_sel))) {
         vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[1U] 
-            = vlSelf->top__DOT__BSU__DOT__signed_rs2;
-        vlSelf->top__DOT__ALU__DOT__signed_b = vlSelf->top__DOT__BSU__DOT__signed_rs2;
+            = vlSelf->top__DOT__r_csr_data;
+        vlSelf->top__DOT__ALU__DOT__signed_b = vlSelf->top__DOT__r_csr_data;
     } else if ((1U == (IData)(vlSelf->top__DOT__alu_b_sel))) {
-        vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[1U] = 0U;
-        vlSelf->top__DOT__ALU__DOT__signed_b = 0U;
-    } else if ((2U == (IData)(vlSelf->top__DOT__alu_b_sel))) {
         vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[1U] 
             = vlSelf->top__DOT__r_csr_data;
         vlSelf->top__DOT__ALU__DOT__signed_b = vlSelf->top__DOT__r_csr_data;
+    } else if ((2U == (IData)(vlSelf->top__DOT__alu_b_sel))) {
+        vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[1U] = 0U;
+        vlSelf->top__DOT__ALU__DOT__signed_b = 0U;
     } else if ((3U == (IData)(vlSelf->top__DOT__alu_b_sel))) {
         vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[1U] 
             = vlSelf->top__DOT__imm_out;
