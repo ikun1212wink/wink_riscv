@@ -25,7 +25,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*2:0*/ top__DOT__memory_rd_ctrl;
         CData/*7:0*/ top__DOT__memory_wr_ctrl;
         CData/*0:0*/ top__DOT__mem_rd_en;
-        CData/*1:0*/ top__DOT__w_sel;
+        CData/*2:0*/ top__DOT__w_sel;
         CData/*0:0*/ top__DOT__jump_branch;
         CData/*0:0*/ top__DOT__jump_en;
         CData/*0:0*/ top__DOT__IDU__DOT__is_beq;

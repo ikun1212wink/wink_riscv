@@ -40,7 +40,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBus(c+41,"rs1_data", false,-1, 31,0);
     tracep->declBus(c+42,"rs2_data", false,-1, 31,0);
     tracep->declBit(c+238,"w_en", false,-1);
-    tracep->declBus(c+43,"w_sel", false,-1, 1,0);
+    tracep->declBus(c+43,"w_sel", false,-1, 2,0);
     tracep->declBus(c+239,"w_data", false,-1, 31,0);
     tracep->declBus(c+150,"jump_pc", false,-1, 31,0);
     tracep->declBit(c+240,"jump_jtype", false,-1);
@@ -136,7 +136,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+33,"alu_a_sel", false,-1);
     tracep->declBus(c+34,"alu_b_sel", false,-1, 1,0);
     tracep->declBit(c+238,"w_en", false,-1);
-    tracep->declBus(c+43,"w_sel", false,-1, 1,0);
+    tracep->declBus(c+43,"w_sel", false,-1, 2,0);
     tracep->declBit(c+240,"jump_jtype", false,-1);
     tracep->declBit(c+44,"jump_ecall", false,-1);
     tracep->declBit(c+45,"jump_mret", false,-1);
@@ -372,7 +372,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+40,(vlSelf->top__DOT__IDU__DOT__is_s_type));
     bufp->fullIData(oldp+41,(vlSelf->top__DOT__BSU__DOT__signed_rs1),32);
     bufp->fullIData(oldp+42,(vlSelf->top__DOT__BSU__DOT__signed_rs2),32);
-    bufp->fullCData(oldp+43,(vlSelf->top__DOT__w_sel),2);
+    bufp->fullCData(oldp+43,(vlSelf->top__DOT__w_sel),3);
     bufp->fullBit(oldp+44,(vlSelf->top__DOT__IDU__DOT__is_ecall));
     bufp->fullBit(oldp+45,(vlSelf->top__DOT__IDU__DOT__is_mret));
     bufp->fullBit(oldp+46,(vlSelf->top__DOT__jump_branch));
@@ -665,44 +665,56 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+238,(((IData)(vlSelf->top__DOT__IDU__DOT__is_u_type) 
                              | ((0x6fU == (0x7fU & vlSelf->inst)) 
                                 | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h57f462a7__0)))));
-    bufp->fullIData(oldp+239,(((2U & (IData)(vlSelf->top__DOT__w_sel))
-                                ? ((1U & (IData)(vlSelf->top__DOT__w_sel))
-                                    ? ((4U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                        ? ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                            ? 0U : 
-                                           ((1U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                             ? vlSelf->top__DOT__MEM__DOT__mem_move_out
-                                             : (0xffffU 
-                                                & vlSelf->top__DOT__MEM__DOT__mem_move_out)))
-                                        : ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                            ? ((1U 
-                                                & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                                ? (
-                                                   ((- (IData)(
+    bufp->fullIData(oldp+239,(((4U & (IData)(vlSelf->top__DOT__w_sel))
+                                ? 0U : ((2U & (IData)(vlSelf->top__DOT__w_sel))
+                                         ? ((1U & (IData)(vlSelf->top__DOT__w_sel))
+                                             ? ((4U 
+                                                 & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                 ? 
+                                                ((2U 
+                                                  & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                  ? 0U
+                                                  : 
+                                                 ((1U 
+                                                   & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                   ? vlSelf->top__DOT__MEM__DOT__mem_move_out
+                                                   : 
+                                                  (0xffffU 
+                                                   & vlSelf->top__DOT__MEM__DOT__mem_move_out)))
+                                                 : 
+                                                ((2U 
+                                                  & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                  ? 
+                                                 ((1U 
+                                                   & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                   ? 
+                                                  (((- (IData)(
                                                                (1U 
                                                                 & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
                                                                    >> 0xfU)))) 
                                                     << 0x10U) 
                                                    | (0xffffU 
                                                       & vlSelf->top__DOT__MEM__DOT__mem_move_out))
-                                                : (0xffU 
+                                                   : 
+                                                  (0xffU 
                                                    & vlSelf->top__DOT__MEM__DOT__mem_move_out))
-                                            : ((1U 
-                                                & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                                ? (
-                                                   ((- (IData)(
+                                                  : 
+                                                 ((1U 
+                                                   & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
+                                                   ? 
+                                                  (((- (IData)(
                                                                (1U 
                                                                 & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
                                                                    >> 7U)))) 
                                                     << 8U) 
                                                    | (0xffU 
                                                       & vlSelf->top__DOT__MEM__DOT__mem_move_out))
-                                                : 0U)))
-                                    : vlSelf->top__DOT__alu_out)
-                                : ((1U & (IData)(vlSelf->top__DOT__w_sel))
-                                    ? ((IData)(4U) 
-                                       + vlSelf->pc)
-                                    : vlSelf->top__DOT__r_csr_data))),32);
+                                                   : 0U)))
+                                             : vlSelf->top__DOT__alu_out)
+                                         : ((1U & (IData)(vlSelf->top__DOT__w_sel))
+                                             ? ((IData)(4U) 
+                                                + vlSelf->pc)
+                                             : vlSelf->top__DOT__r_csr_data)))),32);
     bufp->fullBit(oldp+240,(((0x6fU == (0x7fU & vlSelf->inst)) 
                              | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgExtracted_h834c0bbe__0))));
     bufp->fullIData(oldp+241,(((IData)(4U) + vlSelf->pc)),32);

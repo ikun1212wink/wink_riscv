@@ -3,7 +3,7 @@ module ysyx_23060240_IDU(
     output alu_a_sel,
     output [1:0] alu_b_sel,
     output w_en,
-    output reg [1:0] w_sel,//后续使用模块译码
+    output reg [2:0] w_sel,//后续使用模块译码
     output jump_jtype,
     output jump_ecall,
     output jump_mret,
@@ -158,21 +158,21 @@ assign r_csr_en = is_csrrs|is_csrrw;
 always@(*)
 begin
     if(is_jalr|is_jal)begin//存入存储器的类型：pc+4
-        w_sel=2'b01;
+        w_sel=3'b001;
     end
     else if(is_addi|is_slti|is_sltiu|is_xori|is_ori|is_andi|is_slli|is_srli|is_srai|
             is_r_type|
             is_u_type)begin//存入寄存器的类型：ALU的计算结果
-        w_sel=2'b10;
+        w_sel=3'b010;
     end
     else if(is_lb | is_lh | is_lw | is_lbu | is_lhu)begin//存入寄存器的类型：内存中的数据
-        w_sel=2'b11;
+        w_sel=3'b011;
     end
     else if(is_csrrs | is_csrrw)begin
-        w_sel=2'b00;
+        w_sel=3'b000;
     end
     else begin
-        w_sel=2'b00;
+        w_sel=3'b111;
     end
 end  
 //J跳转使能
