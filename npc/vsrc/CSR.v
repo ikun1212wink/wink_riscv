@@ -20,12 +20,12 @@ module ysyx_23060240_CSR(
     reg [31:0] csr_mtvec;
 
 
-    initial begin
+/*     initial begin
         csr_mstatus=32'h1800;
         csr_mcause=32'hb;
         csr_mepc=32'h0;
         csr_mtvec=32'h0;
-    end
+    end */
     //写csr寄存器
     always@(negedge clk)begin
         if(w_csr_en)begin
