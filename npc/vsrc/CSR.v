@@ -48,7 +48,7 @@ module ysyx_23060240_CSR(
                 csr_mstatus<=csr_mstatus;
                 csr_mtvec<=csr_mtvec;
                 csr_mepc<=csr_mepc;
-                csr_mcause<=csr_mcause;
+                csr_mcause<=32'hb;
             end
         end
         else if(jump_ecall)begin
@@ -59,7 +59,7 @@ module ysyx_23060240_CSR(
             csr_mstatus<=csr_mstatus;
             csr_mtvec<=csr_mtvec;
             csr_mepc<=csr_mepc;
-            csr_mcause<=csr_mcause;
+            csr_mcause<=32'hb;
         end
     end
     
