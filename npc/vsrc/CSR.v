@@ -20,8 +20,8 @@ module ysyx_23060240_CSR(
 
 
     initial begin
-        csr_mstatus=32'h1800;
-        csr_mcause=32'hb;
+        csr_mstatus=32'h0;
+        csr_mcause=32'h0;
         csr_mepc=32'h0;
         csr_mtvec=32'h0;
     end
@@ -54,12 +54,13 @@ module ysyx_23060240_CSR(
             csr_mcause<=32'hb;
         end
         else begin
-            csr_mstatus<=0;
-            csr_mtvec<=0;
-            csr_mepc<=0;
-            csr_mcause<=0;
+            csr_mstatus<=csr_mstatus;
+            csr_mtvec<=csr_mtvec;
+            csr_mepc<=csr_mepc;
+            csr_mcause<=csr_mcause;
         end
     end
+    
     //读取csr寄存器
     assign r_csr_data = ((csr_addr==12'h300)&&(r_csr_en)) ? csr_mstatus:
                         ((csr_addr==12'h305)&&(r_csr_en)) ? csr_mtvec:
