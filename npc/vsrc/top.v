@@ -47,7 +47,7 @@ wire [31:0] imm_out;
 assign alu_a=alu_a_sel ? rs1_data : pc ;
 assign alu_b=(alu_b_sel==2'b00) ? rs2_data :
              (alu_b_sel==2'b01) ? 0 :
-             (alu_b_sel==2'b10) ? 32'h0 :
+             (alu_b_sel==2'b10) ? r_csr_data :
              (alu_b_sel==2'b11) ? imm_out : 32'h0;
 
 assign pc_plus4=pc+32'h4;
