@@ -7,10 +7,11 @@ module ysyx_23060240_CSR(
     input w_csr_en,
     input r_csr_en,
     input jump_mret,
-    input jump_ecall,
-    output [31:0] r_csr_data
+    input jump_ecall
+  //  output [31:0] r_csr_data
 );
-
+  wire [31:0] r_csr_data;
+ 
     reg [31:0] csr_mepc;
     reg [31:0] csr_mcause;
     reg [31:0] csr_mstatus;

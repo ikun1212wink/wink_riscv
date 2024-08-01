@@ -152,8 +152,8 @@ ysyx_23060240_CSR CSR(
     .w_csr_en(w_csr_en),
     .r_csr_en(r_csr_en),
     .jump_mret(jump_mret),
-    .jump_ecall(jump_ecall),
-    .r_csr_data(r_csr_data)
+    .jump_ecall(jump_ecall)
+    //.r_csr_data(r_csr_data)
 );
 
 /* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
