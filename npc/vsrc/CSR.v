@@ -10,7 +10,7 @@ module ysyx_23060240_CSR(
     output [31:0] r_csr_data
 );
  // wire [31:0] r_csr_data;
- 
+    reg [31:0] pc_last;
     reg [31:0] csr_mepc;
     reg [31:0] csr_mcause;
     reg [31:0] csr_mstatus;
@@ -23,6 +23,11 @@ module ysyx_23060240_CSR(
         csr_mepc=32'h0;
         csr_mtvec=32'h0;
     end
+
+    always@(posedge clk)begin
+        pc_last<=pc;
+    end
+
     //写csr寄存器
     always@(posedge clk)begin
         if(w_csr_en)begin
@@ -48,7 +53,7 @@ module ysyx_23060240_CSR(
             end
         end
         else if(jump_ecall)begin
-            csr_mepc<=pc;
+            csr_mepc<=pc_last;
             csr_mcause<=32'hb;
         end
         else begin

@@ -85,7 +85,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     } else {
         if (vlSelf->top__DOT__IDU__DOT__is_ecall) {
             __Vdly__top__DOT__CSR__DOT__csr_mcause = 0xbU;
-            __Vdly__top__DOT__CSR__DOT__csr_mepc = vlSelf->pc;
+            __Vdly__top__DOT__CSR__DOT__csr_mepc = vlSelf->top__DOT__CSR__DOT__pc_last;
         } else {
             __Vdly__top__DOT__CSR__DOT__csr_mcause 
                 = vlSelf->top__DOT__CSR__DOT__csr_mcause;
@@ -126,6 +126,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     vlSelf->top__DOT__Register__DOT__rf[__Vdlyvdim0__top__DOT__Register__DOT__rf__v0] 
         = __Vdlyvval__top__DOT__Register__DOT__rf__v0;
     vlSelf->top__DOT__CSR__DOT__csr_mepc = __Vdly__top__DOT__CSR__DOT__csr_mepc;
+    vlSelf->top__DOT__CSR__DOT__pc_last = vlSelf->pc;
     vlSelf->pc = ((IData)(vlSelf->rst) ? 0x80000000U
                    : (((IData)(vlSelf->top__DOT__jump_en) 
                        | (IData)(vlSelf->top__DOT__IDU__DOT__is_ecall))
