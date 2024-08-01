@@ -8,8 +8,6 @@ module ysyx_23060240_CSR(
     input jump_mret,
     input jump_ecall,
     output [31:0] r_csr_data
-
-    
 );
  // wire [31:0] r_csr_data;
  

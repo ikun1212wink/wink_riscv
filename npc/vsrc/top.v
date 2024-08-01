@@ -23,6 +23,7 @@ wire mem_wr_en;//存储器写使能
 
 wire [31:0] mem_rd_data;//存储器读出的数据
 wire [31:0] r_csr_data; //系统寄存器读出数据
+
 wire [31:0] rs1_data,rs2_data;//普通寄存器读出数据
 wire w_en;//写寄存器信号
 wire [2:0] w_sel;//写入寄存器的数据类型选择
@@ -43,6 +44,7 @@ wire jump_en;
 wire [31:0] pc_plus4;
 
 wire [31:0] imm_out;
+
 
 assign alu_a=alu_a_sel ? rs1_data : pc ;
 assign alu_b=(alu_b_sel==2'b00) ? rs2_data:
