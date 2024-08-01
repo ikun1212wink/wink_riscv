@@ -140,7 +140,7 @@ assign  is_r_type   = is_add | is_sub | is_sll | is_slt | is_sltu | is_xor
                     | is_srl | is_sra | is_or  | is_and ;
 assign  is_i_type   = is_jalr | is_lb   | is_lh    | is_lw   | is_lbu | is_lhu 
                     | is_addi | is_slti | is_sltiu | is_xori | is_ori | is_andi
-                    | is_slli | is_srli | is_srai  | is_csrrs|is_csrrw;
+                    | is_slli | is_srli | is_srai  ;
 assign  is_s_type   = is_sb | is_sh | is_sw ;
 
 //寄存器写使能信号
