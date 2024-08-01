@@ -4,7 +4,6 @@ module ysyx_23060240_CSR(
     input [11:0] csr_addr,
     input [31:0] w_csr_data,
     input w_csr_en,
-    input r_csr_en,
     input jump_mret,
     input jump_ecall,
     output [31:0] r_csr_data
@@ -65,10 +64,10 @@ module ysyx_23060240_CSR(
     end
     
     //读取csr寄存器
-    assign r_csr_data = ((csr_addr==12'h300)&&(r_csr_en)) ? csr_mstatus:
-                        ((csr_addr==12'h305)&&(r_csr_en)) ? csr_mtvec:
-                        ((csr_addr==12'h341)&&(r_csr_en)) ? csr_mepc:
-                        ((csr_addr==12'h342)&&(r_csr_en)) ? csr_mcause: 
-                        (jump_ecall==1'b1)    ? csr_mtvec : 
-                        (jump_mret ==1'b1)    ? csr_mepc  : 32'h0;
+    assign r_csr_data = (csr_addr==12'h300) ? csr_mstatus:
+                        (csr_addr==12'h305) ? csr_mtvec:
+                        (csr_addr==12'h341) ? csr_mepc:
+                        (csr_addr==12'h342) ? csr_mcause: 
+                        (jump_ecall==1'b1)  ? csr_mtvec : 
+                        (jump_mret ==1'b1)  ? csr_mepc  : 32'h0;
 endmodule

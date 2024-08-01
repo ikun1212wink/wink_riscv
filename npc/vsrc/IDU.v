@@ -17,8 +17,8 @@ module ysyx_23060240_IDU(
     output is_jal,
     output is_jalr,
     //写系统寄存器
-    output w_csr_en,
-    output r_csr_en
+    output w_csr_en
+   // output r_csr_en
 );
 wire [6:0] opcode;
 wire [2:0] funct3;
@@ -152,7 +152,7 @@ assign mem_wr_en = is_s_type;
 //系统寄存器写使能
 assign w_csr_en = is_csrrs|is_csrrw;
 //系统寄存器读使能
-assign r_csr_en = is_csrrs|is_csrrw;
+//assign r_csr_en = is_csrrs|is_csrrw;
 
 //寄存器写入数据类型选择（后面要改用标准译码器模块）
 always@(*)
@@ -207,8 +207,8 @@ assign alu_b_sel    =  (is_r_type==1'b1) ? 2'b00 :
 //加法器模式选择（后面要改用标准译码器模块）
 always@(*)
 begin
-    case({(is_auipc|is_jal|is_jalr|is_b_type|is_s_type|is_lb|is_lh|is_lw|is_lbu|is_lhu|is_add|is_addi),
-            is_sub |is_csrrw,
+    case({(is_auipc|is_jal|is_jalr|is_b_type|is_s_type|is_lb|is_lh|is_lw|is_lbu|is_lhu|is_add|is_addi|is_csrrw),
+            is_sub ,
             (is_sll|is_slli),
             (is_srl|is_srli),
             (is_sra|is_srai),

@@ -23,7 +23,6 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+239,"jal", false,-1);
     tracep->declBit(c+26,"jalr", false,-1);
     tracep->declBit(c+27,"w_csr_en", false,-1);
-    tracep->declBit(c+27,"r_csr_en", false,-1);
     tracep->declBus(c+28,"alu_a", false,-1, 31,0);
     tracep->declBus(c+29,"alu_b", false,-1, 31,0);
     tracep->declBus(c+30,"alu_out", false,-1, 31,0);
@@ -121,7 +120,6 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBus(c+243,"csr_addr", false,-1, 11,0);
     tracep->declBus(c+30,"w_csr_data", false,-1, 31,0);
     tracep->declBit(c+27,"w_csr_en", false,-1);
-    tracep->declBit(c+27,"r_csr_en", false,-1);
     tracep->declBit(c+47,"jump_mret", false,-1);
     tracep->declBit(c+46,"jump_ecall", false,-1);
     tracep->declBus(c+40,"r_csr_data", false,-1, 31,0);
@@ -149,7 +147,6 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+239,"is_jal", false,-1);
     tracep->declBit(c+26,"is_jalr", false,-1);
     tracep->declBit(c+27,"w_csr_en", false,-1);
-    tracep->declBit(c+27,"r_csr_en", false,-1);
     tracep->declBus(c+244,"opcode", false,-1, 6,0);
     tracep->declBus(c+245,"funct3", false,-1, 2,0);
     tracep->declBus(c+246,"funct7", false,-1, 6,0);

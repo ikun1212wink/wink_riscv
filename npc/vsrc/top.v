@@ -9,7 +9,7 @@ wire jal;
 wire jalr;
 
 wire w_csr_en;
-wire r_csr_en;
+//wire r_csr_en;
 wire [31:0] alu_a,alu_b;
 wire [31:0] alu_out;
 wire alu_a_sel;
@@ -87,8 +87,8 @@ ysyx_23060240_IDU IDU(
     .mem_wr_en(mem_wr_en),
     .is_jal(jal),
     .is_jalr(jalr),
-    .w_csr_en(w_csr_en),
-    .r_csr_en(r_csr_en)
+    .w_csr_en(w_csr_en)
+    //.r_csr_en(r_csr_en)
 );
 
 ysyx_23060240_RegisterFile Register(
@@ -151,7 +151,7 @@ ysyx_23060240_CSR CSR(
     .csr_addr(inst[31:20]),
     .w_csr_data(alu_out),
     .w_csr_en(w_csr_en),
-    .r_csr_en(r_csr_en),
+  //  .r_csr_en(r_csr_en),
     .jump_mret(jump_mret),
     .jump_ecall(jump_ecall),
     .r_csr_data(r_csr_data)
