@@ -20,8 +20,8 @@ module ysyx_23060240_CSR(
 
 
     initial begin
-        csr_mstatus=32'h0;
-        csr_mcause=32'h0;
+        csr_mstatus=32'h1800;
+        csr_mcause=32'hb;
         csr_mepc=32'h0;
         csr_mtvec=32'h0;
     end
