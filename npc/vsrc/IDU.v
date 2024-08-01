@@ -169,10 +169,10 @@ begin
         w_sel=3'b011;
     end
     else if(is_csrrs | is_csrrw)begin
-        w_sel=3'b000;
+        w_sel=3'b100;
     end
     else begin
-        w_sel=3'b111;
+        w_sel=3'b000;
     end
 end  
 //J跳转使能

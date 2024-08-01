@@ -46,7 +46,7 @@ wire [31:0] imm_out;
 
 assign alu_a=alu_a_sel ? rs1_data : pc ;
 assign alu_b=(alu_b_sel==2'b00) ? rs2_data :
-             (alu_b_sel==2'b01) ? 0 :
+             (alu_b_sel==2'b01) ? r_csr_data :
              (alu_b_sel==2'b10) ? 32'h0 :
              (alu_b_sel==2'b11) ? imm_out : 32'h0;
 
@@ -57,11 +57,11 @@ assign jump_en=jump_jtype||jump_branch;
 //对写入寄存器的数据类型进行选择
 always@(*)
 begin
-    case(w_sel)
-    3'b000:  w_data = r_csr_data;
+    case(w_sel)   
     3'b001:  w_data = pc_plus4;
     3'b010:  w_data = alu_out;
-    3'b011:  w_data = mem_rd_data;//数据从内存写入寄存器（待完成）
+    3'b011:  w_data = mem_rd_data;//数据从内存写入寄存器（待完成） 
+    3'b100:  w_data = r_csr_data;
     default: w_data =32'h0;
     endcase
 end
