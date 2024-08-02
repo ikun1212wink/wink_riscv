@@ -22,7 +22,7 @@ module ysyx_23060240_CSR(
         csr_mtvec=32'h0;
     end
     //写csr寄存器
-    always@(negedge clk)begin
+    always@(posedge clk)begin
         if(w_csr_en)begin
             if(w_csr_addr==12'h300)begin
                 //csr_mstatus<=w_csr_data;
