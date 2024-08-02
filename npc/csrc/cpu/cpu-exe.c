@@ -21,17 +21,12 @@ void itrace_printf(){
     if(n>0){
         for (;n > 0; n --) {   
             exe++;
-/*             printf("执行指令数%d\n",exe);  
-            printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
-            printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
-            itrace(); */
-            itrace_printf();
-        
+            #ifdef  ITRACE
+                itrace_printf();
+            #endif  //ITRACE
             single_cycle(); 
-            //difftest_skip_ref();
            // difftest_step(dut.pc,dut.pc);
             
-            //printf("%x\n",dut.pc);
            // reg_p();
             
         }
@@ -42,17 +37,12 @@ void itrace_printf(){
     else if(n<0) {
         while(!ebreak_flag){  
             exe++;
-/*             printf("执行指令数%d\n",exe);  
-            printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
-            printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
-            itrace(); */
-            itrace_printf();
-            
+            #ifdef  ITRACE
+                itrace_printf();
+            #endif  //ITRACE
             single_cycle();
            // difftest_step(dut.pc,dut.pc);
-
-           // reg_p();
-            
+           // reg_p();            
         }
     }
     else {
