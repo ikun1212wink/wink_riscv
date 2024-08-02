@@ -24,7 +24,7 @@ extern "C" void npc_trap(){//HIT GOOD TRAP
 
 
 int main(int argc,char *argv[]){
-  //sim_init();
+  sim_init();
   init_monitor(argc, argv);
   uint32_t*memory=init_mem();
 
