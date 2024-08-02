@@ -14,7 +14,7 @@ ARGS_DIFF ?= -d ../nemu/build/riscv32-nemu-interpreter-so
 
 #verilator
 TOP_NAME := top
-VERILATOR_FLAGS +=-cc --exe --trace --build  -j 
+VERILATOR_FLAGS +=-cc --exe  --trace --build  -j 
 VERILATOR_FLAGS += --top-module $(TOP_NAME)
 
 LDFLAGS += -lreadline -lSDL2 -ldl

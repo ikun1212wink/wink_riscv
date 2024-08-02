@@ -156,11 +156,11 @@ ysyx_23060240_CSR CSR(
     .r_csr_data(r_csr_data)
 );
 
-/* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
+import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
 import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
-always@(negedge clk)begin
+always@(posedge clk)begin
     if(jal)begin
         if(inst[11:7]==1)begin
             trace_func_call(pc,alu_out,1'b0);
@@ -168,7 +168,7 @@ always@(negedge clk)begin
     end
 end
 
-always@(negedge clk)begin
+always@(posedge clk)begin
     if(jalr)begin
         if(inst==32'h00008067)begin
             trace_func_ret(pc);
@@ -181,5 +181,5 @@ always@(negedge clk)begin
         end
     end
 end
- */
+
 endmodule
