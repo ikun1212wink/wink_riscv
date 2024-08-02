@@ -3,5 +3,5 @@
 #define ITRACE
 //#define REG_P
 //#define DIFFTEST
-#define SIM
+//#define SIM
 #endif  //!__CONFIG__H__

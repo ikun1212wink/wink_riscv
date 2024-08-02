@@ -43,7 +43,7 @@ run:com
 wave:
 	@gtkwave wave.vcd
 clean:
-	rm -rf ${OBJ_DIR}
+	rm -rf ${OBJ_DIR} wave.vcd
 
 
 include ../Makefile
