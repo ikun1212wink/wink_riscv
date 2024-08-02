@@ -162,23 +162,23 @@ import "DPI-C" function void trace_func_ret(input int pc);
 
 always@(posedge clk)begin
     if(jal)begin
-        if(inst[11:7]==1)begin
+/*         if(inst[11:7]==1)begin
             trace_func_call(pc,alu_out,1'b0);
-        end
+        end */
     end
 end
 
 always@(posedge clk)begin
     if(jalr)begin
-/*         if(inst==32'h00008067)begin
+        if(inst==32'h00008067)begin
             trace_func_ret(pc);
-        end */
-/*         else if(inst[11:7]==1)begin
+        end
+        else if(inst[11:7]==1)begin
             trace_func_call(pc,jump_pc,1'b0);
-        end */
-/*         else if((inst[11:7]==0)&&(imm_out==32'b0))begin//识别到尾调用，goto...
+        end
+        else if((inst[11:7]==0)&&(imm_out==32'b0))begin//识别到尾调用，goto...
             trace_func_call(pc,jump_pc,1'b1);
-        end */
+        end
     end
 end
 
