@@ -7,9 +7,9 @@ Vtop dut;
 void sim_init(){ //波形仿真使能函数
   Verilated::traceEverOn(true);
   contextp=new VerilatedContext;
-
   tfp=new VerilatedVcdC;
   dut.pc=0x80000000;
+  
   //dut.trace(tfp,0);
   //tfp->open("wave.vcd");
 }
