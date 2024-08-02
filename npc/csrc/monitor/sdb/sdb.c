@@ -176,10 +176,11 @@ void sdb_mainloop() {
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
     //如果循环结束时，遍历至i等于NR_CMD，表示未找到匹配的命令，打印“没有找到该命令“
     if(quit_sdb==1){
-      break;
         dump_wave();
         dut.final();
         tfp->close();
+      break;
+
     }
   }
 }
