@@ -54,10 +54,22 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
         if ((0x8067U == vlSelf->inst)) {
             Vtop___024root____Vdpiimwrap_top__DOT__trace_func_ret_TOP(vlSelf->pc);
         } else if ((1U == (0x1fU & (vlSelf->inst >> 7U)))) {
-            Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(vlSelf->pc, vlSelf->top__DOT__alu_out, 0U);
+            Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(vlSelf->pc, 
+                                                                       ((IData)(vlSelf->top__DOT__jump_en)
+                                                                         ? vlSelf->top__DOT__alu_out
+                                                                         : 
+                                                                        ((IData)(vlSelf->top__DOT____VdfgTmp_h445074e7__0)
+                                                                          ? vlSelf->top__DOT__r_csr_data
+                                                                          : 0U)), 0U);
         } else if ((IData)(((0U == (0xf80U & vlSelf->inst)) 
                             & (0U == vlSelf->top__DOT__imm_out)))) {
-            Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(vlSelf->pc, vlSelf->top__DOT__alu_out, 1U);
+            Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(vlSelf->pc, 
+                                                                       ((IData)(vlSelf->top__DOT__jump_en)
+                                                                         ? vlSelf->top__DOT__alu_out
+                                                                         : 
+                                                                        ((IData)(vlSelf->top__DOT____VdfgTmp_h445074e7__0)
+                                                                          ? vlSelf->top__DOT__r_csr_data
+                                                                          : 0U)), 1U);
         }
     }
     __Vdly__top__DOT__CSR__DOT__csr_mepc = vlSelf->top__DOT__CSR__DOT__csr_mepc;
