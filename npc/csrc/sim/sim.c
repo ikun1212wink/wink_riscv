@@ -10,7 +10,7 @@ void sim_init(){ //波形仿真使能函数
   tfp=new VerilatedVcdC;
   dut.pc=0x80000000;
   dut.trace(tfp,0);
-  //tfp->open("wave.vcd");
+  tfp->open("wave.vcd");
 }
 
 void dump_wave(){//波形记录函数
