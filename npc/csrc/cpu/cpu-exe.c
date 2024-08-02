@@ -26,8 +26,11 @@ void itrace_printf(){
             #endif  //ITRACE
 
             single_cycle(); 
-           // difftest_step(dut.pc,dut.pc);
 
+            #ifdef  DIFFTEST
+                difftest_step(dut.pc,dut.pc);
+            #endif  //DIFFTEST
+            
             #ifdef  REG_P
                 reg_p();
             #endif  //REG_P                       
@@ -43,8 +46,11 @@ void itrace_printf(){
                 itrace_printf();
             #endif  //ITRACE
             single_cycle();
-           // difftest_step(dut.pc,dut.pc);
-           
+
+            #ifdef  DIFFTEST
+                difftest_step(dut.pc,dut.pc);
+            #endif  //DIFFTEST
+            
            #ifdef  REG_P
                 reg_p(); 
            #endif  //REG_P                       
