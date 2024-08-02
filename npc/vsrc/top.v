@@ -83,8 +83,8 @@ ysyx_23060240_IDU IDU(
     .memory_wr_ctrl(memory_wr_ctrl),
     .mem_rd_en(mem_rd_en),
     .mem_wr_en(mem_wr_en),
-    .is_jal(jal),
-    .is_jalr(jalr),
+    .jal_signal(jal),
+    .jalr_signal(jalr),
     .w_csr_en(w_csr_en),
     .r_csr_en(r_csr_en)
 );

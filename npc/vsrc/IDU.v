@@ -13,13 +13,13 @@ module ysyx_23060240_IDU(
     output reg [7:0] memory_wr_ctrl,//后续使用模块译码
     output mem_rd_en,
     output mem_wr_en,
-    //用于ftrace
-    output is_jal,
-    output is_jalr,
+    output jal_signal,
+    output jalr_signal,
     //写系统寄存器
     output w_csr_en,
     output r_csr_en
 );
+
 wire [6:0] opcode;
 wire [2:0] funct3;
 wire [6:0] funct7;
@@ -36,8 +36,8 @@ assign sys_funct=inst[31:7];
 //指令名称
 wire    is_lui;
 wire    is_auipc;
-//wire    is_jal;
-//wire    is_jalr;
+wire    is_jal;
+wire    is_jalr;
 wire    is_beq;
 wire    is_bne;
 wire    is_blt;
@@ -143,6 +143,9 @@ assign  is_i_type   = is_jalr | is_lb   | is_lh    | is_lw   | is_lbu | is_lhu
                     | is_slli | is_srli | is_srai  | is_csrrs|is_csrrw;
 assign  is_s_type   = is_sb | is_sh | is_sw ;
 
+
+assign jal_signal=is_jal;
+assign jalr_signal=is_jalr;
 //寄存器写使能信号
 assign w_en     =  is_u_type|is_jump_type|is_i_type|is_r_type;
 //存储器读使能

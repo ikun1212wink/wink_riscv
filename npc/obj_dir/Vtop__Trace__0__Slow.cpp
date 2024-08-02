@@ -146,8 +146,8 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBus(c+36,"memory_wr_ctrl", false,-1, 7,0);
     tracep->declBit(c+37,"mem_rd_en", false,-1);
     tracep->declBit(c+38,"mem_wr_en", false,-1);
-    tracep->declBit(c+237,"is_jal", false,-1);
-    tracep->declBit(c+26,"is_jalr", false,-1);
+    tracep->declBit(c+237,"jal_signal", false,-1);
+    tracep->declBit(c+26,"jalr_signal", false,-1);
     tracep->declBit(c+27,"w_csr_en", false,-1);
     tracep->declBit(c+27,"r_csr_en", false,-1);
     tracep->declBus(c+243,"opcode", false,-1, 6,0);
@@ -157,6 +157,8 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBus(c+246,"sys_funct", false,-1, 24,0);
     tracep->declBit(c+247,"is_lui", false,-1);
     tracep->declBit(c+248,"is_auipc", false,-1);
+    tracep->declBit(c+237,"is_jal", false,-1);
+    tracep->declBit(c+26,"is_jalr", false,-1);
     tracep->declBit(c+132,"is_beq", false,-1);
     tracep->declBit(c+133,"is_bne", false,-1);
     tracep->declBit(c+134,"is_blt", false,-1);
@@ -354,7 +356,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullCData(oldp+23,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[6]),7);
     bufp->fullCData(oldp+24,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[7]),7);
     bufp->fullIData(oldp+25,(vlSelf->top__DOT__Register__DOT__i),32);
-    bufp->fullBit(oldp+26,(vlSelf->top__DOT__jalr));
+    bufp->fullBit(oldp+26,(vlSelf->top__DOT__IDU__DOT__is_jalr));
     bufp->fullBit(oldp+27,(vlSelf->top__DOT__w_csr_en));
     bufp->fullIData(oldp+28,(vlSelf->top__DOT__ALU__DOT__signed_a),32);
     bufp->fullIData(oldp+29,(vlSelf->top__DOT__ALU__DOT__signed_b),32);
@@ -584,7 +586,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+167,(vlSelf->top__DOT__IDU__DOT__is_u_type));
     bufp->fullBit(oldp+168,(vlSelf->top__DOT__IDU__DOT__is_b_type));
     bufp->fullBit(oldp+169,(vlSelf->top__DOT__IDU__DOT__is_r_type));
-    bufp->fullBit(oldp+170,(((IData)(vlSelf->top__DOT__jalr) 
+    bufp->fullBit(oldp+170,(((IData)(vlSelf->top__DOT__IDU__DOT__is_jalr) 
                              | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lb) 
                                 | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lh) 
                                    | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lw) 
@@ -702,7 +704,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
                                        + vlSelf->pc)
                                     : vlSelf->top__DOT__r_csr_data))),32);
     bufp->fullBit(oldp+240,(((0x6fU == (0x7fU & vlSelf->inst)) 
-                             | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgExtracted_h834c0bbe__0))));
+                             | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgExtracted_hfdabf472__0))));
     bufp->fullIData(oldp+241,(((IData)(4U) + vlSelf->pc)),32);
     bufp->fullSData(oldp+242,((vlSelf->inst >> 0x14U)),12);
     bufp->fullCData(oldp+243,((0x7fU & vlSelf->inst)),7);
@@ -713,7 +715,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+248,((0x17U == (0x7fU & vlSelf->inst))));
     bufp->fullBit(oldp+249,(((0x17U == (0x7fU & vlSelf->inst)) 
                              | ((0x6fU == (0x7fU & vlSelf->inst)) 
-                                | ((IData)(vlSelf->top__DOT__jalr) 
+                                | ((IData)(vlSelf->top__DOT__IDU__DOT__is_jalr) 
                                    | ((IData)(vlSelf->top__DOT__IDU__DOT__is_b_type) 
                                       | ((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
                                          | ((IData)(vlSelf->top__DOT__IDU__DOT__is_lb) 

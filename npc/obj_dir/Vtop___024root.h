@@ -17,7 +17,6 @@ class Vtop___024root final : public VerilatedModule {
     struct {
         VL_IN8(clk,0,0);
         VL_IN8(rst,0,0);
-        CData/*0:0*/ top__DOT__jalr;
         CData/*0:0*/ top__DOT__w_csr_en;
         CData/*1:0*/ top__DOT__alu_b_sel;
         CData/*3:0*/ top__DOT__alu_func;
@@ -29,6 +28,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__jump_branch;
         CData/*0:0*/ top__DOT__jump_en;
         CData/*0:0*/ top__DOT____VdfgTmp_h445074e7__0;
+        CData/*0:0*/ top__DOT__IDU__DOT__is_jalr;
         CData/*0:0*/ top__DOT__IDU__DOT__is_beq;
         CData/*0:0*/ top__DOT__IDU__DOT__is_bne;
         CData/*0:0*/ top__DOT__IDU__DOT__is_blt;
@@ -70,7 +70,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT__is_b_type;
         CData/*0:0*/ top__DOT__IDU__DOT__is_r_type;
         CData/*0:0*/ top__DOT__IDU__DOT__is_s_type;
-        CData/*0:0*/ top__DOT__IDU__DOT____VdfgExtracted_h834c0bbe__0;
+        CData/*0:0*/ top__DOT__IDU__DOT____VdfgExtracted_hfdabf472__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h57f462a7__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h26e5c323__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h873f971e__0;
