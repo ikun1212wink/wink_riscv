@@ -35,9 +35,9 @@ void itrace_printf(){
                 reg_p();
             #endif  //REG_P                       
         }
-        dump_wave();
-        dut.final();
-       // tfp->close();
+        //dump_wave();
+        //dut.final();
+        //tfp->close();
     }
     else if(n<0) {
         while(!ebreak_flag){  
