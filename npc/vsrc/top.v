@@ -23,15 +23,14 @@ wire mem_wr_en;//存储器写使能
 
 wire [31:0] mem_rd_data;//存储器读出的数据
 wire [31:0] r_csr_data; //系统寄存器读出数据
-
 wire [31:0] rs1_data,rs2_data;//普通寄存器读出数据
 wire w_en;//写寄存器信号
-wire [2:0] w_sel;//写入寄存器的数据类型选择
+wire [1:0] w_sel;//写入寄存器的数据类型选择
 reg [31:0] w_data;//写入寄存器的数据
 wire [31:0] jump_pc;//PC跳转的值
 
 assign jump_pc = (jump_en==1'b1) ? alu_out : 
-                 ((jump_ecall||jump_mret)==1'b1) ? r_csr_data : 32'h0;
+                 ((jump_ecall|jump_mret)==1'b1) ? r_csr_data : 32'h0;
 
 //跳转信号
 wire jump_jtype;//jal jalr 
@@ -45,9 +44,8 @@ wire [31:0] pc_plus4;
 
 wire [31:0] imm_out;
 
-
 assign alu_a=alu_a_sel ? rs1_data : pc ;
-assign alu_b=(alu_b_sel==2'b00) ? rs2_data:
+assign alu_b=(alu_b_sel==2'b00) ? rs2_data :
              (alu_b_sel==2'b01) ? r_csr_data :
              (alu_b_sel==2'b10) ? 32'h0 :
              (alu_b_sel==2'b11) ? imm_out : 32'h0;
@@ -59,12 +57,12 @@ assign jump_en=jump_jtype||jump_branch;
 //对写入寄存器的数据类型进行选择
 always@(*)
 begin
-    case(w_sel)   
-    3'b001:  w_data = pc_plus4;
-    3'b010:  w_data = alu_out;
-    3'b011:  w_data = mem_rd_data;
-    3'b100:  w_data = r_csr_data;
-    default: w_data =32'h0;
+    case(w_sel)
+    2'b00:  w_data = r_csr_data;
+    2'b01:  w_data = pc_plus4;
+    2'b10:  w_data = alu_out;
+    2'b11:  w_data = mem_rd_data;//数据从内存写入寄存器（待完成）
+    default:w_data = 32'h0;
     endcase
 end
 
@@ -105,7 +103,7 @@ ysyx_23060240_RegisterFile Register(
 ysyx_23060240_pc Pc(
     .clk(clk),
     .rst(rst),
-    .jump_en(jump_en||jump_ecall||jump_mret),
+    .jump_en(jump_en||jump_ecall),
     .jump_pc(jump_pc),
     .pc(pc)
 );
@@ -148,7 +146,8 @@ ysyx_23060240_IFU IFU(
 ysyx_23060240_CSR CSR(
     .pc(pc),
     .clk(clk),
-    .csr_addr(inst[31:20]),
+    .r_csr_addr(inst[31:20]),
+    .w_csr_addr(inst[31:20]),
     .w_csr_data(alu_out),
     .w_csr_en(w_csr_en),
     .r_csr_en(r_csr_en),
@@ -181,6 +180,6 @@ always@(negedge clk)begin
             trace_func_call(pc,alu_out,1'b1);
         end
     end
-end */
-
+end
+ */
 endmodule

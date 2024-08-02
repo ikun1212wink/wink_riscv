@@ -138,7 +138,6 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
     char data = (char)(memory[img_wr_addr / 4] & 0xFF);  // 获取低字节的数据
     putchar(data);
     fflush(stdout);
-  //  printf("1111\n");
   }
   else{
     memory[img_wr_addr/4]=new_mem_word;

@@ -1,9 +1,9 @@
 module ysyx_23060240_IDU(
     input [31:0] inst,
     output alu_a_sel,
-    output reg [1:0] alu_b_sel,
+    output [1:0] alu_b_sel,
     output w_en,
-    output reg [2:0] w_sel,//后续使用模块译码
+    output reg [1:0] w_sel,//后续使用模块译码
     output jump_jtype,
     output jump_ecall,
     output jump_mret,
@@ -144,11 +144,11 @@ assign  is_i_type   = is_jalr | is_lb   | is_lh    | is_lw   | is_lbu | is_lhu
 assign  is_s_type   = is_sb | is_sh | is_sw ;
 
 //寄存器写使能信号
-assign w_en     =  is_u_type|is_jump_type|is_i_type|is_r_type |is_csrrs |is_csrrw ;
+assign w_en     =  is_u_type|is_jump_type|is_i_type|is_r_type;
 //存储器读使能
 assign mem_rd_en = is_lb|is_lh|is_lw|is_lbu|is_lhu;
 //存储器写使能
-assign mem_wr_en = is_s_type;
+assign mem_wr_en = is_sb|is_sh|is_sw;
 //系统寄存器写使能
 assign w_csr_en = is_csrrs|is_csrrw;
 //系统寄存器读使能
@@ -158,21 +158,21 @@ assign r_csr_en = is_csrrs|is_csrrw;
 always@(*)
 begin
     if(is_jalr|is_jal)begin//存入存储器的类型：pc+4
-        w_sel=3'b001;
+        w_sel=2'b01;
     end
     else if(is_addi|is_slti|is_sltiu|is_xori|is_ori|is_andi|is_slli|is_srli|is_srai|
             is_r_type|
             is_u_type)begin//存入寄存器的类型：ALU的计算结果
-        w_sel=3'b010;
+        w_sel=2'b10;
     end
     else if(is_lb | is_lh | is_lw | is_lbu | is_lhu)begin//存入寄存器的类型：内存中的数据
-        w_sel=3'b011;
+        w_sel=2'b11;
     end
     else if(is_csrrs | is_csrrw)begin
-        w_sel=3'b100;
+        w_sel=2'b00;
     end
     else begin
-        w_sel=3'b000;
+        w_sel=2'b00;
     end
 end  
 //J跳转使能
@@ -202,13 +202,11 @@ assign alu_a_sel    = is_s_type|is_i_type|is_r_type;
 assign alu_b_sel    =  (is_r_type==1'b1) ? 2'b00 :
                        (is_csrrs ==1'b1) ? 2'b01 :
                        (is_csrrw ==1'b1) ? 2'b10 : 2'b11;
-
-
 //加法器模式选择（后面要改用标准译码器模块）
 always@(*)
 begin
-    case({(is_auipc|is_jal|is_jalr|is_b_type|is_s_type|is_lb|is_lh|is_lw|is_lbu|is_lhu|is_add|is_addi|is_csrrw),
-            is_sub ,
+    case({(is_auipc|is_jal|is_jalr|is_b_type|is_s_type|is_lb|is_lh|is_lw|is_lbu|is_lhu|is_add|is_addi),
+            is_sub |is_csrrw,
             (is_sll|is_slli),
             (is_srl|is_srli),
             (is_sra|is_srai),
