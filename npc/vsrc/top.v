@@ -170,9 +170,9 @@ end
 
 always@(posedge clk)begin
     if(jalr)begin
-        if(inst==32'h00008067)begin
+/*         if(inst==32'h00008067)begin
             trace_func_ret(pc);
-        end
+        end */
 /*         else if(inst[11:7]==1)begin
             trace_func_call(pc,jump_pc,1'b0);
         end */
