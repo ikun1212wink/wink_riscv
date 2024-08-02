@@ -24,11 +24,13 @@ void itrace_printf(){
             #ifdef  ITRACE
                 itrace_printf();
             #endif  //ITRACE
+
             single_cycle(); 
            // difftest_step(dut.pc,dut.pc);
-            
-           // reg_p();
-            
+
+            #ifdef  REG_P
+                reg_p();
+            #endif  //REG_P                       
         }
         dump_wave();
         dut.final();
@@ -42,7 +44,10 @@ void itrace_printf(){
             #endif  //ITRACE
             single_cycle();
            // difftest_step(dut.pc,dut.pc);
-           // reg_p();            
+           
+           #ifdef  REG_P
+                reg_p(); 
+           #endif  //REG_P                       
         }
     }
     else {
