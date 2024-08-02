@@ -62,5 +62,5 @@ void itrace_printf(){
     if(ebreak_flag){
         printf(COLOR_GREEN "HIT GOOD TRAP!" COLOR_RESET "\n");
     }
-    printf(COLOR_RED "SIMULATION END!" COLOR_RESET "\n");
+    printf(COLOR_GREEN "SIMULATION END!" COLOR_RESET "\n");
 } 
