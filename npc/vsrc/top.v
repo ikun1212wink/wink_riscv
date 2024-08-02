@@ -156,7 +156,7 @@ ysyx_23060240_CSR CSR(
     .r_csr_data(r_csr_data)
 );
 
-/* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
+import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
 import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
@@ -180,6 +180,6 @@ always@(posedge clk)begin
             trace_func_call(pc,alu_out,1'b1);
         end
     end
-end */
+end
 
 endmodule
