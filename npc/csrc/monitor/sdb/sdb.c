@@ -4,6 +4,7 @@
 #include <monitor.h>
 #include <memory.h>
 #include <sim.h>
+#include <config.h>
 
 int quit_sdb;
 //定义函数rl_gets()获取命令行输入，支持历史记录功能
@@ -176,7 +177,14 @@ void sdb_mainloop() {
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
     //如果循环结束时，遍历至i等于NR_CMD，表示未找到匹配的命令，打印“没有找到该命令“
     if(quit_sdb==1){
+      #ifdef  SIM
+        dump_wave();
+        dut.final();
+        tfp->close();
+      #endif  //SIM
+
       break;
+
     }
   }
 }

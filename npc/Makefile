@@ -6,7 +6,7 @@ HSRCS = $(shell find $(abspath ./include) -name "*.h")
 #CXXSRC += csrc/utils/disasm.cc
 #CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
 LDFLAGS += $(shell llvm-config --libs)
-ARGS_ELF ?= -e ../am-kernels/tests/cpu-tests/build/hello-str-riscv32e-npc.elf
+ARGS_ELF ?= -e ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.elf
 #CXX :=clang++
 
 #difftest
@@ -43,7 +43,7 @@ run:com
 wave:
 	@gtkwave wave.vcd
 clean:
-	rm -rf ${OBJ_DIR}
+	rm -rf ${OBJ_DIR} wave.vcd
 
 
 include ../Makefile

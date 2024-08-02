@@ -1,5 +1,5 @@
 #include <sim.h>
-
+#include <config.h>
 VerilatedContext* contextp = NULL;
 VerilatedVcdC* tfp = NULL;
 Vtop dut;
@@ -9,12 +9,17 @@ void sim_init(){ //波形仿真使能函数
   contextp=new VerilatedContext;
   tfp=new VerilatedVcdC;
   dut.pc=0x80000000;
-  dut.trace(tfp,0);
-  tfp->open("wave.vcd");
+  #ifdef  SIM
+    dut.trace(tfp,0);
+    tfp->open("wave.vcd");
+  #endif  //SIM
+
 }
 
 void dump_wave(){//波形记录函数
-  tfp->dump(contextp->time());
+  #ifdef  SIM
+    tfp->dump(contextp->time());
+  #endif  //SIM
   contextp->timeInc(1);
 }
 
