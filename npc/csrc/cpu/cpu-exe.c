@@ -33,11 +33,12 @@ void itrace_printf(){
             
             #ifdef  REG_P
                 reg_p();
-            #endif  //REG_P                       
-        }
-        dump_wave();
+            #endif  //REG_P    
+             dump_wave();
         dut.final();
-        tfp->close();
+        tfp->close();                   
+        }
+       
     }
     else if(n<0) {
         while(!ebreak_flag){  
