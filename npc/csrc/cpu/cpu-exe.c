@@ -35,7 +35,7 @@ void itrace_printf(){
                 reg_p();
             #endif  //REG_P                       
         }
-        //dump_wave();
+        dump_wave();
         dut.final();
         tfp->close();
     }
