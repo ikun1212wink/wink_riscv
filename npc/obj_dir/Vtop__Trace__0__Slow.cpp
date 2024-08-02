@@ -398,8 +398,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullCData(oldp+43,(vlSelf->top__DOT__w_sel),2);
     bufp->fullIData(oldp+44,(((IData)(vlSelf->top__DOT__jump_en)
                                ? vlSelf->top__DOT__alu_out
-                               : (((IData)(vlSelf->top__DOT__IDU__DOT__is_ecall) 
-                                   | (IData)(vlSelf->top__DOT__IDU__DOT__is_mret))
+                               : ((IData)(vlSelf->top__DOT____VdfgTmp_h445074e7__0)
                                    ? vlSelf->top__DOT__r_csr_data
                                    : 0U))),32);
     bufp->fullBit(oldp+45,(vlSelf->top__DOT__IDU__DOT__is_ecall));
@@ -623,7 +622,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+198,(vlSelf->top__DOT__MEM__DOT__mem_move_out),32);
     bufp->fullIData(oldp+199,(vlSelf->top__DOT__MEM__DOT__mem_out),32);
     bufp->fullBit(oldp+200,(((IData)(vlSelf->top__DOT__jump_en) 
-                             | (IData)(vlSelf->top__DOT__IDU__DOT__is_ecall))));
+                             | (IData)(vlSelf->top__DOT____VdfgTmp_h445074e7__0))));
     bufp->fullIData(oldp+201,(vlSelf->top__DOT__Register__DOT__rf[0]),32);
     bufp->fullIData(oldp+202,(vlSelf->top__DOT__Register__DOT__rf[1]),32);
     bufp->fullIData(oldp+203,(vlSelf->top__DOT__Register__DOT__rf[2]),32);

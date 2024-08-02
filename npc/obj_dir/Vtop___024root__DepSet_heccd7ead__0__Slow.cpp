@@ -422,6 +422,8 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                                                    | ((IData)(vlSelf->top__DOT__IDU__DOT__is_bge) 
                                                       | ((IData)(vlSelf->top__DOT__IDU__DOT__is_bltu) 
                                                          | (IData)(vlSelf->top__DOT__IDU__DOT__is_bgeu))))));
+    vlSelf->top__DOT____VdfgTmp_h445074e7__0 = ((IData)(vlSelf->top__DOT__IDU__DOT__is_ecall) 
+                                                | (IData)(vlSelf->top__DOT__IDU__DOT__is_mret));
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__lut_out 
         = ((- (IData)(((0x7fU & vlSelf->inst) == vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list
                        [0U]))) & vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__data_list
@@ -1968,6 +1970,7 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__jump_branch = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__jump_en = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__imm_out = VL_RAND_RESET_I(32);
+    vlSelf->top__DOT____VdfgTmp_h445074e7__0 = 0;
     vlSelf->top__DOT__IDU__DOT__is_beq = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__IDU__DOT__is_bne = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__IDU__DOT__is_blt = VL_RAND_RESET_I(1);
