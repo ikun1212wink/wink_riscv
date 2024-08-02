@@ -24,9 +24,6 @@ module ysyx_23060240_CSR(
         csr_mtvec=32'h0;
     end
 
-    always@(posedge clk)begin
-        pc_last<=pc;
-    end
 
     //写csr寄存器
     always@(posedge clk)begin
@@ -53,7 +50,7 @@ module ysyx_23060240_CSR(
             end
         end
         else if(jump_ecall)begin
-            csr_mepc<=pc_last;
+            csr_mepc<=pc;
             csr_mcause<=32'hb;
         end
         else begin
