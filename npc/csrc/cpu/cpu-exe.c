@@ -4,6 +4,7 @@
 #include <trace.h>
 #include <difftest.h>
 #include <config.h>
+#include <iostream>
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
 extern Vtop dut;
@@ -29,6 +30,7 @@ void itrace_printf(){
 
             #ifdef  DIFFTEST
                 difftest_step(dut.pc,dut.pc);
+                   fflush(stdout);
             #endif  //DIFFTEST
             
             #ifdef  REG_P
@@ -49,6 +51,7 @@ void itrace_printf(){
 
             #ifdef  DIFFTEST
                 difftest_step(dut.pc,dut.pc);
+                   fflush(stdout);
             #endif  //DIFFTEST
             
            #ifdef  REG_P
