@@ -46,7 +46,7 @@ void itrace_printf(){
             single_cycle();
 
             #ifdef  DIFFTEST
-                difftest_step(dut.pc+4,dut.pc);
+                difftest_step(dut.pc,dut.pc);
             #endif  //DIFFTEST
             
            #ifdef  REG_P
