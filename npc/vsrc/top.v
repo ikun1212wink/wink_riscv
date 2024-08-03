@@ -29,7 +29,7 @@ wire [1:0] w_sel;//写入寄存器的数据类型选择
 reg [31:0] w_data;//写入寄存器的数据
 wire [31:0] jump_pc;//PC跳转的值
 
-assign jump_pc = (jump_en==1'b1) ? alu_out : 
+assign jump_pc = ((jump_jtype|jump_branch)==1'b1) ? alu_out : 
                  ((jump_ecall|jump_mret)==1'b1) ? r_csr_data : 32'h0;
 
 //跳转信号
@@ -52,7 +52,7 @@ assign alu_b=(alu_b_sel==2'b00) ? rs2_data :
 
 assign pc_plus4=pc+32'h4;
 
-assign jump_en=jump_jtype||jump_branch;
+//assign jump_en=jump_jtype||jump_branch;
 
 //对写入寄存器的数据类型进行选择
 always@(*)
@@ -100,13 +100,13 @@ ysyx_23060240_GPR GPR(
     .rs2_data(rs2_data)
 );
 
-ysyx_23060240_pc Pc(
+/* ysyx_23060240_pc Pc(
     .clk(clk),
     .rst(rst),
     .jump_en(jump_en||jump_ecall||jump_mret),
     .jump_pc(jump_pc),
     .pc(pc)
-);
+); */
 
 ysyx_23060240_ALU ALU(
     .SrcA(alu_a),
@@ -141,7 +141,9 @@ ysyx_23060240_MEM MEM(
 
 ysyx_23060240_IFU IFU(
     .clk(clk),
-    .pc(pc),
+    .rst(rst),
+    .jump_en(jump_jtype|jump_branch|jump_ecall|jump_mret),
+    .jump_pc(jump_pc),
     .inst(inst)
 );
 
