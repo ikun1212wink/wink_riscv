@@ -45,19 +45,11 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                     switch(fmt[i]){
                         case 's':
                             txt = va_arg(ap, char *);
-                                len = 0;
-                                while (txt[len] != '\0') len++;
-                                for (int k = 0; k < len && k < width; k++) {
-                                    out[j] = txt[k];
-                                    j++;
-                                }
-                                for (int k = len; k < width; k++) {
-                                    out[j] = ' ';
-                                    j++;
-                                }
-                                break;
-
-
+                            for(int k=0;txt[k]!='\0';k++){
+                                out[j]=txt[k];
+                                j++;
+                            }
+                            break;
                         case 'd':
                                 num = va_arg(ap, int);
                                 if (num == 0) {

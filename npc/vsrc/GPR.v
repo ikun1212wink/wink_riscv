@@ -1,4 +1,4 @@
-module ysyx_23060240_RegisterFile #(ADDR_WIDTH = 5, DATA_WIDTH = 32) (
+module ysyx_23060240_GPR #(ADDR_WIDTH = 5, DATA_WIDTH = 32) (
     input clk,
     input [DATA_WIDTH-1:0] w_data,
     input [ADDR_WIDTH-1:0] r_rs1_addr,r_rs2_addr,

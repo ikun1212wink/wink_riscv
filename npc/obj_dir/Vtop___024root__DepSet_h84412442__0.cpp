@@ -8,30 +8,6 @@
 #include "Vtop__Syms.h"
 #include "Vtop___024root.h"
 
-extern "C" void trace_func_call(int pc, int alu_out, svBit tail);
-
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP(IData/*31:0*/ pc, IData/*31:0*/ alu_out, CData/*0:0*/ tail) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__trace_func_call_TOP\n"); );
-    // Body
-    int pc__Vcvt;
-    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
-    int alu_out__Vcvt;
-    for (size_t alu_out__Vidx = 0; alu_out__Vidx < 1; ++alu_out__Vidx) alu_out__Vcvt = alu_out;
-    svBit tail__Vcvt;
-    for (size_t tail__Vidx = 0; tail__Vidx < 1; ++tail__Vidx) tail__Vcvt = tail;
-    trace_func_call(pc__Vcvt, alu_out__Vcvt, tail__Vcvt);
-}
-
-extern "C" void trace_func_ret(int pc);
-
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__trace_func_ret_TOP(IData/*31:0*/ pc) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__trace_func_ret_TOP\n"); );
-    // Body
-    int pc__Vcvt;
-    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
-    trace_func_ret(pc__Vcvt);
-}
-
 extern "C" void npc_trap();
 
 VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP() {
@@ -66,8 +42,8 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_write_T
     pmem_write(mem_wr_addr__Vcvt, mem_wr_data__Vcvt, memory_wr_ctrl__Vcvt);
 }
 
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__pmem_read_TOP(IData/*31:0*/ pc, IData/*31:0*/ &pmem_read__Vfuncrtn) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__pmem_read_TOP\n"); );
+VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read_TOP(IData/*31:0*/ pc, IData/*31:0*/ &pmem_read__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read_TOP\n"); );
     // Body
     int pc__Vcvt;
     for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
