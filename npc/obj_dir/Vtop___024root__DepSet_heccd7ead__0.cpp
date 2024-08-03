@@ -172,7 +172,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
                                                & (vlSelf->inst 
                                                   >> 7U));
     vlSelf->top__DOT__IFU__DOT__pc = ((IData)(vlSelf->rst)
-                                       ? 0x80000000U
+                                       ? 0x80000004U
                                        : (((IData)(vlSelf->top__DOT____VdfgTmp_h241ef1d5__0) 
                                            | (IData)(vlSelf->top__DOT____VdfgTmp_h445074e7__0))
                                            ? ((IData)(vlSelf->top__DOT____VdfgTmp_h241ef1d5__0)
