@@ -13,6 +13,7 @@ module ysyx_23060240_IDU(
     output reg [7:0] memory_wr_ctrl,//后续使用模块译码
     output mem_rd_en,
     output mem_wr_en,
+    //ftrace用
     output jal_signal,
     output jalr_signal,
     //写系统寄存器
