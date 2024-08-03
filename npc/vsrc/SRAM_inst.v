@@ -11,5 +11,8 @@ initial begin
 end
 always@(*)begin
      rdata= r_en ? pmem_read(raddr) : rdata_temp;
-end  
+end
+/* always@(posedge clk)begin
+     rdata<=rdata_temp;
+end   */
 endmodule
