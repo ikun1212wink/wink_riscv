@@ -51,10 +51,10 @@ int vsprintf(char *out, const char *fmt, va_list ap){
                                     out[j] = txt[k];
                                     j++;
                                 }
-                                for (int k = len; k < width; k++) {
+                         /*        for (int k = len; k < width; k++) {
                                     out[j] = ' ';
                                     j++;
-                                }
+                                } */
                                 break;
 
 
