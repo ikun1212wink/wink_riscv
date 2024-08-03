@@ -100,13 +100,13 @@ ysyx_23060240_GPR GPR(
     .rs2_data(rs2_data)
 );
 
-/* ysyx_23060240_pc Pc(
+ysyx_23060240_pc Pc(
     .clk(clk),
     .rst(rst),
     .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
     .jump_pc(jump_pc),
     .pc(pc)
-); */
+);
 
 ysyx_23060240_ALU ALU(
     .SrcA(alu_a),
@@ -141,10 +141,10 @@ ysyx_23060240_MEM MEM(
 
 ysyx_23060240_IFU IFU(
     .clk(clk),
-   // .pc(pc),
-    .rst(rst),
-    .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
-    .jump_pc(jump_pc),
+    .pc(pc),
+    //.rst(rst),
+    //.jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
+    //.jump_pc(jump_pc),
     .inst(inst)
 );
 
