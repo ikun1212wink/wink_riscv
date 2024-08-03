@@ -9,6 +9,9 @@ module ysyx_23060240_IFU(
 reg [31:0] pc;
 wire [31:0] pc_plus4;
 assign pc_plus4=pc+32'h4;
+initial begin
+    pc=2147483648;
+end
 always@(posedge clk)begin
     if(rst)begin
         pc<=2147483648;
