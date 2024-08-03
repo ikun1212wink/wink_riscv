@@ -4,8 +4,11 @@ module ysyx_23060240_IFU(
     input jump_en,
     input [31:0] jump_pc,
     output reg [31:0] pc,
-    output reg [31:0] inst
+    output [31:0] inst
 );
+wire [31:0] raddr;
+assign raddr=pc;
+
 initial begin
     pc=32'h80000000;
 end
@@ -24,10 +27,18 @@ always@(posedge clk)begin
     end
 end
 
-import "DPI-C" function int pmem_read(input int pc);
+/* import "DPI-C" function int pmem_read(input int pc);
 always@(*)begin
     inst=pmem_read(pc);//取指令
-end
+end */
+
+ysyx_23060240_SRAM_inst SRAM_inst(
+    .clk(clk),
+    .raddr(raddr),
+    .r_en(1'b1),
+    .rdata(inst)
+);
+
 
 /* RegisterFile mem_inst(
     .clk(clk),
@@ -37,5 +48,8 @@ end
     .wen(1'b0),
     .rdata(inst)
 ); */
+
+
+
 
 endmodule
