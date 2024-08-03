@@ -221,6 +221,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+38,"is_s_type", false,-1);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("IFU ");
+    tracep->declBit(c+233,"clk", false,-1);
     tracep->declBus(c+236,"pc", false,-1, 31,0);
     tracep->declBus(c+235,"inst", false,-1, 31,0);
     tracep->popNamePrefix(1);
@@ -268,6 +269,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBus(c+279,"i", false,-1, 31,0);
     tracep->popNamePrefix(3);
     tracep->pushNamePrefix("MEM ");
+    tracep->declBit(c+233,"clk", false,-1);
     tracep->declBit(c+37,"mem_rd_en", false,-1);
     tracep->declBit(c+38,"mem_wr_en", false,-1);
     tracep->declBus(c+35,"memory_rd_ctrl", false,-1, 2,0);

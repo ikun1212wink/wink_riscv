@@ -27,7 +27,6 @@ wire [6:0] funct7;
 wire [11:0] funct12;
 wire [24:0] sys_funct;
 /* wire alu_a_sel_imm,alu_a_sel_pc; */
-import "DPI-C" function void npc_trap();
 
 assign opcode=inst[6:0];
 assign funct3=inst[14:12];
@@ -259,6 +258,7 @@ begin
     endcase
 end  
 
+import "DPI-C" function void npc_trap();
 always@(*)begin
     if(inst==32'b00000000000000000000000001101111)begin
         npc_trap();

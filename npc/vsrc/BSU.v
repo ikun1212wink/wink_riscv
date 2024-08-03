@@ -9,10 +9,14 @@ wire signed 	[31:0] signed_rs2;
 wire unsigned 	[31:0] unsigned_rs1;
 wire unsigned 	[31:0] unsigned_rs2;
 
+/* wire signed 	[31:0] unsigned_rs1;
+wire signed 	[31:0] unsigned_rs2; */
+
 assign signed_rs1 = rs1;
 assign signed_rs2 = rs2; 
 assign unsigned_rs1 = rs1;
 assign unsigned_rs2 = rs2; 
+
 
 always@(*)begin
     case(branch_type)

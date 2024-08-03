@@ -128,6 +128,7 @@ ysyx_23060240_BSU BSU(
 );
 
 ysyx_23060240_MEM MEM(
+    .clk(clk),
     .mem_rd_en(mem_rd_en),
     .mem_wr_en(mem_wr_en),
     .memory_rd_ctrl(memory_rd_ctrl),
@@ -139,6 +140,7 @@ ysyx_23060240_MEM MEM(
 );
 
 ysyx_23060240_IFU IFU(
+    .clk(clk),
     .pc(pc),
     .inst(inst)
 );
