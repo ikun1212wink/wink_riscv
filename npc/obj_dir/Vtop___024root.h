@@ -91,7 +91,7 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__alu_out;
         IData/*31:0*/ top__DOT__r_csr_data;
         IData/*31:0*/ top__DOT__imm_out;
-        IData/*31:0*/ top__DOT__Register__DOT__i;
+        IData/*31:0*/ top__DOT__GPR__DOT__i;
         IData/*31:0*/ top__DOT__Pc__DOT__pc_plus4;
         IData/*31:0*/ top__DOT__ALU__DOT__signed_a;
         IData/*31:0*/ top__DOT__ALU__DOT__signed_b;
@@ -110,7 +110,7 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__pmem_read__3__Vfuncout;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
-        VlUnpacked<IData/*31:0*/, 32> top__DOT__Register__DOT__rf;
+        VlUnpacked<IData/*31:0*/, 32> top__DOT__GPR__DOT__rf;
         VlUnpacked<QData/*35:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*3:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__key_list;
         VlUnpacked<IData/*31:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list;

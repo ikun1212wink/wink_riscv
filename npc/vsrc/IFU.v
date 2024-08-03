@@ -6,4 +6,6 @@ import "DPI-C" function int pmem_read(input int pc);
 always@(*)begin
     inst=pmem_read(pc);//取指令
 end
+
+
 endmodule

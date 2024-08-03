@@ -65,39 +65,39 @@ VL_ATTR_COLD void Vtop___024root___eval_initial__TOP(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[5U] = 0x63U;
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[6U] = 0x37U;
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[7U] = 0x17U;
-    vlSelf->top__DOT__Register__DOT__rf[0U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[1U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[2U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[3U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[4U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[5U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[6U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[7U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[8U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[9U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0xaU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0xbU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0xcU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0xdU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0xeU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0xfU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x10U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x11U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x12U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x13U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x14U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x15U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x16U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x17U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x18U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x19U] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x1aU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x1bU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x1cU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x1dU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x1eU] = 0U;
-    vlSelf->top__DOT__Register__DOT__rf[0x1fU] = 0U;
-    vlSelf->top__DOT__Register__DOT__i = 0x20U;
+    vlSelf->top__DOT__GPR__DOT__rf[0U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[1U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[2U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[3U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[4U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[5U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[6U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[7U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[8U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[9U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0xaU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0xbU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0xcU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0xdU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0xeU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0xfU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x10U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x11U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x12U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x13U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x14U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x15U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x16U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x17U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x18U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x19U] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x1aU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x1bU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x1cU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x1dU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x1eU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__rf[0x1fU] = 0U;
+    vlSelf->top__DOT__GPR__DOT__i = 0x20U;
     vlSelf->top__DOT__CSR__DOT__csr_mstatus = 0x1800U;
     vlSelf->top__DOT__CSR__DOT__csr_mcause = 0xbU;
     vlSelf->top__DOT__CSR__DOT__csr_mepc = 0U;
@@ -260,7 +260,7 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                                                    == 
                                                    (0x707fU 
                                                     & vlSelf->inst)));
-    vlSelf->top__DOT__BSU__DOT__signed_rs1 = vlSelf->top__DOT__Register__DOT__rf
+    vlSelf->top__DOT__BSU__DOT__signed_rs1 = vlSelf->top__DOT__GPR__DOT__rf
         [(0x1fU & (vlSelf->inst >> 0xfU))];
     vlSelf->top__DOT__IDU__DOT__is_ecall = (IData)(
                                                    (0x73U 
@@ -300,7 +300,7 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
         = (0xfffff000U & vlSelf->inst);
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__data_list[7U] 
         = (0xfffff000U & vlSelf->inst);
-    vlSelf->top__DOT__BSU__DOT__signed_rs2 = vlSelf->top__DOT__Register__DOT__rf
+    vlSelf->top__DOT__BSU__DOT__signed_rs2 = vlSelf->top__DOT__GPR__DOT__rf
         [(0x1fU & (vlSelf->inst >> 0x14U))];
     vlSelf->top__DOT__IDU__DOT__is_sb = (IData)((0x23U 
                                                  == 
@@ -2021,9 +2021,9 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__IDU__DOT____VdfgTmp_he69f398c__0 = 0;
     vlSelf->top__DOT__IDU__DOT____VdfgTmp_hd3ddd1c8__0 = 0;
     for (int __Vi0 = 0; __Vi0 < 32; ++__Vi0) {
-        vlSelf->top__DOT__Register__DOT__rf[__Vi0] = VL_RAND_RESET_I(32);
+        vlSelf->top__DOT__GPR__DOT__rf[__Vi0] = VL_RAND_RESET_I(32);
     }
-    vlSelf->top__DOT__Register__DOT__i = VL_RAND_RESET_I(32);
+    vlSelf->top__DOT__GPR__DOT__i = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__Pc__DOT__pc_plus4 = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__ALU__DOT__signed_a = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__ALU__DOT__signed_b = VL_RAND_RESET_I(32);

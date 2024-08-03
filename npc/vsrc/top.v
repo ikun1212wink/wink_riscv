@@ -89,7 +89,7 @@ ysyx_23060240_IDU IDU(
     .r_csr_en(r_csr_en)
 );
 
-ysyx_23060240_RegisterFile Register(
+ysyx_23060240_GPR GPR(
     .clk(clk),
     .w_data(w_data),
     .r_rs1_addr(inst[19:15]),
