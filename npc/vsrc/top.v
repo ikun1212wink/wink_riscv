@@ -29,8 +29,8 @@ wire [1:0] w_sel;//写入寄存器的数据类型选择
 reg [31:0] w_data;//写入寄存器的数据
 wire [31:0] jump_pc;//PC跳转的值
 
-assign jump_pc = ((jump_jtype|jump_branch)==1'b1) ? alu_out : 
-                 ((jump_ecall|jump_mret)==1'b1) ? r_csr_data : 32'h0;
+assign jump_pc = ((jump_jtype||jump_branch)==1'b1) ? alu_out : 
+                 ((jump_ecall||jump_mret)==1'b1) ? r_csr_data : 32'h0;
 
 //跳转信号
 wire jump_jtype;//jal jalr 
@@ -38,7 +38,7 @@ wire jump_ecall;//ecall
 wire jump_mret; //mret
 wire jump_branch;//b type
 //总跳转信号
-wire jump_en;
+//wire jump_en;
 
 wire [31:0] pc_plus4;
 
@@ -143,7 +143,7 @@ ysyx_23060240_IFU IFU(
     .clk(clk),
    // .pc(pc),
     .rst(rst),
-    .jump_en(jump_jtype|jump_branch|jump_ecall|jump_mret),
+    .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
     .jump_pc(jump_pc),
     .inst(inst)
 );
