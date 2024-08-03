@@ -98,6 +98,7 @@ VL_ATTR_COLD void Vtop___024root___eval_initial__TOP(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__GPR__DOT__rf[0x1eU] = 0U;
     vlSelf->top__DOT__GPR__DOT__rf[0x1fU] = 0U;
     vlSelf->top__DOT__GPR__DOT__i = 0x20U;
+    vlSelf->top__DOT__IFU__DOT__pc = 0x80000000U;
     vlSelf->top__DOT__CSR__DOT__csr_mstatus = 0x1800U;
     vlSelf->top__DOT__CSR__DOT__csr_mcause = 0xbU;
     vlSelf->top__DOT__CSR__DOT__csr_mepc = 0U;
@@ -172,9 +173,7 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___stl_sequent__TOP__0\n"); );
     // Body
-    vlSelf->top__DOT__Pc__DOT__pc_plus4 = ((IData)(4U) 
-                                           + vlSelf->pc);
-    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__pmem_read__3__Vfuncout);
+    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__pmem_read_TOP(vlSelf->top__DOT__IFU__DOT__pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__pmem_read__3__Vfuncout);
     vlSelf->inst = vlSelf->__Vfunc_top__DOT__IFU__DOT__pmem_read__3__Vfuncout;
     if ((0x6fU == vlSelf->inst)) {
         Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP();
@@ -2026,7 +2025,6 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__GPR__DOT__rf[__Vi0] = VL_RAND_RESET_I(32);
     }
     vlSelf->top__DOT__GPR__DOT__i = VL_RAND_RESET_I(32);
-    vlSelf->top__DOT__Pc__DOT__pc_plus4 = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__ALU__DOT__signed_a = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__ALU__DOT__signed_b = VL_RAND_RESET_I(32);
     for (int __Vi0 = 0; __Vi0 < 16; ++__Vi0) {
@@ -2056,6 +2054,8 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__BSU__DOT__signed_rs2 = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__MEM__DOT__mem_move_out = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__MEM__DOT__mem_out = VL_RAND_RESET_I(32);
+    vlSelf->top__DOT__IFU__DOT__pc = VL_RAND_RESET_I(32);
+    vlSelf->top__DOT__IFU__DOT__pc_plus4 = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__CSR__DOT__csr_mepc = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__CSR__DOT__csr_mcause = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__CSR__DOT__csr_mstatus = VL_RAND_RESET_I(32);
