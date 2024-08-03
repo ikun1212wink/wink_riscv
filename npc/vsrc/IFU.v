@@ -1,17 +1,17 @@
 module ysyx_23060240_IFU(
     input clk,
-    //input rst,
-/*     input jump_en,
-    input [31:0] jump_pc, */
-    input [31:0] pc,
+    input rst,
+    input jump_en,
+    input [31:0] jump_pc,
+    //input [31:0] pc,
     output reg [31:0] inst
 );
-/* reg [31:0] pc;
+reg [31:0] pc;
 wire [31:0] pc_plus4;
 assign pc_plus4=pc+32'h4;
 always@(posedge clk)begin
     if(rst)begin
-        pc<=32'h80000000;
+        pc<=2147483648;
     end
     else begin
         if(jump_en)begin
@@ -21,7 +21,7 @@ always@(posedge clk)begin
             pc<=pc_plus4;
         end
     end
-end */
+end
 
 import "DPI-C" function int pmem_read(input int pc);
 always@(*)begin
