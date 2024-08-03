@@ -171,12 +171,6 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     __Vdlyvdim0__top__DOT__GPR__DOT__rf__v0 = (0x1fU 
                                                & (vlSelf->inst 
                                                   >> 7U));
-    vlSelf->top__DOT__CSR__DOT__csr_mcause = __Vdly__top__DOT__CSR__DOT__csr_mcause;
-    vlSelf->top__DOT__CSR__DOT__csr_mstatus = __Vdly__top__DOT__CSR__DOT__csr_mstatus;
-    vlSelf->top__DOT__CSR__DOT__csr_mtvec = __Vdly__top__DOT__CSR__DOT__csr_mtvec;
-    vlSelf->top__DOT__CSR__DOT__csr_mepc = __Vdly__top__DOT__CSR__DOT__csr_mepc;
-    vlSelf->top__DOT__GPR__DOT__rf[__Vdlyvdim0__top__DOT__GPR__DOT__rf__v0] 
-        = __Vdlyvval__top__DOT__GPR__DOT__rf__v0;
     vlSelf->pc = ((IData)(vlSelf->rst) ? 0x80000000U
                    : (((IData)(vlSelf->top__DOT____VdfgTmp_h241ef1d5__0) 
                        | (IData)(vlSelf->top__DOT____VdfgTmp_h445074e7__0))
@@ -184,9 +178,14 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
                            ? vlSelf->top__DOT__alu_out
                            : ((IData)(vlSelf->top__DOT____VdfgTmp_h445074e7__0)
                                ? vlSelf->top__DOT__r_csr_data
-                               : 0U)) : vlSelf->top__DOT__Pc__DOT__pc_plus4));
-    vlSelf->top__DOT__Pc__DOT__pc_plus4 = ((IData)(4U) 
-                                           + vlSelf->pc);
+                               : 0U)) : ((IData)(4U) 
+                                         + vlSelf->pc)));
+    vlSelf->top__DOT__CSR__DOT__csr_mcause = __Vdly__top__DOT__CSR__DOT__csr_mcause;
+    vlSelf->top__DOT__CSR__DOT__csr_mstatus = __Vdly__top__DOT__CSR__DOT__csr_mstatus;
+    vlSelf->top__DOT__CSR__DOT__csr_mtvec = __Vdly__top__DOT__CSR__DOT__csr_mtvec;
+    vlSelf->top__DOT__CSR__DOT__csr_mepc = __Vdly__top__DOT__CSR__DOT__csr_mepc;
+    vlSelf->top__DOT__GPR__DOT__rf[__Vdlyvdim0__top__DOT__GPR__DOT__rf__v0] 
+        = __Vdlyvval__top__DOT__GPR__DOT__rf__v0;
     Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__pmem_read__3__Vfuncout);
     vlSelf->inst = vlSelf->__Vfunc_top__DOT__IFU__DOT__pmem_read__3__Vfuncout;
     if ((0x6fU == vlSelf->inst)) {
