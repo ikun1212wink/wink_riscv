@@ -7,11 +7,11 @@ module ysyx_23060240_IFU(
     output reg [31:0] inst
 );
 reg [31:0] pc;
-wire [31:0] pc_plus4;
-assign pc_plus4=pc+32'h4;
 initial begin
     pc=2147483648;
 end
+wire [31:0] pc_plus4;
+assign pc_plus4=pc+32'h4;
 always@(posedge clk)begin
     if(rst)begin
         pc<=2147483648;
