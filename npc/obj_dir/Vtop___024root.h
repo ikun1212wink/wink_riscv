@@ -26,7 +26,6 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__mem_rd_en;
         CData/*1:0*/ top__DOT__w_sel;
         CData/*0:0*/ top__DOT__jump_branch;
-        CData/*0:0*/ top__DOT__valid;
         CData/*0:0*/ top__DOT____VdfgTmp_h241ef1d5__0;
         CData/*0:0*/ top__DOT____VdfgTmp_h445074e7__0;
         CData/*0:0*/ top__DOT__IDU__DOT__is_jalr;
@@ -79,11 +78,9 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_hd3ddd1c8__0;
         CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
         CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
+        CData/*0:0*/ top__DOT__IFU__DOT__rd_sram_en;
     };
     struct {
-        CData/*0:0*/ top__DOT__IFU__DOT__rd_sram_en;
-        CData/*0:0*/ top__DOT__IFU__DOT__current_state;
-        CData/*0:0*/ top__DOT__IFU__DOT__next_state;
         CData/*5:0*/ __Vtableidx1;
         CData/*4:0*/ __Vtableidx2;
         CData/*2:0*/ __Vtableidx3;
@@ -103,16 +100,16 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__lut_out;
         IData/*31:0*/ top__DOT__BSU__DOT__signed_rs1;
         IData/*31:0*/ top__DOT__BSU__DOT__signed_rs2;
-        IData/*31:0*/ top__DOT__MEM__DOT__mem_move_out;
-        IData/*31:0*/ top__DOT__MEM__DOT__mem_out;
+        IData/*31:0*/ top__DOT__LSU__DOT__mem_move_out;
+        IData/*31:0*/ top__DOT__LSU__DOT__mem_out;
         IData/*31:0*/ top__DOT__IFU__DOT__rd_sram_data;
-        IData/*31:0*/ top__DOT__IFU__DOT__SRAM_inst__DOT__rdata_temp;
+        IData/*31:0*/ top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mepc;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mcause;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mstatus;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mtvec;
-        IData/*31:0*/ __Vfunc_top__DOT__MEM__DOT__pmem_read__1__Vfuncout;
-        IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read__3__Vfuncout;
+        IData/*31:0*/ __Vfunc_top__DOT__LSU__DOT__pmem_read__1__Vfuncout;
+        IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
         VlUnpacked<IData/*31:0*/, 32> top__DOT__GPR__DOT__rf;

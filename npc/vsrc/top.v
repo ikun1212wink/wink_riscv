@@ -127,7 +127,7 @@ ysyx_23060240_BSU BSU(
     .jump_branch(jump_branch)
 );
 
-ysyx_23060240_MEM MEM(
+ysyx_23060240_LSU LSU(
     .clk(clk),
     .mem_rd_en(mem_rd_en),
     .mem_wr_en(mem_wr_en),
@@ -139,13 +139,13 @@ ysyx_23060240_MEM MEM(
     .mem_rd_data(mem_rd_data)
 );
 
-wire valid;
+
 ysyx_23060240_IFU IFU(
     .clk(clk),
     .pc(pc),
     .rst(rst),
-    .ready(1'b1),
-    .valid(valid),
+    //.ready(1'b1),
+    //.valid(valid),
     .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
     .jump_pc(jump_pc),
     .inst(inst)
