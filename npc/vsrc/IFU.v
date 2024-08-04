@@ -72,7 +72,7 @@ end */
     end
     //第三段 进行每个状态的输出
     always@(posedge clk)begin
-        pc<=pc_temp;
+        //pc<=pc_temp;
         if(rst)begin
             valid=1;
         end
