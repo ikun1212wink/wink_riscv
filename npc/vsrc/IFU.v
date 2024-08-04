@@ -37,7 +37,8 @@ end */
 
 always@(posedge clk)begin
     if(rst)begin
-        rd_sram_en<=1;
+        rd_sram_en<=0;
+        pc<=32'h80000000;
     end
     else begin
         if(rd_sram_en)begin
