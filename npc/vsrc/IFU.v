@@ -10,7 +10,7 @@ module ysyx_23060240_IFU(
 );
 wire [31:0] raddr;
 assign raddr=pc;
-
+reg [31:0] pc_temp;
 /* initial begin
     pc=32'h80000000;
 end
@@ -40,7 +40,7 @@ end */
     //第一段 更新当前的状态
     always@(posedge clk)begin
         if(rst)begin
-            pc<=32'h80000000;
+            pc_temp<=32'h80000000;
             current_state<=idle;
         end
         else begin
@@ -71,25 +71,24 @@ end */
     end
     //第三段 进行每个状态的输出
     always@(posedge clk)begin
+        pc<=pc_temp;
         if(rst)begin
             valid=1;
         end
         else begin
             case(current_state)
                 idle:
-                    
-                        if(jump_en)begin
-                            pc<=jump_pc;
-                            rd_sram_en<=1;
-                        end
-                        else begin
-                            pc<=pc+32'h4;
-                            rd_sram_en<=1;
-                        end
+                    rd_sram_en<=1;
                 wait_ready:
                     if(ready)begin
                         rd_sram_en<=0;
                         inst<=rd_sram_data;
+                        if(jump_en)begin
+                            pc_temp<=jump_pc;
+                        end
+                        else begin
+                            pc_temp<=pc_temp+32'h4;
+                        end
                     end
                     else begin
                         rd_sram_en<=0;
