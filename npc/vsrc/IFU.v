@@ -1,17 +1,17 @@
 module ysyx_23060240_IFU(
     input clk,
     input rst,
-   // input reg ready,//就绪信号ready,IDU能接收下一条指令
+    input reg ready,//就绪信号ready,IDU能接收下一条指令
     input jump_en,
     input [31:0] jump_pc,
-   // output reg valid,//valid信号IFU可以向IDU发送有效的指令
+    output reg valid,//valid信号IFU可以向IDU发送有效的指令
     output reg [31:0] pc,
     output reg [31:0] inst
 );
 wire [31:0] raddr;
 assign raddr=pc;
 
-initial begin
+/* initial begin
     pc=32'h80000000;
 end
 wire [31:0] pc_plus4;
@@ -27,10 +27,10 @@ always@(posedge clk)begin
             pc<=pc+32'h4;
         end
     end
-end
+end */
 
 //IFU的状态机
-/*     reg rd_sram_en;
+    reg rd_sram_en;
     reg [31:0] rd_sram_data;
     //信号定义
     reg current_state,next_state;
@@ -96,7 +96,7 @@ end
                 default: ;
             endcase
         end
-    end */
+    end
 
 
 
@@ -110,8 +110,8 @@ end */
 ysyx_23060240_SRAM_inst SRAM_inst(
     .clk(clk),
     .raddr(raddr),
-    .r_en(1),
-    .rdata(inst)
+    .r_en(rd_sram_en),
+    .rdata(rd_sram_data)
 );
 
 

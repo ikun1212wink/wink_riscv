@@ -139,13 +139,13 @@ ysyx_23060240_MEM MEM(
     .mem_rd_data(mem_rd_data)
 );
 
-//wire valid;
+wire valid;
 ysyx_23060240_IFU IFU(
     .clk(clk),
     .pc(pc),
     .rst(rst),
-  //  .ready(1'b1),
-   // .valid(valid),
+    .ready(1'b1),
+    .valid(valid),
     .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
     .jump_pc(jump_pc),
     .inst(inst)
