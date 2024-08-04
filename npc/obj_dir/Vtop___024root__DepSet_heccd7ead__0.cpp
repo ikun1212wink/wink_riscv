@@ -51,7 +51,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     __Vdly__top__DOT__CSR__DOT__csr_mtvec = vlSelf->top__DOT__CSR__DOT__csr_mtvec;
     __Vdly__top__DOT__CSR__DOT__csr_mepc = vlSelf->top__DOT__CSR__DOT__csr_mepc;
     if (vlSelf->rst) {
-        __Vdly__top__DOT__IFU__DOT__rd_sram_en = 0U;
+        __Vdly__top__DOT__IFU__DOT__rd_sram_en = 1U;
         __Vdly__pc = 0x80000000U;
     } else if (vlSelf->top__DOT__IFU__DOT__rd_sram_en) {
         __Vdly__top__DOT__IFU__DOT__rd_sram_en = 0U;
