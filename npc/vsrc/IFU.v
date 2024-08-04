@@ -40,7 +40,7 @@ end */
     //第一段 更新当前的状态
     always@(posedge clk)begin
         if(rst)begin
-            pc<=32'h80000000-32'h4;
+            pc<=32'h80000000;
             current_state<=idle;
         end
         else begin

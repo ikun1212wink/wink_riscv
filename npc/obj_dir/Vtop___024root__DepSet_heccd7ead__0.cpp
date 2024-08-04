@@ -49,7 +49,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     __Vdly__top__DOT__CSR__DOT__csr_mepc = vlSelf->top__DOT__CSR__DOT__csr_mepc;
     if (vlSelf->rst) {
         vlSelf->top__DOT__valid = 1U;
-        __Vdly__pc = 0x7ffffffcU;
+        __Vdly__pc = 0x80000000U;
     }
     if (vlSelf->top__DOT__w_csr_en) {
         if ((0x300U != (vlSelf->inst >> 0x14U))) {
