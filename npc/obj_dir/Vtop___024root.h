@@ -95,7 +95,6 @@ class Vtop___024root final : public VerilatedModule {
         VL_OUT(pc,31,0);
         IData/*31:0*/ top__DOT__alu_out;
         IData/*31:0*/ top__DOT__r_csr_data;
-        IData/*31:0*/ top__DOT__jump_pc;
         IData/*31:0*/ top__DOT__imm_out;
         IData/*31:0*/ top__DOT__GPR__DOT__i;
         IData/*31:0*/ top__DOT__ALU__DOT__signed_a;

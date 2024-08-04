@@ -90,12 +90,6 @@ end */
                     if(ready)begin
                         rd_sram_en<=0;
                         inst<=rd_sram_data;
-                        if(jump_en)begin
-                            pc<=jump_pc;
-                        end
-                        else begin
-                            pc<=pc+32'h4;
-                        end
                     end
                     else begin
                         rd_sram_en<=0;
