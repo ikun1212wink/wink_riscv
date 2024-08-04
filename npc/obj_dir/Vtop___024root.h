@@ -102,12 +102,13 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__MEM__DOT__mem_move_out;
         IData/*31:0*/ top__DOT__MEM__DOT__mem_out;
         IData/*31:0*/ top__DOT__IFU__DOT__pc_plus4;
+        IData/*31:0*/ top__DOT__IFU__DOT__SRAM_inst__DOT__rdata_temp;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mepc;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mcause;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mstatus;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mtvec;
         IData/*31:0*/ __Vfunc_top__DOT__MEM__DOT__pmem_read__1__Vfuncout;
-        IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__pmem_read__3__Vfuncout;
+        IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read__3__Vfuncout;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
         VlUnpacked<IData/*31:0*/, 32> top__DOT__GPR__DOT__rf;

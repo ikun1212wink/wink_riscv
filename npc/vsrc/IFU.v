@@ -102,17 +102,17 @@ end
 
 
 
-import "DPI-C" function int pmem_read(input int pc);
+/* import "DPI-C" function int pmem_read(input int pc);
 always@(*)begin
     inst=pmem_read(pc);//取指令
-end
+end */
 
-/* ysyx_23060240_SRAM_inst SRAM_inst(
+ysyx_23060240_SRAM_inst SRAM_inst(
     .clk(clk),
     .raddr(raddr),
-    .r_en(rd_sram_en),
-    .rdata(rd_sram_data)
-); */
+    .r_en(1),
+    .rdata(inst)
+);
 
 
 /* RegisterFile mem_inst(
