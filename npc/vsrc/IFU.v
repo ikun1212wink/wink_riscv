@@ -45,6 +45,7 @@ end */
             current_state<=idle;
         end
         else begin
+            pc<=pc_temp;
             current_state<=next_state;
         end
     end
@@ -72,7 +73,6 @@ end */
     end
     //第三段 进行每个状态的输出
     always@(posedge clk)begin
-        //pc<=pc_temp;
         if(rst)begin
             valid=1;
         end

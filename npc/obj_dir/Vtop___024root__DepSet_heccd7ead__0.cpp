@@ -175,9 +175,8 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
                                               [(0x1fU 
                                                 & (vlSelf->inst 
                                                    >> 7U))]);
-    if (vlSelf->rst) {
-        vlSelf->pc = 0x80000000U;
-    }
+    vlSelf->pc = ((IData)(vlSelf->rst) ? 0x80000000U
+                   : vlSelf->top__DOT__IFU__DOT__pc_temp);
     __Vdlyvdim0__top__DOT__GPR__DOT__rf__v0 = (0x1fU 
                                                & (vlSelf->inst 
                                                   >> 7U));
@@ -200,13 +199,13 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
             vlSelf->top__DOT__IFU__DOT__rd_sram_en = 1U;
         }
     }
-    vlSelf->top__DOT__IFU__DOT__pc_temp = __Vdly__top__DOT__IFU__DOT__pc_temp;
     vlSelf->top__DOT__CSR__DOT__csr_mcause = __Vdly__top__DOT__CSR__DOT__csr_mcause;
     vlSelf->top__DOT__CSR__DOT__csr_mstatus = __Vdly__top__DOT__CSR__DOT__csr_mstatus;
     vlSelf->top__DOT__CSR__DOT__csr_mtvec = __Vdly__top__DOT__CSR__DOT__csr_mtvec;
     vlSelf->top__DOT__CSR__DOT__csr_mepc = __Vdly__top__DOT__CSR__DOT__csr_mepc;
     vlSelf->top__DOT__GPR__DOT__rf[__Vdlyvdim0__top__DOT__GPR__DOT__rf__v0] 
         = __Vdlyvval__top__DOT__GPR__DOT__rf__v0;
+    vlSelf->top__DOT__IFU__DOT__pc_temp = __Vdly__top__DOT__IFU__DOT__pc_temp;
     Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read__3__Vfuncout);
     vlSelf->top__DOT__IFU__DOT__rd_sram_data = ((IData)(vlSelf->top__DOT__IFU__DOT__rd_sram_en)
                                                  ? vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read__3__Vfuncout
