@@ -79,7 +79,10 @@ end */
         else begin
             case(current_state)
                 idle:
-                    rd_sram_en<=1;
+                    if(valid)begin
+                        rd_sram_en<=1;
+                        inst<=32'h0;
+                    end                    
                 wait_ready:
                     if(ready)begin
                         rd_sram_en<=0;
