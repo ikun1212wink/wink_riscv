@@ -6,6 +6,9 @@ module ysyx_23060240_SRAM_inst(
 );
 import "DPI-C" function int pmem_read(input int pc);
 reg [31:0] rdata_temp;
+initial begin
+     rdata_temp=32'h0;
+end
 always@(*)begin
      rdata= r_en ? pmem_read(raddr) : rdata_temp;
 end
