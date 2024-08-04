@@ -40,7 +40,7 @@ end */
     //第一段 更新当前的状态
     always@(posedge clk)begin
         if(rst)begin
-            pc<=32'h80000000;
+            pc<=32'h80000000-32'h4;
             current_state<=idle;
         end
         else begin
@@ -77,7 +77,15 @@ end */
         else begin
             case(current_state)
                 idle:
-                    rd_sram_en<=1;
+                    
+                        if(jump_en)begin
+                            pc<=jump_pc;
+                            rd_sram_en<=1;
+                        end
+                        else begin
+                            pc<=pc+32'h4;
+                            rd_sram_en<=1;
+                        end
                 wait_ready:
                     if(ready)begin
                         rd_sram_en<=0;

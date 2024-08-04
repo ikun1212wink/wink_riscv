@@ -27,6 +27,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*1:0*/ top__DOT__w_sel;
         CData/*0:0*/ top__DOT__jump_branch;
         CData/*0:0*/ top__DOT__valid;
+        CData/*0:0*/ top__DOT____Vcellinp__IFU__jump_en;
         CData/*0:0*/ top__DOT____VdfgTmp_h241ef1d5__0;
         CData/*0:0*/ top__DOT____VdfgTmp_h445074e7__0;
         CData/*0:0*/ top__DOT__IDU__DOT__is_jalr;
@@ -78,9 +79,9 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_he69f398c__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_hd3ddd1c8__0;
         CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
-        CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
     };
     struct {
+        CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
         CData/*0:0*/ top__DOT__IFU__DOT__rd_sram_en;
         CData/*0:0*/ top__DOT__IFU__DOT__current_state;
         CData/*0:0*/ top__DOT__IFU__DOT__next_state;
@@ -94,6 +95,7 @@ class Vtop___024root final : public VerilatedModule {
         VL_OUT(pc,31,0);
         IData/*31:0*/ top__DOT__alu_out;
         IData/*31:0*/ top__DOT__r_csr_data;
+        IData/*31:0*/ top__DOT__jump_pc;
         IData/*31:0*/ top__DOT__imm_out;
         IData/*31:0*/ top__DOT__GPR__DOT__i;
         IData/*31:0*/ top__DOT__ALU__DOT__signed_a;

@@ -97,11 +97,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgIData(oldp+40,(vlSelf->top__DOT__BSU__DOT__signed_rs1),32);
         bufp->chgIData(oldp+41,(vlSelf->top__DOT__BSU__DOT__signed_rs2),32);
         bufp->chgCData(oldp+42,(vlSelf->top__DOT__w_sel),2);
-        bufp->chgIData(oldp+43,(((IData)(vlSelf->top__DOT____VdfgTmp_h241ef1d5__0)
-                                  ? vlSelf->top__DOT__alu_out
-                                  : ((IData)(vlSelf->top__DOT____VdfgTmp_h445074e7__0)
-                                      ? vlSelf->top__DOT__r_csr_data
-                                      : 0U))),32);
+        bufp->chgIData(oldp+43,(vlSelf->top__DOT__jump_pc),32);
         bufp->chgBit(oldp+44,(vlSelf->top__DOT__IDU__DOT__is_ecall));
         bufp->chgBit(oldp+45,(vlSelf->top__DOT__IDU__DOT__is_mret));
         bufp->chgBit(oldp+46,(vlSelf->top__DOT__jump_branch));
@@ -338,8 +334,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
                                                                     | ((IData)(vlSelf->top__DOT__IDU__DOT__is_srli) 
                                                                        | ((IData)(vlSelf->top__DOT__IDU__DOT__is_srai) 
                                                                           | (IData)(vlSelf->top__DOT__w_csr_en))))))))))))))))));
-        bufp->chgBit(oldp+202,(((IData)(vlSelf->top__DOT____VdfgTmp_h241ef1d5__0) 
-                                | (IData)(vlSelf->top__DOT____VdfgTmp_h445074e7__0))));
+        bufp->chgBit(oldp+202,(vlSelf->top__DOT____Vcellinp__IFU__jump_en));
         bufp->chgBit(oldp+203,(vlSelf->top__DOT__IFU__DOT__rd_sram_en));
         bufp->chgIData(oldp+204,(vlSelf->top__DOT__IFU__DOT__rd_sram_data),32);
         bufp->chgBit(oldp+205,(vlSelf->top__DOT__IFU__DOT__current_state));
