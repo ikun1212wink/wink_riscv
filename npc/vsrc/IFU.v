@@ -41,6 +41,7 @@ end */
     always@(posedge clk)begin
         if(rst)begin
             pc_temp<=32'h80000000;
+            pc<=32'h80000000;
             current_state<=idle;
         end
         else begin
