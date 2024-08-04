@@ -1,5 +1,4 @@
 module ysyx_23060240_MEM(
-    input clk,
     input mem_rd_en,
     input mem_wr_en,
     input [2:0] memory_rd_ctrl,
@@ -9,22 +8,10 @@ module ysyx_23060240_MEM(
     input [31:0] mem_wr_addr,
 
     output reg [31:0] mem_rd_data
-    //output [31:0] mem_rd_data
 );
 reg [31:0] mem_move_out;
 reg [31:0] mem_out;
-
-
-/* RegisterFile mem_data(
-    .clk(clk),
-    .wdata(mem_wr_data),
-    .waddr(mem_wr_addr[7:0]),
-    .raddr(mem_rd_addr[7:0]),
-    .wen(mem_wr_en),
-    .rdata(mem_rd_data)
-);
- */
-
+//import "DPI-C" function int pmem_read(input uint32_t mem_rd_addr);
 import "DPI-C" function int pmem_read(input int mem_rd_addr);
 import "DPI-C" function void pmem_write(
     input int mem_wr_addr,input int mem_wr_data,input byte memory_wr_ctrl

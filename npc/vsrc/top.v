@@ -29,8 +29,8 @@ wire [1:0] w_sel;//写入寄存器的数据类型选择
 reg [31:0] w_data;//写入寄存器的数据
 wire [31:0] jump_pc;//PC跳转的值
 
-assign jump_pc = ((jump_jtype||jump_branch)==1'b1) ? alu_out : 
-                 ((jump_ecall||jump_mret)==1'b1) ? r_csr_data : 32'h0;
+assign jump_pc = (jump_en==1'b1) ? alu_out : 
+                 ((jump_ecall|jump_mret)==1'b1) ? r_csr_data : 32'h0;
 
 //跳转信号
 wire jump_jtype;//jal jalr 
@@ -38,7 +38,7 @@ wire jump_ecall;//ecall
 wire jump_mret; //mret
 wire jump_branch;//b type
 //总跳转信号
-//wire jump_en;
+wire jump_en;
 
 wire [31:0] pc_plus4;
 
@@ -52,7 +52,7 @@ assign alu_b=(alu_b_sel==2'b00) ? rs2_data :
 
 assign pc_plus4=pc+32'h4;
 
-//assign jump_en=jump_jtype||jump_branch;
+assign jump_en=jump_jtype||jump_branch;
 
 //对写入寄存器的数据类型进行选择
 always@(*)
@@ -83,13 +83,13 @@ ysyx_23060240_IDU IDU(
     .memory_wr_ctrl(memory_wr_ctrl),
     .mem_rd_en(mem_rd_en),
     .mem_wr_en(mem_wr_en),
-    .jal_signal(jal),
-    .jalr_signal(jalr),
+    .is_jal(jal),
+    .is_jalr(jalr),
     .w_csr_en(w_csr_en),
     .r_csr_en(r_csr_en)
 );
 
-ysyx_23060240_GPR GPR(
+ysyx_23060240_RegisterFile Register(
     .clk(clk),
     .w_data(w_data),
     .r_rs1_addr(inst[19:15]),
@@ -100,13 +100,13 @@ ysyx_23060240_GPR GPR(
     .rs2_data(rs2_data)
 );
 
-/* ysyx_23060240_pc Pc(
+ysyx_23060240_pc Pc(
     .clk(clk),
     .rst(rst),
-    .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
+    .jump_en(jump_en||jump_ecall||jump_mret),
     .jump_pc(jump_pc),
     .pc(pc)
-); */
+);
 
 ysyx_23060240_ALU ALU(
     .SrcA(alu_a),
@@ -128,7 +128,6 @@ ysyx_23060240_BSU BSU(
 );
 
 ysyx_23060240_MEM MEM(
-    .clk(clk),
     .mem_rd_en(mem_rd_en),
     .mem_wr_en(mem_wr_en),
     .memory_rd_ctrl(memory_rd_ctrl),
@@ -139,15 +138,8 @@ ysyx_23060240_MEM MEM(
     .mem_rd_data(mem_rd_data)
 );
 
-wire valid;
 ysyx_23060240_IFU IFU(
-    .clk(clk),
     .pc(pc),
-    .rst(rst),
-    .ready(1'b1),
-    .valid(valid),
-    .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
-    .jump_pc(jump_pc),
     .inst(inst)
 );
 
@@ -164,10 +156,7 @@ ysyx_23060240_CSR CSR(
     .r_csr_data(r_csr_data)
 );
 
-
-
-//ftrace 手动注释关闭 
-/* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
+import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
 import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
@@ -191,6 +180,6 @@ always@(posedge clk)begin
             trace_func_call(pc,jump_pc,1'b1);
         end
     end
-end */
+end
 
 endmodule
