@@ -56,7 +56,7 @@ always@(posedge clk)begin
     end
 end
 
-ysyx_23060240_SRAM_inst SRAM_inst(
+ysyx_23060240_SRAM_IFU SRAM_IFU(
     .clk(clk),
     .raddr(raddr),
     .r_en(rd_sram_en),

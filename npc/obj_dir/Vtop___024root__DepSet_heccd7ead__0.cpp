@@ -13,14 +13,14 @@ void Vtop___024root___eval_act(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_act\n"); );
 }
 
-void Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read_TOP(IData/*31:0*/ pc, IData/*31:0*/ &pmem_read__Vfuncrtn);
+void Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read_TOP(IData/*31:0*/ pc, IData/*31:0*/ &pmem_read__Vfuncrtn);
 void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP();
 extern const VlUnpacked<CData/*2:0*/, 64> Vtop__ConstPool__TABLE_h657a9346_0;
 extern const VlUnpacked<CData/*7:0*/, 8> Vtop__ConstPool__TABLE_h074114c1_0;
 extern const VlUnpacked<CData/*2:0*/, 32> Vtop__ConstPool__TABLE_hfe40056e_0;
 extern const VlUnpacked<CData/*0:0*/, 512> Vtop__ConstPool__TABLE_hab390d39_0;
-void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_write_TOP(IData/*31:0*/ mem_wr_addr, IData/*31:0*/ mem_wr_data, CData/*7:0*/ memory_wr_ctrl);
-void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TOP(IData/*31:0*/ mem_rd_addr, IData/*31:0*/ &pmem_read__Vfuncrtn);
+void Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__pmem_write_TOP(IData/*31:0*/ mem_wr_addr, IData/*31:0*/ mem_wr_data, CData/*7:0*/ memory_wr_ctrl);
+void Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__pmem_read_TOP(IData/*31:0*/ mem_rd_addr, IData/*31:0*/ &pmem_read__Vfuncrtn);
 
 VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -156,10 +156,10 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
                                                       : 
                                                      ((1U 
                                                        & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                                       ? vlSelf->top__DOT__MEM__DOT__mem_move_out
+                                                       ? vlSelf->top__DOT__LSU__DOT__mem_move_out
                                                        : 
                                                       (0xffffU 
-                                                       & vlSelf->top__DOT__MEM__DOT__mem_move_out)))
+                                                       & vlSelf->top__DOT__LSU__DOT__mem_move_out)))
                                                      : 
                                                     ((2U 
                                                       & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
@@ -169,25 +169,25 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
                                                        ? 
                                                       (((- (IData)(
                                                                    (1U 
-                                                                    & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
+                                                                    & (vlSelf->top__DOT__LSU__DOT__mem_move_out 
                                                                        >> 0xfU)))) 
                                                         << 0x10U) 
                                                        | (0xffffU 
-                                                          & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                                          & vlSelf->top__DOT__LSU__DOT__mem_move_out))
                                                        : 
                                                       (0xffU 
-                                                       & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                                       & vlSelf->top__DOT__LSU__DOT__mem_move_out))
                                                       : 
                                                      ((1U 
                                                        & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                                        ? 
                                                       (((- (IData)(
                                                                    (1U 
-                                                                    & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
+                                                                    & (vlSelf->top__DOT__LSU__DOT__mem_move_out 
                                                                        >> 7U)))) 
                                                         << 8U) 
                                                        | (0xffU 
-                                                          & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                                          & vlSelf->top__DOT__LSU__DOT__mem_move_out))
                                                        : 0U)))
                                                     : vlSelf->top__DOT__alu_out)
                                                    : 
@@ -212,11 +212,11 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     vlSelf->pc = __Vdly__pc;
     vlSelf->top__DOT__GPR__DOT__rf[__Vdlyvdim0__top__DOT__GPR__DOT__rf__v0] 
         = __Vdlyvval__top__DOT__GPR__DOT__rf__v0;
-    vlSelf->top__DOT__IFU__DOT__rd_sram_data = vlSelf->top__DOT__IFU__DOT__SRAM_inst__DOT__rdata_temp;
-    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read__3__Vfuncout);
-    vlSelf->top__DOT__IFU__DOT__SRAM_inst__DOT__rdata_temp 
+    vlSelf->top__DOT__IFU__DOT__rd_sram_data = vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp;
+    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout);
+    vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp 
         = ((IData)(vlSelf->top__DOT__IFU__DOT__rd_sram_en)
-            ? vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read__3__Vfuncout
+            ? vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout
             : 0U);
     vlSelf->inst = vlSelf->top__DOT__IFU__DOT__rd_sram_data;
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list[1U] 
@@ -1949,30 +1949,30 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
               [0xfU]));
     vlSelf->top__DOT__alu_out = vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__lut_out;
     if (vlSelf->top__DOT__IDU__DOT__is_s_type) {
-        Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_write_TOP(vlSelf->top__DOT__alu_out, vlSelf->top__DOT__BSU__DOT__signed_rs2, (IData)(vlSelf->top__DOT__memory_wr_ctrl));
+        Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__pmem_write_TOP(vlSelf->top__DOT__alu_out, vlSelf->top__DOT__BSU__DOT__signed_rs2, (IData)(vlSelf->top__DOT__memory_wr_ctrl));
     }
     if (vlSelf->top__DOT__mem_rd_en) {
-        Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TOP(vlSelf->top__DOT__alu_out, vlSelf->__Vfunc_top__DOT__MEM__DOT__pmem_read__1__Vfuncout);
-        vlSelf->top__DOT__MEM__DOT__mem_out = vlSelf->__Vfunc_top__DOT__MEM__DOT__pmem_read__1__Vfuncout;
+        Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__pmem_read_TOP(vlSelf->top__DOT__alu_out, vlSelf->__Vfunc_top__DOT__LSU__DOT__pmem_read__1__Vfuncout);
+        vlSelf->top__DOT__LSU__DOT__mem_out = vlSelf->__Vfunc_top__DOT__LSU__DOT__pmem_read__1__Vfuncout;
     }
-    vlSelf->top__DOT__MEM__DOT__mem_move_out = ((2U 
+    vlSelf->top__DOT__LSU__DOT__mem_move_out = ((2U 
                                                  & vlSelf->top__DOT__alu_out)
                                                  ? 
                                                 ((1U 
                                                   & vlSelf->top__DOT__alu_out)
                                                   ? 
-                                                 (vlSelf->top__DOT__MEM__DOT__mem_out 
+                                                 (vlSelf->top__DOT__LSU__DOT__mem_out 
                                                   >> 0x18U)
                                                   : 
-                                                 (vlSelf->top__DOT__MEM__DOT__mem_out 
+                                                 (vlSelf->top__DOT__LSU__DOT__mem_out 
                                                   >> 0x10U))
                                                  : 
                                                 ((1U 
                                                   & vlSelf->top__DOT__alu_out)
                                                   ? 
-                                                 (vlSelf->top__DOT__MEM__DOT__mem_out 
+                                                 (vlSelf->top__DOT__LSU__DOT__mem_out 
                                                   >> 8U)
-                                                  : vlSelf->top__DOT__MEM__DOT__mem_out));
+                                                  : vlSelf->top__DOT__LSU__DOT__mem_out));
 }
 
 void Vtop___024root___eval_nba(Vtop___024root* vlSelf) {

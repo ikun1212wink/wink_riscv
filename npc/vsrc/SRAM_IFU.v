@@ -1,4 +1,4 @@
-module ysyx_23060240_SRAM_inst(
+module ysyx_23060240_SRAM_IFU(
      input clk,
      input [31:0] raddr,
      input r_en,

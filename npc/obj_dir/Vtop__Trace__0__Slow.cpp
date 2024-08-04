@@ -229,7 +229,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBus(c+266,"raddr", false,-1, 31,0);
     tracep->declBus(c+217,"rd_sram_data", false,-1, 31,0);
     tracep->declBit(c+218,"rd_sram_en", false,-1);
-    tracep->pushNamePrefix("SRAM_inst ");
+    tracep->pushNamePrefix("SRAM_IFU ");
     tracep->declBit(c+263,"clk", false,-1);
     tracep->declBus(c+266,"raddr", false,-1, 31,0);
     tracep->declBit(c+218,"r_en", false,-1);
@@ -279,7 +279,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+260,"hit", false,-1);
     tracep->declBus(c+281,"i", false,-1, 31,0);
     tracep->popNamePrefix(3);
-    tracep->pushNamePrefix("MEM ");
+    tracep->pushNamePrefix("LSU ");
     tracep->declBit(c+263,"clk", false,-1);
     tracep->declBit(c+38,"mem_rd_en", false,-1);
     tracep->declBit(c+39,"mem_wr_en", false,-1);
@@ -379,26 +379,26 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+40,(((4U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                ? ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                    ? 0U : ((1U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                            ? vlSelf->top__DOT__MEM__DOT__mem_move_out
+                                            ? vlSelf->top__DOT__LSU__DOT__mem_move_out
                                             : (0xffffU 
-                                               & vlSelf->top__DOT__MEM__DOT__mem_move_out)))
+                                               & vlSelf->top__DOT__LSU__DOT__mem_move_out)))
                                : ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                    ? ((1U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                        ? (((- (IData)(
                                                       (1U 
-                                                       & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
+                                                       & (vlSelf->top__DOT__LSU__DOT__mem_move_out 
                                                           >> 0xfU)))) 
                                            << 0x10U) 
                                           | (0xffffU 
-                                             & vlSelf->top__DOT__MEM__DOT__mem_move_out))
-                                       : (0xffU & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                             & vlSelf->top__DOT__LSU__DOT__mem_move_out))
+                                       : (0xffU & vlSelf->top__DOT__LSU__DOT__mem_move_out))
                                    : ((1U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                        ? (((- (IData)(
                                                       (1U 
-                                                       & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
+                                                       & (vlSelf->top__DOT__LSU__DOT__mem_move_out 
                                                           >> 7U)))) 
                                            << 8U) | 
-                                          (0xffU & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                          (0xffU & vlSelf->top__DOT__LSU__DOT__mem_move_out))
                                        : 0U)))),32);
     bufp->fullIData(oldp+41,(vlSelf->top__DOT__r_csr_data),32);
     bufp->fullIData(oldp+42,(vlSelf->top__DOT__BSU__DOT__signed_rs1),32);
@@ -677,7 +677,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
                              | (IData)(vlSelf->top__DOT____VdfgTmp_h445074e7__0))));
     bufp->fullIData(oldp+217,(vlSelf->top__DOT__IFU__DOT__rd_sram_data),32);
     bufp->fullBit(oldp+218,(vlSelf->top__DOT__IFU__DOT__rd_sram_en));
-    bufp->fullIData(oldp+219,(vlSelf->top__DOT__IFU__DOT__SRAM_inst__DOT__rdata_temp),32);
+    bufp->fullIData(oldp+219,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp),32);
     bufp->fullIData(oldp+220,((0xfffff000U & vlSelf->top__DOT__IFU__DOT__rd_sram_data)),32);
     bufp->fullIData(oldp+221,((((- (IData)((vlSelf->top__DOT__IFU__DOT__rd_sram_data 
                                             >> 0x1fU))) 
@@ -802,8 +802,8 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+258,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__data_list[7]),32);
     bufp->fullIData(oldp+259,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__lut_out),32);
     bufp->fullBit(oldp+260,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit));
-    bufp->fullIData(oldp+261,(vlSelf->top__DOT__MEM__DOT__mem_move_out),32);
-    bufp->fullIData(oldp+262,(vlSelf->top__DOT__MEM__DOT__mem_out),32);
+    bufp->fullIData(oldp+261,(vlSelf->top__DOT__LSU__DOT__mem_move_out),32);
+    bufp->fullIData(oldp+262,(vlSelf->top__DOT__LSU__DOT__mem_out),32);
     bufp->fullBit(oldp+263,(vlSelf->clk));
     bufp->fullBit(oldp+264,(vlSelf->rst));
     bufp->fullIData(oldp+265,(vlSelf->inst),32);
@@ -814,32 +814,32 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
                                         ? ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                             ? 0U : 
                                            ((1U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
-                                             ? vlSelf->top__DOT__MEM__DOT__mem_move_out
+                                             ? vlSelf->top__DOT__LSU__DOT__mem_move_out
                                              : (0xffffU 
-                                                & vlSelf->top__DOT__MEM__DOT__mem_move_out)))
+                                                & vlSelf->top__DOT__LSU__DOT__mem_move_out)))
                                         : ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                             ? ((1U 
                                                 & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                                 ? (
                                                    ((- (IData)(
                                                                (1U 
-                                                                & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
+                                                                & (vlSelf->top__DOT__LSU__DOT__mem_move_out 
                                                                    >> 0xfU)))) 
                                                     << 0x10U) 
                                                    | (0xffffU 
-                                                      & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                                      & vlSelf->top__DOT__LSU__DOT__mem_move_out))
                                                 : (0xffU 
-                                                   & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                                   & vlSelf->top__DOT__LSU__DOT__mem_move_out))
                                             : ((1U 
                                                 & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                                 ? (
                                                    ((- (IData)(
                                                                (1U 
-                                                                & (vlSelf->top__DOT__MEM__DOT__mem_move_out 
+                                                                & (vlSelf->top__DOT__LSU__DOT__mem_move_out 
                                                                    >> 7U)))) 
                                                     << 8U) 
                                                    | (0xffU 
-                                                      & vlSelf->top__DOT__MEM__DOT__mem_move_out))
+                                                      & vlSelf->top__DOT__LSU__DOT__mem_move_out))
                                                 : 0U)))
                                     : vlSelf->top__DOT__alu_out)
                                 : ((1U & (IData)(vlSelf->top__DOT__w_sel))

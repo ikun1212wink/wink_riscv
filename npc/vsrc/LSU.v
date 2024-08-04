@@ -1,4 +1,4 @@
-module ysyx_23060240_MEM(
+module ysyx_23060240_LSU(
     input clk,
     input mem_rd_en,
     input mem_wr_en,

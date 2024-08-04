@@ -127,7 +127,7 @@ ysyx_23060240_BSU BSU(
     .jump_branch(jump_branch)
 );
 
-ysyx_23060240_MEM MEM(
+ysyx_23060240_LSU LSU(
     .clk(clk),
     .mem_rd_en(mem_rd_en),
     .mem_wr_en(mem_wr_en),

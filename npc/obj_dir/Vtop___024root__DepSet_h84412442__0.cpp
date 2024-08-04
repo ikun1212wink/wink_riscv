@@ -18,8 +18,8 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP
 
 extern "C" int pmem_read(int mem_rd_addr);
 
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TOP(IData/*31:0*/ mem_rd_addr, IData/*31:0*/ &pmem_read__Vfuncrtn) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TOP\n"); );
+VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__pmem_read_TOP(IData/*31:0*/ mem_rd_addr, IData/*31:0*/ &pmem_read__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__pmem_read_TOP\n"); );
     // Body
     int mem_rd_addr__Vcvt;
     for (size_t mem_rd_addr__Vidx = 0; mem_rd_addr__Vidx < 1; ++mem_rd_addr__Vidx) mem_rd_addr__Vcvt = mem_rd_addr;
@@ -30,8 +30,8 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_read_TO
 
 extern "C" void pmem_write(int mem_wr_addr, int mem_wr_data, char memory_wr_ctrl);
 
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_write_TOP(IData/*31:0*/ mem_wr_addr, IData/*31:0*/ mem_wr_data, CData/*7:0*/ memory_wr_ctrl) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_write_TOP\n"); );
+VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__pmem_write_TOP(IData/*31:0*/ mem_wr_addr, IData/*31:0*/ mem_wr_data, CData/*7:0*/ memory_wr_ctrl) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__pmem_write_TOP\n"); );
     // Body
     int mem_wr_addr__Vcvt;
     for (size_t mem_wr_addr__Vidx = 0; mem_wr_addr__Vidx < 1; ++mem_wr_addr__Vidx) mem_wr_addr__Vcvt = mem_wr_addr;
@@ -42,8 +42,8 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__MEM__DOT__pmem_write_T
     pmem_write(mem_wr_addr__Vcvt, mem_wr_data__Vcvt, memory_wr_ctrl__Vcvt);
 }
 
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read_TOP(IData/*31:0*/ pc, IData/*31:0*/ &pmem_read__Vfuncrtn) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_inst__DOT__pmem_read_TOP\n"); );
+VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read_TOP(IData/*31:0*/ pc, IData/*31:0*/ &pmem_read__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read_TOP\n"); );
     // Body
     int pc__Vcvt;
     for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
