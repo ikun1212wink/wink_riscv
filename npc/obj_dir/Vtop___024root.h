@@ -110,6 +110,7 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__BSU__DOT__signed_rs2;
         IData/*31:0*/ top__DOT__LSU__DOT__mem_move_out;
         IData/*31:0*/ top__DOT__LSU__DOT__mem_out;
+        IData/*31:0*/ top__DOT__LSU__DOT__rd_sram_addr;
         IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp;
         IData/*31:0*/ top__DOT__IFU__DOT__rd_sram_data;
         IData/*31:0*/ top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp;
