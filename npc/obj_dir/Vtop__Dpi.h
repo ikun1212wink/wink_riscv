@@ -20,7 +20,7 @@ extern "C" {
     extern void npc_trap();
     // DPI import at /home/wink/ysyx-workbench/npc/vsrc/SRAM_LSU.v:14:33
     extern int pmem_read(int raddr);
-    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/SRAM_LSU.v:20:34
+    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/SRAM_LSU.v:25:34
     extern void pmem_write(int waddr, int wdata, char wmask);
 
 #ifdef __cplusplus
