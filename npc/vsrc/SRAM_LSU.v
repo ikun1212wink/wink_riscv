@@ -18,7 +18,7 @@ module ysyx_23060240_SRAM_LSU(
             rdata_temp=pmem_read(raddr);
         end
         else begin
-            rdata_temp=rdata_temp;
+            rdata_temp=32'h0;
         end
     end
 
