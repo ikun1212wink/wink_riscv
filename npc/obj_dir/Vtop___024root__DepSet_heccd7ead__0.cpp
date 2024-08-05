@@ -127,15 +127,17 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
             __Vdly__top__DOT__CSR__DOT__csr_mtvec = vlSelf->top__DOT__CSR__DOT__csr_mtvec;
         }
     }
-    __Vdlyvval__top__DOT__GPR__DOT__rf__v0 = ((((IData)(vlSelf->top__DOT__IDU__DOT__is_u_type) 
-                                                | ((0x6fU 
-                                                    == (IData)(vlSelf->top__DOT__IDU__DOT__opcode)) 
-                                                   | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h6219f43f__0))) 
-                                               & (0U 
-                                                  != 
-                                                  (0x1fU 
-                                                   & (vlSelf->top__DOT__IFU__DOT__rd_sram_data 
-                                                      >> 7U))))
+    __Vdlyvval__top__DOT__GPR__DOT__rf__v0 = (((((IData)(vlSelf->top__DOT__IDU__DOT__is_u_type) 
+                                                 | ((0x6fU 
+                                                     == (IData)(vlSelf->top__DOT__IDU__DOT__opcode)) 
+                                                    | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgTmp_h6219f43f__0))) 
+                                                & (0U 
+                                                   != 
+                                                   (0x1fU 
+                                                    & (vlSelf->top__DOT__IFU__DOT__rd_sram_data 
+                                                       >> 7U)))) 
+                                               & ((IData)(vlSelf->top__DOT__finish_1) 
+                                                  | (IData)(vlSelf->top__DOT__finish_2)))
                                                ? ((2U 
                                                    & (IData)(vlSelf->top__DOT__w_sel))
                                                    ? 

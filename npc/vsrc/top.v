@@ -93,6 +93,8 @@ ysyx_23060240_IDU IDU(
 );
 
 ysyx_23060240_GPR GPR(
+    .finish_1(finish_1),
+    .finish_2(finish_2),
     .clk(clk),
     .w_data(w_data),
     .r_rs1_addr(inst[19:15]),
