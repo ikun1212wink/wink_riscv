@@ -42,16 +42,6 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DO
     pmem_write(waddr__Vcvt, wdata__Vcvt, wmask__Vcvt);
 }
 
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read_TOP(IData/*31:0*/ pc, IData/*31:0*/ &pmem_read__Vfuncrtn) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read_TOP\n"); );
-    // Body
-    int pc__Vcvt;
-    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
-    int pmem_read__Vfuncrtn__Vcvt;
-    pmem_read__Vfuncrtn__Vcvt = pmem_read(pc__Vcvt);
-    pmem_read__Vfuncrtn = pmem_read__Vfuncrtn__Vcvt;
-}
-
 #ifdef VL_DEBUG
 VL_ATTR_COLD void Vtop___024root___dump_triggers__act(Vtop___024root* vlSelf);
 #endif  // VL_DEBUG
