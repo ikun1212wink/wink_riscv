@@ -810,8 +810,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+266,(vlSelf->top__DOT__LSU__DOT__mem_move_out),32);
     bufp->fullIData(oldp+267,(vlSelf->top__DOT__LSU__DOT__mem_out),32);
     bufp->fullBit(oldp+268,(vlSelf->top__DOT__LSU__DOT__rd_sram_en));
-    bufp->fullIData(oldp+269,(((IData)(vlSelf->top__DOT__IDU__DOT__is_load_type)
-                                ? 0U : 0U)),32);
+    bufp->fullIData(oldp+269,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp),32);
     bufp->fullBit(oldp+270,(vlSelf->clk));
     bufp->fullBit(oldp+271,(vlSelf->rst));
     bufp->fullIData(oldp+272,(vlSelf->inst),32);
