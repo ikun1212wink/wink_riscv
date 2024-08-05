@@ -13,7 +13,6 @@ void Vtop___024root___eval_act(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_act\n"); );
 }
 
-void Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read_TOP(IData/*31:0*/ pc, IData/*31:0*/ &pmem_read__Vfuncrtn);
 void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP();
 extern const VlUnpacked<CData/*2:0*/, 64> Vtop__ConstPool__TABLE_h657a9346_0;
 extern const VlUnpacked<CData/*7:0*/, 8> Vtop__ConstPool__TABLE_h074114c1_0;
@@ -167,26 +166,6 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     vlSelf->top__DOT__GPR__DOT__rf[__Vdlyvdim0__top__DOT__GPR__DOT__rf__v0] 
         = __Vdlyvval__top__DOT__GPR__DOT__rf__v0;
     vlSelf->top__DOT__IFU__DOT__rd_sram_data = vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp;
-    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout);
-    if (vlSelf->top__DOT__IFU__DOT__rd_sram_en) {
-        vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp 
-            = vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout;
-        vlSelf->top__DOT__IDU__DOT__sys_funct = 0U;
-        vlSelf->top__DOT__IDU__DOT__funct7 = 0U;
-        vlSelf->top__DOT__IDU__DOT__funct3 = 0U;
-        vlSelf->top__DOT__IDU__DOT__opcode = 0U;
-    } else {
-        vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp = 0U;
-        vlSelf->top__DOT__IDU__DOT__sys_funct = (vlSelf->top__DOT__IFU__DOT__rd_sram_data 
-                                                 >> 7U);
-        vlSelf->top__DOT__IDU__DOT__funct7 = (vlSelf->top__DOT__IFU__DOT__rd_sram_data 
-                                              >> 0x19U);
-        vlSelf->top__DOT__IDU__DOT__funct3 = (7U & 
-                                              (vlSelf->top__DOT__IFU__DOT__rd_sram_data 
-                                               >> 0xcU));
-        vlSelf->top__DOT__IDU__DOT__opcode = (0x7fU 
-                                              & vlSelf->top__DOT__IFU__DOT__rd_sram_data);
-    }
     vlSelf->inst = vlSelf->top__DOT__IFU__DOT__rd_sram_data;
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list[1U] 
         = (0x2300000000ULL | (QData)((IData)((((- (IData)(
@@ -289,6 +268,22 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     vlSelf->top__DOT__BSU__DOT__signed_rs2 = vlSelf->top__DOT__GPR__DOT__rf
         [(0x1fU & (vlSelf->top__DOT__IFU__DOT__rd_sram_data 
                    >> 0x14U))];
+    if (vlSelf->top__DOT__IFU__DOT__rd_sram_en) {
+        vlSelf->top__DOT__IDU__DOT__sys_funct = 0U;
+        vlSelf->top__DOT__IDU__DOT__funct7 = 0U;
+        vlSelf->top__DOT__IDU__DOT__funct3 = 0U;
+        vlSelf->top__DOT__IDU__DOT__opcode = 0U;
+    } else {
+        vlSelf->top__DOT__IDU__DOT__sys_funct = (vlSelf->top__DOT__IFU__DOT__rd_sram_data 
+                                                 >> 7U);
+        vlSelf->top__DOT__IDU__DOT__funct7 = (vlSelf->top__DOT__IFU__DOT__rd_sram_data 
+                                              >> 0x19U);
+        vlSelf->top__DOT__IDU__DOT__funct3 = (7U & 
+                                              (vlSelf->top__DOT__IFU__DOT__rd_sram_data 
+                                               >> 0xcU));
+        vlSelf->top__DOT__IDU__DOT__opcode = (0x7fU 
+                                              & vlSelf->top__DOT__IFU__DOT__rd_sram_data);
+    }
     if ((0x6fU == vlSelf->inst)) {
         Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP();
     }

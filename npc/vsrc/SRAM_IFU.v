@@ -8,9 +8,9 @@ import "DPI-C" function int pmem_read(input int pc);
 reg [31:0] rdata_temp;
 
 /* verilator lint_off UNOPTFLAT */
-always@(*)begin
+/* always@(*)begin
      rdata_temp= r_en ? pmem_read(raddr) : 0;
-end
+end */
 always@(posedge clk)begin
      rdata<=rdata_temp;
 end  
