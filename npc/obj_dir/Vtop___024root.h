@@ -85,7 +85,6 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_heb385c97__0;
         CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
         CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
-        CData/*0:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__rd_en_reg;
         CData/*0:0*/ top__DOT__IFU__DOT__rd_sram_en;
         CData/*5:0*/ __Vtableidx1;
         CData/*4:0*/ __Vtableidx2;
