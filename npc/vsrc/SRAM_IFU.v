@@ -15,9 +15,6 @@ always@(*)begin
      if (r_en) begin
           rdata_temp = pmem_read(raddr);
      end
-     else begin
-          rdata_temp=rdata_temp;
-     end 
 end
 always@(posedge clk)begin
      rdata<=rdata_temp;
