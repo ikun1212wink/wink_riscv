@@ -65,6 +65,7 @@ VL_ATTR_COLD void Vtop___024root___eval_initial__TOP(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[5U] = 0x63U;
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[6U] = 0x37U;
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list[7U] = 0x17U;
+    vlSelf->top__DOT__mem_rd_en = 0U;
     vlSelf->top__DOT__GPR__DOT__rf[0U] = 0U;
     vlSelf->top__DOT__GPR__DOT__rf[1U] = 0U;
     vlSelf->top__DOT__GPR__DOT__rf[2U] = 0U;
@@ -565,6 +566,7 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                                                            | (IData)(vlSelf->top__DOT__branch_type)))))));
     vlSelf->top__DOT__jump_branch = Vtop__ConstPool__TABLE_hab390d39_0
         [vlSelf->__Vtableidx4];
+    vlSelf->top__DOT__mem_rd_en = vlSelf->top__DOT__IDU__DOT__is_load_type;
     vlSelf->top__DOT__finish_1 = (1U & ((~ (IData)(vlSelf->top__DOT__IDU__DOT__is_load_type)) 
                                         & (~ (IData)(vlSelf->top__DOT__IFU__DOT__rd_sram_en))));
     vlSelf->top__DOT__r_csr_data = (((0x300U == (vlSelf->top__DOT__IFU__DOT__rd_sram_data 
@@ -1868,6 +1870,7 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__branch_type = VL_RAND_RESET_I(3);
     vlSelf->top__DOT__memory_rd_ctrl = VL_RAND_RESET_I(3);
     vlSelf->top__DOT__memory_wr_ctrl = VL_RAND_RESET_I(8);
+    vlSelf->top__DOT__mem_rd_en = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__mem_rd_data = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__r_csr_data = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__w_sel = VL_RAND_RESET_I(2);

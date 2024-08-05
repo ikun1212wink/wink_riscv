@@ -23,6 +23,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*2:0*/ top__DOT__branch_type;
         CData/*2:0*/ top__DOT__memory_rd_ctrl;
         CData/*7:0*/ top__DOT__memory_wr_ctrl;
+        CData/*0:0*/ top__DOT__mem_rd_en;
         CData/*1:0*/ top__DOT__w_sel;
         CData/*0:0*/ top__DOT__jump_branch;
         CData/*0:0*/ top__DOT__finish_1;
@@ -78,9 +79,9 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgExtracted_hfdabf472__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h6219f43f__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_hf7fcb69d__0;
-        CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_hbcaeef59__0;
     };
     struct {
+        CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_hbcaeef59__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h3639357b__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_heb385c97__0;
         CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
