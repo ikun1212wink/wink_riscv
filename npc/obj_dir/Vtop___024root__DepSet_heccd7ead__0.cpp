@@ -220,8 +220,6 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
         Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout);
         vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp 
             = vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout;
-    } else {
-        vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp = 0U;
     }
     if (vlSelf->top__DOT__IFU__DOT__rd_sram_en) {
         vlSelf->top__DOT__IDU__DOT__sys_funct = 0U;
@@ -1826,12 +1824,11 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
         Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_write_TOP(vlSelf->top__DOT__alu_out, vlSelf->top__DOT__BSU__DOT__signed_rs2, (IData)(vlSelf->top__DOT__memory_wr_ctrl));
     }
     vlSelf->top__DOT__LSU__DOT__rd_sram_addr = vlSelf->top__DOT__alu_out;
-    if (vlSelf->top__DOT__IDU__DOT__is_load_type) {
+    if (((IData)(vlSelf->top__DOT__LSU__DOT__signal) 
+         & (IData)(vlSelf->top__DOT__IDU__DOT__is_load_type))) {
         Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->top__DOT__LSU__DOT__rd_sram_addr, vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout);
         vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp 
             = vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout;
-    } else {
-        vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp = 0U;
     }
 }
 

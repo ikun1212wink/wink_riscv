@@ -35,7 +35,8 @@ always@(posedge clk)begin
         signal<=1;
     end
 end
-
+wire rd_sram_en;
+assign rd_sram_en=valid_2&signal;
 /* RegisterFile mem_data(
     .clk(clk),
     .wdata(mem_wr_data),
@@ -64,7 +65,7 @@ ysyx_23060240_SRAM_LSU SRAM_LSU(
     .waddr(mem_wr_addr),
     .wmask(memory_wr_ctrl),
     .w_en(mem_wr_en),
-    .r_en(mem_rd_en),
+    .r_en(rd_sram_en),
     .wdata(mem_wr_data),
     .rdata(mem_out)
 );

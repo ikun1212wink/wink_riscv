@@ -14,7 +14,7 @@ always@(*)begin
           rdata_temp=pmem_read(raddr);
      end
      else begin
-          rdata_temp=32'h0;
+          rdata_temp=rdata_temp;
      end
 end
 always@(posedge clk)begin
