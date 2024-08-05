@@ -310,8 +310,8 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBus(c+31,"raddr", false,-1, 31,0);
     tracep->declBus(c+31,"waddr", false,-1, 31,0);
     tracep->declBus(c+37,"wmask", false,-1, 7,0);
-    tracep->declBit(c+268,"w_en", false,-1);
-    tracep->declBit(c+38,"r_en", false,-1);
+    tracep->declBit(c+39,"w_en", false,-1);
+    tracep->declBit(c+268,"r_en", false,-1);
     tracep->declBus(c+43,"wdata", false,-1, 31,0);
     tracep->declBus(c+267,"rdata", false,-1, 31,0);
     tracep->declBus(c+269,"rdata_temp", false,-1, 31,0);
