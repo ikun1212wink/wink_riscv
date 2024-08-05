@@ -14,8 +14,18 @@ module ysyx_23060240_LSU(
 );
 reg [31:0] mem_move_out;
 reg [31:0] mem_out;
-wire rd_sram_en;
-assign rd_sram_en=mem_rd_en?1:0;
+reg rd_sram_en;
+initial begin
+    rd_sram_en=0;
+end
+always@(*)begin
+    if(mem_rd_en)begin
+        rd_sram_en=1;
+    end
+    else begin
+        rd_sram_en=0;
+    end
+end
 assign finish_2=(mem_rd_data==0)?0:valid_2;
 
 /* RegisterFile mem_data(
