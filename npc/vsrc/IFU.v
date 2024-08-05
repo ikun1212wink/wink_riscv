@@ -13,6 +13,9 @@ wire [31:0] raddr;
 wire [31:0] rd_sram_data;
 reg rd_sram_en;
 assign raddr=pc;
+initial begin
+    pc=32'h80000000;
+end
 always@(*)begin
     inst=rd_sram_data;
 end
