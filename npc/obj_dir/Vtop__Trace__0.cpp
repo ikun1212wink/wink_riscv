@@ -482,7 +482,8 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgIData(oldp+265,(vlSelf->top__DOT__LSU__DOT__mem_move_out),32);
         bufp->chgIData(oldp+266,(vlSelf->top__DOT__LSU__DOT__mem_out),32);
         bufp->chgBit(oldp+267,(vlSelf->top__DOT__LSU__DOT__rd_sram_en));
-        bufp->chgIData(oldp+268,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp),32);
+        bufp->chgIData(oldp+268,(((IData)(vlSelf->top__DOT__IDU__DOT__is_load_type)
+                                   ? 0U : 0U)),32);
     }
     bufp->chgBit(oldp+269,(vlSelf->clk));
     bufp->chgBit(oldp+270,(vlSelf->rst));
