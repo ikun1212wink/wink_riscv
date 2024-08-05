@@ -481,20 +481,19 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgBit(oldp+264,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit));
         bufp->chgIData(oldp+265,(vlSelf->top__DOT__LSU__DOT__mem_move_out),32);
         bufp->chgIData(oldp+266,(vlSelf->top__DOT__LSU__DOT__mem_out),32);
-        bufp->chgIData(oldp+267,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp),32);
     }
-    bufp->chgBit(oldp+268,(vlSelf->clk));
-    bufp->chgBit(oldp+269,(vlSelf->rst));
-    bufp->chgIData(oldp+270,(vlSelf->inst),32);
-    bufp->chgIData(oldp+271,(vlSelf->pc),32);
-    bufp->chgIData(oldp+272,(((2U & (IData)(vlSelf->top__DOT__w_sel))
+    bufp->chgBit(oldp+267,(vlSelf->clk));
+    bufp->chgBit(oldp+268,(vlSelf->rst));
+    bufp->chgIData(oldp+269,(vlSelf->inst),32);
+    bufp->chgIData(oldp+270,(vlSelf->pc),32);
+    bufp->chgIData(oldp+271,(((2U & (IData)(vlSelf->top__DOT__w_sel))
                                ? ((1U & (IData)(vlSelf->top__DOT__w_sel))
                                    ? vlSelf->top__DOT__mem_rd_data
                                    : vlSelf->top__DOT__alu_out)
                                : ((1U & (IData)(vlSelf->top__DOT__w_sel))
                                    ? ((IData)(4U) + vlSelf->pc)
                                    : vlSelf->top__DOT__r_csr_data))),32);
-    bufp->chgIData(oldp+273,(((IData)(4U) + vlSelf->pc)),32);
+    bufp->chgIData(oldp+272,(((IData)(4U) + vlSelf->pc)),32);
 }
 
 void Vtop___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/) {

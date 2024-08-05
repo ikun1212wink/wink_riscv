@@ -15,7 +15,6 @@ reg rd_sram_en;
 assign raddr=pc;
 initial begin
     pc=32'h80000000;
-    inst=32'h0;
 end
 always@(*)begin
     inst=rd_sram_data;
