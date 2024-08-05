@@ -18,7 +18,7 @@ wire [3:0] alu_func;//加法器功能选择
 wire [2:0] branch_type;//分支类型
 wire [2:0] memory_rd_ctrl;//内存读取模式选择
 wire [7:0] memory_wr_ctrl;//写内存模式选择
-reg mem_rd_en;//存储器读使能
+wire mem_rd_en;//存储器读使能
 wire mem_wr_en;//存储器写使能
 
 wire [31:0] mem_rd_data;//存储器读出的数据
@@ -130,9 +130,6 @@ ysyx_23060240_BSU BSU(
     .jump_branch(jump_branch)
 );
 
-initial begin
-    mem_rd_en=0;
-end
 
 ysyx_23060240_LSU LSU(
     .valid_2(valid_2),
