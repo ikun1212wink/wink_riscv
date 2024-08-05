@@ -66,19 +66,22 @@ begin
     endcase
 end
 
-
+wire finish_1,finish_2,valid_1,valid_2;
 
 ysyx_23060240_IDU IDU(
+    .valid_1(valid_1),
+    .finish_1(finish_1),
+    .valid_2(valid_2),
     .inst(inst),
     .alu_a_sel(alu_a_sel),
     .alu_b_sel(alu_b_sel),
     .w_en(w_en),
     .alu_func(alu_func),
-    .jump_jtype(jump_jtype),//
+    .jump_jtype(jump_jtype),
     .jump_ecall(jump_ecall),
     .jump_mret(jump_mret),
-    .w_sel(w_sel),//
-    .branch_type(branch_type),//
+    .w_sel(w_sel),
+    .branch_type(branch_type),
     .memory_rd_ctrl(memory_rd_ctrl),
     .memory_wr_ctrl(memory_wr_ctrl),
     .mem_rd_en(mem_rd_en),
@@ -127,7 +130,10 @@ ysyx_23060240_BSU BSU(
     .jump_branch(jump_branch)
 );
 
+
 ysyx_23060240_LSU LSU(
+    .valid_2(valid_2),
+    .finish_2(finish_2),
     .clk(clk),
     .mem_rd_en(mem_rd_en),
     .mem_wr_en(mem_wr_en),
@@ -139,13 +145,13 @@ ysyx_23060240_LSU LSU(
     .mem_rd_data(mem_rd_data)
 );
 
-
 ysyx_23060240_IFU IFU(
     .clk(clk),
     .pc(pc),
     .rst(rst),
-    //.ready(1'b1),
-    //.valid(valid),
+    .finish_1(finish_1),
+    .finish_2(finish_2),
+    .valid_1(valid_1),
     .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
     .jump_pc(jump_pc),
     .inst(inst)

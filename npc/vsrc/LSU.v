@@ -7,14 +7,36 @@ module ysyx_23060240_LSU(
     input [31:0] mem_wr_data,
     input [31:0] mem_rd_addr,
     input [31:0] mem_wr_addr,
-
+    input valid_2,
+    output  reg finish_2,
     output reg [31:0] mem_rd_data
     //output [31:0] mem_rd_data
 );
 reg [31:0] mem_move_out;
 reg [31:0] mem_out;
-
-
+reg [31:0] rd_sram_addr;
+initial begin
+    rd_sram_addr=32'h80000000;
+end
+always@(*)begin
+    rd_sram_addr=mem_rd_addr;
+end
+reg signal;
+initial begin
+    signal=1;
+end
+always@(posedge clk)begin
+    if(valid_2&signal)begin
+        finish_2<=1;
+        signal<=0;
+    end
+    else begin
+        finish_2<=0;
+        signal<=1;
+    end
+end
+wire rd_sram_en;
+assign rd_sram_en=valid_2&signal;
 /* RegisterFile mem_data(
     .clk(clk),
     .wdata(mem_wr_data),
@@ -25,16 +47,29 @@ reg [31:0] mem_out;
 );
  */
 
-import "DPI-C" function int pmem_read(input int mem_rd_addr);
+/* import "DPI-C" function int pmem_read(input int mem_rd_addr);
 import "DPI-C" function void pmem_write(
     input int mem_wr_addr,input int mem_wr_data,input byte memory_wr_ctrl
-);
+); */
 /* verilator lint_off LATCH */
-always@(*)begin
+/* always@(*)begin
     if(mem_rd_en==1)begin
         mem_out=pmem_read(mem_rd_addr);
     end
-end
+end */
+
+
+ysyx_23060240_SRAM_LSU SRAM_LSU(
+    .clk(clk),
+    .raddr(rd_sram_addr),
+    .waddr(mem_wr_addr),
+    .wmask(memory_wr_ctrl),
+    .w_en(mem_wr_en),
+    .r_en(rd_sram_en),
+    .wdata(mem_wr_data),
+    .rdata(mem_out)
+);
+
 
 always@(*)begin
     case(mem_rd_addr[1:0])
@@ -56,9 +91,9 @@ always@(*)begin
     endcase
 end
 /* verilator lint_off LATCH */
-always@(*)begin
+/* always@(*)begin
     if(mem_wr_en==1)begin
       pmem_write(mem_wr_addr,mem_wr_data,memory_wr_ctrl);
     end
-end
+end */
 endmodule

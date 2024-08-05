@@ -1,5 +1,8 @@
 module ysyx_23060240_IDU(
     input [31:0] inst,
+    input valid_1,
+    output reg finish_1,
+    output valid_2,
     output alu_a_sel,
     output [1:0] alu_b_sel,
     output w_en,
@@ -28,11 +31,17 @@ wire [11:0] funct12;
 wire [24:0] sys_funct;
 /* wire alu_a_sel_imm,alu_a_sel_pc; */
 
-assign opcode=inst[6:0];
-assign funct3=inst[14:12];
-assign funct7=inst[31:25];
-assign funct12=inst[31:20];
-assign sys_funct=inst[31:7];
+assign opcode = (valid_1) ? inst[6:0] : 7'b0;
+assign funct3 = (valid_1) ? inst[14:12] : 3'b0;
+assign funct7 = (valid_1) ? inst[31:25] : 7'b0;
+assign funct12 = (valid_1) ? inst[31:20] : 12'b0;
+assign sys_funct = (valid_1) ? inst[31:7] : 25'b0;
+
+assign finish_1=(~valid_1) ? 0:
+                (~is_load_type) ? 1:0;
+
+assign valid_2=is_load_type;
+
 //指令名称
 wire    is_lui;
 wire    is_auipc;
@@ -130,7 +139,7 @@ wire    is_b_type;
 wire    is_r_type;
 wire    is_i_type;
 wire    is_s_type;
-
+wire    is_load_type;
 assign  is_add_type = is_auipc | is_jal | is_jalr | is_b_type | is_s_type 
                        | is_lb | is_lh  | is_lw   | is_lbu    | is_lhu   | is_add | is_addi ;
 assign  is_u_type   = is_lui | is_auipc ;
@@ -142,8 +151,7 @@ assign  is_i_type   = is_jalr | is_lb   | is_lh    | is_lw   | is_lbu | is_lhu
                     | is_addi | is_slti | is_sltiu | is_xori | is_ori | is_andi
                     | is_slli | is_srli | is_srai  | is_csrrs|is_csrrw;
 assign  is_s_type   = is_sb | is_sh | is_sw ;
-
-
+assign  is_load_type   = is_lb | is_lh  | is_lw   | is_lbu    | is_lhu ;
 assign jal_signal=is_jal;
 assign jalr_signal=is_jalr;
 //寄存器写使能信号
