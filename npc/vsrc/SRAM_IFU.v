@@ -12,7 +12,7 @@ initial begin
 end
 /* verilator lint_off LATCH */
 always@(*)begin
-     rdata_temp=r_en?pmem_read(raddr):0;
+     rdata_temp=r_en?pmem_read(raddr):32'h0;
 end
 always@(posedge clk)begin
      rdata<=rdata_temp;
