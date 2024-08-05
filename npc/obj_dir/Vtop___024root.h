@@ -85,6 +85,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_heb385c97__0;
         CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
         CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
+        CData/*0:0*/ top__DOT__LSU__DOT__signal;
         CData/*0:0*/ top__DOT__IFU__DOT__rd_sram_en;
         CData/*5:0*/ __Vtableidx1;
         CData/*4:0*/ __Vtableidx2;
@@ -95,7 +96,6 @@ class Vtop___024root final : public VerilatedModule {
         VL_OUT(inst,31,0);
         VL_OUT(pc,31,0);
         IData/*31:0*/ top__DOT__alu_out;
-        IData/*31:0*/ top__DOT__mem_rd_data;
         IData/*31:0*/ top__DOT__r_csr_data;
         IData/*31:0*/ top__DOT__imm_out;
         IData/*24:0*/ top__DOT__IDU__DOT__sys_funct;

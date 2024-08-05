@@ -8,7 +8,7 @@ module ysyx_23060240_LSU(
     input [31:0] mem_rd_addr,
     input [31:0] mem_wr_addr,
     input valid_2,
-    output finish_2,
+    output  reg finish_2,
     output reg [31:0] mem_rd_data
     //output [31:0] mem_rd_data
 );
@@ -21,8 +21,20 @@ end
 always@(*)begin
     rd_sram_addr=mem_rd_addr;
 end
-
-assign finish_2=(mem_rd_data==0)?0:valid_2;
+reg signal;
+initial begin
+    signal=1;
+end
+always@(posedge clk)begin
+    if(valid_2&signal)begin
+        finish_2<=1;
+        signal<=0;
+    end
+    else begin
+        finish_2<=0;
+        signal<=1;
+    end
+end
 
 /* RegisterFile mem_data(
     .clk(clk),
