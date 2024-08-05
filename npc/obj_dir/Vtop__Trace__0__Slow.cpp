@@ -237,7 +237,6 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+54,"valid_1", false,-1);
     tracep->declBus(c+273,"pc", false,-1, 31,0);
     tracep->declBus(c+272,"inst", false,-1, 31,0);
-    tracep->declBus(c+273,"raddr", false,-1, 31,0);
     tracep->declBus(c+221,"rd_sram_data", false,-1, 31,0);
     tracep->declBit(c+222,"rd_sram_en", false,-1);
     tracep->pushNamePrefix("SRAM_IFU ");

@@ -9,10 +9,10 @@ module ysyx_23060240_IFU(
     output reg [31:0] pc,
     output reg [31:0] inst
 );
-wire [31:0] raddr;
+//wire [31:0] raddr;
 wire [31:0] rd_sram_data;
 reg rd_sram_en;
-assign raddr=pc;
+//assign raddr=pc;
 initial begin
     pc=32'h80000000;
 end
@@ -58,7 +58,7 @@ end
 
 ysyx_23060240_SRAM_IFU SRAM_IFU(
     .clk(clk),
-    .raddr(raddr),
+    .raddr(pc),
     .r_en(rd_sram_en),
     .rdata(rd_sram_data)
 );
