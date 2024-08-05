@@ -14,23 +14,14 @@ module ysyx_23060240_LSU(
 );
 reg [31:0] mem_move_out;
 reg [31:0] mem_out;
-reg rd_sram_en;
 reg [31:0] rd_sram_addr;
 initial begin
-    rd_sram_en=0;
     rd_sram_addr=32'h80000000;
 end
 always@(*)begin
     rd_sram_addr=mem_rd_addr;
 end
-always@(*)begin
-    if(mem_rd_en)begin
-        rd_sram_en=1;
-    end
-    else begin
-        rd_sram_en=0;
-    end
-end
+
 assign finish_2=(mem_rd_data==0)?0:valid_2;
 
 /* RegisterFile mem_data(
@@ -61,7 +52,7 @@ ysyx_23060240_SRAM_LSU SRAM_LSU(
     .waddr(mem_wr_addr),
     .wmask(memory_wr_ctrl),
     .w_en(mem_wr_en),
-    .r_en(1),
+    .r_en(mem_rd_en),
     .wdata(mem_wr_data),
     .rdata(mem_out)
 );

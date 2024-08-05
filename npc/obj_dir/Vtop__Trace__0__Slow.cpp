@@ -303,18 +303,17 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBus(c+40,"mem_rd_data", false,-1, 31,0);
     tracep->declBus(c+266,"mem_move_out", false,-1, 31,0);
     tracep->declBus(c+267,"mem_out", false,-1, 31,0);
-    tracep->declBit(c+268,"rd_sram_en", false,-1);
-    tracep->declBus(c+269,"rd_sram_addr", false,-1, 31,0);
+    tracep->declBus(c+268,"rd_sram_addr", false,-1, 31,0);
     tracep->pushNamePrefix("SRAM_LSU ");
     tracep->declBit(c+270,"clk", false,-1);
-    tracep->declBus(c+269,"raddr", false,-1, 31,0);
+    tracep->declBus(c+268,"raddr", false,-1, 31,0);
     tracep->declBus(c+31,"waddr", false,-1, 31,0);
     tracep->declBus(c+37,"wmask", false,-1, 7,0);
     tracep->declBit(c+39,"w_en", false,-1);
-    tracep->declBit(c+289,"r_en", false,-1);
+    tracep->declBit(c+38,"r_en", false,-1);
     tracep->declBus(c+43,"wdata", false,-1, 31,0);
     tracep->declBus(c+267,"rdata", false,-1, 31,0);
-    tracep->declBus(c+290,"rdata_temp", false,-1, 31,0);
+    tracep->declBus(c+269,"rdata_temp", false,-1, 31,0);
     tracep->popNamePrefix(3);
 }
 
@@ -809,8 +808,8 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+265,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit));
     bufp->fullIData(oldp+266,(vlSelf->top__DOT__LSU__DOT__mem_move_out),32);
     bufp->fullIData(oldp+267,(vlSelf->top__DOT__LSU__DOT__mem_out),32);
-    bufp->fullBit(oldp+268,(vlSelf->top__DOT__LSU__DOT__rd_sram_en));
-    bufp->fullIData(oldp+269,(vlSelf->top__DOT__LSU__DOT__rd_sram_addr),32);
+    bufp->fullIData(oldp+268,(vlSelf->top__DOT__LSU__DOT__rd_sram_addr),32);
+    bufp->fullIData(oldp+269,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp),32);
     bufp->fullBit(oldp+270,(vlSelf->clk));
     bufp->fullBit(oldp+271,(vlSelf->rst));
     bufp->fullIData(oldp+272,(vlSelf->inst),32);
@@ -837,6 +836,4 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+286,(1U),32);
     bufp->fullIData(oldp+287,(0x27U),32);
     bufp->fullIData(oldp+288,(8U),32);
-    bufp->fullBit(oldp+289,(1U));
-    bufp->fullIData(oldp+290,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp),32);
 }
