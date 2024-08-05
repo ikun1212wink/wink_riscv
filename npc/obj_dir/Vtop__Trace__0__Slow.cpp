@@ -137,6 +137,8 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->pushNamePrefix("GPR ");
     tracep->declBus(c+285,"ADDR_WIDTH", false,-1, 31,0);
     tracep->declBus(c+281,"DATA_WIDTH", false,-1, 31,0);
+    tracep->declBit(c+52,"finish_1", false,-1);
+    tracep->declBit(c+53,"finish_2", false,-1);
     tracep->declBit(c+272,"clk", false,-1);
     tracep->declBus(c+276,"w_data", false,-1, 31,0);
     tracep->declBus(c+138,"r_rs1_addr", false,-1, 4,0);

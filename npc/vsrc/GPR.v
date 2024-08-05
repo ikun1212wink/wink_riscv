@@ -1,4 +1,6 @@
 module ysyx_23060240_GPR #(ADDR_WIDTH = 5, DATA_WIDTH = 32) (
+    input finish_1,
+    input finish_2,
     input clk,
     input [DATA_WIDTH-1:0] w_data,
     input [ADDR_WIDTH-1:0] r_rs1_addr,r_rs2_addr,
@@ -16,7 +18,7 @@ module ysyx_23060240_GPR #(ADDR_WIDTH = 5, DATA_WIDTH = 32) (
     end
 //写入寄存器
     always @(posedge clk) begin
-        if (w_en&(w_rd_addr!=0)) 
+        if (w_en&(w_rd_addr!=0)&(finish_1|finish_2)) 
             rf[w_rd_addr] <= w_data;
         else    
             rf[w_rd_addr] <= rf[w_rd_addr];

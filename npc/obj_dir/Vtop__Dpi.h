@@ -22,9 +22,9 @@ extern "C" {
     extern int pmem_read(int raddr);
     // DPI import at /home/wink/ysyx-workbench/npc/vsrc/SRAM_LSU.v:25:34
     extern void pmem_write(int waddr, int wdata, char wmask);
-    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:176:30
+    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:178:30
     extern void trace_func_call(int pc, int alu_out, svBit tail);
-    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:177:30
+    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:179:30
     extern void trace_func_ret(int pc);
 
 #ifdef __cplusplus
