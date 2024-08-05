@@ -16,7 +16,7 @@ extern "C" {
 
 
     // DPI IMPORTS
-    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/IDU.v:271:30
+    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/IDU.v:269:30
     extern void npc_trap();
     // DPI import at /home/wink/ysyx-workbench/npc/vsrc/SRAM_LSU.v:15:33
     extern int pmem_read(int raddr);

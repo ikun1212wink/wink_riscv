@@ -23,9 +23,7 @@ module ysyx_23060240_IDU(
     output w_csr_en,
     output r_csr_en
 );
-initial begin
-    mem_rd_en=0;
-end
+
 wire [6:0] opcode;
 wire [2:0] funct3;
 wire [6:0] funct7;
