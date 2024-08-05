@@ -1463,6 +1463,11 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                                                 | ((0x6fU 
                                                     == (IData)(vlSelf->top__DOT__IDU__DOT__opcode)) 
                                                    | (IData)(vlSelf->top__DOT__IDU__DOT____VdfgExtracted_hfdabf472__0)));
+    Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP(0x80000000U, vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout);
+    vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp 
+        = ((IData)(vlSelf->top__DOT__LSU__DOT__rd_sram_en)
+            ? vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout
+            : 0U);
     vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit 
         = ((IData)(vlSelf->top__DOT__alu_func) == vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__key_list
            [0U]);
@@ -1762,11 +1767,6 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     if (vlSelf->top__DOT__IDU__DOT__is_s_type) {
         Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_write_TOP(vlSelf->top__DOT__alu_out, vlSelf->top__DOT__BSU__DOT__signed_rs2, (IData)(vlSelf->top__DOT__memory_wr_ctrl));
     }
-    Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->top__DOT__alu_out, vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout);
-    vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp 
-        = ((IData)(vlSelf->top__DOT__LSU__DOT__rd_sram_en)
-            ? vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout
-            : 0U);
     vlSelf->top__DOT__LSU__DOT__mem_move_out = ((2U 
                                                  & vlSelf->top__DOT__alu_out)
                                                  ? 
