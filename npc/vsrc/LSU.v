@@ -44,8 +44,8 @@ ysyx_23060240_SRAM_LSU SRAM_LSU(
     .raddr(mem_rd_addr),
     .waddr(mem_wr_addr),
     .wmask(memory_wr_ctrl),
-    .w_en(0),
-    .r_en(0),
+    .w_en(mem_wr_en),
+    .r_en(mem_rd_en),
     .wdata(mem_wr_data),
     .rdata(mem_out)
 );
