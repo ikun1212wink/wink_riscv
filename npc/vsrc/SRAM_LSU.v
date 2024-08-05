@@ -8,6 +8,11 @@ module ysyx_23060240_SRAM_LSU(
     input [31:0] wdata,
     output reg [31:0] rdata
 );
+    reg rd_en_reg;
+    initial begin
+        rd_en_reg=0;
+    end
+
     reg [31:0] rdata_temp;
     always@(posedge clk)begin
         rdata<=rdata_temp;
@@ -15,7 +20,8 @@ module ysyx_23060240_SRAM_LSU(
     import "DPI-C" function int pmem_read(input int raddr);
     /* verilator lint_off LATCH */
     always@(*)begin
-        rdata_temp=r_en ? pmem_read(raddr) : 32'h0;
+        rd_en_reg=r_en;
+        rdata_temp=rd_en_reg ? pmem_read(raddr) : 32'h0;
     end
 
     import "DPI-C" function void pmem_write(input int waddr,input int wdata,input byte wmask);
