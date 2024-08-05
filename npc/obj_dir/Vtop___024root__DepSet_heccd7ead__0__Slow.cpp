@@ -1785,6 +1785,8 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
         Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->top__DOT__LSU__DOT__rd_sram_addr, vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout);
         vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp 
             = vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout;
+    } else {
+        vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp = 0U;
     }
     vlSelf->top__DOT__mem_rd_data = ((4U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                       ? ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
