@@ -1,8 +1,9 @@
 module ysyx_23060240_IDU(
     input [31:0] inst,
-    input valid_1,
+    input valid_ifu,
     output reg finish_1,
-    output valid_2,
+    output valid_idu,
+
     output alu_a_sel,
     output [1:0] alu_b_sel,
     output w_en,
@@ -31,16 +32,15 @@ wire [11:0] funct12;
 wire [24:0] sys_funct;
 /* wire alu_a_sel_imm,alu_a_sel_pc; */
 
-assign opcode = (valid_1) ? inst[6:0] : 7'b0;
-assign funct3 = (valid_1) ? inst[14:12] : 3'b0;
-assign funct7 = (valid_1) ? inst[31:25] : 7'b0;
-assign funct12 = (valid_1) ? inst[31:20] : 12'b0;
-assign sys_funct = (valid_1) ? inst[31:7] : 25'b0;
+assign opcode=inst[6:0];
+assign funct3=inst[14:12];
+assign funct7=inst[31:25];
+assign funct12=inst[31:20];
+assign sys_funct=inst[31:7];
 
-assign finish_1=(~valid_1) ? 0:
-                (~is_load_type) ? 1:0;
+assign finish_1=valid_ifu && (~is_load_type);
 
-assign valid_2=is_load_type;
+assign valid_idu=valid_ifu && is_load_type;
 
 //指令名称
 wire    is_lui;
@@ -85,6 +85,7 @@ wire    is_csrrw;
 wire    is_ecall;
 wire    is_mret;
 
+//译码待修改
 assign  is_lui  = (opcode == 7'h37) ;
 assign  is_auipc= (opcode == 7'h17) ;
 assign  is_jal  = (opcode == 7'h6F) ;
