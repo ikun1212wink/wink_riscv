@@ -140,11 +140,13 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
     i++;
     if(i==1){
       putchar(data);
-      fflush(stdout);
     }
     else if(i==3){
       i=0;
     }
+    else {
+    }
+    fflush(stdout);
   }
   else{
     memory[img_wr_addr/4]=new_mem_word;
