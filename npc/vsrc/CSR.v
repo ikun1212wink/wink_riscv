@@ -26,7 +26,7 @@ module ysyx_23060240_CSR(
     always@(posedge clk)begin
         if(w_csr_en && finish)begin
             if(w_csr_addr==12'h300)begin
-                //csr_mstatus<=w_csr_data;
+                csr_mstatus<=w_csr_data;
                 csr_mstatus<=32'h1800;
             end
             else if(w_csr_addr==12'h305)begin
@@ -46,7 +46,7 @@ module ysyx_23060240_CSR(
                 csr_mcause<=csr_mcause;
             end
         end
-        else if(jump_ecall)begin
+        else if(jump_ecall&&finish)begin
             csr_mepc<=pc;
             csr_mcause<=32'hb;
         end

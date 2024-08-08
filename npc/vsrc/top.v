@@ -175,12 +175,12 @@ ysyx_23060240_CSR CSR(
 
 
 //ftrace 手动注释关闭 
-import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
+/* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
 import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
 always@(posedge clk)begin
-    if(jal)begin
+    if(jal&&(finish_1||finish_2))begin
         if(inst[11:7]==1)begin
             trace_func_call(pc,jump_pc,1'b0);
         end
@@ -188,7 +188,7 @@ always@(posedge clk)begin
 end
 
 always@(posedge clk)begin
-    if(jalr)begin
+    if(jalr&&(finish_1||finish_2))begin
         if(inst==32'h00008067)begin
             trace_func_ret(pc);
         end
@@ -199,6 +199,6 @@ always@(posedge clk)begin
             trace_func_call(pc,jump_pc,1'b1);
         end
     end
-end
+end */
 
 endmodule
