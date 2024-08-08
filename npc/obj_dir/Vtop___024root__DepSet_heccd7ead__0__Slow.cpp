@@ -176,9 +176,9 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     // Body
     vlSelf->inst = vlSelf->top__DOT__IFU__DOT__rd_sram_data;
     if (vlSelf->top__DOT__IFU__DOT__rd_sram_en) {
-        Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout);
+        Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->pc, vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__7__Vfuncout);
         vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__rdata_temp 
-            = vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout;
+            = vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__7__Vfuncout;
     }
     if (vlSelf->top__DOT__IFU__DOT__rd_sram_en) {
         vlSelf->top__DOT__IDU__DOT__sys_funct = 0U;
@@ -1784,9 +1784,9 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__LSU__DOT__rd_sram_addr = vlSelf->top__DOT__alu_out;
     if (((IData)(vlSelf->top__DOT__LSU__DOT__signal) 
          & (IData)(vlSelf->top__DOT__IDU__DOT__is_load_type))) {
-        Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->top__DOT__LSU__DOT__rd_sram_addr, vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout);
+        Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->top__DOT__LSU__DOT__rd_sram_addr, vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__5__Vfuncout);
         vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__rdata_temp 
-            = vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout;
+            = vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__5__Vfuncout;
     }
 }
 
@@ -1952,8 +1952,8 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__CSR__DOT__csr_mcause = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__CSR__DOT__csr_mstatus = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__CSR__DOT__csr_mtvec = VL_RAND_RESET_I(32);
-    vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout = 0;
-    vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout = 0;
+    vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__5__Vfuncout = 0;
+    vlSelf->__Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__7__Vfuncout = 0;
     vlSelf->__Vtableidx1 = 0;
     vlSelf->__Vtableidx2 = 0;
     vlSelf->__Vtableidx3 = 0;
