@@ -75,9 +75,9 @@ always@(posedge clk)begin
      end
 end
 //AXI memory read
-always@(*)begin
+/* always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
-end
+end */
 
 
 import "DPI-C" function void pmem_write(input int waddr,input int wdata,input byte wmask);

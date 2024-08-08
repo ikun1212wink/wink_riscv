@@ -132,8 +132,8 @@ always@(posedge clk)begin
      end
 end
 //AXI memory read
-always@(*)begin
+/* always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
-end
+end */
 
 endmodule
