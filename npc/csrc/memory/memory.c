@@ -94,6 +94,7 @@ extern "C" uint32_t pmem_read(int raddr) {
 
 }
 
+int i=0;
 extern "C" void pmem_write(int waddr, int wdata, char select) {
 //  difftest_skip_ref();
   //uint32_t* memory=init_mem();
@@ -136,8 +137,14 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
   if(waddr==0xa00003f8){
     memory[img_wr_addr/4]=new_mem_word;
     char data = (char)(memory[img_wr_addr / 4] & 0xFF);  // 获取低字节的数据
-    putchar(data);
-    fflush(stdout);
+    i++;
+    if(i==1){
+      putchar(data);
+      fflush(stdout);
+    }
+    else if(i==3){
+      i=0;
+    }
   }
   else{
     memory[img_wr_addr/4]=new_mem_word;
