@@ -110,7 +110,7 @@ always@(posedge clk)begin
     end
 end
 
-always@(posedge clk)begin
+/* always@(posedge clk)begin
     if(rst)begin
         finish_2<=1'b0;
     end
@@ -125,11 +125,14 @@ always@(posedge clk)begin
             finish_2<=1'b0;
         end
     end
-end
+end */
+wire rvalid;
+assign finish_2=rvalid;
 
 ysyx_23060240_SRAM_LSU SRAM_LSU(
     .clk(clk),
     .rst(rst),
+    .rvalid(rvalid),
     .waddr(mem_wr_addr),
     .wmask(memory_wr_ctrl),
     .w_en(mem_wr_en),
