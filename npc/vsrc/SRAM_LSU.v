@@ -20,6 +20,11 @@ module ysyx_23060240_SRAM_LSU(
     output reg saxi_rvalid,
     output [31:0] saxi_rdata 
 );
+
+initial begin
+     axi_raddr=32'h80000000;
+end
+
 import "DPI-C" function int pmem_read(input int raddr);
 
 //AXI read address channel
@@ -75,9 +80,9 @@ always@(posedge clk)begin
      end
 end
 //AXI memory read
-/* always@(*)begin
+always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
-end */
+end
 
 
 import "DPI-C" function void pmem_write(input int waddr,input int wdata,input byte wmask);

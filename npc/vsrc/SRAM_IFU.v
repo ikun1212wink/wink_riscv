@@ -29,7 +29,9 @@ module ysyx_23060240_SRAM_IFU(
     output saxi_bvalid */
 );
 
-
+initial begin
+     axi_raddr=32'h80000000;
+end
 
 //reg [31:0] rdata_temp;
 import "DPI-C" function int pmem_read(input int raddr);
@@ -132,8 +134,8 @@ always@(posedge clk)begin
      end
 end
 //AXI memory read
-/* always@(*)begin
+always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
-end */
+end
 
 endmodule
