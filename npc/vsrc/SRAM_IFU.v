@@ -143,8 +143,6 @@ reg [31:0] delayed_data;
 //SRAM读延迟模拟
 always@(posedge clk)begin
     delayed_data <= axi_rdata;
-    #1 delayed_data <= delayed_data;
-    #1 delayed_data <= delayed_data;
     saxi_rdata <= delayed_data;
 end
 endmodule

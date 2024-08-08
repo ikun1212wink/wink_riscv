@@ -6,7 +6,6 @@
 #define VERILATED_VTOP___024ROOT_H_  // guard
 
 #include "verilated.h"
-#include "verilated_timing.h"
 
 class Vtop__Syms;
 
@@ -96,10 +95,6 @@ class Vtop___024root final : public VerilatedModule {
         CData/*5:0*/ __Vtableidx1;
         CData/*4:0*/ __Vtableidx2;
         CData/*2:0*/ __Vtableidx3;
-        CData/*0:0*/ __Vdlyvset__top__DOT__IFU__DOT__SRAM_IFU__DOT__delayed_data__v0;
-        CData/*0:0*/ __Vdlyvset__top__DOT__IFU__DOT__SRAM_IFU__DOT__delayed_data__v1;
-        CData/*0:0*/ __Vdlyvset__top__DOT__IFU__DOT__SRAM_IFU__DOT__delayed_data__v2;
-        CData/*0:0*/ __Vdlyvset__top__DOT__IFU__DOT__saxi_rdata__v0;
         CData/*0:0*/ __Vtrigrprev__TOP__clk;
         CData/*0:0*/ __VactContinue;
         SData/*8:0*/ __Vtableidx4;
@@ -132,10 +127,6 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mtvec;
         IData/*31:0*/ __Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout;
         IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__3__Vfuncout;
-        IData/*31:0*/ __Vdlyvval__top__DOT__IFU__DOT__SRAM_IFU__DOT__delayed_data__v0;
-        IData/*31:0*/ __Vdlyvval__top__DOT__IFU__DOT__SRAM_IFU__DOT__delayed_data__v1;
-        IData/*31:0*/ __Vdlyvval__top__DOT__IFU__DOT__SRAM_IFU__DOT__delayed_data__v2;
-        IData/*31:0*/ __Vdlyvval__top__DOT__IFU__DOT__saxi_rdata__v0;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
         VlUnpacked<IData/*31:0*/, 32> top__DOT__GPR__DOT__rf;
@@ -145,13 +136,11 @@ class Vtop___024root final : public VerilatedModule {
         VlUnpacked<QData/*38:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list;
         VlUnpacked<IData/*31:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__data_list;
-        VlUnpacked<CData/*0:0*/, 5> __Vm_traceActivity;
+        VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
     };
-    VlDelayScheduler __VdlySched;
-    VlTriggerScheduler __VtrigSched_h3cae1fb6__0;
     VlTriggerVec<1> __VstlTriggered;
-    VlTriggerVec<3> __VactTriggered;
-    VlTriggerVec<3> __VnbaTriggered;
+    VlTriggerVec<1> __VactTriggered;
+    VlTriggerVec<1> __VnbaTriggered;
 
     // INTERNAL VARIABLES
     Vtop__Syms* const vlSymsp;
