@@ -1,5 +1,5 @@
 module ysyx_23060240_CSR(
-   // input finish,
+    input finish,
     input [31:0] pc,
     input clk,
     input [11:0] r_csr_addr,

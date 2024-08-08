@@ -159,7 +159,7 @@ ysyx_23060240_IFU IFU(
 );
 
 ysyx_23060240_CSR CSR(
-    //.finish(finish_1||finish_2),
+    .finish(finish_1||finish_2),
     .pc(pc),
     .clk(clk),
     .r_csr_addr(inst[31:20]),

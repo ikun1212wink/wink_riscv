@@ -28,7 +28,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__finish_2;
         CData/*0:0*/ top__DOT__valid_ifu;
         CData/*0:0*/ top__DOT__valid_idu;
-        CData/*0:0*/ top__DOT____Vcellinp__IFU__finish;
+        CData/*0:0*/ top__DOT____Vcellinp__CSR__finish;
         CData/*0:0*/ top__DOT____VdfgTmp_h241ef1d5__0;
         CData/*0:0*/ top__DOT____VdfgTmp_h445074e7__0;
         CData/*0:0*/ top__DOT__IDU__DOT__is_jalr;

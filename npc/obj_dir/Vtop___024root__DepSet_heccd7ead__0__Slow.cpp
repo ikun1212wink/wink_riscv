@@ -611,7 +611,7 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
         [vlSelf->__Vtableidx4];
     vlSelf->top__DOT__valid_idu = ((IData)(vlSelf->top__DOT__valid_ifu) 
                                    & (IData)(vlSelf->top__DOT__IDU__DOT__is_load_type));
-    vlSelf->top__DOT____Vcellinp__IFU__finish = (((~ (IData)(vlSelf->top__DOT__IDU__DOT__is_load_type)) 
+    vlSelf->top__DOT____Vcellinp__CSR__finish = (((~ (IData)(vlSelf->top__DOT__IDU__DOT__is_load_type)) 
                                                   & (IData)(vlSelf->top__DOT__valid_ifu)) 
                                                  | (IData)(vlSelf->top__DOT__finish_2));
     vlSelf->top__DOT__r_csr_data = (((0x300U == (vlSelf->top__DOT__IFU__DOT__saxi_rdata 
@@ -2002,7 +2002,7 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__finish_2 = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__valid_ifu = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__valid_idu = VL_RAND_RESET_I(1);
-    vlSelf->top__DOT____Vcellinp__IFU__finish = VL_RAND_RESET_I(1);
+    vlSelf->top__DOT____Vcellinp__CSR__finish = VL_RAND_RESET_I(1);
     vlSelf->top__DOT____VdfgTmp_h241ef1d5__0 = 0;
     vlSelf->top__DOT____VdfgTmp_h445074e7__0 = 0;
     vlSelf->top__DOT__IDU__DOT__is_jalr = VL_RAND_RESET_I(1);

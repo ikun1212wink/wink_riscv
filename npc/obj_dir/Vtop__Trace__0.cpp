@@ -259,13 +259,13 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgIData(oldp+130,(vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list[15]),32);
         bufp->chgIData(oldp+131,(vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__lut_out),32);
         bufp->chgBit(oldp+132,(vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit));
-        bufp->chgSData(oldp+133,((vlSelf->top__DOT__IFU__DOT__saxi_rdata 
+        bufp->chgBit(oldp+133,(vlSelf->top__DOT____Vcellinp__CSR__finish));
+        bufp->chgSData(oldp+134,((vlSelf->top__DOT__IFU__DOT__saxi_rdata 
                                   >> 0x14U)),12);
-        bufp->chgIData(oldp+134,(vlSelf->top__DOT__CSR__DOT__csr_mepc),32);
-        bufp->chgIData(oldp+135,(vlSelf->top__DOT__CSR__DOT__csr_mcause),32);
-        bufp->chgIData(oldp+136,(vlSelf->top__DOT__CSR__DOT__csr_mstatus),32);
-        bufp->chgIData(oldp+137,(vlSelf->top__DOT__CSR__DOT__csr_mtvec),32);
-        bufp->chgBit(oldp+138,(vlSelf->top__DOT____Vcellinp__IFU__finish));
+        bufp->chgIData(oldp+135,(vlSelf->top__DOT__CSR__DOT__csr_mepc),32);
+        bufp->chgIData(oldp+136,(vlSelf->top__DOT__CSR__DOT__csr_mcause),32);
+        bufp->chgIData(oldp+137,(vlSelf->top__DOT__CSR__DOT__csr_mstatus),32);
+        bufp->chgIData(oldp+138,(vlSelf->top__DOT__CSR__DOT__csr_mtvec),32);
         bufp->chgCData(oldp+139,((0x1fU & (vlSelf->top__DOT__IFU__DOT__saxi_rdata 
                                            >> 0xfU))),5);
         bufp->chgCData(oldp+140,((0x1fU & (vlSelf->top__DOT__IFU__DOT__saxi_rdata 
