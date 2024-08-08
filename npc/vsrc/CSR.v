@@ -24,7 +24,7 @@ module ysyx_23060240_CSR(
     end
     //写csr寄存器
     always@(posedge clk)begin
-        if(w_csr_en||finish)begin
+        if(w_csr_en && finish)begin
             if(w_csr_addr==12'h300)begin
                 //csr_mstatus<=w_csr_data;
                 csr_mstatus<=32'h1800;

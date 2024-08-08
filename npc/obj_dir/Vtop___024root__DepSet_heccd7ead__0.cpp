@@ -79,7 +79,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
                                                     ((IData)(vlSelf->top__DOT__LSU__DOT__saxi_arvalid) 
                                                      & (IData)(vlSelf->top__DOT__LSU__DOT__saxi_arready))) 
                                                    & (IData)(vlSelf->top__DOT__valid_idu)));
-    if (((IData)(vlSelf->top__DOT__w_csr_en) | (IData)(vlSelf->top__DOT____Vcellinp__CSR__finish))) {
+    if (((IData)(vlSelf->top__DOT__w_csr_en) & (IData)(vlSelf->top__DOT____Vcellinp__CSR__finish))) {
         if ((0x300U != (vlSelf->top__DOT__IFU__DOT__saxi_rdata 
                         >> 0x14U))) {
             if ((0x305U != (vlSelf->top__DOT__IFU__DOT__saxi_rdata 
