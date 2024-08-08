@@ -4,12 +4,12 @@ module ysyx_23060240_IFU(
     input jump_en,
     input [31:0] jump_pc,
     input finish,
-    output reg valid_ifu,
+    output valid_ifu,
     output reg [31:0] pc,
     output [31:0] inst
 );
 assign saxi_araddr=pc;
-
+wire rvalid;
 //read address channel
 wire [31:0] saxi_araddr;//pc
 reg saxi_arvalid;
@@ -76,8 +76,18 @@ always@(posedge clk)begin
     end
 end
 assign inst=saxi_rdata;
-
+reg [31:0] inst_old;
 always@(posedge clk)begin
+    if(rst)begin
+        inst_old<=32'h0;
+    end
+    else begin
+        inst_old<=inst;
+    end
+end
+assign valid_ifu=rvalid;
+
+/* always@(posedge clk)begin
     if(rst)begin
         valid_ifu<=1'b0;
     end
@@ -89,7 +99,7 @@ always@(posedge clk)begin
             valid_ifu<=1'b0;
         end
     end
-end
+end */
 
 /* //wire [31:0] raddr;
 wire [31:0] rd_sram_data;
@@ -142,7 +152,7 @@ ysyx_23060240_SRAM_IFU SRAM_IFU(
     .clk(clk),
     .rst(rst),
     .finish(finish),
-
+    .rvalid(rvalid),
     .saxi_araddr(pc),
     .saxi_arvalid(saxi_arvalid),
     .saxi_arready(saxi_arready),

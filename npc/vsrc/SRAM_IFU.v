@@ -22,11 +22,12 @@ module ysyx_23060240_SRAM_IFU(
     //read data channel
     input saxi_rready,
     output reg saxi_rvalid,
-    output [31:0] saxi_rdata
+    output [31:0] saxi_rdata,
 
     //write response channel
 /*     input saxi_bready,
     output saxi_bvalid */
+    output reg rvalid
 );
 
 initial begin
@@ -115,8 +116,10 @@ end */
 
 //AXI read data channel
 reg [31:0] axi_data_to_read;//读数据选择
+reg [31:0] axi_rdata;//存放读出的数据
 always@(posedge clk)begin
      if(rst)begin
+          axi_rdata<=32'h0;
           saxi_rdata<=32'h0;
           saxi_rvalid<=1'b0;
      end
@@ -125,7 +128,7 @@ always@(posedge clk)begin
                saxi_rvalid<=1'b1;
           end
           else if(saxi_rvalid && saxi_rready)begin
-               saxi_rdata<=axi_data_to_read;
+               axi_rdata<=axi_data_to_read;
                saxi_rvalid<=1'b0;
           end
           else begin
@@ -137,5 +140,27 @@ end
 always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
 end
+//reg [31:0] delayed_data;
+reg [31:0] counter;
 
+//SRAM读延迟模拟
+always@(posedge clk)begin
+     if(saxi_rvalid && saxi_rready)begin
+          counter<=32'h10;
+          rvalid<=1'b0;
+     end
+     else if(counter>1)begin
+          counter<=counter-1;
+          rvalid<=1'b0;
+     end
+     else if(counter==1)begin
+          counter<=counter-1;
+          saxi_rdata<=axi_rdata;
+          rvalid<=1'b1;
+     end
+     else begin
+          counter<=32'h0;
+          rvalid<=1'b0;
+     end
+end
 endmodule
