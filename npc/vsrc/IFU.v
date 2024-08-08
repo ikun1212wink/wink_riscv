@@ -76,8 +76,18 @@ always@(posedge clk)begin
     end
 end
 assign inst=saxi_rdata;
-
+reg [31:0] inst_old;
 always@(posedge clk)begin
+    if(rst)begin
+        inst_old<=32'h0;
+    end
+    else begin
+        inst_old<=inst;
+    end
+end
+assign valid_ifu=(inst_old!=inst)?1:0;
+
+/* always@(posedge clk)begin
     if(rst)begin
         valid_ifu<=1'b0;
     end
@@ -89,7 +99,7 @@ always@(posedge clk)begin
             valid_ifu<=1'b0;
         end
     end
-end
+end */
 
 /* //wire [31:0] raddr;
 wire [31:0] rd_sram_data;
