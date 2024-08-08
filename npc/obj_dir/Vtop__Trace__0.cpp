@@ -114,9 +114,9 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgBit(oldp+49,(vlSelf->top__DOT__jump_branch));
         bufp->chgIData(oldp+50,(vlSelf->top__DOT__imm_out),32);
         bufp->chgBit(oldp+51,(((~ (IData)(vlSelf->top__DOT__IDU__DOT__is_load_type)) 
-                               & (IData)(vlSelf->top__DOT__valid_ifu))));
+                               & (IData)(vlSelf->top__DOT__IFU__DOT__rvalid))));
         bufp->chgBit(oldp+52,(vlSelf->top__DOT__finish_2));
-        bufp->chgBit(oldp+53,(vlSelf->top__DOT__valid_ifu));
+        bufp->chgBit(oldp+53,(vlSelf->top__DOT__IFU__DOT__rvalid));
         bufp->chgBit(oldp+54,(vlSelf->top__DOT__valid_idu));
         bufp->chgIData(oldp+55,((vlSelf->top__DOT__ALU__DOT__signed_a 
                                  + vlSelf->top__DOT__ALU__DOT__signed_b)),32);
@@ -391,7 +391,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgIData(oldp+227,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_raddr),32);
         bufp->chgIData(oldp+228,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_data_to_read),32);
         bufp->chgIData(oldp+229,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_rdata),32);
-        bufp->chgIData(oldp+230,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__delayed_data),32);
+        bufp->chgIData(oldp+230,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__counter),32);
         bufp->chgIData(oldp+231,((0xfffff000U & vlSelf->top__DOT__IFU__DOT__saxi_rdata)),32);
         bufp->chgIData(oldp+232,((((- (IData)((vlSelf->top__DOT__IFU__DOT__saxi_rdata 
                                                >> 0x1fU))) 
@@ -516,7 +516,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgIData(oldp+270,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__lut_out),32);
         bufp->chgBit(oldp+271,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit));
         bufp->chgBit(oldp+272,(((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
-                                & (IData)(vlSelf->top__DOT__valid_ifu))));
+                                & (IData)(vlSelf->top__DOT__IFU__DOT__rvalid))));
         bufp->chgBit(oldp+273,(vlSelf->top__DOT__LSU__DOT__saxi_arvalid));
         bufp->chgBit(oldp+274,(vlSelf->top__DOT__LSU__DOT__saxi_arready));
         bufp->chgBit(oldp+275,(vlSelf->top__DOT__LSU__DOT__saxi_rvalid));

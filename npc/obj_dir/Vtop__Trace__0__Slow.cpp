@@ -238,6 +238,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+54,"valid_ifu", false,-1);
     tracep->declBus(c+285,"pc", false,-1, 31,0);
     tracep->declBus(c+284,"inst", false,-1, 31,0);
+    tracep->declBit(c+54,"rvalid", false,-1);
     tracep->declBus(c+285,"saxi_araddr", false,-1, 31,0);
     tracep->declBit(c+222,"saxi_arvalid", false,-1);
     tracep->declBit(c+223,"saxi_arready", false,-1);
@@ -255,10 +256,11 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+225,"saxi_rready", false,-1);
     tracep->declBit(c+224,"saxi_rvalid", false,-1);
     tracep->declBus(c+226,"saxi_rdata", false,-1, 31,0);
+    tracep->declBit(c+54,"rvalid", false,-1);
     tracep->declBus(c+228,"axi_raddr", false,-1, 31,0);
     tracep->declBus(c+229,"axi_data_to_read", false,-1, 31,0);
     tracep->declBus(c+230,"axi_rdata", false,-1, 31,0);
-    tracep->declBus(c+231,"delayed_data", false,-1, 31,0);
+    tracep->declBus(c+231,"counter", false,-1, 31,0);
     tracep->popNamePrefix(2);
     tracep->pushNamePrefix("IMM ");
     tracep->declBus(c+284,"inst", false,-1, 31,0);
@@ -467,9 +469,9 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+50,(vlSelf->top__DOT__jump_branch));
     bufp->fullIData(oldp+51,(vlSelf->top__DOT__imm_out),32);
     bufp->fullBit(oldp+52,(((~ (IData)(vlSelf->top__DOT__IDU__DOT__is_load_type)) 
-                            & (IData)(vlSelf->top__DOT__valid_ifu))));
+                            & (IData)(vlSelf->top__DOT__IFU__DOT__rvalid))));
     bufp->fullBit(oldp+53,(vlSelf->top__DOT__finish_2));
-    bufp->fullBit(oldp+54,(vlSelf->top__DOT__valid_ifu));
+    bufp->fullBit(oldp+54,(vlSelf->top__DOT__IFU__DOT__rvalid));
     bufp->fullBit(oldp+55,(vlSelf->top__DOT__valid_idu));
     bufp->fullIData(oldp+56,((vlSelf->top__DOT__ALU__DOT__signed_a 
                               + vlSelf->top__DOT__ALU__DOT__signed_b)),32);
@@ -738,7 +740,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+228,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_raddr),32);
     bufp->fullIData(oldp+229,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_data_to_read),32);
     bufp->fullIData(oldp+230,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_rdata),32);
-    bufp->fullIData(oldp+231,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__delayed_data),32);
+    bufp->fullIData(oldp+231,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__counter),32);
     bufp->fullIData(oldp+232,((0xfffff000U & vlSelf->top__DOT__IFU__DOT__saxi_rdata)),32);
     bufp->fullIData(oldp+233,((((- (IData)((vlSelf->top__DOT__IFU__DOT__saxi_rdata 
                                             >> 0x1fU))) 
@@ -864,7 +866,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+271,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__lut_out),32);
     bufp->fullBit(oldp+272,(vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit));
     bufp->fullBit(oldp+273,(((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
-                             & (IData)(vlSelf->top__DOT__valid_ifu))));
+                             & (IData)(vlSelf->top__DOT__IFU__DOT__rvalid))));
     bufp->fullBit(oldp+274,(vlSelf->top__DOT__LSU__DOT__saxi_arvalid));
     bufp->fullBit(oldp+275,(vlSelf->top__DOT__LSU__DOT__saxi_arready));
     bufp->fullBit(oldp+276,(vlSelf->top__DOT__LSU__DOT__saxi_rvalid));

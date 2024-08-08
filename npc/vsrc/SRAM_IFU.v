@@ -22,11 +22,12 @@ module ysyx_23060240_SRAM_IFU(
     //read data channel
     input saxi_rready,
     output reg saxi_rvalid,
-    output [31:0] saxi_rdata
+    output [31:0] saxi_rdata,
 
     //write response channel
 /*     input saxi_bready,
     output saxi_bvalid */
+    output reg rvalid
 );
 
 initial begin
@@ -139,10 +140,27 @@ end
 always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
 end
-reg [31:0] delayed_data;
+//reg [31:0] delayed_data;
+reg [31:0] counter;
+
 //SRAM读延迟模拟
 always@(posedge clk)begin
-    delayed_data <= axi_rdata;
-    saxi_rdata <= delayed_data;
+     if(saxi_rvalid && saxi_rready)begin
+          counter<=32'h10;
+          rvalid<=1'b0;
+     end
+     else if(counter>1)begin
+          counter<=counter-1;
+          rvalid<=1'b0;
+     end
+     else if(counter==1)begin
+          counter<=counter-1;
+          saxi_rdata<=axi_rdata;
+          rvalid<=1'b1;
+     end
+     else begin
+          counter<=32'h0;
+          rvalid<=1'b0;
+     end
 end
 endmodule
