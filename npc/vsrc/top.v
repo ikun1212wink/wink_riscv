@@ -138,7 +138,7 @@ ysyx_23060240_LSU LSU(
     .clk(clk),
     .rst(rst),
     //.mem_rd_en(mem_rd_en),
-    .mem_wr_en(mem_wr_en),
+    .mem_wr_en(mem_wr_en&&valid_ifu),
     .memory_rd_ctrl(memory_rd_ctrl),
     .memory_wr_ctrl(memory_wr_ctrl),
     .mem_wr_data(rs2_data),

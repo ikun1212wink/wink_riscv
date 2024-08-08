@@ -1934,7 +1934,8 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                                                  (vlSelf->top__DOT__LSU__DOT__saxi_rdata 
                                                   >> 8U)
                                                   : vlSelf->top__DOT__LSU__DOT__saxi_rdata));
-    if (vlSelf->top__DOT__IDU__DOT__is_s_type) {
+    if (((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
+         & (IData)(vlSelf->top__DOT__valid_ifu))) {
         Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_write_TOP(vlSelf->top__DOT__alu_out, vlSelf->top__DOT__BSU__DOT__signed_rs2, (IData)(vlSelf->top__DOT__memory_wr_ctrl));
     }
 }
