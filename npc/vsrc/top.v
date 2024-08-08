@@ -66,12 +66,12 @@ begin
     endcase
 end
 
-wire finish_1,finish_2,valid_ifu,valid_idu;
+wire finish_1,finish_2,valid_1,valid_2;
 
 ysyx_23060240_IDU IDU(
-    .valid_ifu(valid_ifu),
+    .valid_1(valid_1),
     .finish_1(finish_1),
-    .valid_idu(valid_idu),
+    .valid_2(valid_2),
     .inst(inst),
     .alu_a_sel(alu_a_sel),
     .alu_b_sel(alu_b_sel),
@@ -93,7 +93,8 @@ ysyx_23060240_IDU IDU(
 );
 
 ysyx_23060240_GPR GPR(
-    .finish(finish_1||finish_2),
+    .finish_1(finish_1),
+    .finish_2(finish_2),
     .clk(clk),
     .w_data(w_data),
     .r_rs1_addr(inst[19:15]),
@@ -133,11 +134,10 @@ ysyx_23060240_BSU BSU(
 
 
 ysyx_23060240_LSU LSU(
-    .valid_idu(valid_idu),
+    .valid_2(valid_2),
     .finish_2(finish_2),
     .clk(clk),
-    .rst(rst),
-    //.mem_rd_en(mem_rd_en),
+    .mem_rd_en(mem_rd_en),
     .mem_wr_en(mem_wr_en),
     .memory_rd_ctrl(memory_rd_ctrl),
     .memory_wr_ctrl(memory_wr_ctrl),
@@ -151,15 +151,15 @@ ysyx_23060240_IFU IFU(
     .clk(clk),
     .pc(pc),
     .rst(rst),
-    .finish(finish_1||finish_2),
-    .valid_ifu(valid_ifu),
+    .finish_1(finish_1),
+    .finish_2(finish_2),
+    .valid_1(valid_1),
     .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
     .jump_pc(jump_pc),
     .inst(inst)
 );
 
 ysyx_23060240_CSR CSR(
-    .finish(finish_1||finish_2),
     .pc(pc),
     .clk(clk),
     .r_csr_addr(inst[31:20]),
@@ -175,7 +175,7 @@ ysyx_23060240_CSR CSR(
 
 
 //ftrace 手动注释关闭 
-import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
+/* import "DPI-C" function void trace_func_call(input int pc, input int alu_out,input bit tail);
 import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
@@ -199,6 +199,6 @@ always@(posedge clk)begin
             trace_func_call(pc,jump_pc,1'b1);
         end
     end
-end
+end */
 
 endmodule

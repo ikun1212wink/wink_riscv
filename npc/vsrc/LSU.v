@@ -1,36 +1,20 @@
 module ysyx_23060240_LSU(
     input clk,
-    input rst,
-   // input mem_rd_en,
+    input mem_rd_en,
     input mem_wr_en,
     input [2:0] memory_rd_ctrl,
     input [7:0] memory_wr_ctrl,
     input [31:0] mem_wr_data,
     input [31:0] mem_rd_addr,
     input [31:0] mem_wr_addr,
-    output reg [31:0] mem_rd_data,
-
-    input valid_idu,
-    output  reg finish_2
+    input valid_2,
+    output  reg finish_2,
+    output reg [31:0] mem_rd_data
+    //output [31:0] mem_rd_data
 );
-assign saxi_araddr=mem_rd_addr;
-always@(*)begin
-    mem_out=saxi_rdata;
-end
-//read address channel
-wire [31:0] saxi_araddr;//addr    input [31:0] mem_rd_addr,
-reg saxi_arvalid;
-wire saxi_arready;
-
-//read data channel
-wire saxi_rvalid; 
-wire [31:0] saxi_rdata;//rdata   output reg [31:0] mem_rd_data
-reg saxi_rready;
-
 reg [31:0] mem_move_out;
 reg [31:0] mem_out;
-
-/* reg [31:0] rd_sram_addr;
+reg [31:0] rd_sram_addr;
 initial begin
     rd_sram_addr=32'h80000000;
 end
@@ -52,8 +36,7 @@ always@(posedge clk)begin
     end
 end
 wire rd_sram_en;
-assign rd_sram_en=valid_2&signal; */
-
+assign rd_sram_en=valid_2&signal;
 /* RegisterFile mem_data(
     .clk(clk),
     .wdata(mem_wr_data),
@@ -75,72 +58,16 @@ import "DPI-C" function void pmem_write(
     end
 end */
 
-//AXI read address channel
-always@(posedge clk)begin
-    if(rst)begin
-        saxi_arvalid<=1'b0;
-    end
-    else begin
-        if(valid_idu)begin
-            saxi_arvalid<=1'b1;
-        end
-        else if(saxi_arvalid&&saxi_arready)begin
-            saxi_arvalid<=1'b0;
-        end
-        else begin
-            saxi_arvalid<=1'b0;
-        end
-    end
-end
-//AXI read data channel
-always@(posedge clk)begin
-    if(rst)begin
-        saxi_rready<=1'b1;
-    end
-    else begin
-        if(saxi_arvalid && saxi_arready)begin
-            saxi_rready<=1'b1;
-        end
-        else if(saxi_rvalid && saxi_rready)begin
-            saxi_rready<=1'b0;
-        end
-        else begin
-            saxi_rready<=1'b0;
-        end        
-    end
-end
-
-always@(posedge clk)begin
-    if(rst)begin
-        finish_2<=1'b0;
-    end
-    else begin
-        if(saxi_rvalid && saxi_rready)begin
-            finish_2<=1'b1;
-        end
-        else if(finish_2)begin
-            finish_2<=1'b0;
-        end
-        else begin
-            finish_2<=1'b0;
-        end
-    end
-end
 
 ysyx_23060240_SRAM_LSU SRAM_LSU(
     .clk(clk),
-    .rst(rst),
+    .raddr(rd_sram_addr),
     .waddr(mem_wr_addr),
     .wmask(memory_wr_ctrl),
     .w_en(mem_wr_en),
+    .r_en(rd_sram_en),
     .wdata(mem_wr_data),
-    .valid_idu(valid_idu),
-    .saxi_araddr(saxi_araddr),
-    .saxi_arvalid(saxi_arvalid),
-    .saxi_arready(saxi_arready),
-    .saxi_rready(saxi_rready),
-    .saxi_rvalid(saxi_rvalid),
-    .saxi_rdata(saxi_rdata)
+    .rdata(mem_out)
 );
 
 
