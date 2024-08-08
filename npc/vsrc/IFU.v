@@ -4,7 +4,7 @@ module ysyx_23060240_IFU(
     input jump_en,
     input [31:0] jump_pc,
     input finish,
-    output reg valid_ifu,
+    output valid_ifu,
     output reg [31:0] pc,
     output [31:0] inst
 );
