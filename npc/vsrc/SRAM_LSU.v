@@ -99,10 +99,10 @@ always@(posedge clk)begin
      end
 end
 //AXI memory read
-/* always@(*)begin
+always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
 end
- */
+
 reg [31:0] counter;
 
 //SRAM读延迟模拟
@@ -138,9 +138,9 @@ end */
 
 import "DPI-C" function void pmem_write(input int waddr,input int wdata,input byte wmask);
 /* verilator lint_off LATCH */
-always@(*)begin
+/* always@(*)begin
     if(w_en==1)begin
         pmem_write(waddr,wdata,wmask);
     end
-end   
+end    */
 endmodule
