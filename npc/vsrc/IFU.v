@@ -86,7 +86,7 @@ end
 
 
 //AXI read data channel
-reg axi_rready;//存放延迟的arvalid信号
+reg axi_rready;//存放延迟的rready信号
 always@(posedge clk)begin
     if(rst)begin
         axi_rready<=1'b0;
@@ -136,15 +136,6 @@ end
 
 
 assign inst=saxi_rdata;
-reg [31:0] inst_old;
-always@(posedge clk)begin
-    if(rst)begin
-        inst_old<=32'h0;
-    end
-    else begin
-        inst_old<=inst;
-    end
-end
 assign valid_ifu=rvalid;
 
 /* always@(posedge clk)begin

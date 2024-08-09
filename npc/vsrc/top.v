@@ -66,7 +66,7 @@ begin
     endcase
 end
 
-wire finish_1,finish_2,valid_ifu,valid_idu;
+wire finish_1,wr_finish,rd_finish,valid_ifu,valid_idu;
 
 ysyx_23060240_IDU IDU(
     .valid_ifu(valid_ifu),
@@ -93,7 +93,7 @@ ysyx_23060240_IDU IDU(
 );
 
 ysyx_23060240_GPR GPR(
-    .finish(finish_1||finish_2),
+    .finish(finish_1||rd_finish),
     .clk(clk),
     .w_data(w_data),
     .r_rs1_addr(inst[19:15]),
@@ -134,10 +134,10 @@ ysyx_23060240_BSU BSU(
 
 ysyx_23060240_LSU LSU(
     .valid_idu(valid_idu),
-    .finish_2(finish_2),
+    .rd_finish(rd_finish),
+    .wr_finish(wr_finish),
     .clk(clk),
     .rst(rst),
-    //.mem_rd_en(mem_rd_en),
     .mem_wr_en(mem_wr_en&&valid_ifu),
     .memory_rd_ctrl(memory_rd_ctrl),
     .memory_wr_ctrl(memory_wr_ctrl),
@@ -151,7 +151,7 @@ ysyx_23060240_IFU IFU(
     .clk(clk),
     .pc(pc),
     .rst(rst),
-    .finish(finish_1||finish_2),
+    .finish(finish_1||rd_finish||wr_finish),
     .valid_ifu(valid_ifu),
     .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
     .jump_pc(jump_pc),
@@ -159,7 +159,7 @@ ysyx_23060240_IFU IFU(
 );
 
 ysyx_23060240_CSR CSR(
-    .finish(finish_1||finish_2),
+    .finish(finish_1||rd_finish),
     .pc(pc),
     .clk(clk),
     .r_csr_addr(inst[31:20]),

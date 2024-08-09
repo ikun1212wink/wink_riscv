@@ -1,15 +1,10 @@
 module ysyx_23060240_SRAM_LSU(
     input clk,
     input rst,
-   // input [31:0] raddr,
-    input [31:0] waddr,
+  //  input [31:0] waddr,
     input [7:0] wmask,
-    input w_en,
-   // input r_en,
-    input [31:0] wdata,
-   // output reg [31:0] rdata
-   // input clk,
-   // input rst,
+  //  input w_en,
+ //   input [31:0] wdata,
     input valid_idu,
 
     //read address channel
@@ -21,12 +16,12 @@ module ysyx_23060240_SRAM_LSU(
     input saxi_rready,
     output reg saxi_rvalid,
     output [31:0] saxi_rdata,
-    output reg rvalid
+    output reg rvalid,
 
-/*     //write address channel
-    input [4:0] saxi_awaddr,
+    //write address channel
+    input [31:0] saxi_awaddr,
     input saxi_awvalid,
-     output saxi_awready,
+    output saxi_awready,
 
     //write data channel
     input [31:0] saxi_wdata,
@@ -35,15 +30,10 @@ module ysyx_23060240_SRAM_LSU(
 
      //write response channel
     input saxi_bready,
-    output saxi_bvalid */
+    output saxi_bvalid
 );
-
-initial begin
-     axi_raddr=32'h80000000;
-end
-
 import "DPI-C" function int pmem_read(input int raddr);
-
+import "DPI-C" function void pmem_write(input int waddr,input int wdata,input byte wmask);
 //AXI read address channel
 always@(posedge clk)begin
      if(rst)begin
@@ -61,8 +51,10 @@ always@(posedge clk)begin
           end
      end
 end
-
 reg [31:0] axi_raddr;//暂时存放要读的地址
+initial begin//赋初始值
+     axi_raddr=32'h80000000;
+end
 always@(posedge clk)begin
      if(rst)begin
           axi_raddr<=32'h80000000;
@@ -79,6 +71,9 @@ end
 //AXI read data channel
 reg [31:0] axi_data_to_read;//读数据选择
 reg [31:0] axi_rdata;//暂时存放读出的数据
+always@(*)begin
+     axi_data_to_read=pmem_read(axi_raddr);
+end
 always@(posedge clk)begin
      if(rst)begin
           axi_rdata<=32'h0;
@@ -98,14 +93,104 @@ always@(posedge clk)begin
           end
      end
 end
-//AXI memory read
-always@(*)begin
-     axi_data_to_read=pmem_read(axi_raddr);
+//AXI write address channel
+reg aw_hand;//aw握手标志
+always@(posedge clk)begin
+     if(rst)begin
+          saxi_awready<=1'b1;
+          aw_hand<=1'b0;
+     end
+     else begin
+          if(saxi_awready && saxi_awvalid)begin
+               saxi_awready<=1'b0;
+               aw_hand<=1'b1;
+          end
+          else if(saxi_bready && saxi_bvalid)begin
+               saxi_awready<=1'b1;
+          end
+          else if(aw_hand && w_hand)begin
+               aw_hand<=1'b0;
+          end
+          else begin
+               saxi_awready<=saxi_awready;
+               aw_hand<=aw_hand;
+          end
+     end
 end
-
-reg [31:0] counter;
-
+reg [31:0] axi_waddr;//暂时存放写数据的地址
+initial begin
+     axi_waddr=32'h80000000;
+end
+always@(posedge clk)begin
+     if(rst)begin
+          axi_waddr<=32'h80000000;
+     end
+     else begin
+          if(saxi_awvalid && saxi_awready)begin
+               axi_waddr<=saxi_awaddr;
+          end
+          else begin
+               axi_waddr<=axi_waddr;
+          end   
+     end
+end
+//AXI write data channel
+reg w_hand;//w握手标志
+always@(posedge clk)begin
+     if(rst)begin
+          saxi_wready<=1'b1;
+          w_hand<=1'b0;
+     end
+     else begin
+          if(saxi_wready && saxi_wvalid)begin
+               saxi_wready<=1'b0;
+               w_hand<=1'b1;
+          end
+          else if(saxi_bready && saxi_bvalid)begin
+               saxi_wready<=1'b1;
+          end
+          else if(w_hand && aw_hand)begin
+               w_hand<=1'b0;
+          end
+          else begin
+               saxi_wready<=saxi_wready;
+               w_hand<=w_hand;
+          end
+     end
+end
+reg [31:0] axi_wdata;
+always@(posedge clk)begin
+     if(rst)begin
+          axi_wdata<=32'h0;
+     end
+     else begin
+          if(saxi_wready && saxi_wvalid)begin
+               axi_wdata<=saxi_wdata;
+          end
+          else begin
+               axi_wdata<=axi_wdata;
+          end
+     end
+end
+//AXI write respone channel
+always@(posedge clk)begin
+     if(rst)begin
+          saxi_bvalid<=1'b0;
+     end
+     else begin
+          if(aw_hand && w_hand)begin
+               saxi_bvalid<=1'b1;
+          end
+          else if(saxi_bvalid && saxi_bready)begin
+               saxi_bvalid<=1'b0;
+          end
+          else begin
+               saxi_bvalid<=saxi_bvalid;
+          end
+     end
+end
 //SRAM读延迟模拟
+reg [31:0] counter;
 always@(posedge clk)begin
      if(saxi_rvalid && saxi_rready)begin
           counter<=32'h5;
@@ -126,20 +211,11 @@ always@(posedge clk)begin
      end
 end
 
-//AXI write address channel
-/* always@(posedge clk)begin
-     if(rst)begin
-          saxi_awready<=1'b0;
-     end
-     else begin
-
-     end
-end */
-import "DPI-C" function void pmem_write(input int waddr,input int wdata,input byte wmask);
+//读SRAM模拟
 /* verilator lint_off LATCH */
 always@(*)begin
-    if(w_en==1)begin
-        pmem_write(waddr,wdata,wmask);
+    if(w_hand && aw_hand)begin
+        pmem_write(axi_waddr,axi_wdata,wmask);
     end
 end   
 endmodule
