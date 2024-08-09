@@ -58,11 +58,11 @@ always@(posedge clk)begin
           if(saxi_arvalid&&saxi_arready)begin
                saxi_arready<=1'b0;
           end
-          else if(finish)begin
+          else if(saxi_rready&&saxi_rvalid)begin
                saxi_arready<=1'b1;
           end
           else begin
-               saxi_arready<=1'b0;
+               saxi_arready<=saxi_arready;
           end
      end
 end
@@ -132,7 +132,7 @@ always@(posedge clk)begin
                saxi_rvalid<=1'b0;
           end
           else begin
-               saxi_rvalid<=1'b0;
+               saxi_rvalid<=saxi_rvalid;
           end
      end
 end
