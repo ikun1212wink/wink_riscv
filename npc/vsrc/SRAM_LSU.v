@@ -69,7 +69,7 @@ always@(posedge clk)begin
      end
      else begin
           if(saxi_arvalid && saxi_arready)begin
-               axi_raddr<=saxi_araddr;
+             /*   axi_raddr<=saxi_araddr; */
           end
           else begin
                axi_raddr<=axi_raddr;
@@ -99,9 +99,9 @@ always@(posedge clk)begin
      end
 end
 //AXI memory read
-/* always@(*)begin
+always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
-end */
+end
 
 reg [31:0] counter;
 
