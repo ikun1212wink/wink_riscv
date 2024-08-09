@@ -37,13 +37,13 @@ module ysyx_23060240_SRAM_LSU(
     input saxi_bready,
     output saxi_bvalid */
 );
-
-/* initial begin
+reg [31:0] axi_raddr;//暂时存放要读的地址
+initial begin
      axi_raddr=32'h80000000;
-end */
+end
 
 import "DPI-C" function int pmem_read(input int raddr);
-
+/* 
 //AXI read address channel
 always@(posedge clk)begin
      if(rst)begin
@@ -97,8 +97,9 @@ always@(posedge clk)begin
                saxi_rvalid<=saxi_rvalid;
           end
      end
-end
+end */
 //AXI memory read
+reg [31:0] axi_data_to_read;//读数据选择
 always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
 end
@@ -117,7 +118,7 @@ always@(posedge clk)begin
      end
      else if(counter==1)begin
           counter<=counter-1;
-          saxi_rdata<=axi_rdata;
+         // saxi_rdata<=axi_rdata;
           rvalid<=1'b1;
      end
      else begin
