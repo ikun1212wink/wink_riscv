@@ -100,7 +100,7 @@ always@(posedge clk)begin
 end
 //AXI memory read
 always@(*)begin
-     axi_data_to_read=pmem_read(32'h80000000);
+     axi_data_to_read=pmem_read(axi_raddr);
 end
 
 reg [31:0] counter;
