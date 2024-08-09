@@ -121,7 +121,7 @@ always@(posedge clk)begin
     end
 end
 //AXI read data channel
-reg axi_rready;//存放延迟的arvalid信号
+reg axi_rready;//存放延迟的rready信号
 always@(posedge clk)begin
     if(rst)begin
         axi_rready<=1'b0;

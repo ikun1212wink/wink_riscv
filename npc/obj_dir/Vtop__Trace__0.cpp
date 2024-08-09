@@ -532,15 +532,14 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgBit(oldp+285,(vlSelf->top__DOT__LSU__DOT__axi_rready));
         bufp->chgIData(oldp+286,(vlSelf->top__DOT__LSU__DOT__counter_rready),32);
         bufp->chgIData(oldp+287,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_raddr),32);
-        bufp->chgIData(oldp+288,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_data_to_read),32);
-        bufp->chgIData(oldp+289,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_rdata),32);
-        bufp->chgIData(oldp+290,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__counter),32);
+        bufp->chgIData(oldp+288,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_rdata),32);
+        bufp->chgIData(oldp+289,(vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__counter),32);
     }
-    bufp->chgBit(oldp+291,(vlSelf->clk));
-    bufp->chgBit(oldp+292,(vlSelf->rst));
-    bufp->chgIData(oldp+293,(vlSelf->inst),32);
-    bufp->chgIData(oldp+294,(vlSelf->pc),32);
-    bufp->chgIData(oldp+295,(((2U & (IData)(vlSelf->top__DOT__w_sel))
+    bufp->chgBit(oldp+290,(vlSelf->clk));
+    bufp->chgBit(oldp+291,(vlSelf->rst));
+    bufp->chgIData(oldp+292,(vlSelf->inst),32);
+    bufp->chgIData(oldp+293,(vlSelf->pc),32);
+    bufp->chgIData(oldp+294,(((2U & (IData)(vlSelf->top__DOT__w_sel))
                                ? ((1U & (IData)(vlSelf->top__DOT__w_sel))
                                    ? ((4U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                        ? ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
@@ -577,7 +576,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
                                : ((1U & (IData)(vlSelf->top__DOT__w_sel))
                                    ? ((IData)(4U) + vlSelf->pc)
                                    : vlSelf->top__DOT__r_csr_data))),32);
-    bufp->chgIData(oldp+296,(((IData)(4U) + vlSelf->pc)),32);
+    bufp->chgIData(oldp+295,(((IData)(4U) + vlSelf->pc)),32);
 }
 
 void Vtop___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/) {

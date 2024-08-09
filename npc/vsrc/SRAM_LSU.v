@@ -99,10 +99,10 @@ always@(posedge clk)begin
      end
 end
 //AXI memory read
-always@(*)begin
+/* always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
 end
-
+ */
 reg [31:0] counter;
 
 //SRAM读延迟模拟
