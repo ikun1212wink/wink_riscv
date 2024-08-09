@@ -337,7 +337,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBus(c+31,"saxi_awaddr", false,-1, 31,0);
     tracep->declBit(c+289,"saxi_awvalid", false,-1);
     tracep->declBit(c+290,"saxi_awready", false,-1);
-    tracep->declBus(c+322,"saxi_wdata", false,-1, 31,0);
+    tracep->declBus(c+43,"saxi_wdata", false,-1, 31,0);
     tracep->declBit(c+291,"saxi_wvalid", false,-1);
     tracep->declBit(c+292,"saxi_wready", false,-1);
     tracep->declBit(c+293,"saxi_bready", false,-1);
@@ -358,7 +358,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBus(c+31,"saxi_awaddr", false,-1, 31,0);
     tracep->declBit(c+289,"saxi_awvalid", false,-1);
     tracep->declBit(c+290,"saxi_awready", false,-1);
-    tracep->declBus(c+322,"saxi_wdata", false,-1, 31,0);
+    tracep->declBus(c+43,"saxi_wdata", false,-1, 31,0);
     tracep->declBit(c+291,"saxi_wvalid", false,-1);
     tracep->declBit(c+292,"saxi_wready", false,-1);
     tracep->declBit(c+293,"saxi_bready", false,-1);
@@ -983,5 +983,4 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+319,(1U),32);
     bufp->fullIData(oldp+320,(0x27U),32);
     bufp->fullIData(oldp+321,(8U),32);
-    bufp->fullIData(oldp+322,(vlSelf->top__DOT__LSU__DOT__saxi_wdata),32);
 }

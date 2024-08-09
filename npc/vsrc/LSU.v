@@ -150,6 +150,7 @@ always@(posedge clk)begin
     end
 end
 //AXI write data channel
+assign saxi_wdata=mem_wr_data;
 always@(posedge clk)begin
     if(rst)begin
         saxi_wvalid<=1'b0;
