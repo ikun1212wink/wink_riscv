@@ -76,56 +76,96 @@ import "DPI-C" function void pmem_write(
 end */
 
 //AXI read address channel
+reg axi_arvalid;//存放延迟的arvalid信号
 always@(posedge clk)begin
     if(rst)begin
-        saxi_arvalid<=1'b0;
+        axi_arvalid<=1'b0;
     end
     else begin
         if(valid_idu)begin
-            saxi_arvalid<=1'b1;
+            axi_arvalid<=1'b1;
         end
         else if(saxi_arvalid&&saxi_arready)begin
-            saxi_arvalid<=1'b0;
+            axi_arvalid<=1'b0;
         end
         else begin
+            axi_arvalid<=axi_arvalid;
+        end
+    end
+end
+reg [31:0] counter;
+//saxi_arvalid信号延迟模拟
+always@(posedge clk)begin
+    if(rst)begin
+        saxi_arvalid<=1'b1;
+        counter<=32'h0;
+    end
+    else begin
+        if(saxi_arvalid&&saxi_arready)begin
             saxi_arvalid<=1'b0;
+        end
+        else if(valid_idu)begin
+            counter<=32'h3;
+        end
+        else if(counter>1)begin
+            counter<=counter-1;
+        end
+        else if(counter==1)begin
+            counter<=counter-1;
+            saxi_arvalid<=axi_arvalid;
+        end
+        else begin
+            counter<=32'h0;
+            saxi_arvalid<=saxi_arvalid;
         end
     end
 end
 //AXI read data channel
+reg axi_rready;//存放延迟的arvalid信号
 always@(posedge clk)begin
     if(rst)begin
-        saxi_rready<=1'b1;
+        axi_rready<=1'b0;
     end
     else begin
         if(saxi_arvalid && saxi_arready)begin
-            saxi_rready<=1'b1;
+            axi_rready<=1'b1;
         end
         else if(saxi_rvalid && saxi_rready)begin
-            saxi_rready<=1'b0;
+            axi_rready<=1'b0;
         end
         else begin
-            saxi_rready<=1'b0;
+            axi_rready<=axi_rready;
         end        
     end
 end
-
-/* always@(posedge clk)begin
+reg [31:0] counter_rready;
+//saxi_rready信号延迟模拟
+always@(posedge clk)begin
     if(rst)begin
-        finish_2<=1'b0;
+        saxi_rready<=1'b0;
+        counter_rready<=32'h0;
     end
     else begin
-        if(saxi_rvalid && saxi_rready)begin
-            finish_2<=1'b1;
+        if(saxi_rvalid&&saxi_rready)begin
+            saxi_rready<=1'b0;
         end
-        else if(finish_2)begin
-            finish_2<=1'b0;
+        else if(saxi_arvalid && saxi_arready)begin
+            counter_rready<=32'h7;
+        end
+        else if(counter_rready>1)begin
+            counter_rready<=counter_rready-1;
+        end
+        else if(counter_rready==1)begin
+            counter_rready<=counter_rready-1;
+            saxi_rready<=axi_rready;    
         end
         else begin
-            finish_2<=1'b0;
+            counter_rready<=32'h0;
+            saxi_rready<=saxi_rready;
         end
     end
-end */
+end
+
 wire rvalid;
 assign finish_2=rvalid;
 

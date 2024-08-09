@@ -47,17 +47,17 @@ import "DPI-C" function int pmem_read(input int raddr);
 //AXI read address channel
 always@(posedge clk)begin
      if(rst)begin
-          saxi_arready<=1'b0;
+          saxi_arready<=1'b1;
      end
      else begin
           if(saxi_arvalid&&saxi_arready)begin
                saxi_arready<=1'b0;
           end
-          else if(valid_idu)begin
+          else if(saxi_rready&&saxi_rvalid)begin
                saxi_arready<=1'b1;
           end
           else begin
-               saxi_arready<=1'b0;
+               saxi_arready<=saxi_arready;
           end
      end
 end
@@ -94,7 +94,7 @@ always@(posedge clk)begin
                saxi_rvalid<=1'b0;
           end
           else begin
-               saxi_rvalid<=1'b0;
+               saxi_rvalid<=saxi_rvalid;
           end
      end
 end
