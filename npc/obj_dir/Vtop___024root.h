@@ -119,10 +119,6 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__LSU__DOT__mem_move_out;
         IData/*31:0*/ top__DOT__LSU__DOT__counter;
         IData/*31:0*/ top__DOT__LSU__DOT__counter_rready;
-        IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_raddr;
-        IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_data_to_read;
-        IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_rdata;
-        IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__counter;
         IData/*31:0*/ top__DOT__IFU__DOT__saxi_rdata;
         IData/*31:0*/ top__DOT__IFU__DOT__counter;
         IData/*31:0*/ top__DOT__IFU__DOT__counter_rready;
@@ -135,7 +131,6 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mcause;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mstatus;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mtvec;
-        IData/*31:0*/ __Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout;
         IData/*31:0*/ __Vfunc_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read__2__Vfuncout;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
@@ -145,8 +140,6 @@ class Vtop___024root final : public VerilatedModule {
         VlUnpacked<IData/*31:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list;
         VlUnpacked<QData/*38:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list;
-    };
-    struct {
         VlUnpacked<IData/*31:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__data_list;
         VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
     };

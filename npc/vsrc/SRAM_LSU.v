@@ -38,7 +38,7 @@ module ysyx_23060240_SRAM_LSU(
     output saxi_bvalid */
 );
 
-initial begin
+/* initial begin
      axi_raddr=32'h80000000;
 end
 
@@ -124,7 +124,7 @@ always@(posedge clk)begin
           counter<=32'h0;
           rvalid<=1'b0;
      end
-end
+end */
 
 //AXI write address channel
 /* always@(posedge clk)begin
@@ -135,12 +135,11 @@ end
 
      end
 end */
-
 import "DPI-C" function void pmem_write(input int waddr,input int wdata,input byte wmask);
 /* verilator lint_off LATCH */
-/* always@(*)begin
+always@(*)begin
     if(w_en==1)begin
         pmem_write(waddr,wdata,wmask);
     end
-end    */
+end   
 endmodule

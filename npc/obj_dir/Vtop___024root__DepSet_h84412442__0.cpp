@@ -16,18 +16,6 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP
     npc_trap();
 }
 
-extern "C" int pmem_read(int raddr);
-
-VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &pmem_read__Vfuncrtn) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read_TOP\n"); );
-    // Body
-    int raddr__Vcvt;
-    for (size_t raddr__Vidx = 0; raddr__Vidx < 1; ++raddr__Vidx) raddr__Vcvt = raddr;
-    int pmem_read__Vfuncrtn__Vcvt;
-    pmem_read__Vfuncrtn__Vcvt = pmem_read(raddr__Vcvt);
-    pmem_read__Vfuncrtn = pmem_read__Vfuncrtn__Vcvt;
-}
-
 extern "C" void pmem_write(int waddr, int wdata, char wmask);
 
 VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_write_TOP(IData/*31:0*/ waddr, IData/*31:0*/ wdata, CData/*7:0*/ wmask) {
@@ -40,6 +28,18 @@ VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__LSU__DOT__SRAM_LSU__DO
     char wmask__Vcvt;
     for (size_t wmask__Vidx = 0; wmask__Vidx < 1; ++wmask__Vidx) wmask__Vcvt = wmask;
     pmem_write(waddr__Vcvt, wdata__Vcvt, wmask__Vcvt);
+}
+
+extern "C" int pmem_read(int raddr);
+
+VL_INLINE_OPT void Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &pmem_read__Vfuncrtn) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root____Vdpiimwrap_top__DOT__IFU__DOT__SRAM_IFU__DOT__pmem_read_TOP\n"); );
+    // Body
+    int raddr__Vcvt;
+    for (size_t raddr__Vidx = 0; raddr__Vidx < 1; ++raddr__Vidx) raddr__Vcvt = raddr;
+    int pmem_read__Vfuncrtn__Vcvt;
+    pmem_read__Vfuncrtn__Vcvt = pmem_read(raddr__Vcvt);
+    pmem_read__Vfuncrtn = pmem_read__Vfuncrtn__Vcvt;
 }
 
 #ifdef VL_DEBUG
