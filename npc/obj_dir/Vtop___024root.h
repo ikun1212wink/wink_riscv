@@ -92,6 +92,8 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IFU__DOT__saxi_arready;
         CData/*0:0*/ top__DOT__IFU__DOT__saxi_rvalid;
         CData/*0:0*/ top__DOT__IFU__DOT__saxi_rready;
+        CData/*0:0*/ top__DOT__IFU__DOT__axi_arvalid;
+        CData/*0:0*/ top__DOT__IFU__DOT__axi_rready;
         CData/*5:0*/ __Vtableidx1;
         CData/*4:0*/ __Vtableidx2;
         CData/*2:0*/ __Vtableidx3;
@@ -118,6 +120,8 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_rdata;
         IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__counter;
         IData/*31:0*/ top__DOT__IFU__DOT__saxi_rdata;
+        IData/*31:0*/ top__DOT__IFU__DOT__counter;
+        IData/*31:0*/ top__DOT__IFU__DOT__counter_arvalid;
         IData/*31:0*/ top__DOT__IFU__DOT__inst_old;
         IData/*31:0*/ top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_raddr;
         IData/*31:0*/ top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_data_to_read;
