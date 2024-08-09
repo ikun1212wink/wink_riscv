@@ -38,9 +38,9 @@ module ysyx_23060240_SRAM_LSU(
     output saxi_bvalid */
 );
 
-initial begin
+/* initial begin
      axi_raddr=32'h80000000;
-end
+end */
 
 import "DPI-C" function int pmem_read(input int raddr);
 
@@ -69,7 +69,7 @@ always@(posedge clk)begin
      end
      else begin
           if(saxi_arvalid && saxi_arready)begin
-             /*   axi_raddr<=saxi_araddr; */
+               axi_raddr<=saxi_araddr;
           end
           else begin
                axi_raddr<=axi_raddr;
