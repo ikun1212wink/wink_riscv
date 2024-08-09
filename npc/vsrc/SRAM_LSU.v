@@ -38,7 +38,7 @@ module ysyx_23060240_SRAM_LSU(
     output saxi_bvalid */
 );
 
-/* initial begin
+initial begin
      axi_raddr=32'h80000000;
 end
 
@@ -99,9 +99,9 @@ always@(posedge clk)begin
      end
 end
 //AXI memory read
-always@(*)begin
+/* always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
-end
+end */
 
 reg [31:0] counter;
 
@@ -124,7 +124,7 @@ always@(posedge clk)begin
           counter<=32'h0;
           rvalid<=1'b0;
      end
-end */
+end
 
 //AXI write address channel
 /* always@(posedge clk)begin

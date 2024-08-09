@@ -119,6 +119,10 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__LSU__DOT__mem_move_out;
         IData/*31:0*/ top__DOT__LSU__DOT__counter;
         IData/*31:0*/ top__DOT__LSU__DOT__counter_rready;
+        IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_raddr;
+        IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_data_to_read;
+        IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_rdata;
+        IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__counter;
         IData/*31:0*/ top__DOT__IFU__DOT__saxi_rdata;
         IData/*31:0*/ top__DOT__IFU__DOT__counter;
         IData/*31:0*/ top__DOT__IFU__DOT__counter_rready;
@@ -141,6 +145,8 @@ class Vtop___024root final : public VerilatedModule {
         VlUnpacked<QData/*38:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list;
         VlUnpacked<IData/*31:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__data_list;
+    };
+    struct {
         VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
     };
     VlTriggerVec<1> __VstlTriggered;
