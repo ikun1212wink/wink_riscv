@@ -38,7 +38,7 @@ assign funct7=inst[31:25];
 assign funct12=inst[31:20];
 assign sys_funct=inst[31:7];
 
-assign finish_1=valid_ifu && (~is_load_type);
+assign finish_1=valid_ifu && (~is_load_type) && (~is_s_type);
 
 assign valid_idu=valid_ifu && is_load_type;
 
