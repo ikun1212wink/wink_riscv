@@ -407,7 +407,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
             = vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_data_to_read;
         __Vdly__top__DOT__IFU__DOT__saxi_rvalid = 0U;
     } else {
-        __Vdly__top__DOT__IFU__DOT__saxi_rvalid = 0U;
+        __Vdly__top__DOT__IFU__DOT__saxi_rvalid = vlSelf->top__DOT__IFU__DOT__saxi_rvalid;
     }
     vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_data_to_read 
         = vlSelf->__Vfunc_top__DOT__LSU__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout;

@@ -132,7 +132,7 @@ always@(posedge clk)begin
                saxi_rvalid<=1'b0;
           end
           else begin
-               saxi_rvalid<=1'b0;
+               saxi_rvalid<=saxi_rvalid;
           end
      end
 end
