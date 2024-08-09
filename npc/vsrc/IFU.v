@@ -125,7 +125,7 @@ always@(posedge clk)begin
         end
         else if(counter_rready==1)begin
             counter_rready<=counter_rready-1;
-            saxi_rready<=axi_rready;
+            saxi_rready<=axi_rready;    
         end
         else begin
             counter_rready<=32'h0;
