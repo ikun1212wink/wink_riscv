@@ -147,13 +147,13 @@ always@(posedge clk)begin
                w_hand<=1'b1;
           end
           else if(saxi_bready && saxi_bvalid)begin
-               saxi_awready<=1'b1;
+               saxi_wready<=1'b1;
           end
           else if(w_hand && aw_hand)begin
                w_hand<=1'b0;
           end
           else begin
-               saxi_awready<=saxi_awready;
+               saxi_wready<=saxi_wready;
                w_hand<=w_hand;
           end
      end
