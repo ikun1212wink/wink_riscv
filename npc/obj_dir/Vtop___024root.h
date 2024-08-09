@@ -121,7 +121,7 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__counter;
         IData/*31:0*/ top__DOT__IFU__DOT__saxi_rdata;
         IData/*31:0*/ top__DOT__IFU__DOT__counter;
-        IData/*31:0*/ top__DOT__IFU__DOT__counter_arvalid;
+        IData/*31:0*/ top__DOT__IFU__DOT__counter_rready;
         IData/*31:0*/ top__DOT__IFU__DOT__inst_old;
         IData/*31:0*/ top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_raddr;
         IData/*31:0*/ top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_data_to_read;

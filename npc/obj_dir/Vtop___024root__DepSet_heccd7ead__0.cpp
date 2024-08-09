@@ -48,8 +48,8 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     __Vdly__top__DOT__IFU__DOT__axi_rready = 0;
     CData/*0:0*/ __Vdly__top__DOT__IFU__DOT__saxi_rready;
     __Vdly__top__DOT__IFU__DOT__saxi_rready = 0;
-    IData/*31:0*/ __Vdly__top__DOT__IFU__DOT__counter_arvalid;
-    __Vdly__top__DOT__IFU__DOT__counter_arvalid = 0;
+    IData/*31:0*/ __Vdly__top__DOT__IFU__DOT__counter_rready;
+    __Vdly__top__DOT__IFU__DOT__counter_rready = 0;
     CData/*0:0*/ __Vdly__top__DOT__IFU__DOT__saxi_arready;
     __Vdly__top__DOT__IFU__DOT__saxi_arready = 0;
     CData/*0:0*/ __Vdly__top__DOT__IFU__DOT__saxi_rvalid;
@@ -71,7 +71,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     __Vdly__top__DOT__IFU__DOT__saxi_rvalid = vlSelf->top__DOT__IFU__DOT__saxi_rvalid;
     __Vdly__top__DOT__IFU__DOT__counter = vlSelf->top__DOT__IFU__DOT__counter;
     __Vdly__top__DOT__IFU__DOT__saxi_arvalid = vlSelf->top__DOT__IFU__DOT__saxi_arvalid;
-    __Vdly__top__DOT__IFU__DOT__counter_arvalid = vlSelf->top__DOT__IFU__DOT__counter_arvalid;
+    __Vdly__top__DOT__IFU__DOT__counter_rready = vlSelf->top__DOT__IFU__DOT__counter_rready;
     __Vdly__top__DOT__IFU__DOT__saxi_rready = vlSelf->top__DOT__IFU__DOT__saxi_rready;
     __Vdly__top__DOT__LSU__DOT__saxi_arready = vlSelf->top__DOT__LSU__DOT__saxi_arready;
     __Vdly__top__DOT__LSU__DOT__saxi_rvalid = vlSelf->top__DOT__LSU__DOT__saxi_rvalid;
@@ -253,7 +253,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
         __Vdly__top__DOT__IFU__DOT__saxi_arvalid = 1U;
         __Vdly__top__DOT__IFU__DOT__counter = 0U;
         __Vdly__top__DOT__IFU__DOT__saxi_rready = 0U;
-        __Vdly__top__DOT__IFU__DOT__counter_arvalid = 0U;
+        __Vdly__top__DOT__IFU__DOT__counter_rready = 0U;
         vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_raddr = 0x80000000U;
         vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_raddr = 0x80000000U;
         __Vdly__pc = 0x80000000U;
@@ -291,21 +291,21 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
             __Vdly__top__DOT__IFU__DOT__saxi_rready = 0U;
         } else if (((IData)(vlSelf->top__DOT__IFU__DOT__saxi_arvalid) 
                     & (IData)(vlSelf->top__DOT__IFU__DOT__saxi_arready))) {
-            __Vdly__top__DOT__IFU__DOT__counter_arvalid = 4U;
-        } else if ((1U < vlSelf->top__DOT__IFU__DOT__counter)) {
-            __Vdly__top__DOT__IFU__DOT__counter_arvalid 
-                = (vlSelf->top__DOT__IFU__DOT__counter_arvalid 
+            __Vdly__top__DOT__IFU__DOT__counter_rready = 4U;
+        } else if ((1U < vlSelf->top__DOT__IFU__DOT__counter_rready)) {
+            __Vdly__top__DOT__IFU__DOT__counter_rready 
+                = (vlSelf->top__DOT__IFU__DOT__counter_rready 
                    - (IData)(1U));
-        } else if ((1U == vlSelf->top__DOT__IFU__DOT__counter)) {
-            __Vdly__top__DOT__IFU__DOT__counter_arvalid 
-                = (vlSelf->top__DOT__IFU__DOT__counter_arvalid 
+        } else if ((1U == vlSelf->top__DOT__IFU__DOT__counter_rready)) {
+            __Vdly__top__DOT__IFU__DOT__counter_rready 
+                = (vlSelf->top__DOT__IFU__DOT__counter_rready 
                    - (IData)(1U));
             __Vdly__top__DOT__IFU__DOT__saxi_rready 
                 = vlSelf->top__DOT__IFU__DOT__axi_rready;
         } else {
             __Vdly__top__DOT__IFU__DOT__saxi_rready 
                 = vlSelf->top__DOT__IFU__DOT__saxi_rready;
-            __Vdly__top__DOT__IFU__DOT__counter_arvalid = 0U;
+            __Vdly__top__DOT__IFU__DOT__counter_rready = 0U;
         }
         vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_raddr 
             = (((IData)(vlSelf->top__DOT__LSU__DOT__saxi_arvalid) 
@@ -342,9 +342,9 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
         __Vdly__top__DOT__LSU__DOT__SRAM_LSU__DOT__counter = 0U;
         vlSelf->top__DOT__LSU__DOT__rvalid = 0U;
     }
-    vlSelf->top__DOT__IFU__DOT__axi_arvalid = __Vdly__top__DOT__IFU__DOT__axi_arvalid;
-    vlSelf->top__DOT__IFU__DOT__counter_arvalid = __Vdly__top__DOT__IFU__DOT__counter_arvalid;
     vlSelf->top__DOT__IFU__DOT__counter = __Vdly__top__DOT__IFU__DOT__counter;
+    vlSelf->top__DOT__IFU__DOT__axi_arvalid = __Vdly__top__DOT__IFU__DOT__axi_arvalid;
+    vlSelf->top__DOT__IFU__DOT__counter_rready = __Vdly__top__DOT__IFU__DOT__counter_rready;
     vlSelf->top__DOT__IFU__DOT__axi_rready = __Vdly__top__DOT__IFU__DOT__axi_rready;
     vlSelf->top__DOT__CSR__DOT__csr_mcause = __Vdly__top__DOT__CSR__DOT__csr_mcause;
     vlSelf->top__DOT__CSR__DOT__csr_mtvec = __Vdly__top__DOT__CSR__DOT__csr_mtvec;

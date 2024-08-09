@@ -248,7 +248,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+227,"axi_arvalid", false,-1);
     tracep->declBus(c+228,"counter", false,-1, 31,0);
     tracep->declBit(c+229,"axi_rready", false,-1);
-    tracep->declBus(c+230,"counter_arvalid", false,-1, 31,0);
+    tracep->declBus(c+230,"counter_rready", false,-1, 31,0);
     tracep->declBus(c+231,"inst_old", false,-1, 31,0);
     tracep->pushNamePrefix("SRAM_IFU ");
     tracep->declBit(c+288,"clk", false,-1);
@@ -747,7 +747,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+227,(vlSelf->top__DOT__IFU__DOT__axi_arvalid));
     bufp->fullIData(oldp+228,(vlSelf->top__DOT__IFU__DOT__counter),32);
     bufp->fullBit(oldp+229,(vlSelf->top__DOT__IFU__DOT__axi_rready));
-    bufp->fullIData(oldp+230,(vlSelf->top__DOT__IFU__DOT__counter_arvalid),32);
+    bufp->fullIData(oldp+230,(vlSelf->top__DOT__IFU__DOT__counter_rready),32);
     bufp->fullIData(oldp+231,(vlSelf->top__DOT__IFU__DOT__inst_old),32);
     bufp->fullIData(oldp+232,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_raddr),32);
     bufp->fullIData(oldp+233,(vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_data_to_read),32);

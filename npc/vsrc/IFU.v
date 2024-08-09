@@ -106,29 +106,29 @@ always@(posedge clk)begin
         end
     end
 end
-reg [31:0] counter_arvalid;
-//saxi_arvalid信号延迟模拟
+reg [31:0] counter_rready;
+//saxi_rready信号延迟模拟
 always@(posedge clk)begin
     if(rst)begin
         saxi_rready<=1'b0;
-        counter_arvalid<=32'h0;
+        counter_rready<=32'h0;
     end
     else begin
         if(saxi_rvalid&&saxi_rready)begin
             saxi_rready<=1'b0;
         end
         else if(saxi_arvalid && saxi_arready)begin
-            counter_arvalid<=32'h4;
+            counter_rready<=32'h4;
         end
-        else if(counter>1)begin
-            counter_arvalid<=counter_arvalid-1;
+        else if(counter_rready>1)begin
+            counter_rready<=counter_rready-1;
         end
-        else if(counter==1)begin
-            counter_arvalid<=counter_arvalid-1;
+        else if(counter_rready==1)begin
+            counter_rready<=counter_rready-1;
             saxi_rready<=axi_rready;
         end
         else begin
-            counter_arvalid<=32'h0;
+            counter_rready<=32'h0;
             saxi_rready<=saxi_rready;
         end
     end
