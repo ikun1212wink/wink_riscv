@@ -79,25 +79,25 @@ end */
 reg axi_arvalid;//存放延迟的arvalid信号
 always@(posedge clk)begin
     if(rst)begin
-        saxi_arvalid<=1'b0;
+        axi_arvalid<=1'b0;
     end
     else begin
         if(valid_idu)begin
-            saxi_arvalid<=1'b1;
+            axi_arvalid<=1'b1;
         end
         else if(saxi_arvalid&&saxi_arready)begin
-            saxi_arvalid<=1'b0;
+            axi_arvalid<=1'b0;
         end
         else begin
-            saxi_arvalid<=saxi_arvalid;
+            axi_arvalid<=axi_arvalid;
         end
     end
 end
 reg [31:0] counter;
 //saxi_arvalid信号延迟模拟
-/* always@(posedge clk)begin
+always@(posedge clk)begin
     if(rst)begin
-        saxi_arvalid<=1'b1;
+        saxi_arvalid<=1'b0;
         counter<=32'h0;
     end
     else begin
@@ -119,19 +119,19 @@ reg [31:0] counter;
             saxi_arvalid<=saxi_arvalid;
         end
     end
-end */
+end
 //AXI read data channel
 reg axi_rready;//存放延迟的rready信号
 always@(posedge clk)begin
     if(rst)begin
-        saxi_rready<=1'b0;
+        axi_rready<=1'b0;
     end
     else begin
         if(saxi_arvalid && saxi_arready)begin
-            saxi_rready<=1'b1;
+            axi_rready<=1'b1;
         end
         else if(saxi_rvalid && saxi_rready)begin
-            saxi_rready<=1'b0;
+            axi_rready<=1'b0;
         end
         else begin
             axi_rready<=axi_rready;
@@ -140,7 +140,7 @@ always@(posedge clk)begin
 end
 reg [31:0] counter_rready;
 //saxi_rready信号延迟模拟
-/* always@(posedge clk)begin
+always@(posedge clk)begin
     if(rst)begin
         saxi_rready<=1'b0;
         counter_rready<=32'h0;
@@ -164,7 +164,7 @@ reg [31:0] counter_rready;
             saxi_rready<=saxi_rready;
         end
     end
-end */
+end
 
 wire rvalid;
 assign finish_2=rvalid;
