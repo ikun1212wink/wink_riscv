@@ -26,6 +26,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*1:0*/ top__DOT__w_sel;
         CData/*0:0*/ top__DOT__jump_branch;
         CData/*0:0*/ top__DOT__rd_finish;
+        CData/*0:0*/ top__DOT__valid_ifu;
         CData/*0:0*/ top__DOT__valid_idu;
         CData/*0:0*/ top__DOT____Vcellinp__LSU__mem_wr_en;
         CData/*0:0*/ top__DOT____Vcellinp__IFU__finish;
@@ -78,9 +79,9 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgExtracted_hfdabf472__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h57f462a7__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h26e5c323__0;
-        CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h873f971e__0;
     };
     struct {
+        CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h873f971e__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_he69f398c__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_hd3ddd1c8__0;
         CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
@@ -138,7 +139,6 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__IFU__DOT__counter_rready;
         IData/*31:0*/ top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_raddr;
         IData/*31:0*/ top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_data_to_read;
-        IData/*31:0*/ top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_rdata;
         IData/*31:0*/ top__DOT__IFU__DOT__SRAM_IFU__DOT__counter;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mepc;
         IData/*31:0*/ top__DOT__CSR__DOT__csr_mcause;

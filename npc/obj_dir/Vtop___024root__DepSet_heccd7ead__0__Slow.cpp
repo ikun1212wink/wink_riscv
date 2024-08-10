@@ -616,13 +616,13 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     }
     vlSelf->top__DOT____Vcellinp__LSU__mem_wr_en = 
         ((IData)(vlSelf->top__DOT__IDU__DOT__is_s_type) 
-         & (IData)(vlSelf->top__DOT__IFU__DOT__rvalid));
-    vlSelf->top__DOT__valid_idu = ((IData)(vlSelf->top__DOT__IFU__DOT__rvalid) 
+         & (IData)(vlSelf->top__DOT__valid_ifu));
+    vlSelf->top__DOT__valid_idu = ((IData)(vlSelf->top__DOT__valid_ifu) 
                                    & (IData)(vlSelf->top__DOT__IDU__DOT__is_load_type));
     vlSelf->top__DOT____Vcellinp__CSR__finish = (((~ 
                                                    ((IData)(vlSelf->top__DOT__IDU__DOT__is_load_type) 
                                                     | (IData)(vlSelf->top__DOT__IDU__DOT__is_s_type))) 
-                                                  & (IData)(vlSelf->top__DOT__IFU__DOT__rvalid)) 
+                                                  & (IData)(vlSelf->top__DOT__valid_ifu)) 
                                                  | (IData)(vlSelf->top__DOT__rd_finish));
     vlSelf->top__DOT__r_csr_data = (((0x300U == (vlSelf->top__DOT__IFU__DOT__saxi_rdata 
                                                  >> 0x14U)) 
@@ -2010,6 +2010,7 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__jump_branch = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__imm_out = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__rd_finish = VL_RAND_RESET_I(1);
+    vlSelf->top__DOT__valid_ifu = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__valid_idu = VL_RAND_RESET_I(1);
     vlSelf->top__DOT____Vcellinp__LSU__mem_wr_en = VL_RAND_RESET_I(1);
     vlSelf->top__DOT____Vcellinp__IFU__finish = VL_RAND_RESET_I(1);
@@ -2130,7 +2131,6 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__IFU__DOT__counter_rready = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_raddr = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_data_to_read = VL_RAND_RESET_I(32);
-    vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__axi_rdata = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__IFU__DOT__SRAM_IFU__DOT__counter = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__CSR__DOT__csr_mepc = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__CSR__DOT__csr_mcause = VL_RAND_RESET_I(32);

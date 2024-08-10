@@ -4,7 +4,7 @@ module ysyx_23060240_IFU(
     input jump_en,
     input [31:0] jump_pc,
     input finish,
-    output valid_ifu,
+    output reg valid_ifu,
     output reg [31:0] pc,
     output [31:0] inst
 );
@@ -90,6 +90,7 @@ reg axi_rready;//存放延迟的rready信号
 always@(posedge clk)begin
     if(rst)begin
         axi_rready<=1'b0;
+        valid_ifu<=1'b0;
     end
     else begin
         if(saxi_arvalid && saxi_arready)begin
@@ -97,12 +98,11 @@ always@(posedge clk)begin
         end
         else if(saxi_rvalid&&saxi_rready)begin
             axi_rready<=1'b0;
+            valid_ifu<=1'b1;
         end
-/*         if(saxi_rvalid && saxi_rready)begin
-            saxi_rready<=1'b0;
-        end */
         else begin
             axi_rready<=axi_rready;
+            valid_ifu<=1'b0;
         end
     end
 end
@@ -136,7 +136,7 @@ end
 
 
 assign inst=saxi_rdata;
-assign valid_ifu=rvalid;
+//assign valid_ifu=rvalid;
 
 /* always@(posedge clk)begin
     if(rst)begin

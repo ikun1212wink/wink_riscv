@@ -116,10 +116,10 @@ end */
 
 //AXI read data channel
 reg [31:0] axi_data_to_read;//读数据选择
-reg [31:0] axi_rdata;//存放读出的数据
+//reg [31:0] axi_rdata;//存放读出的数据
 always@(posedge clk)begin
      if(rst)begin
-          axi_rdata<=32'h0;
+         // axi_rdata<=32'h0;
           saxi_rdata<=32'h0;
           saxi_rvalid<=1'b0;
      end
@@ -128,7 +128,7 @@ always@(posedge clk)begin
                saxi_rvalid<=1'b1;
           end
           else if(saxi_rvalid && saxi_rready)begin
-               axi_rdata<=axi_data_to_read;
+               saxi_rdata<=axi_data_to_read;
                saxi_rvalid<=1'b0;
           end
           else begin
@@ -144,7 +144,7 @@ end
 reg [31:0] counter;
 
 //SRAM读延迟模拟
-always@(posedge clk)begin
+/* always@(posedge clk)begin
      if(saxi_rvalid && saxi_rready)begin
           counter<=32'h10;
           rvalid<=1'b0;
@@ -162,5 +162,5 @@ always@(posedge clk)begin
           counter<=32'h0;
           rvalid<=1'b0;
      end
-end
+end */
 endmodule
