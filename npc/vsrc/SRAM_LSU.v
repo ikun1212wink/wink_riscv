@@ -1,11 +1,7 @@
 module ysyx_23060240_SRAM_LSU(
     input clk,
     input rst,
-  //  input [31:0] waddr,
     input [7:0] wmask,
-  //  input w_en,
- //   input [31:0] wdata,
-    input valid_idu,
 
     //read address channel
     input [31:0] saxi_araddr,
@@ -70,13 +66,13 @@ always@(posedge clk)begin
 end
 //AXI read data channel
 reg [31:0] axi_data_to_read;//读数据选择
-reg [31:0] axi_rdata;//暂时存放读出的数据
+//reg [31:0] axi_rdata;//暂时存放读出的数据
 always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
 end
 always@(posedge clk)begin
      if(rst)begin
-          axi_rdata<=32'h0;
+          //axi_rdata<=32'h0;
           saxi_rdata<=32'h0;
           saxi_rvalid<=1'b0;
      end
@@ -85,14 +81,37 @@ always@(posedge clk)begin
                saxi_rvalid<=1'b1;
           end
           else if(saxi_rvalid && saxi_rready)begin
-               axi_rdata<=axi_data_to_read;
+               //axi_rdata<=axi_data_to_read;
+               saxi_rdata<=axi_data_to_read;
                saxi_rvalid<=1'b0;
+               rvalid<=1'b1;
           end
           else begin
                saxi_rvalid<=saxi_rvalid;
           end
      end
 end
+//SRAM读延迟模拟
+/* reg [31:0] counter;
+always@(posedge clk)begin
+     if(saxi_rvalid && saxi_rready)begin
+          counter<=32'h5;
+          rvalid<=1'b0a;
+     end
+     else if(counter>1)begin
+          counter<=counter-1;
+          rvalid<=1'b0;
+     end
+     else if(counter==1)begin
+          counter<=counter-1;
+          saxi_rdata<=axi_rdata;
+          rvalid<=1'b1;
+     end
+     else begin
+          counter<=32'h0;
+          rvalid<=1'b0;
+     end
+end */
 //AXI write address channel
 reg aw_hand;//aw握手标志
 always@(posedge clk)begin
@@ -189,29 +208,9 @@ always@(posedge clk)begin
           end
      end
 end
-//SRAM读延迟模拟
-reg [31:0] counter;
-always@(posedge clk)begin
-     if(saxi_rvalid && saxi_rready)begin
-          counter<=32'h5;
-          rvalid<=1'b0;
-     end
-     else if(counter>1)begin
-          counter<=counter-1;
-          rvalid<=1'b0;
-     end
-     else if(counter==1)begin
-          counter<=counter-1;
-          saxi_rdata<=axi_rdata;
-          rvalid<=1'b1;
-     end
-     else begin
-          counter<=32'h0;
-          rvalid<=1'b0;
-     end
-end
 
-//读SRAM模拟
+
+//写SRAM模拟
 /* verilator lint_off LATCH */
 always@(*)begin
     if(w_hand && aw_hand)begin

@@ -11,22 +11,44 @@ module ysyx_23060240_LSU(
 
     input valid_idu,
     output wr_finish,
-    output rd_finish
+    output rd_finish,
+
+    //read address channel signal
+    output [31:0] lsu_araddr,
+    output reg lsu_arvalid,
+    input lsu_arready,
+    //read data channel signal
+    output lsu_rready,
+    input lsu_rvalid,
+    input [31:0] lsu_rdata,
+    input reg l_rvalid,
+    //write address channel
+    output [31:0] lsu_awaddr,
+    output reg lsu_awvalid,
+    input lsu_awready,
+    //write data channel
+    output [31:0] lsu_wdata,
+    output reg lsu_wvalid,
+    input lsu_wready,    
+    //write response channel
+    output reg lsu_bready,
+    input lsu_bvalid
+
 );
 
 //read address channel signal
-wire [31:0] saxi_araddr;//addr    input [31:0] mem_rd_addr,
-reg saxi_arvalid;
-wire saxi_arready;
-assign saxi_araddr=mem_rd_addr;
+/* wire [31:0] lsu_araddr;//addr    input [31:0] mem_rd_addr,
+reg lsu_arvalid;
+wire lsu_arready; */
+assign lsu_araddr=mem_rd_addr;
 //read data channel signal
-wire saxi_rvalid; 
-wire [31:0] saxi_rdata;//rdata   output reg [31:0] mem_rd_data
-reg saxi_rready;
+/* wire lsu_rvalid; 
+wire [31:0] lsu_rdata;//rdata   output reg [31:0] mem_rd_data
+reg lsu_rready; */
 reg [31:0] mem_move_out;
 reg [31:0] mem_out;
 always@(*)begin
-    mem_out=saxi_rdata;
+    mem_out=lsu_rdata;
 end
 
 //AXI read address channel
@@ -39,7 +61,7 @@ always@(posedge clk)begin
         if(valid_idu)begin
             axi_arvalid<=1'b1;
         end
-        else if(saxi_arvalid&&saxi_arready)begin
+        else if(lsu_arvalid&&lsu_arready)begin
             axi_arvalid<=1'b0;
         end
         else begin
@@ -47,16 +69,16 @@ always@(posedge clk)begin
         end
     end
 end
-//saxi_arvalid信号延迟模拟
+//lsu_arvalid信号延迟模拟
 reg [31:0] counter;
 always@(posedge clk)begin
     if(rst)begin
-        saxi_arvalid<=1'b0;
+        lsu_arvalid<=1'b0;
         counter<=32'h0;
     end
     else begin
-        if(saxi_arvalid&&saxi_arready)begin
-            saxi_arvalid<=1'b0;
+        if(lsu_arvalid&&lsu_arready)begin
+            lsu_arvalid<=1'b0;
         end
         else if(valid_idu)begin
             counter<=32'h3;
@@ -66,11 +88,11 @@ always@(posedge clk)begin
         end
         else if(counter==1)begin
             counter<=counter-1;
-            saxi_arvalid<=axi_arvalid;
+            lsu_arvalid<=axi_arvalid;
         end
         else begin
             counter<=32'h0;
-            saxi_arvalid<=saxi_arvalid;
+            lsu_arvalid<=lsu_arvalid;
         end
     end
 end
@@ -81,10 +103,10 @@ always@(posedge clk)begin
         axi_rready<=1'b0;
     end
     else begin
-        if(saxi_arvalid && saxi_arready)begin
+        if(lsu_arvalid && lsu_arready)begin
             axi_rready<=1'b1;
         end
-        else if(saxi_rvalid && saxi_rready)begin
+        else if(lsu_rvalid && lsu_rready)begin
             axi_rready<=1'b0;
         end
         else begin
@@ -92,18 +114,18 @@ always@(posedge clk)begin
         end        
     end
 end
-//saxi_rready信号延迟模拟
+//lsu_rready信号延迟模拟
 reg [31:0] counter_rready;
 always@(posedge clk)begin
     if(rst)begin
-        saxi_rready<=1'b0;
+        lsu_rready<=1'b0;
         counter_rready<=32'h0;
     end
     else begin
-        if(saxi_rvalid&&saxi_rready)begin
-            saxi_rready<=1'b0;
+        if(lsu_rvalid&&lsu_rready)begin
+            lsu_rready<=1'b0;
         end
-        else if(saxi_arvalid && saxi_arready)begin
+        else if(lsu_arvalid && lsu_arready)begin
             counter_rready<=32'h7;
         end
         else if(counter_rready>1)begin
@@ -111,59 +133,61 @@ always@(posedge clk)begin
         end
         else if(counter_rready==1)begin
             counter_rready<=counter_rready-1;
-            saxi_rready<=axi_rready;    
+            lsu_rready<=axi_rready;    
         end
         else begin
             counter_rready<=32'h0;
-            saxi_rready<=saxi_rready;
+            lsu_rready<=lsu_rready;
         end
     end
 end
 //write address channel signal
-wire [31:0] saxi_awaddr;
-reg saxi_awvalid;
-wire saxi_awready;
-assign saxi_awaddr=mem_wr_addr;
+/* wire [31:0] lsu_awaddr;
+reg lsu_awvalid;
+wire lsu_awready; */
+assign lsu_awaddr=mem_wr_addr;
+
 //wire data channel signal
-wire [31:0] saxi_wdata;
-reg saxi_wvalid;
-wire saxi_wready;
+/* wire [31:0] lsu_wdata;
+reg lsu_wvalid;
+wire lsu_wready; */
+
 //wire respone channel signal
-reg saxi_bready;
-wire saxi_bvalid;
+/* reg lsu_bready;
+wire lsu_bvalid; */
 
 //AXI write address channel
 always@(posedge clk)begin
     if(rst)begin
-        saxi_awvalid<=1'b0;
+        lsu_awvalid<=1'b0;
     end
     else begin
         if(mem_wr_en)begin
-            saxi_awvalid<=1'b1;
+            lsu_awvalid<=1'b1;
         end
-        else if(saxi_awvalid&&saxi_awready)begin
-            saxi_awvalid<=1'b0;
+        else if(lsu_awvalid&&lsu_awready)begin
+            lsu_awvalid<=1'b0;
         end
         else begin
-            saxi_awvalid<=saxi_awvalid;
+            lsu_awvalid<=lsu_awvalid;
         end
     end
 end
 //AXI write data channel
-assign saxi_wdata=mem_wr_data;
+assign lsu_wdata=mem_wr_data;
 always@(posedge clk)begin
     if(rst)begin
-        saxi_wvalid<=1'b0;
+        lsu_wvalid<=1'b0;
     end
     else begin
         if(mem_wr_en)begin
-            saxi_wvalid<=1'b1;
+            lsu_wvalid<=1'b1;
         end
-        else if(saxi_wvalid&&saxi_wready)begin
-            saxi_wvalid<=1'b0;
+        else if(lsu_wvalid&&lsu_wready)begin
+            lsu_wvalid<=1'b0;
         end
         else begin
-            saxi_wvalid<=saxi_wvalid;
+            lsu_wvalid<=lsu_wvalid;
         end
     end
 end
@@ -171,20 +195,20 @@ end
 //默认一直能接收写完成响应
 always@(posedge clk)begin
     if(rst)begin
-        saxi_bready<=1'b1;
+        lsu_bready<=1'b1;
     end
     else begin
-        saxi_bready<=1'b1;
+        lsu_bready<=1'b1;
     end
 end
 
 //the inst execute end signal 
-assign wr_finish=(saxi_bready && saxi_bvalid) ? 1:0;
-wire rvalid;
+assign wr_finish=(lsu_bready && lsu_bvalid) ? 1:0;
+//wire rvalid;
 assign rd_finish=rvalid;
 
 
-
+/* 
 ysyx_23060240_SRAM_LSU SRAM_LSU(
     .clk(clk),
     .rst(rst),
@@ -194,21 +218,21 @@ ysyx_23060240_SRAM_LSU SRAM_LSU(
    // .w_en(mem_wr_en),
    // .wdata(mem_wr_data),
     .valid_idu(valid_idu),
-    .saxi_araddr(saxi_araddr),
-    .saxi_arvalid(saxi_arvalid),
-    .saxi_arready(saxi_arready),
-    .saxi_rready(saxi_rready),
-    .saxi_rvalid(saxi_rvalid),
-    .saxi_rdata(saxi_rdata),
-    .saxi_awaddr(saxi_awaddr),
-    .saxi_awvalid(saxi_awvalid),
-    .saxi_awready(saxi_awready),
-    .saxi_wdata(saxi_wdata),
-    .saxi_wvalid(saxi_wvalid),
-    .saxi_wready(saxi_wready),
-    .saxi_bready(saxi_bready),
-    .saxi_bvalid(saxi_bvalid)
-);
+    .lsu_araddr(lsu_araddr),
+    .lsu_arvalid(lsu_arvalid),
+    .lsu_arready(lsu_arready),
+    .lsu_rready(lsu_rready),
+    .lsu_rvalid(lsu_rvalid),
+    .lsu_rdata(lsu_rdata),
+    .lsu_awaddr(lsu_awaddr),
+    .lsu_awvalid(lsu_awvalid),
+    .lsu_awready(lsu_awready),
+    .lsu_wdata(lsu_wdata),
+    .lsu_wvalid(lsu_wvalid),
+    .lsu_wready(lsu_wready),
+    .lsu_bready(lsu_bready),
+    .lsu_bvalid(lsu_bvalid)
+); */
 
 
 always@(*)begin
