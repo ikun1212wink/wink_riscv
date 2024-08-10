@@ -69,26 +69,29 @@ always@(posedge clk)begin
 end
 //AXI read data channel
 reg [31:0] axi_data_to_read;//读数据选择
-reg [31:0] axi_rdata;//暂时存放读出的数据
+//reg [31:0] axi_rdata;//暂时存放读出的数据
 always@(*)begin
      axi_data_to_read=pmem_read(axi_raddr);
 end
 always@(posedge clk)begin
      if(rst)begin
-          axi_rdata<=32'h0;
+  //        axi_rdata<=32'h0;
           saxi_rdata<=32'h0;
           saxi_rvalid<=1'b0;
+          rvalid<=1'b0;
      end
      else begin
           if(saxi_arvalid && saxi_arready)begin
                saxi_rvalid<=1'b1;
           end
           else if(saxi_rvalid && saxi_rready)begin
-               axi_rdata<=axi_data_to_read;
+               saxi_rdata<=axi_data_to_read;
                saxi_rvalid<=1'b0;
+               rvalid<=1'b1;
           end
           else begin
                saxi_rvalid<=saxi_rvalid;
+               rvalid<=1'b0;
           end
      end
 end
@@ -189,7 +192,7 @@ always@(posedge clk)begin
      end
 end
 //SRAM读延迟模拟
-reg [31:0] counter;
+/* reg [31:0] counter;
 always@(posedge clk)begin
      if(saxi_rvalid && saxi_rready)begin
           counter<=32'h5;
@@ -208,7 +211,7 @@ always@(posedge clk)begin
           counter<=32'h0;
           rvalid<=1'b0;
      end
-end
+end */
 
 //读SRAM模拟
 /* verilator lint_off LATCH */

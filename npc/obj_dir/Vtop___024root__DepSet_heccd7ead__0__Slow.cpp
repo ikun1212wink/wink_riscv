@@ -2114,12 +2114,10 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__LSU__DOT__rvalid = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_raddr = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_data_to_read = VL_RAND_RESET_I(32);
-    vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_rdata = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__aw_hand = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_waddr = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__w_hand = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__axi_wdata = VL_RAND_RESET_I(32);
-    vlSelf->top__DOT__LSU__DOT__SRAM_LSU__DOT__counter = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__IFU__DOT__rvalid = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__IFU__DOT__saxi_arvalid = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__IFU__DOT__saxi_arready = VL_RAND_RESET_I(1);
