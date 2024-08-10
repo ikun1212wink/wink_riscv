@@ -9,7 +9,7 @@ module ysyx_23060240_ARB(
     //read data channel
     input ifu_rready,
     output ifu_rvalid,
-    output [31:0] ifu_rdata,
+    output reg [31:0] ifu_rdata,
     //write address channel
     input [31:0] ifu_awaddr,
     input ifu_awvalid,
@@ -30,7 +30,7 @@ module ysyx_23060240_ARB(
     //read data channel
     input lsu_rready,
     output lsu_rvalid,
-    output [31:0] lsu_rdata,
+    output reg [31:0] lsu_rdata,
     //write address channel
     input [31:0] lsu_awaddr,
     input lsu_awvalid,
@@ -127,8 +127,20 @@ assign lsu_rvalid = (state == 2'b01) ? saxi_rvalid : 1'b0;
 /* assign saxi_rdata = (state == 2'b00) ? ifu_rdata : 
                      (state == 2'b01) ? lsu_rdata :
                      (state == 2'b10) ? lsu_rdata : ;  */
-assign ifu_rdata = (state == 2'b00) ? saxi_rdata : 32'h0;
-assign lsu_rdata = (state == 2'b01) ? saxi_rdata : 32'h0;
+initial begin
+    ifu_rdata=0;
+    lsu_rdata=0;
+end
+always@(*)begin
+    case(state)
+        2'b00:
+            ifu_rdata=saxi_rdata;
+        2'b01:
+            lsu_rdata=saxi_rdata;
+        default: ;
+
+    endcase
+end
 
 /* assign rvalid = (state == 2'b00) ? ifu_rvalid : 
                      (state == 2'b01) ? lsu_rvalid :
