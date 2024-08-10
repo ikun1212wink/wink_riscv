@@ -193,7 +193,6 @@ ysyx_23060240_SRAM_LSU SRAM_LSU(
     .wmask(memory_wr_ctrl),
    // .w_en(mem_wr_en),
    // .wdata(mem_wr_data),
-    .valid_idu(valid_idu),
     .saxi_araddr(saxi_araddr),
     .saxi_arvalid(saxi_arvalid),
     .saxi_arready(saxi_arready),

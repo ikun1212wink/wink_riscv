@@ -5,7 +5,6 @@ module ysyx_23060240_SRAM_LSU(
     input [7:0] wmask,
   //  input w_en,
  //   input [31:0] wdata,
-    input valid_idu,
 
     //read address channel
     input [31:0] saxi_araddr,

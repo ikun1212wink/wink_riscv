@@ -347,7 +347,6 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+303,"clk", false,-1);
     tracep->declBit(c+304,"rst", false,-1);
     tracep->declBus(c+37,"wmask", false,-1, 7,0);
-    tracep->declBit(c+56,"valid_idu", false,-1);
     tracep->declBus(c+31,"saxi_araddr", false,-1, 31,0);
     tracep->declBit(c+279,"saxi_arvalid", false,-1);
     tracep->declBit(c+280,"saxi_arready", false,-1);
