@@ -367,9 +367,6 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
         vlSelf->top__DOT__rd_finish = 0U;
         vlSelf->top__DOT__valid_ifu = 0U;
         __Vdly__top__DOT__ARB__DOT__arb_ready = 1U;
-        vlSelf->top__DOT__saxi_araddr = 0x80000000U;
-        __Vdly__top__DOT__saxi_arvalid = 0U;
-        __Vdly__top__DOT__saxi_rready = 0U;
         vlSelf->top__DOT__saxi_rdata = 0U;
         __Vdly__top__DOT__saxi_rvalid = 0U;
     } else {

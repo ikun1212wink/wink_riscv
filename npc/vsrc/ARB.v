@@ -69,9 +69,6 @@ reg arb_ready;
 always@(posedge clk)begin
     if(rst)begin
         arb_ready<=1'b1;
-        saxi_araddr<=32'h80000000;
-        saxi_arvalid<=1'b0;
-        saxi_rready<=1'b0;
     end
     else begin
         if(arb_ready && ifu_arvalid)begin //ifu主设备有效
