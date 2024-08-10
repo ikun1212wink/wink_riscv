@@ -25,6 +25,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*7:0*/ top__DOT__memory_wr_ctrl;
         CData/*1:0*/ top__DOT__w_sel;
         CData/*0:0*/ top__DOT__jump_branch;
+        CData/*0:0*/ top__DOT__rd_finish;
         CData/*0:0*/ top__DOT__valid_idu;
         CData/*0:0*/ top__DOT____Vcellinp__LSU__mem_wr_en;
         CData/*0:0*/ top__DOT____Vcellinp__IFU__finish;
@@ -78,9 +79,9 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h57f462a7__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h26e5c323__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_h873f971e__0;
-        CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_he69f398c__0;
     };
     struct {
+        CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_he69f398c__0;
         CData/*0:0*/ top__DOT__IDU__DOT____VdfgTmp_hd3ddd1c8__0;
         CData/*0:0*/ top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit;
         CData/*0:0*/ top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__hit;
@@ -96,7 +97,6 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__LSU__DOT__saxi_wready;
         CData/*0:0*/ top__DOT__LSU__DOT__saxi_bready;
         CData/*0:0*/ top__DOT__LSU__DOT__saxi_bvalid;
-        CData/*0:0*/ top__DOT__LSU__DOT__rvalid;
         CData/*0:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__aw_hand;
         CData/*0:0*/ top__DOT__LSU__DOT__SRAM_LSU__DOT__w_hand;
         CData/*0:0*/ top__DOT__IFU__DOT__rvalid;

@@ -15,7 +15,7 @@ module ysyx_23060240_SRAM_LSU(
     input saxi_rready,
     output reg saxi_rvalid,
     output [31:0] saxi_rdata,
-    output reg rvalid,
+  //  output reg rvalid,
 
     //write address channel
     input [31:0] saxi_awaddr,
@@ -78,7 +78,7 @@ always@(posedge clk)begin
   //        axi_rdata<=32'h0;
           saxi_rdata<=32'h0;
           saxi_rvalid<=1'b0;
-          rvalid<=1'b0;
+          //rvalid<=1'b0;
      end
      else begin
           if(saxi_arvalid && saxi_arready)begin
@@ -87,11 +87,11 @@ always@(posedge clk)begin
           else if(saxi_rvalid && saxi_rready)begin
                saxi_rdata<=axi_data_to_read;
                saxi_rvalid<=1'b0;
-               rvalid<=1'b1;
+              // rvalid<=1'b1;
           end
           else begin
                saxi_rvalid<=saxi_rvalid;
-               rvalid<=1'b0;
+              // rvalid<=1'b0;
           end
      end
 end

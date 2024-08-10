@@ -342,7 +342,6 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+292,"saxi_wready", false,-1);
     tracep->declBit(c+293,"saxi_bready", false,-1);
     tracep->declBit(c+294,"saxi_bvalid", false,-1);
-    tracep->declBit(c+54,"rvalid", false,-1);
     tracep->pushNamePrefix("SRAM_LSU ");
     tracep->declBit(c+301,"clk", false,-1);
     tracep->declBit(c+302,"rst", false,-1);
@@ -353,7 +352,6 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+283,"saxi_rready", false,-1);
     tracep->declBit(c+281,"saxi_rvalid", false,-1);
     tracep->declBus(c+282,"saxi_rdata", false,-1, 31,0);
-    tracep->declBit(c+54,"rvalid", false,-1);
     tracep->declBus(c+31,"saxi_awaddr", false,-1, 31,0);
     tracep->declBit(c+289,"saxi_awvalid", false,-1);
     tracep->declBit(c+290,"saxi_awready", false,-1);
@@ -500,7 +498,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
                             & (IData)(vlSelf->top__DOT__IFU__DOT__rvalid))));
     bufp->fullBit(oldp+53,(((IData)(vlSelf->top__DOT__LSU__DOT__saxi_bready) 
                             & (IData)(vlSelf->top__DOT__LSU__DOT__saxi_bvalid))));
-    bufp->fullBit(oldp+54,(vlSelf->top__DOT__LSU__DOT__rvalid));
+    bufp->fullBit(oldp+54,(vlSelf->top__DOT__rd_finish));
     bufp->fullBit(oldp+55,(vlSelf->top__DOT__IFU__DOT__rvalid));
     bufp->fullBit(oldp+56,(vlSelf->top__DOT__valid_idu));
     bufp->fullIData(oldp+57,((vlSelf->top__DOT__ALU__DOT__signed_a 

@@ -11,7 +11,7 @@ module ysyx_23060240_LSU(
 
     input valid_idu,
     output wr_finish,
-    output rd_finish
+    output reg rd_finish
 );
 
 //read address channel signal
@@ -79,6 +79,7 @@ reg axi_rready;//存放延迟的rready信号
 always@(posedge clk)begin
     if(rst)begin
         axi_rready<=1'b0;
+        rd_finish<=1'b0;
     end
     else begin
         if(saxi_arvalid && saxi_arready)begin
@@ -86,9 +87,11 @@ always@(posedge clk)begin
         end
         else if(saxi_rvalid && saxi_rready)begin
             axi_rready<=1'b0;
+            rd_finish<=1'b1;
         end
         else begin
             axi_rready<=axi_rready;
+            rd_finish<=1'b0;
         end        
     end
 end
@@ -180,15 +183,14 @@ end
 
 //the inst execute end signal 
 assign wr_finish=(saxi_bready && saxi_bvalid) ? 1:0;
-wire rvalid;
-assign rd_finish=rvalid;
+
 
 
 
 ysyx_23060240_SRAM_LSU SRAM_LSU(
     .clk(clk),
     .rst(rst),
-    .rvalid(rvalid),
+   // .rvalid(rvalid),
    // .waddr(mem_wr_addr),
     .wmask(memory_wr_ctrl),
    // .w_en(mem_wr_en),
