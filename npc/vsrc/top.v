@@ -104,13 +104,6 @@ ysyx_23060240_GPR GPR(
     .rs2_data(rs2_data)
 );
 
-/* ysyx_23060240_pc Pc(
-    .clk(clk),
-    .rst(rst),
-    .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
-    .jump_pc(jump_pc),
-    .pc(pc)
-); */
 
 ysyx_23060240_ALU ALU(
     .SrcA(alu_a),
@@ -131,11 +124,52 @@ ysyx_23060240_BSU BSU(
     .jump_branch(jump_branch)
 );
 
+wire [31:0] ifu_araddr;
+wire ifu_arvalid;
+wire ifu_arready;
+wire ifu_rready;
+wire ifu_rvalid;
+wire [31:0] ifu_rdata;
+wire [31:0] ifu_awaddr;
+wire ifu_awvalid;
+wire ifu_awready;
+wire [31:0] ifu_wdata;
+wire ifu_wvalid;
+wire ifu_wready;  
+wire ifu_bready;
+wire ifu_bvalid;
 
-ysyx_23060240_LSU LSU(
-    .valid_idu(valid_idu),
-    .rd_finish(rd_finish),
-    .wr_finish(wr_finish),
+wire [31:0] lsu_araddr;
+wire lsu_arvalid;
+wire lsu_arready;
+wire lsu_rready;
+wire lsu_rvalid;
+wire [31:0] lsu_rdata;
+wire [31:0] lsu_awaddr;
+wire lsu_awvalid;
+wire lsu_awready;
+wire [31:0] lsu_wdata;
+wire lsu_wvalid;
+wire lsu_wready;  
+wire lsu_bready;
+wire lsu_bvalid;
+
+wire [31:0] saxi_araddr;
+wire saxi_arvalid;
+wire saxi_arready;
+wire saxi_rready;
+wire saxi_rvalid;
+wire [31:0] saxi_rdata;
+wire [31:0] saxi_awaddr;
+wire saxi_awvalid;
+wire saxi_awready;
+wire [31:0] saxi_wdata;
+wire saxi_wvalid;
+wire saxi_wready;  
+wire saxi_bready;
+wire saxi_bvalid;
+
+ysyx_23060240_LSU LSU(    
     .clk(clk),
     .rst(rst),
     .mem_wr_en(mem_wr_en&&valid_ifu),
@@ -144,18 +178,126 @@ ysyx_23060240_LSU LSU(
     .mem_wr_data(rs2_data),
     .mem_rd_addr(alu_out),
     .mem_wr_addr(alu_out),
-    .mem_rd_data(mem_rd_data)
+    .mem_rd_data(mem_rd_data),
+
+    .valid_idu(valid_idu),
+    .rd_finish(rd_finish),
+    .wr_finish(wr_finish),
+
+    .lsu_araddr(lsu_araddr),
+    .lsu_arvalid(lsu_arvalid),   
+    .lsu_arready(lsu_arready),
+    .lsu_rready(lsu_rready),
+    .lsu_rvalid(lsu_rvalid),
+    .lsu_rdata(lsu_rdata),
+    .lsu_awaddr(lsu_awaddr),
+    .lsu_awvalid(lsu_awvalid),
+    .lsu_awready(lsu_awready),
+    .lsu_wdata(lsu_wdata),
+    .lsu_wvalid(lsu_wvalid),
+    .lsu_wready(lsu_wready),    
+    .lsu_bready(lsu_bready),
+    .lsu_bvalid(lsu_bvalid)
+
 );
+
 
 ysyx_23060240_IFU IFU(
     .clk(clk),
-    .pc(pc),
-    .rst(rst),
+    .rst(rst),    
+
+    .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
+    .jump_pc(jump_pc),    
     .finish(finish_1||rd_finish||wr_finish),
     .valid_ifu(valid_ifu),
-    .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
-    .jump_pc(jump_pc),
-    .inst(inst)
+    .pc(pc),
+    .inst(inst),
+
+    .ifu_araddr(ifu_araddr),
+    .ifu_arvalid(ifu_arvalid),   
+    .ifu_arready(ifu_arready),
+    .ifu_rready(ifu_rready),
+    .ifu_rvalid(ifu_rvalid),
+    .ifu_rdata(ifu_rdata),
+    .ifu_awaddr(ifu_awaddr),
+    .ifu_awvalid(ifu_awvalid),
+    .ifu_awready(ifu_awready),
+    .ifu_wdata(ifu_wdata),
+    .ifu_wvalid(ifu_wvalid),
+    .ifu_wready(ifu_wready),    
+    .ifu_bready(ifu_bready),
+    .ifu_bvalid(ifu_bvalid) 
+);
+
+ysyx_23060240_ARB ARB(
+    .clk(clk),
+    .rst(rst),
+
+    .ifu_araddr(ifu_araddr),
+    .ifu_arvalid(ifu_arvalid),   
+    .ifu_arready(ifu_arready),
+    .ifu_rready(ifu_rready),
+    .ifu_rvalid(ifu_rvalid),
+    .ifu_rdata(ifu_rdata),
+    .ifu_awaddr(ifu_awaddr),
+    .ifu_awvalid(ifu_awvalid),
+    .ifu_awready(ifu_awready),
+    .ifu_wdata(ifu_wdata),
+    .ifu_wvalid(ifu_wvalid),
+    .ifu_wready(ifu_wready),    
+    .ifu_bready(ifu_bready),
+    .ifu_bvalid(ifu_bvalid),
+
+    .lsu_araddr(lsu_araddr),
+    .lsu_arvalid(lsu_arvalid),   
+    .lsu_arready(lsu_arready),
+    .lsu_rready(lsu_rready),
+    .lsu_rvalid(lsu_rvalid),
+    .lsu_rdata(lsu_rdata),
+    .lsu_awaddr(lsu_awaddr),
+    .lsu_awvalid(lsu_awvalid),
+    .lsu_awready(lsu_awready),
+    .lsu_wdata(lsu_wdata),
+    .lsu_wvalid(lsu_wvalid),
+    .lsu_wready(lsu_wready),    
+    .lsu_bready(lsu_bready),
+    .lsu_bvalid(lsu_bvalid),
+
+    .saxi_araddr(saxi_araddr),
+    .saxi_arvalid(saxi_arvalid),   
+    .saxi_arready(saxi_arready),
+    .saxi_rready(saxi_rready),
+    .saxi_rvalid(saxi_rvalid),
+    .saxi_rdata(saxi_rdata),
+    .saxi_awaddr(saxi_awaddr),
+    .saxi_awvalid(saxi_awvalid),
+    .saxi_awready(saxi_awready),
+    .saxi_wdata(saxi_wdata),
+    .saxi_wvalid(saxi_wvalid),
+    .saxi_wready(saxi_wready),    
+    .saxi_bready(saxi_bready),
+    .saxi_bvalid(saxi_bvalid)
+);
+
+ysyx_23060240_SRAM_LSU SRAM_LSU(
+    .clk(clk),
+    .rst(rst),
+    .wmask(memory_wr_ctrl),
+
+    .saxi_araddr(saxi_araddr),
+    .saxi_arvalid(saxi_arvalid),   
+    .saxi_arready(saxi_arready),
+    .saxi_rready(saxi_rready),
+    .saxi_rvalid(saxi_rvalid),
+    .saxi_rdata(saxi_rdata),
+    .saxi_awaddr(saxi_awaddr),
+    .saxi_awvalid(saxi_awvalid),
+    .saxi_awready(saxi_awready),
+    .saxi_wdata(saxi_wdata),
+    .saxi_wvalid(saxi_wvalid),
+    .saxi_wready(saxi_wready),    
+    .saxi_bready(saxi_bready),
+    .saxi_bvalid(saxi_bvalid)
 );
 
 ysyx_23060240_CSR CSR(

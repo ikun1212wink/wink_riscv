@@ -1,7 +1,7 @@
 module ysyx_23060240_SRAM_IFU(
      input clk,
      input rst,
-     input finish,
+    // input finish,
     //AXI_LITE BUS
 
     //write address channel
@@ -82,44 +82,15 @@ always@(posedge clk)begin
      end
 end
 
-
-/* reg axi_wait_for_read;//这是一个模式，等待主机的读数据ready信号发来  等待模式
-wire [31:0] axi_data_to_read;//读数据选择
-always@(posedge clk)begin
-     if(rst)begin
-          saxi_rvalid<=1'b0;
-          saxi_rdata<=32'b0;
-     end
-     else begin
-          if(axi_wait_for_read)begin//等待主机读数据ready信号模式 等待模式
-               if(saxi_rready)begin
-                    saxi_rdata<=axi_data_to_read;
-                    saxi_rvalid<=1'b1;
-                    axi_wait_for_read<=1'b0;//退出等待模式
-               end
-          end
-          else begin//普通模式
-               if(axi_need_read&&saxi_rready)begin//有要读信号，分成两种操作  1.我现在读了数据，主机处于准备好的状态 
-                    saxi_rdata<=axi_data_to_read;
-                    saxi_rvalid<=1'b1;
-               end
-               else if(axi_need_read)begin//2.我需要等主机准备好，我再把读到的数据发给它
-                    axi_wait_for_read<=1'b1;//进入等待模式
-                    saxi_rvalid<=1'b1;
-               end
-               else begin//没有要读信号，valid拉低
-                    saxi_valid<=1'b0;
-               end
-          end
-     end
-end */
-
 //AXI read data channel
+always@(*)begin
+     axi_data_to_read=pmem_read(axi_raddr);
+end
 reg [31:0] axi_data_to_read;//读数据选择
-//reg [31:0] axi_rdata;//存放读出的数据
+reg [31:0] axi_rdata;//存放读出的数据
 always@(posedge clk)begin
      if(rst)begin
-         // axi_rdata<=32'h0;
+          axi_rdata<=32'h0;
           saxi_rdata<=32'h0;
           saxi_rvalid<=1'b0;
      end
@@ -128,7 +99,7 @@ always@(posedge clk)begin
                saxi_rvalid<=1'b1;
           end
           else if(saxi_rvalid && saxi_rready)begin
-               saxi_rdata<=axi_data_to_read;
+               axi_rdata<=axi_data_to_read;
                saxi_rvalid<=1'b0;
           end
           else begin
@@ -136,15 +107,9 @@ always@(posedge clk)begin
           end
      end
 end
-//AXI memory read
-always@(*)begin
-     axi_data_to_read=pmem_read(axi_raddr);
-end
-//reg [31:0] delayed_data;
-reg [31:0] counter;
-
 //SRAM读延迟模拟
-/* always@(posedge clk)begin
+reg [31:0] counter;
+always@(posedge clk)begin
      if(saxi_rvalid && saxi_rready)begin
           counter<=32'h10;
           rvalid<=1'b0;
@@ -162,5 +127,5 @@ reg [31:0] counter;
           counter<=32'h0;
           rvalid<=1'b0;
      end
-end */
+end
 endmodule
