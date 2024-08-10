@@ -5,10 +5,10 @@ module ysyx_23060240_ARB(
     //read address channel
     input [31:0] ifu_araddr,
     input ifu_arvalid,   
-    output ifu_arready,
+    output reg ifu_arready,
     //read data channel
     input ifu_rready,
-    output ifu_rvalid,
+    output reg ifu_rvalid,
     output reg [31:0] ifu_rdata,
     //write address channel
     input [31:0] ifu_awaddr,
@@ -45,11 +45,11 @@ module ysyx_23060240_ARB(
 
 
     //read address channel
-    output [31:0] saxi_araddr,
-    output saxi_arvalid,   
+    output reg [31:0] saxi_araddr,
+    output reg saxi_arvalid,   
     input saxi_arready,
     //read data channel
-    output saxi_rready,
+    output reg saxi_rready,
     input saxi_rvalid,
     input [31:0] saxi_rdata,
     //write address channel
@@ -65,119 +65,63 @@ module ysyx_23060240_ARB(
     input saxi_bvalid
 );
 reg arb_ready;
-reg [1:0] state;
 //ifu read data hand
 always@(posedge clk)begin
     if(rst)begin
         arb_ready<=1'b1;
-        state<=2'b11;
+        saxi_araddr<=32'h80000000;
+        saxi_arvalid<=1'b0;
+        saxi_rready<=1'b0;
     end
     else begin
-        if(arb_ready && ifu_arvalid)begin
-            arb_ready<=1'b0;
-            state<=2'b00;//ifu read
+        if(arb_ready && ifu_arvalid)begin //ifu主设备有效
+            arb_ready<=1'b0;//占用SRAM
+            saxi_araddr<=ifu_araddr;
+            saxi_arvalid<=ifu_arvalid;
+            ifu_arready<=saxi_arready;
+            saxi_rready<=ifu_rready;
+            ifu_rvalid<=saxi_rvalid;
+            ifu_rdata<=saxi_rdata;
+        //写操作暂时不管
+        end
+        else if(saxi_rvalid && saxi_rready)begin
+            arb_ready<=1'b1;//使用SRAM结束，断开连接
         end
         else if(arb_ready && lsu_arvalid)begin
-            arb_ready<=1'b0;
-            state<=2'b01;//lsu read
+            arb_ready<=1'b0;//占用SRAM
+            saxi_araddr<=lsu_araddr;
+            saxi_arvalid<=lsu_arvalid;
+            lsu_arready<=saxi_arready;
+            saxi_rready<=lsu_rready;
+            lsu_rvalid<=saxi_rvalid;
+            lsu_rdata<=saxi_rdata;
+        //写操作暂时不管            
+        end
+        else if(saxi_rvalid && saxi_rready)begin
+            arb_ready<=1'b1;//使用SRAM结束，断开连接
         end
         else if((arb_ready) && (lsu_awvalid || lsu_wvalid ))begin
-            arb_ready<=1'b0;
-            state<=2'b10;//lsu write
+            arb_ready<=1'b0;//占用SRAM
+            //write address channel
+            saxi_awaddr<=lsu_awaddr;
+            saxi_awvalid<=lsu_awvalid;
+            lsu_awready<=saxi_awready;
+            //write data channel
+            saxi_wdata<=lsu_wdata;
+            saxi_wvalid<=lsu_wvalid;
+            lsu_wready<=saxi_wready;    
+            //write response channel
+            saxi_bready<=lsu_bready;
+            lsu_bvalid<=saxi_bvalid;
         end
-        else if(ifu_rvalid && ifu_rready)begin
-            arb_ready<=1'b1;
-            state<=2'b11;
-        end
-        else if(lsu_rvalid && lsu_rready)begin
-            arb_ready<=1'b1;
-            state<=2'b11;
-        end
-        else if(lsu_bready && lsu_bvalid)begin
-            arb_ready<=1'b1;
-            state<=2'b11;
+        else if(saxi_bready && saxi_bvalid)begin
+            arb_ready<=1'b1;//使用SRAM结束，断开连接
         end
         else begin
-            arb_ready<=arb_ready;
+
         end
+
     end
 end
-assign saxi_araddr = (state == 2'b00) ? ifu_araddr : 
-                     (state == 2'b01) ? lsu_araddr :
-                     (state == 2'b10) ? lsu_araddr :  32'h80000000; 
 
-assign saxi_arvalid = (state == 2'b00) ? ifu_arvalid : 
-                     (state == 2'b01) ? lsu_arvalid :
-                     (state == 2'b10) ? lsu_arvalid : 1'b0; 
-/* assign saxi_arready = (state == 2'b00) ? ifu_arready : 
-                     (state == 2'b01) ? lsu_arready :
-                     (state == 2'b10) ? lsu_arready : ;  */
-assign ifu_arready = (state == 2'b00) ? saxi_arready : 1'b0;
-assign lsu_arready = (state == 2'b01) ? saxi_arready : 1'b0;
-
-assign saxi_rready = (state == 2'b00) ? ifu_rready : 
-                     (state == 2'b01) ? lsu_rready :
-                     (state == 2'b10) ? lsu_rready : 1'b0; 
-/* assign saxi_rvalid = (state == 2'b00) ? ifu_rvalid : 
-                     (state == 2'b01) ? lsu_rvalid :
-                     (state == 2'b10) ? lsu_rvalid : ;  */
-assign ifu_rvalid = (state == 2'b00) ? saxi_rvalid : 1'b0;
-assign lsu_rvalid = (state == 2'b01) ? saxi_rvalid : 1'b0;
-
-/* assign saxi_rdata = (state == 2'b00) ? ifu_rdata : 
-                     (state == 2'b01) ? lsu_rdata :
-                     (state == 2'b10) ? lsu_rdata : ;  */
-initial begin
-    ifu_rdata=0;
-    lsu_rdata=0;
-end
-always@(*)begin
-    case(state)
-        2'b00:
-            ifu_rdata=saxi_rdata;
-        2'b01:
-            lsu_rdata=saxi_rdata;
-        default: ;
-
-    endcase
-end
-
-/* assign rvalid = (state == 2'b00) ? ifu_rvalid : 
-                     (state == 2'b01) ? lsu_rvalid :
-                     (state == 2'b10) ? lsu_rvalid : ;  */
-
-
-assign saxi_awaddr = (state == 2'b00) ? ifu_awaddr : 
-                     (state == 2'b01) ? lsu_awaddr :
-                     (state == 2'b10) ? lsu_awaddr : 32'h80000000; 
-
-assign saxi_awvalid = (state == 2'b00) ? ifu_awvalid : 
-                     (state == 2'b01) ? lsu_awvalid :
-                     (state == 2'b10) ? lsu_awvalid : 1'b0; 
-/* assign saxi_awready = (state == 2'b00) ? ifu_awready : 
-                     (state == 2'b01) ? lsu_awready :
-                     (state == 2'b10) ? lsu_awready : ;  */
-assign ifu_awready =(state == 2'b00) ? saxi_awready : 1'b0;
-assign lsu_awready =((state == 2'b01)||(state == 2'b10)) ? saxi_awready:1'b0;
-
-assign saxi_wdata = (state == 2'b00) ? ifu_wdata: 
-                     (state == 2'b01) ? lsu_wdata :
-                     (state == 2'b10) ? lsu_wdata : 32'h0; 
-assign saxi_wvalid = (state == 2'b00) ? ifu_wvalid : 
-                     (state == 2'b01) ? lsu_wvalid :
-                     (state == 2'b10) ? lsu_wvalid : 1'b0; 
-/* assign saxi_wready = (state == 2'b00) ? ifu_wready : 
-                     (state == 2'b01) ? lsu_wready :
-                     (state == 2'b10) ? lsu_wready : 0;  */
-assign ifu_wready = (state == 2'b00) ? saxi_wready : 1'b0;
-assign lsu_wready = ((state == 2'b01)||(state == 2'b10)) ? saxi_wready : 1'b0;
-
-assign saxi_bready = (state == 2'b00) ? ifu_bready : 
-                     (state == 2'b01) ? lsu_bready :
-                     (state == 2'b10) ? lsu_bready : 1'b0;
-/* assign saxi_bvalid = (state == 2'b00) ? ifu_bvalid : 
-                     (state == 2'b01) ? lsu_bvalid :
-                     (state == 2'b10) ? lsu_bvalid : 0;   */
-assign ifu_bvalid = (state == 2'b00) ? saxi_bvalid : 1'b0;
-assign lsu_bvalid = ((state == 2'b01)||(state == 2'b10)) ? saxi_bvalid : 1'b0;
 endmodule
