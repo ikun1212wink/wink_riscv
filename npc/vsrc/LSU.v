@@ -180,15 +180,15 @@ end
 
 //the inst execute end signal 
 assign wr_finish=(saxi_bready && saxi_bvalid) ? 1:0;
-//wire rvalid;
-assign rd_finish=saxi_rready && saxi_rvalid;
+wire rvalid;
+assign rd_finish=rvalid;
 
 
 
 ysyx_23060240_SRAM_LSU SRAM_LSU(
     .clk(clk),
     .rst(rst),
-   // .rvalid(rvalid),
+    .rvalid(rvalid),
    // .waddr(mem_wr_addr),
     .wmask(memory_wr_ctrl),
    // .w_en(mem_wr_en),
