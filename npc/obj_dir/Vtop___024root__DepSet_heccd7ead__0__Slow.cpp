@@ -216,9 +216,13 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
                                               & (IData)(vlSelf->top__DOT__ifu_arvalid));
         }
     }
-    Vtop___024root____Vdpiimwrap_top__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->top__DOT__SRAM_LSU__DOT__axi_raddr, vlSelf->__Vfunc_top__DOT__SRAM_LSU__DOT__pmem_read__5__Vfuncout);
-    vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read 
-        = vlSelf->__Vfunc_top__DOT__SRAM_LSU__DOT__pmem_read__5__Vfuncout;
+    if (vlSelf->top__DOT__SRAM_LSU__DOT__clean_data) {
+        Vtop___024root____Vdpiimwrap_top__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->top__DOT__SRAM_LSU__DOT__axi_raddr, vlSelf->__Vfunc_top__DOT__SRAM_LSU__DOT__pmem_read__5__Vfuncout);
+        vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read 
+            = vlSelf->__Vfunc_top__DOT__SRAM_LSU__DOT__pmem_read__5__Vfuncout;
+    } else {
+        vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read = 0U;
+    }
     if ((1U & (~ ((IData)(vlSelf->top__DOT__ARB__DOT__state) 
                   >> 2U)))) {
         if ((2U & (IData)(vlSelf->top__DOT__ARB__DOT__state))) {
@@ -2229,6 +2233,7 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__ARB__DOT__wait_read = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__SRAM_LSU__DOT__axi_raddr = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read = VL_RAND_RESET_I(32);
+    vlSelf->top__DOT__SRAM_LSU__DOT__clean_data = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__SRAM_LSU__DOT__aw_hand = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__SRAM_LSU__DOT__axi_waddr = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__SRAM_LSU__DOT__w_hand = VL_RAND_RESET_I(1);

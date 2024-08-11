@@ -66,20 +66,30 @@ end
 //AXI read data channel
 reg [31:0] axi_data_to_read;//读数据选择
 always@(*)begin
-     axi_data_to_read=pmem_read(axi_raddr);
+     if(clean_data)begin
+          axi_data_to_read=pmem_read(axi_raddr);
+     end
+     else begin
+          axi_data_to_read=32'h0;
+     end
 end
+//清空原先的数据 信号
+reg clean_data;
 always@(posedge clk)begin
      if(rst)begin
           saxi_rdata<=32'h0;
           saxi_rvalid<=1'b0;
+          clean_data<=1'b0;
      end
      else begin
           if(saxi_arvalid && saxi_arready)begin
                saxi_rvalid<=1'b1;
+               clean_data<=1'b0;
           end
           else if(saxi_rvalid && saxi_rready)begin
                saxi_rdata<=axi_data_to_read;
                saxi_rvalid<=1'b0;
+               clean_data<=1'b1;
           end
           else begin
                saxi_rvalid<=saxi_rvalid;

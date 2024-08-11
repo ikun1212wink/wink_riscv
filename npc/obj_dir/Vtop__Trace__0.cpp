@@ -557,16 +557,17 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgIData(oldp+309,(vlSelf->top__DOT__LSU__DOT__counter_rready),32);
         bufp->chgIData(oldp+310,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_raddr),32);
         bufp->chgIData(oldp+311,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read),32);
-        bufp->chgBit(oldp+312,(vlSelf->top__DOT__SRAM_LSU__DOT__aw_hand));
-        bufp->chgIData(oldp+313,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_waddr),32);
-        bufp->chgBit(oldp+314,(vlSelf->top__DOT__SRAM_LSU__DOT__w_hand));
-        bufp->chgIData(oldp+315,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_wdata),32);
+        bufp->chgBit(oldp+312,(vlSelf->top__DOT__SRAM_LSU__DOT__clean_data));
+        bufp->chgBit(oldp+313,(vlSelf->top__DOT__SRAM_LSU__DOT__aw_hand));
+        bufp->chgIData(oldp+314,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_waddr),32);
+        bufp->chgBit(oldp+315,(vlSelf->top__DOT__SRAM_LSU__DOT__w_hand));
+        bufp->chgIData(oldp+316,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_wdata),32);
     }
-    bufp->chgBit(oldp+316,(vlSelf->clk));
-    bufp->chgBit(oldp+317,(vlSelf->rst));
-    bufp->chgIData(oldp+318,(vlSelf->inst),32);
-    bufp->chgIData(oldp+319,(vlSelf->pc),32);
-    bufp->chgIData(oldp+320,(((2U & (IData)(vlSelf->top__DOT__w_sel))
+    bufp->chgBit(oldp+317,(vlSelf->clk));
+    bufp->chgBit(oldp+318,(vlSelf->rst));
+    bufp->chgIData(oldp+319,(vlSelf->inst),32);
+    bufp->chgIData(oldp+320,(vlSelf->pc),32);
+    bufp->chgIData(oldp+321,(((2U & (IData)(vlSelf->top__DOT__w_sel))
                                ? ((1U & (IData)(vlSelf->top__DOT__w_sel))
                                    ? ((4U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
                                        ? ((2U & (IData)(vlSelf->top__DOT__memory_rd_ctrl))
@@ -603,7 +604,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
                                : ((1U & (IData)(vlSelf->top__DOT__w_sel))
                                    ? ((IData)(4U) + vlSelf->pc)
                                    : vlSelf->top__DOT__r_csr_data))),32);
-    bufp->chgIData(oldp+321,(((IData)(4U) + vlSelf->pc)),32);
+    bufp->chgIData(oldp+322,(((IData)(4U) + vlSelf->pc)),32);
 }
 
 void Vtop___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/) {
