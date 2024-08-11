@@ -11,7 +11,7 @@ module ysyx_23060240_LSU(
 
     input valid_idu,
     output wr_finish,
-    output rd_finish,
+    output reg rd_finish,
 
     //read address channel signal
     output [31:0] lsu_araddr,
@@ -21,7 +21,6 @@ module ysyx_23060240_LSU(
     output lsu_rready,
     input lsu_rvalid,
     input [31:0] lsu_rdata,
-    input reg l_rvalid,
     //write address channel
     output [31:0] lsu_awaddr,
     output reg lsu_awvalid,
@@ -101,6 +100,7 @@ reg axi_rready;//存放延迟的rready信号
 always@(posedge clk)begin
     if(rst)begin
         axi_rready<=1'b0;
+        rd_finish<=1'b0;
     end
     else begin
         if(lsu_arvalid && lsu_arready)begin
@@ -108,9 +108,11 @@ always@(posedge clk)begin
         end
         else if(lsu_rvalid && lsu_rready)begin
             axi_rready<=1'b0;
+            rd_finish<=1'b1;
         end
         else begin
             axi_rready<=axi_rready;
+            rd_finish<=1'b0;
         end        
     end
 end
@@ -204,8 +206,7 @@ end
 
 //the inst execute end signal 
 assign wr_finish=(lsu_bready && lsu_bvalid) ? 1:0;
-//wire rvalid;
-assign rd_finish=rvalid;
+
 
 
 /* 

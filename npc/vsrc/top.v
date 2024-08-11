@@ -130,7 +130,6 @@ wire ifu_arready;
 wire ifu_rready;
 wire ifu_rvalid;
 wire [31:0] ifu_rdata;
-wire f_rvalid;
 wire [31:0] ifu_awaddr;
 wire ifu_awvalid;
 wire ifu_awready;
@@ -146,7 +145,6 @@ wire lsu_arready;
 wire lsu_rready;
 wire lsu_rvalid;
 wire [31:0] lsu_rdata;
-wire l_rvalid;
 wire [31:0] lsu_awaddr;
 wire lsu_awvalid;
 wire lsu_awready;
@@ -162,7 +160,6 @@ wire saxi_arready;
 wire saxi_rready;
 wire saxi_rvalid;
 wire [31:0] saxi_rdata;
-wire rvalid;
 wire [31:0] saxi_awaddr;
 wire saxi_awvalid;
 wire saxi_awready;
@@ -181,7 +178,7 @@ ysyx_23060240_LSU LSU(
     .mem_wr_data(rs2_data),
     .mem_rd_addr(alu_out),
     .mem_wr_addr(alu_out),
-    .mem_rd_data(mem_rd_data)
+    .mem_rd_data(mem_rd_data),
 
     .valid_idu(valid_idu),
     .rd_finish(rd_finish),
@@ -193,7 +190,6 @@ ysyx_23060240_LSU LSU(
     .lsu_rready(lsu_rready),
     .lsu_rvalid(lsu_rvalid),
     .lsu_rdata(lsu_rdata),
-    .lsu_rvalid(lsu_rvalid),
     .lsu_awaddr(lsu_awaddr),
     .lsu_awvalid(lsu_awvalid),
     .lsu_awready(lsu_awready),
@@ -223,7 +219,6 @@ ysyx_23060240_IFU IFU(
     .ifu_rready(ifu_rready),
     .ifu_rvalid(ifu_rvalid),
     .ifu_rdata(ifu_rdata),
-    .f_rvalid(f_rvalid),
     .ifu_awaddr(ifu_awaddr),
     .ifu_awvalid(ifu_awvalid),
     .ifu_awready(ifu_awready),
@@ -231,19 +226,19 @@ ysyx_23060240_IFU IFU(
     .ifu_wvalid(ifu_wvalid),
     .ifu_wready(ifu_wready),    
     .ifu_bready(ifu_bready),
-    .ifu_bvalid(ifu_bvalid),    
+    .ifu_bvalid(ifu_bvalid) 
 );
 
 ysyx_23060240_ARB ARB(
     .clk(clk),
     .rst(rst),
+
     .ifu_araddr(ifu_araddr),
     .ifu_arvalid(ifu_arvalid),   
     .ifu_arready(ifu_arready),
     .ifu_rready(ifu_rready),
     .ifu_rvalid(ifu_rvalid),
     .ifu_rdata(ifu_rdata),
-    .f_rvalid(f_rvalid),
     .ifu_awaddr(ifu_awaddr),
     .ifu_awvalid(ifu_awvalid),
     .ifu_awready(ifu_awready),
@@ -252,13 +247,13 @@ ysyx_23060240_ARB ARB(
     .ifu_wready(ifu_wready),    
     .ifu_bready(ifu_bready),
     .ifu_bvalid(ifu_bvalid),
+
     .lsu_araddr(lsu_araddr),
     .lsu_arvalid(lsu_arvalid),   
     .lsu_arready(lsu_arready),
     .lsu_rready(lsu_rready),
     .lsu_rvalid(lsu_rvalid),
     .lsu_rdata(lsu_rdata),
-    .l_rvalid(l_rvalid),
     .lsu_awaddr(lsu_awaddr),
     .lsu_awvalid(lsu_awvalid),
     .lsu_awready(lsu_awready),
@@ -267,13 +262,13 @@ ysyx_23060240_ARB ARB(
     .lsu_wready(lsu_wready),    
     .lsu_bready(lsu_bready),
     .lsu_bvalid(lsu_bvalid),
+
     .saxi_araddr(saxi_araddr),
     .saxi_arvalid(saxi_arvalid),   
     .saxi_arready(saxi_arready),
     .saxi_rready(saxi_rready),
     .saxi_rvalid(saxi_rvalid),
     .saxi_rdata(saxi_rdata),
-    .rvalid(rvalid),
     .saxi_awaddr(saxi_awaddr),
     .saxi_awvalid(saxi_awvalid),
     .saxi_awready(saxi_awready),
@@ -288,13 +283,13 @@ ysyx_23060240_SRAM_LSU SRAM_LSU(
     .clk(clk),
     .rst(rst),
     .wmask(memory_wr_ctrl),
+
     .saxi_araddr(saxi_araddr),
     .saxi_arvalid(saxi_arvalid),   
     .saxi_arready(saxi_arready),
     .saxi_rready(saxi_rready),
     .saxi_rvalid(saxi_rvalid),
     .saxi_rdata(saxi_rdata),
-    .rvalid(rvalid),
     .saxi_awaddr(saxi_awaddr),
     .saxi_awvalid(saxi_awvalid),
     .saxi_awready(saxi_awready),
@@ -327,7 +322,7 @@ import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
 always@(posedge clk)begin
-    if(jal&&(finish_1||finish_2))begin
+    if(jal&&(finish_1||rd_finish||wr_finish))begin
         if(inst[11:7]==1)begin
             trace_func_call(pc,jump_pc,1'b0);
         end
@@ -335,7 +330,7 @@ always@(posedge clk)begin
 end
 
 always@(posedge clk)begin
-    if(jalr&&(finish_1||finish_2))begin
+    if(jalr&&(finish_1||rd_finish||wr_finish))begin
         if(inst==32'h00008067)begin
             trace_func_ret(pc);
         end

@@ -1,59 +1,57 @@
 module ysyx_23060240_ARB(
     input clk,
     input rst,
+
     //read address channel
     input [31:0] ifu_araddr,
     input ifu_arvalid,   
-    output ifu_arready,
+    output reg ifu_arready,
     //read data channel
     input ifu_rready,
-    output ifu_rvalid,
-    output [31:0] ifu_rdata,
-    output f_rvalid,
+    output reg ifu_rvalid,
+    output reg [31:0] ifu_rdata,
     //write address channel
     input [31:0] ifu_awaddr,
     input ifu_awvalid,
-    output ifu_awready,
+    output reg ifu_awready,
     //write data channel
     input [31:0] ifu_wdata,
     input ifu_wvalid,
-    output ifu_wready,    
+    output reg ifu_wready,    
     //write response channel
     input ifu_bready,
-    output ifu_bvalid,
+    output reg ifu_bvalid,
 
 
     //read address channel
     input [31:0] lsu_araddr,
     input lsu_arvalid,   
-    output lsu_arready,
+    output reg lsu_arready,
     //read data channel
     input lsu_rready,
-    output lsu_rvalid,
-    output [31:0] lsu_rdata,
-    output l_rvalid,
+    output reg lsu_rvalid,
+    output reg [31:0] lsu_rdata,
     //write address channel
     input [31:0] lsu_awaddr,
     input lsu_awvalid,
-    output lsu_awready,
+    output reg lsu_awready,
     //write data channel
     input [31:0] lsu_wdata,
     input lsu_wvalid,
-    output lsu_wready,    
+    output reg lsu_wready,    
     //write response channel
     input lsu_bready,
-    output lsu_bvalid,
+    output reg lsu_bvalid,
 
 
     //read address channel
-    output [31:0] saxi_araddr,
-    output saxi_arvalid,   
+    output reg [31:0] saxi_araddr,
+    output reg saxi_arvalid,   
     input saxi_arready,
     //read data channel
-    output saxi_rready,
+    output reg saxi_rready,
     input saxi_rvalid,
     input [31:0] saxi_rdata,
-    input rvalid,
     //write address channel
     output [31:0] saxi_awaddr,
     output saxi_awvalid,
@@ -67,98 +65,107 @@ module ysyx_23060240_ARB(
     input saxi_bvalid
 );
 reg arb_ready;
-reg [1:0] state;
-//ifu read data hand
+reg [2:0] state;
+reg wait_read;
 always@(posedge clk)begin
     if(rst)begin
         arb_ready<=1'b1;
-        state<=2'b11;
+        state<=0;//默认状态，无通信操作
+        wait_read<=0;
     end
     else begin
-        if(arb_ready && ifu_arvalid)begin
+        if(arb_ready&&ifu_arvalid)begin//ifu通信成功
             arb_ready<=1'b0;
-            state<=2'b00;//ifu read
+            state<=1;
         end
-        else if(arb_ready && lsu_arvalid)begin
+        else if(arb_ready&&lsu_arvalid)begin//lsu通信成功
             arb_ready<=1'b0;
-            state<=2'b01;//lsu read
+            state<=2;
         end
-        else if((arb_ready) && (lsu_awvalid || lsu_wvalid ))begin
+        else if(arb_ready&&(lsu_awvalid||lsu_wvalid))begin//lsu通信成功
             arb_ready<=1'b0;
-            state<=2'b10;//lsu write
+            state<=3;
         end
-        else if(ifu_rvalid && ifu_rready)begin
-            arb_ready<=1'b1;
-            state<=2'b11;
+        else if(lsu_rvalid&&lsu_rready)begin//等待lsu从机读操作完成
+            wait_read<=1;
+            state<=4;
         end
-        else if(lsu_rvalid && lsu_rready)begin
-            arb_ready<=1'b1;
-            state<=2'b11;
+        else if(ifu_rvalid&&ifu_rready)begin//等待lsu从机读操作完成
+            wait_read<=1;
+            state<=5;
         end
-        else if(lsu_bready && lsu_bvalid)begin
+        else if(saxi_bready&&saxi_bvalid)begin//从机写操作完成,断开通信
+            state<=0;
             arb_ready<=1'b1;
-            state<=2'b11;
+        end
+        else if(wait_read)begin//从机操作完成，断开通信
+            arb_ready<=1'b1;
+            state<=0;
+            wait_read<=0;
         end
         else begin
             arb_ready<=arb_ready;
+            state<=state;
         end
     end
 end
-assign saxi_araddr = (state == 2'b00) ? ifu_araddr : 
-                     (state == 2'b01) ? lsu_araddr :
-                     (state == 2'b10) ? lsu_araddr : 32'h0; 
-assign saxi_arvalid = (state == 2'b00) ? ifu_arvalid : 
-                     (state == 2'b01) ? lsu_arvalid :
-                     (state == 2'b10) ? lsu_arvalid : 1'b0; 
-/* assign saxi_arready = (state == 2'b00) ? ifu_arready : 
-                     (state == 2'b01) ? lsu_arready :
-                     (state == 2'b10) ? lsu_arready : ;  */
-assign ifu_arready = (state == 2'b00) ? saxi_arready : 1'b0;
-assign lsu_arready = (state == 2'b01) ? saxi_arready : 1'b0;
 
-assign saxi_rready = (state == 2'b00) ? ifu_rready : 
-                     (state == 2'b01) ? lsu_rready :
-                     (state == 2'b10) ? lsu_rready : 1'b0; 
-/* assign saxi_rvalid = (state == 2'b00) ? ifu_rvalid : 
-                     (state == 2'b01) ? lsu_rvalid :
-                     (state == 2'b10) ? lsu_rvalid : ;  */
-assign ifu_rvalid = (state == 2'b00) ? saxi_rvalid : 1'b0;
-assign lsu_rvalid = (state == 2'b01) ? saxi_rvalid : 1'b0;
+/* verilator lint_off LATCH */ 
+always@(*)begin
+    case(state)
+        3'd0:begin
+            saxi_arvalid=1'b0;
+            saxi_rready=1'b0;
+            saxi_wdata=32'h00000000;
+            saxi_wvalid=1'b0;
+            saxi_bready=1'b0;
+            ifu_arready=1'b0;
+            lsu_arready=1'b0;
+            ifu_rvalid=1'b0;
+            lsu_rvalid=1'b0;
+            ifu_awready=1'b0;
+            lsu_awready=1'b0;
+            ifu_wready=1'b0;
+            lsu_wready=1'b0;
+            ifu_bvalid=1'b0;
+            lsu_bvalid=1'b0;
+        end
+        3'd1:begin//ifu读通信成功&写通道暂时不管
+            saxi_araddr=ifu_araddr;
+            saxi_arvalid=ifu_arvalid;
+            ifu_arready=saxi_arready;
+            saxi_rready=ifu_rready;
+            ifu_rvalid=saxi_rvalid;
+          //  ifu_rdata=saxi_rdata;
+        end
+        3'd2:begin//lsu读通信成功&写通道暂时不管
+            saxi_araddr=lsu_araddr;
+          //  lsu_rdata=saxi_rdata;
+            saxi_arvalid=lsu_arvalid;
+            lsu_arready=saxi_arready;
+            saxi_rready=lsu_rready;
+            lsu_rvalid=saxi_rvalid; 
+        end           
+        3'd3:begin//lsu写通信成功&写通道暂时不管
+            saxi_awaddr=lsu_awaddr;
+            saxi_wdata=lsu_wdata;
+            saxi_awvalid=lsu_awvalid;
+            lsu_awready=saxi_awready;
+            saxi_wvalid=lsu_wvalid;
+            lsu_wready=saxi_wready;
+            saxi_bready=lsu_bready;
+            lsu_bvalid=saxi_bvalid;
+        end
+        3'd4:begin//切换读出数据到lsu
+            lsu_rdata=saxi_rdata;
+        end
+        3'd5:begin
+            ifu_rdata=saxi_rdata;//切换读出数据到ifu
+        end
+        default:begin end
+    endcase
+end
 
-/* assign saxi_rdata = (state == 2'b00) ? ifu_rdata : 
-                     (state == 2'b01) ? lsu_rdata :
-                     (state == 2'b10) ? lsu_rdata : ;  */
-assign ifu_rdata = (state == 2'b00) ? saxi_rdata : ifu_rdata;
-assign lsu_rdata = (state == 2'b01) ? saxi_rdata : lsu_rdata;
 
-assign rvalid = (state == 2'b00) ? ifu_rvalid : 
-                     (state == 2'b01) ? lsu_rvalid :
-                     (state == 2'b10) ? lsu_rvalid : ; 
 
-assign saxi_awaddr = (state == 2'b00) ? ifu_awaddr : 
-                     (state == 2'b01) ? lsu_awaddr :
-                     (state == 2'b10) ? lsu_awaddr : ; 
-assign saxi_awvalid = (state == 2'b00) ? ifu_awvalid : 
-                     (state == 2'b01) ? lsu_awvalid :
-                     (state == 2'b10) ? lsu_awvalid : ; 
-assign saxi_awready = (state == 2'b00) ? ifu_awready : 
-                     (state == 2'b01) ? lsu_awready :
-                     (state == 2'b10) ? lsu_awready : ; 
-
-assign saxi_wdata = (state == 2'b00) ? ifu_wdata: 
-                     (state == 2'b01) ? lsu_wdata :
-                     (state == 2'b10) ? lsu_wdata : 0; 
-assign saxi_wvalid = (state == 2'b00) ? ifu_wvalid : 
-                     (state == 2'b01) ? lsu_wvalid :
-                     (state == 2'b10) ? lsu_wvalid : 0; 
-assign saxi_wready = (state == 2'b00) ? ifu_wready : 
-                     (state == 2'b01) ? lsu_wready :
-                     (state == 2'b10) ? lsu_wready : 0; 
-
-assign saxi_braedy = (state == 2'b00) ? ifu_bready : 
-                     (state == 2'b01) ? lsu_bready :
-                     (state == 2'b10) ? lsu_bready : 0;
-assign saxi_bvalid = (state == 2'b00) ? ifu_bvalid : 
-                     (state == 2'b01) ? lsu_bvalid :
-                     (state == 2'b10) ? lsu_bvalid : 0;  
 endmodule

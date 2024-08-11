@@ -4,7 +4,7 @@ module ysyx_23060240_IFU(
     input jump_en,
     input [31:0] jump_pc,
     input finish,
-    output valid_ifu,
+    output reg valid_ifu,
     output reg [31:0] pc,
     output [31:0] inst,
 
@@ -16,7 +16,6 @@ module ysyx_23060240_IFU(
     output ifu_rready,
     input ifu_rvalid,
     input [31:0] ifu_rdata,
-    input reg f_rvalid,
     //write address channel
     output [31:0] ifu_awaddr,
     output reg ifu_awvalid,
@@ -87,6 +86,7 @@ always@(posedge clk)begin
     else begin
         if(ifu_arvalid&&ifu_arready)begin
             ifu_arvalid<=1'b0;
+            axi_arvalid<=1'b0;
         end
         else if(finish)begin
             counter<=32'h6;
@@ -112,6 +112,7 @@ reg axi_rready;//存放延迟的rready信号
 always@(posedge clk)begin
     if(rst)begin
         axi_rready<=1'b0;
+        valid_ifu<=1'b0;
     end
     else begin
         if(ifu_arvalid && ifu_arready)begin
@@ -119,12 +120,11 @@ always@(posedge clk)begin
         end
         else if(ifu_rvalid&&ifu_rready)begin
             axi_rready<=1'b0;
+            valid_ifu<=1'b1;
         end
-/*         if(ifu_rvalid && ifu_rready)begin
-            ifu_rready<=1'b0;
-        end */
         else begin
             axi_rready<=axi_rready;
+            valid_ifu<=1'b0;
         end
     end
 end
@@ -158,67 +158,6 @@ end
 
 
 assign inst=ifu_rdata;
-assign valid_ifu=rvalid;
-
-/* always@(posedge clk)begin
-    if(rst)begin
-        valid_ifu<=1'b0;
-    end
-    else begin
-        if(ifu_rvalid && ifu_rready)begin
-            valid_ifu<=1'b1;
-        end
-        else if(valid_ifu)begin
-            valid_ifu<=1'b0;
-        end
-    end
-end */
-
-/* //wire [31:0] raddr;
-wire [31:0] rd_sram_data;
-reg rd_sram_en;
-//assign raddr=pc;
-initial begin
-    pc=32'h80000000;
-end
-always@(*)begin
-    inst=rd_sram_data;
-end
-
-always@(posedge clk)begin
-    if(rst)begin
-        rd_sram_en<=1;
-    end
-    else begin
-        if(rd_sram_en==1'b1)begin
-            rd_sram_en<=0;
-        end
-        else if(finish_1||finish_2)begin
-            rd_sram_en<=1;
-        end
-        else begin
-            rd_sram_en<=rd_sram_en;
-        end
-    end
-end
-assign valid_1=~rd_sram_en;
-always@(posedge clk)begin
-    if(rst)begin
-        pc<=32'h80000000;
-    end
-    else if(finish_1||finish_2)begin
-        if(jump_en)begin
-            pc<=jump_pc;
-        end
-        else begin
-            pc<=pc+32'h4;
-        end
-    end
-    else begin
-        pc<=pc;
-    end
-end
-*/
 
 
 /* ysyx_23060240_SRAM_IFU SRAM_IFU(
