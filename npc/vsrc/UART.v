@@ -128,7 +128,7 @@ always@(*)begin
     if(w_hand && aw_hand)begin
         if(waddr==uart_addr)begin
             uart_reg=wdata[7:0];
-            $write("Received data: %c", uart_reg);
+            $write("Received data: %c\n", uart_reg);
         end
     end
 end
