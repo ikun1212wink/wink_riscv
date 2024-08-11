@@ -1,7 +1,7 @@
 module ysyx_23060240_ARB(
     input clk,
     input rst,
-
+/* --------------IFU MASTER----------------- */
     //read address channel
     input [31:0] ifu_araddr,
     input ifu_arvalid,   
@@ -22,7 +22,7 @@ module ysyx_23060240_ARB(
     input ifu_bready,
     output reg ifu_bvalid,
 
-
+/* --------------LSU MASTER----------------- */
     //read address channel
     input [31:0] lsu_araddr,
     input lsu_arvalid,   
@@ -43,7 +43,7 @@ module ysyx_23060240_ARB(
     input lsu_bready,
     output reg lsu_bvalid,
 
-
+/* --------------SRAM SLAVE----------------- */
     //read address channel
     output reg [31:0] saxi_araddr,
     output reg saxi_arvalid,   
@@ -63,6 +63,30 @@ module ysyx_23060240_ARB(
     //write response channel
     output saxi_bready,
     input saxi_bvalid
+
+/* --------------UART SLAVE----------------- */
+/*     output reg [31:0] uart_araddr,
+    output reg uart_arvalid,   
+    input uart_arready,
+
+    //read data channel
+    output reg uart_rready,
+    input uart_rvalid,
+    input [31:0] uart_rdata,
+
+    //write address channel
+    output [31:0] uart_awaddr,
+    output uart_awvalid,
+    input uart_awready, 
+
+    //write data channel
+    output [31:0] uart_wdata,
+    output uart_wvalid,
+    input uart_wready, 
+
+     //write response channel
+    output uart_bready,
+    input uart_bvalid */
 );
 reg arb_ready;
 reg [2:0] state;
