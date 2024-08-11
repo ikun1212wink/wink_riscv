@@ -108,6 +108,7 @@ always@(posedge clk)begin
         end
         else if(arb_ready&&(lsu_awvalid||lsu_wvalid))begin//lsu通信成功
             if(lsu_awaddr==32'ha00003f8)begin
+                $write("Received data");
                 arb_ready<=1'b0;
                 state<=6;
             end
