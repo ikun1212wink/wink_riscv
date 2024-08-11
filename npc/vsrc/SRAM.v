@@ -1,4 +1,4 @@
-module ysyx_23060240_SRAM_LSU(
+module ysyx_23060240_SRAM(
     input clk,
     input rst,
     input [7:0] wmask,

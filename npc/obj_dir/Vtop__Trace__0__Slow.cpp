@@ -427,7 +427,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+309,"axi_rready", false,-1);
     tracep->declBus(c+310,"counter_rready", false,-1, 31,0);
     tracep->popNamePrefix(1);
-    tracep->pushNamePrefix("SRAM_LSU ");
+    tracep->pushNamePrefix("SRAM ");
     tracep->declBit(c+317,"clk", false,-1);
     tracep->declBit(c+318,"rst", false,-1);
     tracep->declBus(c+37,"wmask", false,-1, 7,0);
@@ -1015,12 +1015,12 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+308,(vlSelf->top__DOT__LSU__DOT__counter),32);
     bufp->fullBit(oldp+309,(vlSelf->top__DOT__LSU__DOT__axi_rready));
     bufp->fullIData(oldp+310,(vlSelf->top__DOT__LSU__DOT__counter_rready),32);
-    bufp->fullIData(oldp+311,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_raddr),32);
-    bufp->fullIData(oldp+312,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read),32);
-    bufp->fullBit(oldp+313,(vlSelf->top__DOT__SRAM_LSU__DOT__aw_hand));
-    bufp->fullIData(oldp+314,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_waddr),32);
-    bufp->fullBit(oldp+315,(vlSelf->top__DOT__SRAM_LSU__DOT__w_hand));
-    bufp->fullIData(oldp+316,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_wdata),32);
+    bufp->fullIData(oldp+311,(vlSelf->top__DOT__SRAM__DOT__axi_raddr),32);
+    bufp->fullIData(oldp+312,(vlSelf->top__DOT__SRAM__DOT__axi_data_to_read),32);
+    bufp->fullBit(oldp+313,(vlSelf->top__DOT__SRAM__DOT__aw_hand));
+    bufp->fullIData(oldp+314,(vlSelf->top__DOT__SRAM__DOT__axi_waddr),32);
+    bufp->fullBit(oldp+315,(vlSelf->top__DOT__SRAM__DOT__w_hand));
+    bufp->fullIData(oldp+316,(vlSelf->top__DOT__SRAM__DOT__axi_wdata),32);
     bufp->fullBit(oldp+317,(vlSelf->clk));
     bufp->fullBit(oldp+318,(vlSelf->rst));
     bufp->fullIData(oldp+319,(vlSelf->inst),32);

@@ -555,12 +555,12 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgIData(oldp+307,(vlSelf->top__DOT__LSU__DOT__counter),32);
         bufp->chgBit(oldp+308,(vlSelf->top__DOT__LSU__DOT__axi_rready));
         bufp->chgIData(oldp+309,(vlSelf->top__DOT__LSU__DOT__counter_rready),32);
-        bufp->chgIData(oldp+310,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_raddr),32);
-        bufp->chgIData(oldp+311,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read),32);
-        bufp->chgBit(oldp+312,(vlSelf->top__DOT__SRAM_LSU__DOT__aw_hand));
-        bufp->chgIData(oldp+313,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_waddr),32);
-        bufp->chgBit(oldp+314,(vlSelf->top__DOT__SRAM_LSU__DOT__w_hand));
-        bufp->chgIData(oldp+315,(vlSelf->top__DOT__SRAM_LSU__DOT__axi_wdata),32);
+        bufp->chgIData(oldp+310,(vlSelf->top__DOT__SRAM__DOT__axi_raddr),32);
+        bufp->chgIData(oldp+311,(vlSelf->top__DOT__SRAM__DOT__axi_data_to_read),32);
+        bufp->chgBit(oldp+312,(vlSelf->top__DOT__SRAM__DOT__aw_hand));
+        bufp->chgIData(oldp+313,(vlSelf->top__DOT__SRAM__DOT__axi_waddr),32);
+        bufp->chgBit(oldp+314,(vlSelf->top__DOT__SRAM__DOT__w_hand));
+        bufp->chgIData(oldp+315,(vlSelf->top__DOT__SRAM__DOT__axi_wdata),32);
     }
     bufp->chgBit(oldp+316,(vlSelf->clk));
     bufp->chgBit(oldp+317,(vlSelf->rst));

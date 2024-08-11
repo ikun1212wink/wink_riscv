@@ -279,7 +279,7 @@ ysyx_23060240_ARB ARB(
     .saxi_bvalid(saxi_bvalid)
 );
 
-ysyx_23060240_SRAM_LSU SRAM_LSU(
+ysyx_23060240_SRAM SRAM(
     .clk(clk),
     .rst(rst),
     .wmask(memory_wr_ctrl),
