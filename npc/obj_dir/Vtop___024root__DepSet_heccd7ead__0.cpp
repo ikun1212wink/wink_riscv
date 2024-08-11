@@ -441,9 +441,11 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
             if (((0xa0000048U == vlSelf->top__DOT__alu_out) 
                  | (0xa000005cU == vlSelf->top__DOT__alu_out))) {
                 __Vdly__top__DOT__ARB__DOT__wait_read = 1U;
+                __Vdly__top__DOT__ARB__DOT__arb_ready = 0U;
                 __Vdly__top__DOT__ARB__DOT__state = 7U;
             } else {
                 __Vdly__top__DOT__ARB__DOT__arb_ready = 0U;
+                __Vdly__top__DOT__ARB__DOT__wait_read = 1U;
                 __Vdly__top__DOT__ARB__DOT__state = 2U;
             }
         } else if (((IData)(vlSelf->top__DOT__ARB__DOT__arb_ready) 

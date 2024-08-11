@@ -129,10 +129,12 @@ always@(posedge clk)begin
         else if(arb_ready&&lsu_arvalid)begin//lsu通信成功
             if((lsu_araddr==32'ha0000048)||(lsu_araddr==32'ha000005c))begin
                 wait_read<=1;
+                arb_ready<=1'b0;
                 state<=7;
             end
             else begin
                 arb_ready<=1'b0;
+                wait_read<=1;
                 state<=2;     
             end
         end
