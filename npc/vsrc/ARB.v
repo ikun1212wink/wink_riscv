@@ -65,60 +65,85 @@ module ysyx_23060240_ARB(
     input saxi_bvalid
 );
 reg arb_ready;
-//ifu read data hand
+reg [2:0] state;
 always@(posedge clk)begin
     if(rst)begin
         arb_ready<=1'b1;
+        state<=0;//默认状态，无通信操作
     end
     else begin
-        if(arb_ready && ifu_arvalid)begin //ifu主设备有效
-            arb_ready<=1'b0;//占用SRAM
-            saxi_araddr<=ifu_araddr;
-            saxi_arvalid<=ifu_arvalid;
-            ifu_arready<=saxi_arready;
-            saxi_rready<=ifu_rready;
-            ifu_rvalid<=saxi_rvalid;
-            ifu_rdata<=saxi_rdata;
-        //写操作暂时不管
+        if(arb_ready&&ifu_arvalid)begin//ifu通信成功
+            arb_ready<=1'b0;
+            state<=1;
         end
-        else if(saxi_rvalid && saxi_rready)begin
-            arb_ready<=1'b1;//使用SRAM结束，断开连接
+        else if(arb_ready&&lsu_arvalid)begin//lsu通信成功
+            arb_ready<=1'b0;
+            state<=2;
         end
-        else if(arb_ready && lsu_arvalid)begin
-            arb_ready<=1'b0;//占用SRAM
-            saxi_araddr<=lsu_araddr;
-            saxi_arvalid<=lsu_arvalid;
-            lsu_arready<=saxi_arready;
-            saxi_rready<=lsu_rready;
-            lsu_rvalid<=saxi_rvalid;
-            lsu_rdata<=saxi_rdata;
-        //写操作暂时不管            
+        else if(arb_ready&&(lsu_awvalid||lsu_wvalid))begin//lsu通信成功
+            arb_ready<=1'b0;
+            state<=3;
         end
-        else if(saxi_rvalid && saxi_rready)begin
-            arb_ready<=1'b1;//使用SRAM结束，断开连接
+        else if(saxi_rvalid&&saxi_rready)begin//等待从机读操作完成
+            state<=4;
         end
-        else if((arb_ready) && (lsu_awvalid || lsu_wvalid ))begin
-            arb_ready<=1'b0;//占用SRAM
-            //write address channel
-            saxi_awaddr<=lsu_awaddr;
-            saxi_awvalid<=lsu_awvalid;
-            lsu_awready<=saxi_awready;
-            //write data channel
-            saxi_wdata<=lsu_wdata;
-            saxi_wvalid<=lsu_wvalid;
-            lsu_wready<=saxi_wready;    
-            //write response channel
-            saxi_bready<=lsu_bready;
-            lsu_bvalid<=saxi_bvalid;
+        else if(saxi_bready&&saxi_bvalid)begin//从机写操作完成
+            state<=0;
         end
-        else if(saxi_bready && saxi_bvalid)begin
-            arb_ready<=1'b1;//使用SRAM结束，断开连接
+        else if(state==4)begin//从机操作完成，断开通信
+            arb_ready<=1'b1;
+            state<=0;
         end
         else begin
-
+            arb_ready<=arb_ready;
+            state<=state;
         end
-
     end
 end
+
+/* verilator lint_off LATCH */ 
+always@(*)begin
+    case(state)
+        3'd0:begin
+            saxi_araddr=32'h80000000;
+            saxi_arvalid=1'b0;
+            saxi_rready=1'b0;
+            saxi_awaddr=32'h80000000;
+            saxi_wdata=32'h00000000;
+            saxi_wvalid=1'b0;
+            saxi_bready=1'b0;
+        end
+        3'd1:begin//ifu读通信成功&写通道暂时不管
+            saxi_araddr=ifu_araddr;
+            ifu_rdata=saxi_rdata;
+            saxi_arvalid=ifu_arvalid;
+            ifu_arready=saxi_arready;
+            saxi_rready=ifu_rready;
+            ifu_rvalid=saxi_rvalid;
+        end
+        3'd2:begin//lsu读通信成功&写通道暂时不管
+            saxi_araddr=lsu_araddr;
+            lsu_rdata=saxi_rdata;
+            saxi_arvalid=lsu_arvalid;
+            lsu_arready=saxi_arready;
+            saxi_rready=lsu_rready;
+            lsu_rvalid=saxi_rvalid; 
+        end           
+        3'd3:begin//lsu写通信成功&写通道暂时不管
+            saxi_awaddr=lsu_awaddr;
+            saxi_wdata=lsu_wdata;
+            saxi_awvalid=lsu_awvalid;
+            lsu_awready=saxi_awready;
+            saxi_wvalid=lsu_wvalid;
+            lsu_wready=saxi_wready;
+            saxi_bready=lsu_bready;
+            lsu_bvalid=saxi_bvalid;
+        end
+        3'd4:begin  end
+        default:begin end
+    endcase
+end
+
+
 
 endmodule
