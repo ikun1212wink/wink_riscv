@@ -143,7 +143,7 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IFU__DOT__axi_arvalid;
         CData/*0:0*/ top__DOT__IFU__DOT__axi_rready;
         CData/*0:0*/ top__DOT__ARB__DOT__arb_ready;
-        CData/*2:0*/ top__DOT__ARB__DOT__state;
+        CData/*3:0*/ top__DOT__ARB__DOT__state;
         CData/*0:0*/ top__DOT__ARB__DOT__wait_read;
     };
     struct {

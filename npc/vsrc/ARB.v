@@ -113,7 +113,7 @@ module ysyx_23060240_ARB(
     input clint_bvalid    
 );
 reg arb_ready;
-reg [2:0] state;
+reg [3:0] state;
 reg wait_read;
 always@(posedge clk)begin
     if(rst)begin
@@ -147,8 +147,14 @@ always@(posedge clk)begin
             end
         end
         else if(lsu_rvalid&&lsu_rready)begin//等待lsu从机读操作完成
-            wait_read<=1;
-            state<=4;
+            if((lsu_araddr==32'ha0000048)||(lsu_araddr==32'ha000005c))begin
+                wait_read<=1;
+                state<=8;  
+            end
+            else begin
+                wait_read<=1;
+                state<=4;      
+            end
         end
         else if(ifu_rvalid&&ifu_rready)begin//等待lsu从机读操作完成
             wait_read<=1;
@@ -173,7 +179,7 @@ end
 /* verilator lint_off LATCH */ 
 always@(*)begin
     case(state)
-        3'd0:begin
+        4'd0:begin
             saxi_arvalid=1'b0;
             saxi_rready=1'b0;
             saxi_wdata=32'h00000000;
@@ -190,7 +196,7 @@ always@(*)begin
             ifu_bvalid=1'b0;
             lsu_bvalid=1'b0;
         end
-        3'd1:begin//ifu读通信成功&写通道暂时不管
+        4'd1:begin//ifu读通信成功&写通道暂时不管
             saxi_araddr=ifu_araddr;
             saxi_arvalid=ifu_arvalid;
             ifu_arready=saxi_arready;
@@ -198,7 +204,7 @@ always@(*)begin
             ifu_rvalid=saxi_rvalid;
           //  ifu_rdata=saxi_rdata;
         end
-        3'd2:begin//lsu读通信成功&写通道暂时不管
+        4'd2:begin//lsu读通信成功&写通道暂时不管
             saxi_araddr=lsu_araddr;
           //  lsu_rdata=saxi_rdata;
             saxi_arvalid=lsu_arvalid;
@@ -206,7 +212,7 @@ always@(*)begin
             saxi_rready=lsu_rready;
             lsu_rvalid=saxi_rvalid; 
         end           
-        3'd3:begin//lsu写通信成功&读通道暂时不管
+        4'd3:begin//lsu写通信成功&读通道暂时不管
             saxi_awaddr=lsu_awaddr;
             saxi_wdata=lsu_wdata;
             saxi_awvalid=lsu_awvalid;
@@ -216,13 +222,13 @@ always@(*)begin
             saxi_bready=lsu_bready;
             lsu_bvalid=saxi_bvalid;
         end
-        3'd4:begin//切换读出数据到lsu
+        4'd4:begin//切换读出数据到lsu
             lsu_rdata=saxi_rdata;
         end
-        3'd5:begin
+        4'd5:begin
             ifu_rdata=saxi_rdata;//切换读出数据到ifu
         end
-        3'd6:begin//从机切换至UART 读通道暂时不管
+        4'd6:begin//从机切换至UART 读通道暂时不管
             uart_awaddr=lsu_awaddr;
             uart_wdata=lsu_wdata;
             uart_awvalid=lsu_awvalid;
@@ -232,13 +238,16 @@ always@(*)begin
             uart_bready=lsu_bready;
             lsu_bvalid=uart_bvalid;
         end
-        3'd7:begin//从机切换至CLINT 写通道暂时不管
+        4'd7:begin//从机切换至CLINT 写通道暂时不管
             clint_araddr=lsu_araddr;
           //  lsu_rdata=saxi_rdata;
             clint_arvalid=lsu_arvalid;
             lsu_arready=clint_arready;
             clint_rready=lsu_rready;
             lsu_rvalid=clint_rvalid; 
+        end
+        4'd8:begin
+            lsu_rdata=clint_rdata;
         end
         default:begin end
     endcase

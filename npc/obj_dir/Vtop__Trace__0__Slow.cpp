@@ -254,7 +254,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+362,"clint_bready", false,-1);
     tracep->declBit(c+363,"clint_bvalid", false,-1);
     tracep->declBit(c+183,"arb_ready", false,-1);
-    tracep->declBus(c+184,"state", false,-1, 2,0);
+    tracep->declBus(c+184,"state", false,-1, 3,0);
     tracep->declBit(c+185,"wait_read", false,-1);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("BSU ");
@@ -874,7 +874,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullIData(oldp+181,(vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__lut_out),32);
     bufp->fullBit(oldp+182,(vlSelf->top__DOT__ALU__DOT__alumux__DOT__i0__DOT__hit));
     bufp->fullBit(oldp+183,(vlSelf->top__DOT__ARB__DOT__arb_ready));
-    bufp->fullCData(oldp+184,(vlSelf->top__DOT__ARB__DOT__state),3);
+    bufp->fullCData(oldp+184,(vlSelf->top__DOT__ARB__DOT__state),4);
     bufp->fullBit(oldp+185,(vlSelf->top__DOT__ARB__DOT__wait_read));
     bufp->fullQData(oldp+186,(vlSelf->top__DOT__CLINT__DOT__mtime),64);
     bufp->fullIData(oldp+188,(vlSelf->top__DOT__CLINT__DOT__raddr),32);
