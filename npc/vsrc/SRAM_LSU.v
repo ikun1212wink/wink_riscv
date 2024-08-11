@@ -67,10 +67,10 @@ end
 reg [31:0] axi_data_to_read;//读数据选择
 always@(*)begin
      if(clean_data)begin
-          axi_data_to_read=pmem_read(axi_raddr);
+          axi_data_to_read=32'h0;
      end
      else begin
-          axi_data_to_read=32'h0;
+          axi_data_to_read=pmem_read(axi_raddr);
      end
 end
 //清空原先的数据 信号

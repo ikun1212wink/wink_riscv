@@ -217,11 +217,11 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
         }
     }
     if (vlSelf->top__DOT__SRAM_LSU__DOT__clean_data) {
+        vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read = 0U;
+    } else {
         Vtop___024root____Vdpiimwrap_top__DOT__SRAM_LSU__DOT__pmem_read_TOP(vlSelf->top__DOT__SRAM_LSU__DOT__axi_raddr, vlSelf->__Vfunc_top__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout);
         vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read 
             = vlSelf->__Vfunc_top__DOT__SRAM_LSU__DOT__pmem_read__1__Vfuncout;
-    } else {
-        vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read = 0U;
     }
     if ((1U & (~ ((IData)(vlSelf->top__DOT__ARB__DOT__state) 
                   >> 2U)))) {
