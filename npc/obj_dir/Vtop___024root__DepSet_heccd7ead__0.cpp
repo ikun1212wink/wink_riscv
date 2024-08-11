@@ -273,6 +273,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
         } else if (((IData)(vlSelf->top__DOT__saxi_bready) 
                     & (IData)(vlSelf->top__DOT__saxi_bvalid))) {
             __Vdly__top__DOT__ARB__DOT__state = 0U;
+            __Vdly__top__DOT__ARB__DOT__arb_ready = 1U;
         } else if (vlSelf->top__DOT__ARB__DOT__wait_read) {
             __Vdly__top__DOT__ARB__DOT__arb_ready = 1U;
             __Vdly__top__DOT__ARB__DOT__state = 0U;

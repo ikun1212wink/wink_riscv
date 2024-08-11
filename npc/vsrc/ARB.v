@@ -89,8 +89,9 @@ always@(posedge clk)begin
         else if(saxi_rvalid&&saxi_rready)begin//等待从机读操作完成
             wait_read<=1;
         end
-        else if(saxi_bready&&saxi_bvalid)begin//从机写操作完成
+        else if(saxi_bready&&saxi_bvalid)begin//从机写操作完成,断开通信
             state<=0;
+            arb_ready<=1'b1;
         end
         else if(wait_read)begin//从机操作完成，断开通信
             arb_ready<=1'b1;
