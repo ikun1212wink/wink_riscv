@@ -86,6 +86,7 @@ always@(posedge clk)begin
     else begin
         if(ifu_arvalid&&ifu_arready)begin
             ifu_arvalid<=1'b0;
+            axi_arvalid<=1'b0;
         end
         else if(finish)begin
             counter<=32'h6;
