@@ -22,10 +22,6 @@ extern "C" {
     extern int pmem_read(int raddr);
     // DPI import at /home/wink/ysyx-workbench/npc/vsrc/SRAM_LSU.v:31:30
     extern void pmem_write(int waddr, int wdata, char wmask);
-    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:320:30
-    extern void trace_func_call(int pc, int alu_out, svBit tail);
-    // DPI import at /home/wink/ysyx-workbench/npc/vsrc/top.v:321:30
-    extern void trace_func_ret(int pc);
 
 #ifdef __cplusplus
 }
