@@ -124,6 +124,8 @@ ysyx_23060240_BSU BSU(
     .jump_branch(jump_branch)
 );
 
+reg [7:0] uart_reg;
+
 wire [31:0] ifu_araddr;
 wire ifu_arvalid;
 wire ifu_arready;
@@ -183,6 +185,21 @@ wire uart_wvalid;
 wire uart_wready;  
 wire uart_bready;
 wire uart_bvalid;
+
+wire [31:0] clint_araddr;
+wire clint_arvalid;
+wire clint_arready;
+wire clint_rready;
+wire clint_rvalid;
+wire [31:0] clint_rdata;
+wire [31:0] clint_awaddr;
+wire clint_awvalid;
+wire clint_awready;
+wire [31:0] clint_wdata;
+wire clint_wvalid;
+wire clint_wready;  
+wire clint_bready;
+wire clint_bvalid;
 
 ysyx_23060240_LSU LSU(    
     .clk(clk),
@@ -306,9 +323,24 @@ ysyx_23060240_ARB ARB(
     .uart_wvalid(uart_wvalid),
     .uart_wready(uart_wready),    
     .uart_bready(uart_bready),
-    .uart_bvalid(uart_bvalid)
+    .uart_bvalid(uart_bvalid),
+
+    .clint_araddr(clint_araddr),
+    .clint_arvalid(clint_arvalid),   
+    .clint_arready(clint_arready),
+    .clint_rready(clint_rready),
+    .clint_rvalid(clint_rvalid),
+    .clint_rdata(clint_rdata),
+    .clint_awaddr(clint_awaddr),
+    .clint_awvalid(clint_awvalid),
+    .clint_awready(clint_awready),
+    .clint_wdata(clint_wdata),
+    .clint_wvalid(clint_wvalid),
+    .clint_wready(clint_wready),    
+    .clint_bready(clint_bready),
+    .clint_bvalid(clint_bvalid)
 );
-reg [7:0] uart_reg;
+
 ysyx_23060240_UART UART(
     .clk(clk),
     .rst(rst),
@@ -328,6 +360,26 @@ ysyx_23060240_UART UART(
     .uart_bready(uart_bready),
     .uart_bvalid(uart_bvalid),
     .uart_reg(uart_reg)
+);
+
+ysyx_23060240_CLINT CLINT(
+    .clk(clk),
+    .rst(rst),
+
+    .clint_araddr(clint_araddr),
+    .clint_arvalid(clint_arvalid),   
+    .clint_arready(clint_arready),
+    .clint_rready(clint_rready),
+    .clint_rvalid(clint_rvalid),
+    .clint_rdata(clint_rdata),
+    .clint_awaddr(clint_awaddr),
+    .clint_awvalid(clint_awvalid),
+    .clint_awready(clint_awready),
+    .clint_wdata(clint_wdata),
+    .clint_wvalid(clint_wvalid),
+    .clint_wready(clint_wready),    
+    .clint_bready(clint_bready),
+    .clint_bvalid(clint_bvalid)
 );
 
 ysyx_23060240_SRAM SRAM(

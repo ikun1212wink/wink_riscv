@@ -86,7 +86,31 @@ module ysyx_23060240_ARB(
 
      //write response channel
     output uart_bready,
-    input uart_bvalid
+    input uart_bvalid,
+
+/* --------------CLINT SLAVE----------------- */
+    output reg [31:0] clint_araddr,
+    output reg clint_arvalid,   
+    input clint_arready,
+
+    //read data channel
+    output reg clint_rready,
+    input clint_rvalid,
+    input [31:0] clint_rdata,
+
+    //write address channel
+    output [31:0] clint_awaddr,
+    output clint_awvalid,
+    input clint_awready, 
+
+    //write data channel
+    output [31:0] clint_wdata,
+    output clint_wvalid,
+    input clint_wready, 
+
+     //write response channel
+    output clint_bready,
+    input clint_bvalid    
 );
 reg arb_ready;
 reg [2:0] state;
@@ -103,8 +127,14 @@ always@(posedge clk)begin
             state<=1;
         end
         else if(arb_ready&&lsu_arvalid)begin//lsu通信成功
-            arb_ready<=1'b0;
-            state<=2;
+            if((lsu_araddr==32'ha0000048)||(lsu_araddr==32'ha000005c))begin
+                wait_read<=1;
+                state<=7;
+            end
+            else begin
+                arb_ready<=1'b0;
+                state<=2;     
+            end
         end
         else if(arb_ready&&(lsu_awvalid||lsu_wvalid))begin//lsu通信成功
             if(lsu_awaddr==32'ha00003f8)begin
@@ -201,6 +231,14 @@ always@(*)begin
             lsu_wready=uart_wready;
             uart_bready=lsu_bready;
             lsu_bvalid=uart_bvalid;
+        end
+        3'd7:begin//从机切换至CLINT 写通道暂时不管
+            clint_araddr=lsu_araddr;
+          //  lsu_rdata=saxi_rdata;
+            clint_arvalid=lsu_arvalid;
+            lsu_arready=clint_arready;
+            clint_rready=lsu_rready;
+            lsu_rvalid=clint_rvalid; 
         end
         default:begin end
     endcase
