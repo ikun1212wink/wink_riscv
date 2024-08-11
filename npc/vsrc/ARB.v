@@ -13,35 +13,35 @@ module ysyx_23060240_ARB(
     //write address channel
     input [31:0] ifu_awaddr,
     input ifu_awvalid,
-    output ifu_awready,
+    output reg ifu_awready,
     //write data channel
     input [31:0] ifu_wdata,
     input ifu_wvalid,
-    output ifu_wready,    
+    output reg ifu_wready,    
     //write response channel
     input ifu_bready,
-    output ifu_bvalid,
+    output reg ifu_bvalid,
 
 
     //read address channel
     input [31:0] lsu_araddr,
     input lsu_arvalid,   
-    output lsu_arready,
+    output reg lsu_arready,
     //read data channel
     input lsu_rready,
-    output lsu_rvalid,
+    output reg lsu_rvalid,
     output reg [31:0] lsu_rdata,
     //write address channel
     input [31:0] lsu_awaddr,
     input lsu_awvalid,
-    output lsu_awready,
+    output reg lsu_awready,
     //write data channel
     input [31:0] lsu_wdata,
     input lsu_wvalid,
-    output lsu_wready,    
+    output reg lsu_wready,    
     //write response channel
     input lsu_bready,
-    output lsu_bvalid,
+    output reg lsu_bvalid,
 
 
     //read address channel
@@ -115,6 +115,16 @@ always@(*)begin
             saxi_wdata=32'h00000000;
             saxi_wvalid=1'b0;
             saxi_bready=1'b0;
+            ifu_arready=1'b0;
+            lsu_arready=1'b0;
+            ifu_rvalid=1'b0;
+            lsu_rvalid=1'b0;
+            ifu_awready=1'b0;
+            lsu_awready=1'b0;
+            ifu_wready=1'b0;
+            lsu_wready=1'b0;
+            ifu_bvalid=1'b0;
+            lsu_bvalid=1'b0;
         end
         3'd1:begin//ifu读通信成功&写通道暂时不管
             saxi_araddr=ifu_araddr;
