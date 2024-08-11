@@ -156,11 +156,11 @@ always@(*)begin
             saxi_bready=lsu_bready;
             lsu_bvalid=saxi_bvalid;
         end
-        3'd4:begin
+        3'd4:begin//切换读出数据到lsu
             lsu_rdata=saxi_rdata;
         end
         3'd5:begin
-            ifu_rdata=saxi_rdata;
+            ifu_rdata=saxi_rdata;//切换读出数据到ifu
         end
         default:begin end
     endcase
