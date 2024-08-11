@@ -86,8 +86,13 @@ always@(posedge clk)begin
             arb_ready<=1'b0;
             state<=3;
         end
-        else if(saxi_rvalid&&saxi_rready)begin//等待从机读操作完成
+        else if(lsu_rvalid&&lsu_rready)begin//等待lsu从机读操作完成
             wait_read<=1;
+            state<=4;
+        end
+        else if(ifu_rvalid&&ifu_rready)begin//等待lsu从机读操作完成
+            wait_read<=1;
+            state<=5;
         end
         else if(saxi_bready&&saxi_bvalid)begin//从机写操作完成,断开通信
             state<=0;
@@ -131,11 +136,11 @@ always@(*)begin
             ifu_arready=saxi_arready;
             saxi_rready=ifu_rready;
             ifu_rvalid=saxi_rvalid;
-            ifu_rdata=saxi_rdata;
+          //  ifu_rdata=saxi_rdata;
         end
         3'd2:begin//lsu读通信成功&写通道暂时不管
             saxi_araddr=lsu_araddr;
-            lsu_rdata=saxi_rdata;
+          //  lsu_rdata=saxi_rdata;
             saxi_arvalid=lsu_arvalid;
             lsu_arready=saxi_arready;
             saxi_rready=lsu_rready;
@@ -150,6 +155,12 @@ always@(*)begin
             lsu_wready=saxi_wready;
             saxi_bready=lsu_bready;
             lsu_bvalid=saxi_bvalid;
+        end
+        3'd4:begin
+            lsu_rdata=saxi_rdata;
+        end
+        3'd5:begin
+            ifu_rdata=saxi_rdata;
         end
         default:begin end
     endcase

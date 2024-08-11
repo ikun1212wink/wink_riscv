@@ -79,7 +79,7 @@ always@(posedge clk)begin
           end
           else if(saxi_rvalid && saxi_rready)begin
                saxi_rdata<=axi_data_to_read;
-               saxi_rvalid<=1'b0;               
+               saxi_rvalid<=1'b0;             
           end
           else begin
                saxi_rvalid<=saxi_rvalid;
