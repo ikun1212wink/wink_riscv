@@ -2220,6 +2220,7 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__IFU__DOT__counter_rready = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__ARB__DOT__arb_ready = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__ARB__DOT__state = VL_RAND_RESET_I(3);
+    vlSelf->top__DOT__ARB__DOT__wait_read = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__SRAM_LSU__DOT__axi_raddr = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__SRAM_LSU__DOT__axi_data_to_read = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__SRAM_LSU__DOT__aw_hand = VL_RAND_RESET_I(1);

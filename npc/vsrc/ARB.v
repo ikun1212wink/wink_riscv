@@ -66,10 +66,12 @@ module ysyx_23060240_ARB(
 );
 reg arb_ready;
 reg [2:0] state;
+reg wait_read;
 always@(posedge clk)begin
     if(rst)begin
         arb_ready<=1'b1;
         state<=0;//默认状态，无通信操作
+        wait_read<=0;
     end
     else begin
         if(arb_ready&&ifu_arvalid)begin//ifu通信成功
@@ -85,14 +87,15 @@ always@(posedge clk)begin
             state<=3;
         end
         else if(saxi_rvalid&&saxi_rready)begin//等待从机读操作完成
-            state<=4;
+            wait_read<=1;
         end
         else if(saxi_bready&&saxi_bvalid)begin//从机写操作完成
             state<=0;
         end
-        else if(state==4)begin//从机操作完成，断开通信
+        else if(wait_read)begin//从机操作完成，断开通信
             arb_ready<=1'b1;
             state<=0;
+            wait_read<=0;
         end
         else begin
             arb_ready<=arb_ready;
@@ -139,7 +142,6 @@ always@(*)begin
             saxi_bready=lsu_bready;
             lsu_bvalid=saxi_bvalid;
         end
-        3'd4:begin  end
         default:begin end
     endcase
 end
