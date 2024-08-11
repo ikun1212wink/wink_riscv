@@ -658,7 +658,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
          & (IData)(vlSelf->top__DOT__UART__DOT__aw_hand))) {
         if (VL_UNLIKELY((0xa00003f8U == vlSelf->top__DOT__UART__DOT__waddr))) {
             vlSelf->top__DOT__uart_reg = (0xffU & vlSelf->top__DOT__UART__DOT__wdata);
-            VL_WRITEF("Received data: %c",8,vlSelf->top__DOT__uart_reg);
+            VL_WRITEF("%c",8,vlSelf->top__DOT__uart_reg);
             Verilated::runFlushCallbacks();
         }
     }
