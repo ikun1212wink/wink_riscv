@@ -2413,13 +2413,8 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
             if ((1U & (~ (IData)(vlSelf->top__DOT__ARB__DOT__state)))) {
                 vlSelf->top__DOT__saxi_araddr = vlSelf->top__DOT__alu_out;
             }
-        } else {
-            if ((1U & (~ (IData)(vlSelf->top__DOT__ARB__DOT__state)))) {
-                vlSelf->top__DOT__saxi_awaddr = 0x80000000U;
-            }
-            vlSelf->top__DOT__saxi_araddr = ((1U & (IData)(vlSelf->top__DOT__ARB__DOT__state))
-                                              ? vlSelf->pc
-                                              : 0x80000000U);
+        } else if ((1U & (IData)(vlSelf->top__DOT__ARB__DOT__state))) {
+            vlSelf->top__DOT__saxi_araddr = vlSelf->pc;
         }
     }
     vlSelf->top__DOT__LSU__DOT__mem_move_out = ((2U 

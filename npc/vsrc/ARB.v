@@ -109,10 +109,8 @@ end
 always@(*)begin
     case(state)
         3'd0:begin
-            saxi_araddr=32'h80000000;
             saxi_arvalid=1'b0;
             saxi_rready=1'b0;
-            saxi_awaddr=32'h80000000;
             saxi_wdata=32'h00000000;
             saxi_wvalid=1'b0;
             saxi_bready=1'b0;
