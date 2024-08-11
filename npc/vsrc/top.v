@@ -321,7 +321,7 @@ import "DPI-C" function void trace_func_call(input int pc, input int alu_out,inp
 import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
-/* always@(posedge clk)begin
+always@(posedge clk)begin
     if(jal&&(finish_1||rd_finish||wr_finish))begin
         if(inst[11:7]==1)begin
             trace_func_call(pc,jump_pc,1'b0);
@@ -341,6 +341,6 @@ always@(posedge clk)begin
             trace_func_call(pc,jump_pc,1'b1);
         end
     end
-end */
+end
 
 endmodule
