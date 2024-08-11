@@ -1,4 +1,4 @@
-module ysyx_23060240_SRAM_LSU(
+module ysyx_23060240_SRAM(
     input clk,
     input rst,
     input [7:0] wmask,
@@ -88,7 +88,7 @@ always@(posedge clk)begin
 end
 
 //AXI write address channel
-reg aw_hand;//aw握手标志
+reg aw_hand;//aw握手标志 用于标记写响应
 always@(posedge clk)begin
      if(rst)begin
           saxi_awready<=1'b1;
@@ -129,7 +129,7 @@ always@(posedge clk)begin
      end
 end
 //AXI write data channel
-reg w_hand;//w握手标志
+reg w_hand;//w握手标志   用于标记写响应
 always@(posedge clk)begin
      if(rst)begin
           saxi_wready<=1'b1;
