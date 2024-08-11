@@ -62,10 +62,10 @@ module ysyx_23060240_ARB(
     input saxi_wready,    
     //write response channel
     output saxi_bready,
-    input saxi_bvalid
+    input saxi_bvalid,
 
 /* --------------UART SLAVE----------------- */
-/*     output reg [31:0] uart_araddr,
+    output reg [31:0] uart_araddr,
     output reg uart_arvalid,   
     input uart_arready,
 
@@ -86,7 +86,7 @@ module ysyx_23060240_ARB(
 
      //write response channel
     output uart_bready,
-    input uart_bvalid */
+    input uart_bvalid
 );
 reg arb_ready;
 reg [2:0] state;
@@ -107,8 +107,12 @@ always@(posedge clk)begin
             state<=2;
         end
         else if(arb_ready&&(lsu_awvalid||lsu_wvalid))begin//lsu通信成功
-            arb_ready<=1'b0;
-            state<=3;
+            if(lsu_awaddr==32'ha00003f8)begin
+                arb_ready<=1'b0;
+                state<=6;
+            end
+                arb_ready<=1'b0;
+                state<=3;
         end
         else if(lsu_rvalid&&lsu_rready)begin//等待lsu从机读操作完成
             wait_read<=1;
@@ -170,7 +174,7 @@ always@(*)begin
             saxi_rready=lsu_rready;
             lsu_rvalid=saxi_rvalid; 
         end           
-        3'd3:begin//lsu写通信成功&写通道暂时不管
+        3'd3:begin//lsu写通信成功&读通道暂时不管
             saxi_awaddr=lsu_awaddr;
             saxi_wdata=lsu_wdata;
             saxi_awvalid=lsu_awvalid;
@@ -185,6 +189,16 @@ always@(*)begin
         end
         3'd5:begin
             ifu_rdata=saxi_rdata;//切换读出数据到ifu
+        end
+        3'd6:begin//从机切换至UART 读通道暂时不管
+            uart_awaddr=lsu_awaddr;
+            uart_wdata=lsu_wdata;
+            uart_awvalid=lsu_awvalid;
+            lsu_awready=uart_awready;
+            uart_wvalid=lsu_wvalid;
+            lsu_wready=uart_wready;
+            uart_bready=lsu_bready;
+            lsu_bvalid=uart_bvalid;
         end
         default:begin end
     endcase

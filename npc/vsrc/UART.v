@@ -122,7 +122,8 @@ always@(posedge clk)begin
           end
      end
 end
-
+//写设备寄存器
+/* verilator lint_off LATCH */
 always@(*)begin
     if(w_hand && aw_hand)begin
         if(waddr==uart_addr)begin

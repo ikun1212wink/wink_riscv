@@ -169,6 +169,21 @@ wire saxi_wready;
 wire saxi_bready;
 wire saxi_bvalid;
 
+wire [31:0] uart_araddr;
+wire uart_arvalid;
+wire uart_arready;
+wire uart_rready;
+wire uart_rvalid;
+wire [31:0] uart_rdata;
+wire [31:0] uart_awaddr;
+wire uart_awvalid;
+wire uart_awready;
+wire [31:0] uart_wdata;
+wire uart_wvalid;
+wire uart_wready;  
+wire uart_bready;
+wire uart_bvalid;
+
 ysyx_23060240_LSU LSU(    
     .clk(clk),
     .rst(rst),
@@ -276,7 +291,43 @@ ysyx_23060240_ARB ARB(
     .saxi_wvalid(saxi_wvalid),
     .saxi_wready(saxi_wready),    
     .saxi_bready(saxi_bready),
-    .saxi_bvalid(saxi_bvalid)
+    .saxi_bvalid(saxi_bvalid),
+
+    .uart_araddr(uart_araddr),
+    .uart_arvalid(uart_arvalid),   
+    .uart_arready(uart_arready),
+    .uart_rready(uart_rready),
+    .uart_rvalid(uart_rvalid),
+    .uart_rdata(uart_rdata),
+    .uart_awaddr(uart_awaddr),
+    .uart_awvalid(uart_awvalid),
+    .uart_awready(uart_awready),
+    .uart_wdata(uart_wdata),
+    .uart_wvalid(uart_wvalid),
+    .uart_wready(uart_wready),    
+    .uart_bready(uart_bready),
+    .uart_bvalid(uart_bvalid)
+);
+reg [7:0] uart_reg;
+ysyx_23060240_UART UART(
+    .clk(clk),
+    .rst(rst),
+
+    .uart_araddr(uart_araddr),
+    .uart_arvalid(uart_arvalid),   
+    .uart_arready(uart_arready),
+    .uart_rready(uart_rready),
+    .uart_rvalid(uart_rvalid),
+    .uart_rdata(uart_rdata),
+    .uart_awaddr(uart_awaddr),
+    .uart_awvalid(uart_awvalid),
+    .uart_awready(uart_awready),
+    .uart_wdata(uart_wdata),
+    .uart_wvalid(uart_wvalid),
+    .uart_wready(uart_wready),    
+    .uart_bready(uart_bready),
+    .uart_bvalid(uart_bvalid),
+    .uart_reg(uart_reg)
 );
 
 ysyx_23060240_SRAM SRAM(
