@@ -238,6 +238,7 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
         if (VL_UNLIKELY((0xa00003f8U == vlSelf->top__DOT__UART__DOT__waddr))) {
             vlSelf->top__DOT__uart_reg = (0xffU & vlSelf->top__DOT__UART__DOT__wdata);
             VL_WRITEF("Received data: %c",8,vlSelf->top__DOT__uart_reg);
+            Verilated::runFlushCallbacks();
         }
     }
     if ((4U & (IData)(vlSelf->top__DOT__ARB__DOT__state))) {
