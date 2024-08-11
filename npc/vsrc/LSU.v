@@ -46,10 +46,10 @@ wire [31:0] lsu_rdata;//rdata   output reg [31:0] mem_rd_data
 reg lsu_rready; */
 reg [31:0] mem_move_out;
 reg [31:0] mem_out;
-/* always@(*)begin
+always@(*)begin
     mem_out=lsu_rdata;
 end
- */
+
 //AXI read address channel
 reg axi_arvalid;//存放延迟的arvalid信号
 always@(posedge clk)begin
@@ -109,7 +109,6 @@ always@(posedge clk)begin
         else if(lsu_rvalid && lsu_rready)begin
             axi_rready<=1'b0;
             rd_finish<=1'b1;
-            mem_out<=lsu_rdata;
         end
         else begin
             axi_rready<=axi_rready;

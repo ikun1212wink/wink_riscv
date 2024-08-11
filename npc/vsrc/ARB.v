@@ -127,11 +127,13 @@ always@(*)begin
         end
         3'd1:begin//ifu读通信成功&写通道暂时不管
             saxi_araddr=ifu_araddr;
-            ifu_rdata=saxi_rdata;
             saxi_arvalid=ifu_arvalid;
             ifu_arready=saxi_arready;
             saxi_rready=ifu_rready;
             ifu_rvalid=saxi_rvalid;
+            if(ifu_rvalid&&ifu_rready)begin
+                ifu_rdata=saxi_rdata;
+            end
         end
         3'd2:begin//lsu读通信成功&写通道暂时不管
             saxi_araddr=lsu_araddr;

@@ -6,7 +6,7 @@ module ysyx_23060240_IFU(
     input finish,
     output reg valid_ifu,
     output reg [31:0] pc,
-    output reg [31:0] inst,
+    output [31:0] inst,
 
     //read address channel signal
     output [31:0] ifu_araddr,
@@ -119,7 +119,6 @@ always@(posedge clk)begin
             axi_rready<=1'b1;
         end
         else if(ifu_rvalid&&ifu_rready)begin
-            inst<=ifu_rdata;
             axi_rready<=1'b0;
             valid_ifu<=1'b1;
         end
@@ -158,7 +157,7 @@ always@(posedge clk)begin
 end
 
 
-
+assign inst=ifu_rdata;
 
 
 /* ysyx_23060240_SRAM_IFU SRAM_IFU(

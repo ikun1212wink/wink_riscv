@@ -156,7 +156,6 @@ class Vtop___024root final : public VerilatedModule {
         IData/*31:0*/ top__DOT__BSU__DOT__signed_rs1;
         IData/*31:0*/ top__DOT__BSU__DOT__signed_rs2;
         IData/*31:0*/ top__DOT__LSU__DOT__mem_move_out;
-        IData/*31:0*/ top__DOT__LSU__DOT__mem_out;
         IData/*31:0*/ top__DOT__LSU__DOT__counter;
         IData/*31:0*/ top__DOT__LSU__DOT__counter_rready;
         IData/*31:0*/ top__DOT__IFU__DOT__counter;
