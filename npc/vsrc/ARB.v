@@ -124,7 +124,7 @@ always@(posedge clk)begin
             wait_read<=1;
             state<=5;
         end
-        else if(saxi_bready&&saxi_bvalid)begin//从机写操作完成,断开通信
+        else if(lsu_bready&&lsu_bvalid)begin//从机写操作完成,断开通信
             state<=0;
             arb_ready<=1'b1;
         end
