@@ -1,4 +1,4 @@
-module ysyx_23060240_ARB(
+module ysyx_23060240_XBAR(
     input clk,
     input rst,
 /* --------------IFU MASTER----------------- */

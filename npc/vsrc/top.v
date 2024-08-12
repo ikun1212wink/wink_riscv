@@ -264,7 +264,7 @@ ysyx_23060240_IFU IFU(
     .ifu_bvalid(ifu_bvalid) 
 );
 
-ysyx_23060240_ARB ARB(
+ysyx_23060240_XBAR XBAR(
     .clk(clk),
     .rst(rst),
 
