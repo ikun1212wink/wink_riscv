@@ -65,7 +65,7 @@ always@(posedge clk)begin
         itrace_reg<=1'b0;
     end
     else begin
-        if(valid_ifu)begin
+        if(ifu_rvalid&&ifu_rready)begin
             itrace_reg<=1'b1;
         end
         else if(itrace_reg)begin
