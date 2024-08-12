@@ -6,6 +6,8 @@
 NPC_CPU_state npc_dut;
 extern int quit_sdb;
 
+#define DIFFTEST
+
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) = NULL;
 void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
