@@ -51,9 +51,6 @@ void itrace_printf(){
             single_cycle();
  
             if(dut.difftest){
-                #ifdef  ITRACE
-                    itrace_printf();
-                #endif  //ITRACE
                 #ifdef  DIFFTEST
                     difftest_step(dut.pc,dut.pc);
                 #endif  //DIFFTEST
