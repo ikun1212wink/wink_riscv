@@ -20,10 +20,11 @@ void itrace_printf(){
  void execute(int n){
     if(n>0){
         for (;n > 0; n --) {   
-            exe++;
+            
             single_cycle(); 
             if(dut.itrace_reg){
                 #ifdef  ITRACE
+                    exe++;
                     itrace_printf();
                 #endif  //ITRACE
                 #ifdef  REG_P
@@ -39,10 +40,11 @@ void itrace_printf(){
     }
     else if(n<0) {
         while(!ebreak_flag){  
-            exe++;
+            
             single_cycle();
             if(dut.itrace_reg){
                 #ifdef  ITRACE
+                    exe++;
                     itrace_printf();
                 #endif  //ITRACE
                 #ifdef  REG_P
