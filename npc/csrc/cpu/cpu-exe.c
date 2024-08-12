@@ -21,6 +21,7 @@ void itrace_printf(){
     if(n>0){
         for (;n > 0; n --) {   
             exe++;
+            single_cycle(); 
             if(dut.itrace_reg){
                 #ifdef  ITRACE
                     itrace_printf();
@@ -29,7 +30,6 @@ void itrace_printf(){
                     reg_p();
                 #endif  //REG_P 
             }  
-            single_cycle(); 
             if(dut.difftest){
                 #ifdef  DIFFTEST
                     difftest_step(dut.pc,dut.pc);
