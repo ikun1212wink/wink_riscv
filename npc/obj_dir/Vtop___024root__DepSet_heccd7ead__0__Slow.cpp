@@ -2160,6 +2160,8 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->rst = VL_RAND_RESET_I(1);
     vlSelf->inst = VL_RAND_RESET_I(32);
     vlSelf->pc = VL_RAND_RESET_I(32);
+    vlSelf->difftest = VL_RAND_RESET_I(1);
+    vlSelf->itrace_reg = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__w_csr_en = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__alu_out = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__alu_b_sel = VL_RAND_RESET_I(2);

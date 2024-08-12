@@ -20,38 +20,42 @@ void itrace_printf(){
  void execute(int n){
     if(n>0){
         for (;n > 0; n --) {   
-            exe++;
-            #ifdef  ITRACE
-                itrace_printf();
-            #endif  //ITRACE
-
-            single_cycle(); 
-
-            #ifdef  DIFFTEST
-                difftest_step(dut.pc,dut.pc);
-            #endif  //DIFFTEST
             
-            #ifdef  REG_P
-                reg_p();
-            #endif  //REG_P    
-                               
+            single_cycle(); 
+            if(dut.itrace_reg){
+                #ifdef  ITRACE
+                    exe++;
+                    itrace_printf();
+                #endif  //ITRACE
+                #ifdef  REG_P
+                    reg_p();
+                #endif  //REG_P 
+            }  
+            if(dut.difftest){
+                #ifdef  DIFFTEST
+                    difftest_step(dut.pc,dut.pc);
+                #endif  //DIFFTEST 
+            }                               
         }
     }
     else if(n<0) {
         while(!ebreak_flag){  
-            exe++;
-            #ifdef  ITRACE
-                itrace_printf();
-            #endif  //ITRACE
-            single_cycle();
-
-            #ifdef  DIFFTEST
-                difftest_step(dut.pc,dut.pc);
-            #endif  //DIFFTEST
             
-           #ifdef  REG_P
-                reg_p(); 
-           #endif  //REG_P                       
+            single_cycle();
+            if(dut.itrace_reg){
+                #ifdef  ITRACE
+                    exe++;
+                    itrace_printf();
+                #endif  //ITRACE
+                #ifdef  REG_P
+                    reg_p();
+                #endif  //REG_P 
+            }  
+            if(dut.difftest){
+                #ifdef  DIFFTEST
+                    difftest_step(dut.pc,dut.pc);
+                #endif  //DIFFTEST
+            }                   
         }
     }
     else {

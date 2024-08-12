@@ -17,6 +17,8 @@ class Vtop___024root final : public VerilatedModule {
     struct {
         VL_IN8(clk,0,0);
         VL_IN8(rst,0,0);
+        VL_OUT8(difftest,0,0);
+        VL_OUT8(itrace_reg,0,0);
         CData/*0:0*/ top__DOT__w_csr_en;
         CData/*1:0*/ top__DOT__alu_b_sel;
         CData/*3:0*/ top__DOT__alu_func;
@@ -77,10 +79,10 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__clint_awready;
         CData/*0:0*/ top__DOT__clint_wvalid;
         CData/*0:0*/ top__DOT__clint_wready;
-        CData/*0:0*/ top__DOT__clint_bready;
-        CData/*0:0*/ top__DOT__clint_bvalid;
     };
     struct {
+        CData/*0:0*/ top__DOT__clint_bready;
+        CData/*0:0*/ top__DOT__clint_bvalid;
         CData/*0:0*/ top__DOT____Vcellinp__LSU__mem_wr_en;
         CData/*0:0*/ top__DOT____Vcellinp__IFU__finish;
         CData/*0:0*/ top__DOT____Vcellinp__CSR__finish;
@@ -143,10 +145,10 @@ class Vtop___024root final : public VerilatedModule {
         CData/*0:0*/ top__DOT__IFU__DOT__axi_arvalid;
         CData/*0:0*/ top__DOT__IFU__DOT__axi_rready;
         CData/*0:0*/ top__DOT__ARB__DOT__arb_ready;
-        CData/*3:0*/ top__DOT__ARB__DOT__state;
-        CData/*0:0*/ top__DOT__ARB__DOT__wait_read;
     };
     struct {
+        CData/*3:0*/ top__DOT__ARB__DOT__state;
+        CData/*0:0*/ top__DOT__ARB__DOT__wait_read;
         CData/*0:0*/ top__DOT__UART__DOT__aw_hand;
         CData/*0:0*/ top__DOT__UART__DOT__w_hand;
         CData/*0:0*/ top__DOT__SRAM__DOT__aw_hand;
@@ -209,10 +211,10 @@ class Vtop___024root final : public VerilatedModule {
         VlUnpacked<IData/*31:0*/, 32> top__DOT__GPR__DOT__rf;
         VlUnpacked<QData/*35:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*3:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__key_list;
-        VlUnpacked<IData/*31:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list;
-        VlUnpacked<QData/*38:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list;
     };
     struct {
+        VlUnpacked<IData/*31:0*/, 16> top__DOT__ALU__DOT__alumux__DOT__i0__DOT__data_list;
+        VlUnpacked<QData/*38:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__key_list;
         VlUnpacked<IData/*31:0*/, 8> top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__data_list;
         VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;

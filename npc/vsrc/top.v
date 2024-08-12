@@ -2,12 +2,13 @@ module top(
     input clk,
     input rst,
     output [31:0] inst,
-    output [31:0] pc
+    output [31:0] pc,
+    output difftest,
+    output itrace_reg
 );
 //ftrace用
 wire jal;
 wire jalr;
-
 wire w_csr_en;
 wire r_csr_en;
 wire [31:0] alu_a,alu_b;
@@ -244,6 +245,8 @@ ysyx_23060240_IFU IFU(
     .valid_ifu(valid_ifu),
     .pc(pc),
     .inst(inst),
+    .difftest(difftest),
+    .itrace_reg(itrace_reg),
 
     .ifu_araddr(ifu_araddr),
     .ifu_arvalid(ifu_arvalid),   
