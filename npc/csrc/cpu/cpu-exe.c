@@ -50,6 +50,7 @@ void itrace_printf(){
 
             if(dut.difftest){
                 #ifdef  DIFFTEST
+                    printf("111\n");
                     difftest_step(dut.pc,dut.pc);
                 #endif  //DIFFTEST
             }
