@@ -110,11 +110,11 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     __Vdly__top__DOT__clint_arready = vlSelf->top__DOT__clint_arready;
     __Vdly__top__DOT__LSU__DOT__axi_arvalid = vlSelf->top__DOT__LSU__DOT__axi_arvalid;
     __Vdly__top__DOT__IFU__DOT__axi_rready = vlSelf->top__DOT__IFU__DOT__axi_rready;
-    __Vdly__top__DOT__IFU__DOT__counter = vlSelf->top__DOT__IFU__DOT__counter;
     __Vdly__top__DOT__saxi_arready = vlSelf->top__DOT__saxi_arready;
+    __Vdly__top__DOT__IFU__DOT__counter = vlSelf->top__DOT__IFU__DOT__counter;
     __Vdly__top__DOT__LSU__DOT__counter = vlSelf->top__DOT__LSU__DOT__counter;
-    __Vdly__top__DOT__ifu_arvalid = vlSelf->top__DOT__ifu_arvalid;
     __Vdly__top__DOT__saxi_bvalid = vlSelf->top__DOT__saxi_bvalid;
+    __Vdly__top__DOT__ifu_arvalid = vlSelf->top__DOT__ifu_arvalid;
     __Vdly__top__DOT__uart_bvalid = vlSelf->top__DOT__uart_bvalid;
     __Vdly__top__DOT__LSU__DOT__axi_rready = vlSelf->top__DOT__LSU__DOT__axi_rready;
     __Vdly__top__DOT__IFU__DOT__counter_rready = vlSelf->top__DOT__IFU__DOT__counter_rready;
@@ -135,6 +135,7 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     __Vdly__top__DOT__ARB__DOT__wait_read = vlSelf->top__DOT__ARB__DOT__wait_read;
     __Vdly__top__DOT__ARB__DOT__arb_ready = vlSelf->top__DOT__ARB__DOT__arb_ready;
     __Vdly__top__DOT__ARB__DOT__state = vlSelf->top__DOT__ARB__DOT__state;
+    vlSelf->difftest = ((~ (IData)(vlSelf->rst)) & (IData)(vlSelf->top__DOT____Vcellinp__IFU__finish));
     __Vdly__top__DOT__lsu_wvalid = ((~ (IData)(vlSelf->rst)) 
                                     & ((IData)(vlSelf->top__DOT____Vcellinp__LSU__mem_wr_en) 
                                        | ((~ ((IData)(vlSelf->top__DOT__lsu_wvalid) 

@@ -6,7 +6,6 @@
 NPC_CPU_state npc_dut;
 extern int quit_sdb;
 
-#define DIFFTEST
 
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) = NULL;
@@ -83,9 +82,9 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   uint32_t reset_vector=(uint32_t)0x80000000;
   uint32_t *npc_guest_to_host=init_mem();//npc程序实际位置的指针
 
-  ref_difftest_init(port);
-  ref_difftest_memcpy(reset_vector,npc_guest_to_host, img_size, DIFFTEST_TO_REF);
-  ref_difftest_regcpy(&npc_dut, DIFFTEST_TO_REF);
+  ref_difftest_init(port);//初始化内存和虚拟计算机系统
+  ref_difftest_memcpy(reset_vector,npc_guest_to_host, img_size, DIFFTEST_TO_REF);//将DUT内存拷贝到ERF
+  ref_difftest_regcpy(&npc_dut, DIFFTEST_TO_REF);//设置REF寄存器的状态为DUT
 //  printf("%x\n",npc_dut.pc);
 }
 
@@ -129,12 +128,13 @@ static void checkregs(NPC_CPU_state *ref, vaddr_t pc) {
 //NEMU执行完一条指令后，就在difftest_step中执行相同的指令，然后读出REF中的寄存器，并进行对比
 //不同ISA的寄存器有所不同, 框架代码把寄存器对比抽象成一个ISA相关的API, 即isa_difftest_checkregs()函数（nemu/src/isa/$ISA/difftest/dut.c）
 void difftest_step(vaddr_t pc, vaddr_t npc) {
+  //构造npc_dut结构体
   memcpy(&npc_dut.pc,&dut.pc,sizeof(dut.pc));
   memcpy(npc_dut.gpr,&(dut.rootp->top__DOT__GPR__DOT__rf),sizeof(dut.rootp->top__DOT__GPR__DOT__rf));
   NPC_CPU_state ref_r;
   //skip_dut_nr_inst=0
   if (skip_dut_nr_inst > 0) {
-    ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
+    ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);//设置DUT寄存器的状态为REF
     if (ref_r.pc == npc) {
       skip_dut_nr_inst = 0;
       checkregs(&ref_r, npc);
@@ -155,8 +155,8 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
     return;
   }
 //问题出在这里
-  ref_difftest_exec(1);
-  ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
+  ref_difftest_exec(1);//nemu 
+  ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);//更新ref_r寄存器状态和nemu的寄存器一致
   //上面代码我的理解是同步模拟器和NEMU的指令状态
 
 
