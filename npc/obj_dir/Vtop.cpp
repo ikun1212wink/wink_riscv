@@ -15,6 +15,7 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , clk{vlSymsp->TOP.clk}
     , rst{vlSymsp->TOP.rst}
     , difftest{vlSymsp->TOP.difftest}
+    , itrace_reg{vlSymsp->TOP.itrace_reg}
     , inst{vlSymsp->TOP.inst}
     , pc{vlSymsp->TOP.pc}
     , rootp{&(vlSymsp->TOP)}

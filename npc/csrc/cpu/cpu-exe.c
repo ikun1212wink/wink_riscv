@@ -21,44 +21,42 @@ void itrace_printf(){
     if(n>0){
         for (;n > 0; n --) {   
             exe++;
-            #ifdef  ITRACE
-                itrace_printf();
-            #endif  //ITRACE
-
+            if(dut.itrace_reg){
+                #ifdef  ITRACE
+                    itrace_printf();
+                #endif  //ITRACE
+                #ifdef  REG_P
+                    reg_p();
+                #endif  //REG_P 
+            }  
             single_cycle(); 
-
-
             if(dut.difftest){
                 #ifdef  DIFFTEST
                     difftest_step(dut.pc,dut.pc);
-                #endif  //DIFFTEST
-            }
-            
-            #ifdef  REG_P
-                reg_p();
-            #endif  //REG_P    
-                               
+                #endif  //DIFFTEST 
+            }                               
         }
     }
     else if(n<0) {
         while(!ebreak_flag){  
             exe++;
-            #ifdef  ITRACE
-                itrace_printf();
-            #endif  //ITRACE
+            if(dut.itrace_reg){
+                #ifdef  ITRACE
+                    itrace_printf();
+                #endif  //ITRACE
+                #ifdef  REG_P
+                    reg_p();
+                #endif  //REG_P 
+            }  
             single_cycle();
-
             if(dut.difftest){
+                #ifdef  ITRACE
+                    itrace_printf();
+                #endif  //ITRACE
                 #ifdef  DIFFTEST
-                    printf("111\n");
                     difftest_step(dut.pc,dut.pc);
                 #endif  //DIFFTEST
-            }
-            
-            
-           #ifdef  REG_P
-                reg_p(); 
-           #endif  //REG_P                       
+            }                   
         }
     }
     else {

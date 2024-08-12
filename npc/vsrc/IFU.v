@@ -8,6 +8,7 @@ module ysyx_23060240_IFU(
     output reg [31:0] pc,
     output [31:0] inst,
     output reg difftest,
+    output reg itrace_reg,
     //read address channel signal
     output [31:0] ifu_araddr,
     output reg ifu_arvalid,
@@ -58,7 +59,23 @@ always@(posedge clk)begin
         end
     end
 end
-
+//itrace&reg signal
+always@(posedge clk)begin
+    if(rst)begin
+        itrace_reg<=1'b1;
+    end
+    else begin
+        if(finish)begin
+            itrace_reg<=1'b1;
+        end
+        else if(itrace_reg)begin
+            itrace_reg<=1'b0;
+        end
+        else begin
+            itrace_reg<=itrace_reg;
+        end
+    end
+end
 
 //PC updata
 always@(posedge clk)begin

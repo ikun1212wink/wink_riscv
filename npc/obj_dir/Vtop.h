@@ -29,6 +29,7 @@ class Vtop VL_NOT_FINAL : public VerilatedModel {
     VL_IN8(&clk,0,0);
     VL_IN8(&rst,0,0);
     VL_OUT8(&difftest,0,0);
+    VL_OUT8(&itrace_reg,0,0);
     VL_OUT(&inst,31,0);
     VL_OUT(&pc,31,0);
 
