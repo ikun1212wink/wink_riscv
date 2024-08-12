@@ -62,10 +62,10 @@ end
 //itrace&reg signal
 always@(posedge clk)begin
     if(rst)begin
-        itrace_reg<=1'b1;
+        itrace_reg<=1'b0;
     end
     else begin
-        if(finish)begin
+        if(valid_ifu)begin
             itrace_reg<=1'b1;
         end
         else if(itrace_reg)begin
