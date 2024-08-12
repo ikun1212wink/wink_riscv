@@ -40,8 +40,6 @@ void itrace_printf(){
     else if(n<0) {
         while(!ebreak_flag){  
             exe++;
-
-            single_cycle();
             if(dut.itrace_reg){
                 #ifdef  ITRACE
                     itrace_printf();
@@ -49,7 +47,9 @@ void itrace_printf(){
                 #ifdef  REG_P
                     reg_p();
                 #endif  //REG_P 
-            }  
+            } 
+            single_cycle();
+ 
             if(dut.difftest){
                 #ifdef  ITRACE
                     itrace_printf();
