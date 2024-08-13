@@ -1,6 +1,6 @@
 module ysyx_23060240(
-    input clk,
-    input rst,
+    input clock,
+    input reset,
     output [31:0] inst,
     output [31:0] pc,
     output difftest,
@@ -95,7 +95,7 @@ ysyx_23060240_IDU IDU(
 
 ysyx_23060240_GPR GPR(
     .finish(finish_1||rd_finish),
-    .clk(clk),
+    .clk(clock),
     .w_data(w_data),
     .r_rs1_addr(inst[19:15]),
     .r_rs2_addr(inst[24:20]),
@@ -281,8 +281,8 @@ wire [1:0] clint_bresp;
 wire [3:0] clint_bid;
 
 ysyx_23060240_LSU LSU(    
-    .clk(clk),
-    .rst(rst),
+    .clk(clock),
+    .rst(reset),
     .mem_wr_en(mem_wr_en&&valid_ifu),
     .memory_rd_ctrl(memory_rd_ctrl),
     .memory_wr_ctrl(memory_wr_ctrl),
@@ -333,8 +333,8 @@ ysyx_23060240_LSU LSU(
 
 
 ysyx_23060240_IFU IFU(
-    .clk(clk),
-    .rst(rst),    
+    .clk(clock),
+    .rst(reset),    
 
     .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
     .jump_pc(jump_pc),    
@@ -381,8 +381,8 @@ ysyx_23060240_IFU IFU(
 );
 
 ysyx_23060240_XBAR XBAR(
-    .clk(clk),
-    .rst(rst),
+    .clk(clock),
+    .rst(reset),
 
     .ifu_araddr(ifu_araddr),
     .ifu_arvalid(ifu_arvalid),   
@@ -536,8 +536,8 @@ ysyx_23060240_XBAR XBAR(
 );
 
 ysyx_23060240_UART UART(
-    .clk(clk),
-    .rst(rst),
+    .clk(clock),
+    .rst(reset),
 
     .uart_araddr(uart_araddr),
     .uart_arvalid(uart_arvalid),   
@@ -576,8 +576,8 @@ ysyx_23060240_UART UART(
 );
 
 ysyx_23060240_CLINT CLINT(
-    .clk(clk),
-    .rst(rst),
+    .clk(clock),
+    .rst(reset),
 
     .clint_araddr(clint_araddr),
     .clint_arvalid(clint_arvalid),   
@@ -615,8 +615,8 @@ ysyx_23060240_CLINT CLINT(
 );
 
 ysyx_23060240_SRAM SRAM(
-    .clk(clk),
-    .rst(rst),
+    .clk(clock),
+    .rst(reset),
     .wmask(memory_wr_ctrl),
 
     .saxi_araddr(saxi_araddr),
@@ -657,7 +657,7 @@ ysyx_23060240_SRAM SRAM(
 ysyx_23060240_CSR CSR(
     .finish(finish_1||rd_finish),
     .pc(pc),
-    .clk(clk),
+    .clk(clock),
     .r_csr_addr(inst[31:20]),
     .w_csr_addr(inst[31:20]),
     .w_csr_data(alu_out),
@@ -675,7 +675,7 @@ ysyx_23060240_CSR CSR(
 import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
-always@(posedge clk)begin
+always@(posedge clock)begin
     if(jal&&(finish_1||rd_finish||wr_finish))begin
         if(inst[11:7]==1)begin
             trace_func_call(pc,jump_pc,1'b0);
@@ -683,7 +683,7 @@ always@(posedge clk)begin
     end
 end
 
-always@(posedge clk)begin
+always@(posedge clock)begin
     if(jalr&&(finish_1||rd_finish||wr_finish))begin
         if(inst==32'h00008067)begin
             trace_func_ret(pc);

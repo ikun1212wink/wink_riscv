@@ -147,23 +147,24 @@ VL_INLINE_OPT void Vysyx_23060240___024root___nba_sequent__TOP__0(Vysyx_23060240
     __Vdly__ysyx_23060240__DOT__XBAR__DOT__arb_ready 
         = vlSelf->ysyx_23060240__DOT__XBAR__DOT__arb_ready;
     __Vdly__ysyx_23060240__DOT__XBAR__DOT__state = vlSelf->ysyx_23060240__DOT__XBAR__DOT__state;
-    vlSelf->difftest = ((~ (IData)(vlSelf->rst)) & (IData)(vlSelf->ysyx_23060240__DOT____Vcellinp__IFU__finish));
-    vlSelf->itrace_reg = ((~ (IData)(vlSelf->rst)) 
+    vlSelf->difftest = ((~ (IData)(vlSelf->reset)) 
+                        & (IData)(vlSelf->ysyx_23060240__DOT____Vcellinp__IFU__finish));
+    vlSelf->itrace_reg = ((~ (IData)(vlSelf->reset)) 
                           & ((IData)(vlSelf->ysyx_23060240__DOT__ifu_rvalid) 
                              & (IData)(vlSelf->ysyx_23060240__DOT__ifu_rready)));
-    __Vdly__ysyx_23060240__DOT__lsu_wvalid = ((~ (IData)(vlSelf->rst)) 
+    __Vdly__ysyx_23060240__DOT__lsu_wvalid = ((~ (IData)(vlSelf->reset)) 
                                               & ((IData)(vlSelf->ysyx_23060240__DOT____Vcellinp__LSU__mem_wr_en) 
                                                  | ((~ 
                                                      ((IData)(vlSelf->ysyx_23060240__DOT__lsu_wvalid) 
                                                       & (IData)(vlSelf->ysyx_23060240__DOT__lsu_wready))) 
                                                     & (IData)(vlSelf->ysyx_23060240__DOT__lsu_wvalid))));
-    __Vdly__ysyx_23060240__DOT__lsu_awvalid = ((~ (IData)(vlSelf->rst)) 
+    __Vdly__ysyx_23060240__DOT__lsu_awvalid = ((~ (IData)(vlSelf->reset)) 
                                                & ((IData)(vlSelf->ysyx_23060240__DOT____Vcellinp__LSU__mem_wr_en) 
                                                   | ((~ 
                                                       ((IData)(vlSelf->ysyx_23060240__DOT__lsu_awvalid) 
                                                        & (IData)(vlSelf->ysyx_23060240__DOT__lsu_awready))) 
                                                      & (IData)(vlSelf->ysyx_23060240__DOT__lsu_awvalid))));
-    __Vdly__ysyx_23060240__DOT__clint_arready = ((IData)(vlSelf->rst) 
+    __Vdly__ysyx_23060240__DOT__clint_arready = ((IData)(vlSelf->reset) 
                                                  | ((~ 
                                                      ((IData)(vlSelf->ysyx_23060240__DOT__clint_arvalid) 
                                                       & (IData)(vlSelf->ysyx_23060240__DOT__clint_arready))) 
@@ -171,31 +172,31 @@ VL_INLINE_OPT void Vysyx_23060240___024root___nba_sequent__TOP__0(Vysyx_23060240
                                                         & (IData)(vlSelf->ysyx_23060240__DOT__clint_rvalid)) 
                                                        | (IData)(vlSelf->ysyx_23060240__DOT__clint_arready))));
     __Vdly__ysyx_23060240__DOT__LSU__DOT__axi_arvalid 
-        = ((~ (IData)(vlSelf->rst)) & ((IData)(vlSelf->ysyx_23060240__DOT__valid_idu) 
-                                       | ((~ ((IData)(vlSelf->ysyx_23060240__DOT__lsu_arvalid) 
-                                              & (IData)(vlSelf->ysyx_23060240__DOT__lsu_arready))) 
-                                          & (IData)(vlSelf->ysyx_23060240__DOT__LSU__DOT__axi_arvalid))));
+        = ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->ysyx_23060240__DOT__valid_idu) 
+                                         | ((~ ((IData)(vlSelf->ysyx_23060240__DOT__lsu_arvalid) 
+                                                & (IData)(vlSelf->ysyx_23060240__DOT__lsu_arready))) 
+                                            & (IData)(vlSelf->ysyx_23060240__DOT__LSU__DOT__axi_arvalid))));
     __Vdly__ysyx_23060240__DOT__IFU__DOT__axi_rready 
-        = ((~ (IData)(vlSelf->rst)) & (((IData)(vlSelf->ysyx_23060240__DOT__ifu_arvalid) 
-                                        & (IData)(vlSelf->ysyx_23060240__DOT__ifu_arready)) 
-                                       | ((~ ((IData)(vlSelf->ysyx_23060240__DOT__ifu_rvalid) 
-                                              & (IData)(vlSelf->ysyx_23060240__DOT__ifu_rready))) 
-                                          & (IData)(vlSelf->ysyx_23060240__DOT__IFU__DOT__axi_rready))));
-    __Vdly__ysyx_23060240__DOT__saxi_arready = ((IData)(vlSelf->rst) 
+        = ((~ (IData)(vlSelf->reset)) & (((IData)(vlSelf->ysyx_23060240__DOT__ifu_arvalid) 
+                                          & (IData)(vlSelf->ysyx_23060240__DOT__ifu_arready)) 
+                                         | ((~ ((IData)(vlSelf->ysyx_23060240__DOT__ifu_rvalid) 
+                                                & (IData)(vlSelf->ysyx_23060240__DOT__ifu_rready))) 
+                                            & (IData)(vlSelf->ysyx_23060240__DOT__IFU__DOT__axi_rready))));
+    __Vdly__ysyx_23060240__DOT__saxi_arready = ((IData)(vlSelf->reset) 
                                                 | ((~ 
                                                     ((IData)(vlSelf->ysyx_23060240__DOT__saxi_arvalid) 
                                                      & (IData)(vlSelf->ysyx_23060240__DOT__saxi_arready))) 
                                                    & (((IData)(vlSelf->ysyx_23060240__DOT__saxi_rready) 
                                                        & (IData)(vlSelf->ysyx_23060240__DOT__saxi_rvalid)) 
                                                       | (IData)(vlSelf->ysyx_23060240__DOT__saxi_arready))));
-    __Vdly__ysyx_23060240__DOT__saxi_bvalid = ((~ (IData)(vlSelf->rst)) 
+    __Vdly__ysyx_23060240__DOT__saxi_bvalid = ((~ (IData)(vlSelf->reset)) 
                                                & (((IData)(vlSelf->ysyx_23060240__DOT__SRAM__DOT__aw_hand) 
                                                    & (IData)(vlSelf->ysyx_23060240__DOT__SRAM__DOT__w_hand)) 
                                                   | ((~ 
                                                       ((IData)(vlSelf->ysyx_23060240__DOT__saxi_bvalid) 
                                                        & (IData)(vlSelf->ysyx_23060240__DOT__saxi_bready))) 
                                                      & (IData)(vlSelf->ysyx_23060240__DOT__saxi_bvalid))));
-    __Vdly__ysyx_23060240__DOT__uart_bvalid = ((~ (IData)(vlSelf->rst)) 
+    __Vdly__ysyx_23060240__DOT__uart_bvalid = ((~ (IData)(vlSelf->reset)) 
                                                & (((IData)(vlSelf->ysyx_23060240__DOT__UART__DOT__aw_hand) 
                                                    & (IData)(vlSelf->ysyx_23060240__DOT__UART__DOT__w_hand)) 
                                                   | ((~ 
@@ -203,11 +204,11 @@ VL_INLINE_OPT void Vysyx_23060240___024root___nba_sequent__TOP__0(Vysyx_23060240
                                                        & (IData)(vlSelf->ysyx_23060240__DOT__uart_bready))) 
                                                      & (IData)(vlSelf->ysyx_23060240__DOT__uart_bvalid))));
     __Vdly__ysyx_23060240__DOT__LSU__DOT__axi_rready 
-        = ((~ (IData)(vlSelf->rst)) & (((IData)(vlSelf->ysyx_23060240__DOT__lsu_arvalid) 
-                                        & (IData)(vlSelf->ysyx_23060240__DOT__lsu_arready)) 
-                                       | ((~ ((IData)(vlSelf->ysyx_23060240__DOT__lsu_rvalid) 
-                                              & (IData)(vlSelf->ysyx_23060240__DOT__lsu_rready))) 
-                                          & (IData)(vlSelf->ysyx_23060240__DOT__LSU__DOT__axi_rready))));
+        = ((~ (IData)(vlSelf->reset)) & (((IData)(vlSelf->ysyx_23060240__DOT__lsu_arvalid) 
+                                          & (IData)(vlSelf->ysyx_23060240__DOT__lsu_arready)) 
+                                         | ((~ ((IData)(vlSelf->ysyx_23060240__DOT__lsu_rvalid) 
+                                                & (IData)(vlSelf->ysyx_23060240__DOT__lsu_rready))) 
+                                            & (IData)(vlSelf->ysyx_23060240__DOT__LSU__DOT__axi_rready))));
     __Vtableidx8 = (((IData)(vlSelf->ysyx_23060240__DOT__SRAM__DOT__aw_hand) 
                      << 6U) | (((IData)(vlSelf->ysyx_23060240__DOT__SRAM__DOT__w_hand) 
                                 << 5U) | (((IData)(vlSelf->ysyx_23060240__DOT__saxi_bvalid) 
@@ -218,8 +219,8 @@ VL_INLINE_OPT void Vysyx_23060240___024root___nba_sequent__TOP__0(Vysyx_23060240
                                                << 2U) 
                                               | (((IData)(vlSelf->ysyx_23060240__DOT__saxi_wready) 
                                                   << 1U) 
-                                                 | (IData)(vlSelf->rst)))))));
-    if (vlSelf->rst) {
+                                                 | (IData)(vlSelf->reset)))))));
+    if (vlSelf->reset) {
         __Vdly__ysyx_23060240__DOT__CLINT__DOT__mtime = 0ULL;
         vlSelf->ysyx_23060240__DOT__CLINT__DOT__raddr = 0xa0000000U;
         vlSelf->ysyx_23060240__DOT__SRAM__DOT__axi_wdata = 0U;
@@ -258,12 +259,13 @@ VL_INLINE_OPT void Vysyx_23060240___024root___nba_sequent__TOP__0(Vysyx_23060240
                                                << 2U) 
                                               | (((IData)(vlSelf->ysyx_23060240__DOT__saxi_awready) 
                                                   << 1U) 
-                                                 | (IData)(vlSelf->rst)))))));
+                                                 | (IData)(vlSelf->reset)))))));
     vlSelf->ysyx_23060240__DOT__SRAM__DOT__axi_waddr 
-        = ((IData)(vlSelf->rst) ? 0x80000000U : (((IData)(vlSelf->ysyx_23060240__DOT__saxi_awvalid) 
-                                                  & (IData)(vlSelf->ysyx_23060240__DOT__saxi_awready))
-                                                  ? vlSelf->ysyx_23060240__DOT__saxi_awaddr
-                                                  : vlSelf->ysyx_23060240__DOT__SRAM__DOT__axi_waddr));
+        = ((IData)(vlSelf->reset) ? 0x80000000U : (
+                                                   ((IData)(vlSelf->ysyx_23060240__DOT__saxi_awvalid) 
+                                                    & (IData)(vlSelf->ysyx_23060240__DOT__saxi_awready))
+                                                    ? vlSelf->ysyx_23060240__DOT__saxi_awaddr
+                                                    : vlSelf->ysyx_23060240__DOT__SRAM__DOT__axi_waddr));
     if ((1U & Vysyx_23060240__ConstPool__TABLE_h76e044ac_0
          [__Vtableidx7])) {
         vlSelf->ysyx_23060240__DOT__saxi_awready = 
@@ -286,7 +288,7 @@ VL_INLINE_OPT void Vysyx_23060240___024root___nba_sequent__TOP__0(Vysyx_23060240
                                                << 2U) 
                                               | (((IData)(vlSelf->ysyx_23060240__DOT__uart_wready) 
                                                   << 1U) 
-                                                 | (IData)(vlSelf->rst)))))));
+                                                 | (IData)(vlSelf->reset)))))));
     if ((1U & Vysyx_23060240__ConstPool__TABLE_h76e044ac_0
          [__Vtableidx6])) {
         vlSelf->ysyx_23060240__DOT__uart_wready = Vysyx_23060240__ConstPool__TABLE_h7f8668ce_0
@@ -308,12 +310,12 @@ VL_INLINE_OPT void Vysyx_23060240___024root___nba_sequent__TOP__0(Vysyx_23060240
                                                << 2U) 
                                               | (((IData)(vlSelf->ysyx_23060240__DOT__uart_awready) 
                                                   << 1U) 
-                                                 | (IData)(vlSelf->rst)))))));
+                                                 | (IData)(vlSelf->reset)))))));
     vlSelf->ysyx_23060240__DOT__UART__DOT__waddr = 
-        ((IData)(vlSelf->rst) ? 0xa0000000U : (((IData)(vlSelf->ysyx_23060240__DOT__uart_awready) 
-                                                & (IData)(vlSelf->ysyx_23060240__DOT__uart_awvalid))
-                                                ? vlSelf->ysyx_23060240__DOT__uart_awaddr
-                                                : vlSelf->ysyx_23060240__DOT__UART__DOT__waddr));
+        ((IData)(vlSelf->reset) ? 0xa0000000U : (((IData)(vlSelf->ysyx_23060240__DOT__uart_awready) 
+                                                  & (IData)(vlSelf->ysyx_23060240__DOT__uart_awvalid))
+                                                  ? vlSelf->ysyx_23060240__DOT__uart_awaddr
+                                                  : vlSelf->ysyx_23060240__DOT__UART__DOT__waddr));
     if ((1U & Vysyx_23060240__ConstPool__TABLE_h76e044ac_0
          [__Vtableidx5])) {
         vlSelf->ysyx_23060240__DOT__uart_awready = 
@@ -327,9 +329,9 @@ VL_INLINE_OPT void Vysyx_23060240___024root___nba_sequent__TOP__0(Vysyx_23060240
             [__Vtableidx5];
     }
     __Vdly__ysyx_23060240__DOT__IFU__DOT__axi_arvalid 
-        = ((~ (IData)(vlSelf->rst)) & ((IData)(vlSelf->ysyx_23060240__DOT____Vcellinp__IFU__finish) 
-                                       | (IData)(vlSelf->ysyx_23060240__DOT__IFU__DOT__axi_arvalid)));
-    if (vlSelf->rst) {
+        = ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->ysyx_23060240__DOT____Vcellinp__IFU__finish) 
+                                         | (IData)(vlSelf->ysyx_23060240__DOT__IFU__DOT__axi_arvalid)));
+    if (vlSelf->reset) {
         vlSelf->ysyx_23060240__DOT__SRAM__DOT__axi_raddr = 0x80000000U;
         __Vdly__ysyx_23060240__DOT__lsu_arvalid = 0U;
         __Vdly__ysyx_23060240__DOT__LSU__DOT__counter = 0U;
@@ -2804,9 +2806,9 @@ void Vysyx_23060240___024root___eval_debug_assertions(Vysyx_23060240___024root* 
     Vysyx_23060240__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vysyx_23060240___024root___eval_debug_assertions\n"); );
     // Body
-    if (VL_UNLIKELY((vlSelf->clk & 0xfeU))) {
-        Verilated::overWidthError("clk");}
-    if (VL_UNLIKELY((vlSelf->rst & 0xfeU))) {
-        Verilated::overWidthError("rst");}
+    if (VL_UNLIKELY((vlSelf->clock & 0xfeU))) {
+        Verilated::overWidthError("clock");}
+    if (VL_UNLIKELY((vlSelf->reset & 0xfeU))) {
+        Verilated::overWidthError("reset");}
 }
 #endif  // VL_DEBUG

@@ -24,18 +24,18 @@ void dump_wave(){//波形记录函数
 }
 
 void single_cycle(){//时钟驱动函数
-  dut.clk=0;dut.eval();
+  dut.clock=0;dut.eval();
   dump_wave();
-  dut.clk=1;dut.eval();
+  dut.clock=1;dut.eval();
   dump_wave();
 }
 
 void reset(int n){ //复位函数
-  dut.rst=1;
+  dut.reset=1;
   while(n-->0){
     single_cycle();
   } 
-  dut.rst=0;
+  dut.reset=0;
 }
 
 void reg_p(){

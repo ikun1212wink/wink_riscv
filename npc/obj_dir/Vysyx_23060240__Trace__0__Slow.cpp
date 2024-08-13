@@ -11,15 +11,15 @@ VL_ATTR_COLD void Vysyx_23060240___024root__trace_init_sub__TOP__0(Vysyx_2306024
     // Init
     const int c = vlSymsp->__Vm_baseCode;
     // Body
-    tracep->declBit(c+339,"clk", false,-1);
-    tracep->declBit(c+340,"rst", false,-1);
+    tracep->declBit(c+339,"clock", false,-1);
+    tracep->declBit(c+340,"reset", false,-1);
     tracep->declBus(c+341,"inst", false,-1, 31,0);
     tracep->declBus(c+342,"pc", false,-1, 31,0);
     tracep->declBit(c+343,"difftest", false,-1);
     tracep->declBit(c+344,"itrace_reg", false,-1);
     tracep->pushNamePrefix("ysyx_23060240 ");
-    tracep->declBit(c+339,"clk", false,-1);
-    tracep->declBit(c+340,"rst", false,-1);
+    tracep->declBit(c+339,"clock", false,-1);
+    tracep->declBit(c+340,"reset", false,-1);
     tracep->declBus(c+341,"inst", false,-1, 31,0);
     tracep->declBus(c+342,"pc", false,-1, 31,0);
     tracep->declBit(c+343,"difftest", false,-1);
@@ -1376,8 +1376,8 @@ VL_ATTR_COLD void Vysyx_23060240___024root__trace_full_sub_0(Vysyx_23060240___02
     bufp->fullBit(oldp+336,(vlSelf->ysyx_23060240__DOT__XBAR__DOT__arb_ready));
     bufp->fullCData(oldp+337,(vlSelf->ysyx_23060240__DOT__XBAR__DOT__state),4);
     bufp->fullBit(oldp+338,(vlSelf->ysyx_23060240__DOT__XBAR__DOT__wait_read));
-    bufp->fullBit(oldp+339,(vlSelf->clk));
-    bufp->fullBit(oldp+340,(vlSelf->rst));
+    bufp->fullBit(oldp+339,(vlSelf->clock));
+    bufp->fullBit(oldp+340,(vlSelf->reset));
     bufp->fullIData(oldp+341,(vlSelf->inst),32);
     bufp->fullIData(oldp+342,(vlSelf->pc),32);
     bufp->fullBit(oldp+343,(vlSelf->difftest));

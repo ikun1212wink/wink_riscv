@@ -12,8 +12,8 @@
 Vysyx_23060240::Vysyx_23060240(VerilatedContext* _vcontextp__, const char* _vcname__)
     : VerilatedModel{*_vcontextp__}
     , vlSymsp{new Vysyx_23060240__Syms(contextp(), _vcname__, this)}
-    , clk{vlSymsp->TOP.clk}
-    , rst{vlSymsp->TOP.rst}
+    , clock{vlSymsp->TOP.clock}
+    , reset{vlSymsp->TOP.reset}
     , difftest{vlSymsp->TOP.difftest}
     , itrace_reg{vlSymsp->TOP.itrace_reg}
     , inst{vlSymsp->TOP.inst}
