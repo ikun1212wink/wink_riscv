@@ -7,24 +7,41 @@ module ysyx_23060240_CLINT(
     input clint_arvalid,   
     output reg clint_arready,
 
+    input [3:0] clint_arid,
+    input [7:0] clint_arlen,
+    input [2:0] clint_arsize,
+    input [1:0] clint_arburst,
+
     //read data channel
     input clint_rready,
     output reg clint_rvalid,
     output [31:0] clint_rdata,
 
+    output [1:0] clint_rresp,
+    output clint_rlast,
+    output [3:0] clint_rid,
     //write address channel
     input [31:0] clint_awaddr,
     input clint_awvalid,
-    output clint_awready, //
+    output clint_awready, 
 
+    input [3:0] clint_awid,
+    input [7:0] clint_awlen,
+    input [2:0] clint_awsize,
+    input [1:0] clint_awburst,
     //write data channel
     input [31:0] clint_wdata,
     input clint_wvalid,
-    output clint_wready, //
+    output clint_wready, 
 
-     //write response channel
+    input [3:0] clint_wstrb,
+    input clint_wlast,  
+    //write response channel
     input clint_bready,
-    output clint_bvalid  //
+    output clint_bvalid,
+
+    output [1:0] clint_bresp,
+    output [3:0] clint_bid  
 );
 reg [63:0] mtime;//这是一个只读的设备寄存器
 localparam mtime_addr_low = 32'ha0000048;

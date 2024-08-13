@@ -1,4 +1,4 @@
-module ysyx_23060240_ARB(
+module ysyx_23060240_XBAR(
     input clk,
     input rst,
 /* --------------IFU MASTER----------------- */
@@ -6,111 +6,202 @@ module ysyx_23060240_ARB(
     input [31:0] ifu_araddr,
     input ifu_arvalid,   
     output reg ifu_arready,
+
+    input [3:0] ifu_arid,
+    input [7:0] ifu_arlen,
+    input [2:0] ifu_arsize,
+    input [1:0] ifu_arburst, 
     //read data channel
     input ifu_rready,
     output reg ifu_rvalid,
     output reg [31:0] ifu_rdata,
+
+    output [1:0] ifu_rresp,
+    output ifu_rlast,
+    output [3:0] ifu_rid,
     //write address channel
     input [31:0] ifu_awaddr,
     input ifu_awvalid,
     output reg ifu_awready,
+
+    input [3:0] ifu_awid,
+    input [7:0] ifu_awlen,
+    input [2:0] ifu_awsize,
+    input [1:0] ifu_awburst,
     //write data channel
     input [31:0] ifu_wdata,
     input ifu_wvalid,
-    output reg ifu_wready,    
+    output reg ifu_wready,  
+
+    input [3:0] ifu_wstrb,
+    input ifu_wlast,
     //write response channel
     input ifu_bready,
     output reg ifu_bvalid,
 
+    output [1:0] ifu_bresp,
+    output [3:0] ifu_bid,
 /* --------------LSU MASTER----------------- */
     //read address channel
     input [31:0] lsu_araddr,
     input lsu_arvalid,   
     output reg lsu_arready,
+
+    input [3:0] lsu_arid,
+    input [7:0] lsu_arlen,
+    input [2:0] lsu_arsize,
+    input [1:0] lsu_arburst, 
     //read data channel
     input lsu_rready,
     output reg lsu_rvalid,
     output reg [31:0] lsu_rdata,
+
+    output [1:0] lsu_rresp,
+    output lsu_rlast,
+    output [3:0] lsu_rid,
     //write address channel
     input [31:0] lsu_awaddr,
     input lsu_awvalid,
     output reg lsu_awready,
+
+    input [3:0] lsu_awid,
+    input [7:0] lsu_awlen,
+    input [2:0] lsu_awsize,
+    input [1:0] lsu_awburst,
     //write data channel
     input [31:0] lsu_wdata,
     input lsu_wvalid,
-    output reg lsu_wready,    
+    output reg lsu_wready,
+
+    input [3:0] lsu_wstrb,
+    input lsu_wlast,    
     //write response channel
     input lsu_bready,
     output reg lsu_bvalid,
+
+    output [1:0] lsu_bresp,
+    output [3:0] lsu_bid,
 
 /* --------------SRAM SLAVE----------------- */
     //read address channel
     output reg [31:0] saxi_araddr,
     output reg saxi_arvalid,   
     input saxi_arready,
+
+    output [3:0] saxi_arid,
+    output [7:0] saxi_arlen,
+    output [2:0] saxi_arsize,
+    output [1:0] saxi_arburst,
     //read data channel
     output reg saxi_rready,
     input saxi_rvalid,
     input [31:0] saxi_rdata,
+
+    input [1:0] saxi_rresp,
+    input saxi_rlast,
+    input [3:0] saxi_rid,
     //write address channel
     output [31:0] saxi_awaddr,
     output saxi_awvalid,
     input saxi_awready,
+
+    output [3:0] saxi_awid,
+    output [7:0] saxi_awlen,
+    output [2:0] saxi_awsize,
+    output [1:0] saxi_awburst,
     //write data channel
     output [31:0] saxi_wdata,
     output saxi_wvalid,
-    input saxi_wready,    
+    input saxi_wready,  
+
+    output [3:0] saxi_wstrb,
+    output saxi_wlast,  
     //write response channel
     output saxi_bready,
     input saxi_bvalid,
+
+    input [1:0] saxi_bresp,
+    input [3:0] saxi_bid,
 
 /* --------------UART SLAVE----------------- */
     output reg [31:0] uart_araddr,
     output reg uart_arvalid,   
     input uart_arready,
 
+    output [3:0] uart_arid,
+    output [7:0] uart_arlen,
+    output [2:0] uart_arsize,
+    output [1:0] uart_arburst,
     //read data channel
     output reg uart_rready,
     input uart_rvalid,
     input [31:0] uart_rdata,
 
+    input [1:0] uart_rresp,
+    input uart_rlast,
+    input [3:0] uart_rid,
     //write address channel
     output [31:0] uart_awaddr,
     output uart_awvalid,
     input uart_awready, 
 
+    output [3:0] uart_awid,
+    output [7:0] uart_awlen,
+    output [2:0] uart_awsize,
+    output [1:0] uart_awburst,
     //write data channel
     output [31:0] uart_wdata,
     output uart_wvalid,
     input uart_wready, 
 
+    output [3:0] uart_wstrb,
+    output uart_wlast,  
      //write response channel
     output uart_bready,
     input uart_bvalid,
+
+    input [1:0] uart_bresp,
+    input [3:0] uart_bid,
 
 /* --------------CLINT SLAVE----------------- */
     output reg [31:0] clint_araddr,
     output reg clint_arvalid,   
     input clint_arready,
 
+    output [3:0] clint_arid,
+    output [7:0] clint_arlen,
+    output [2:0] clint_arsize,
+    output [1:0] clint_arburst,
     //read data channel
     output reg clint_rready,
     input clint_rvalid,
     input [31:0] clint_rdata,
 
+    input [1:0] clint_rresp,
+    input clint_rlast,
+    input [3:0] clint_rid,
     //write address channel
     output [31:0] clint_awaddr,
     output clint_awvalid,
     input clint_awready, 
 
+    output [3:0] clint_awid,
+    output [7:0] clint_awlen,
+    output [2:0] clint_awsize,
+    output [1:0] clint_awburst,
     //write data channel
     output [31:0] clint_wdata,
     output clint_wvalid,
     input clint_wready, 
 
+    output [3:0] clint_wstrb,
+    output clint_wlast, 
      //write response channel
     output clint_bready,
-    input clint_bvalid    
+    input clint_bvalid,
+
+    input [1:0] clint_bresp,
+    input [3:0] clint_bid  
 );
 reg arb_ready;
 reg [3:0] state;
