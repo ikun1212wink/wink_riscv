@@ -1,6 +1,8 @@
-VSRCS = $(shell find $(abspath ./vsrc) -name "*.v" -or -name "*.sv")
+VSRCS += $(shell find $(abspath ./vsrc) -name "*.v" -or -name "*.sv")
+VSRCS += $(shell find /home/wink/ysyx-workbench/ysyxSoC/perip -name "*.v")
+VSRCS += /home/wink/ysyx-workbench/ysyxSoC/build/ysyxSoCFull.v
 CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
-HSRCS = $(shell find $(abspath ./include) -name "*.h")
+
 
 #itrace ftrace
 #CXXSRC += csrc/utils/disasm.cc
@@ -13,17 +15,18 @@ ARGS ?= -e ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.elf
 ARGS_DIFF ?= -d ../nemu/build/riscv32-nemu-interpreter-so
 
 #verilator
-TOP_NAME := ysyx_23060240
-VERILATOR_FLAGS +=-cc --exe  --trace --build  -j --timing --autoflush 
+#TOP_NAME := ysyx_23060240
+TOP_NAME := ysyxSoCFull
+VERILATOR_FLAGS +=-cc --exe  --trace --build  -j --timing --autoflush --timescale "1ns/1ns" --no-timing 
 VERILATOR_FLAGS += --top-module $(TOP_NAME)
+VERILATOR_FLAGS += -I/home/wink/ysyx-workbench/ysyxSoC/perip/spi/rtl -I/home/wink/ysyx-workbench/ysyxSoC/perip/uart16550/rtl
 
 LDFLAGS += -lreadline -lSDL2 -ldl
 
-INC_PATH		?= $(NPC_HOME)/include
-#CFLAGS			+= -g -I$(INC_PATH)
+INC_PATH		+= $(NPC_HOME)/include
 CFLAGS			+= -I$(INC_PATH)
 
-
+#CFLAGS			+= -g -I$(INC_PATH)
 OBJ_DIR			:= ./obj_dir
 BIN				:= $(OBJ_DIR)/V$(TOP_NAME)
 

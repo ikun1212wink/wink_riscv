@@ -70,7 +70,7 @@ always@(posedge clk)begin
         if(finish)begin
             difftest<=1'b1;
         end
-        else if(difftest)begin
+        else if(difftest==1'b1)begin
             difftest<=1'b0;
         end
         else begin
