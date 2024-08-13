@@ -17,22 +17,41 @@ module ysyx_23060240_LSU(
     output [31:0] lsu_araddr,
     output reg lsu_arvalid,
     input lsu_arready,
+
+    output [3:0] lsu_arid,
+    output [7:0] lsu_arlen,
+    output [2:0] lsu_arsize,
+    output [1:0] lsu_arburst,    
     //read data channel signal
     output lsu_rready,
     input lsu_rvalid,
     input [31:0] lsu_rdata,
+
+    input [1:0] lsu_rresp,
+    input lsu_rlast,
+    input [3:0] lsu_rid,
     //write address channel
     output [31:0] lsu_awaddr,
     output reg lsu_awvalid,
     input lsu_awready,
+
+    output [3:0] lsu_awid,
+    output [7:0] lsu_awlen,
+    output [2:0] lsu_awsize,
+    output [1:0] lsu_awburst,
     //write data channel
     output [31:0] lsu_wdata,
     output reg lsu_wvalid,
-    input lsu_wready,    
+    input lsu_wready,  
+
+    output [3:0] lsu_wstrb,
+    output lsu_wlast,  
     //write response channel
     output reg lsu_bready,
-    input lsu_bvalid
+    input lsu_bvalid,
 
+    input [1:0] lsu_bresp,
+    input [3:0] lsu_bid
 );
 
 //read address channel signal

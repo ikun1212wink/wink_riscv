@@ -8,24 +8,45 @@ module ysyx_23060240_SRAM(
     input saxi_arvalid,   
     output reg saxi_arready,
 
+    input [3:0] saxi_arid,
+    input [7:0] saxi_arlen,
+    input [2:0] saxi_arsize,
+    input [1:0] saxi_arburst,
+
     //read data channel
     input saxi_rready,
     output reg saxi_rvalid,
     output [31:0] saxi_rdata,
+
+    output [1:0] saxi_rresp,
+    output saxi_rlast,
+    output [3:0] saxi_rid,
+
 
     //write address channel
     input [31:0] saxi_awaddr,
     input saxi_awvalid,
     output saxi_awready,
 
+    input [3:0] saxi_awid,
+    input [7:0] saxi_awlen,
+    input [2:0] saxi_awsize,
+    input [1:0] saxi_awburst,
+
     //write data channel
     input [31:0] saxi_wdata,
     input saxi_wvalid,
-    output saxi_wready,    
+    output saxi_wready,
 
-     //write response channel
+    input [3:0] saxi_wstrb,
+    input saxi_wlast,  
+    //write response channel
     input saxi_bready,
-    output saxi_bvalid
+    output saxi_bvalid,
+
+    output [1:0] saxi_bresp,
+    output [3:0] saxi_bid
+
 );
 import "DPI-C" function int pmem_read(input int raddr);
 import "DPI-C" function void pmem_write(input int waddr,input int wdata,input byte wmask);
