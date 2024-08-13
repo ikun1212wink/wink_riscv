@@ -6,7 +6,7 @@
 #include <config.h>
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
-extern Vtop dut;
+extern Vysyx_23060240 dut;
 int ebreak_flag=0;
 int exe=0;
 

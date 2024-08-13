@@ -1,4 +1,4 @@
-module top(
+module ysyx_23060240(
     input clk,
     input rst,
     output [31:0] inst,

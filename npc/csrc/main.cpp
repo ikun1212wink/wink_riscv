@@ -10,7 +10,7 @@ extern char *img_path;
 extern int ebreak_flag;
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
-extern Vtop dut;
+extern Vysyx_23060240 dut;
 //int mem_number;
 
 /* extern "C" void trace_func_call(uint32_t pc, uint32_t target,bool tail);

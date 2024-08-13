@@ -13,7 +13,7 @@ ARGS ?= -e ../am-kernels/tests/cpu-tests/build/dummy-riscv32e-npc.elf
 ARGS_DIFF ?= -d ../nemu/build/riscv32-nemu-interpreter-so
 
 #verilator
-TOP_NAME := top
+TOP_NAME := ysyx_23060240
 VERILATOR_FLAGS +=-cc --exe  --trace --build  -j --timing --autoflush 
 VERILATOR_FLAGS += --top-module $(TOP_NAME)
 
