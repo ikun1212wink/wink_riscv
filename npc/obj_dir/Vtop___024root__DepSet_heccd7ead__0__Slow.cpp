@@ -162,7 +162,7 @@ VL_ATTR_COLD void Vtop___024root___dump_triggers__stl(Vtop___024root* vlSelf) {
 
 void Vtop___024root____Vdpiimwrap_top__DOT__IDU__DOT__npc_trap_TOP();
 void Vtop___024root____Vdpiimwrap_top__DOT__SRAM__DOT__pmem_read_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &pmem_read__Vfuncrtn);
-extern const VlUnpacked<CData/*1:0*/, 512> Vtop__ConstPool__TABLE_hf77c6238_0;
+extern const VlUnpacked<CData/*1:0*/, 256> Vtop__ConstPool__TABLE_h70efed7f_0;
 extern const VlUnpacked<CData/*2:0*/, 64> Vtop__ConstPool__TABLE_h657a9346_0;
 extern const VlUnpacked<CData/*7:0*/, 8> Vtop__ConstPool__TABLE_h074114c1_0;
 extern const VlUnpacked<CData/*2:0*/, 32> Vtop__ConstPool__TABLE_hfe40056e_0;
@@ -427,26 +427,17 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__IDU__DOT____VdfgTmp_hd3ddd1c8__0 
         = (IData)((0x5033U == (0x707fU & vlSelf->inst)));
     vlSelf->__Vtableidx5 = (((IData)(vlSelf->top__DOT__lsu_rready) 
-                             << 8U) | (((IData)(vlSelf->top__DOT__lsu_rvalid) 
-                                        << 7U) | (((IData)(vlSelf->top__DOT__ifu_rready) 
-                                                   << 6U) 
+                             << 7U) | (((IData)(vlSelf->top__DOT__lsu_rvalid) 
+                                        << 6U) | (((IData)(vlSelf->top__DOT__ifu_rready) 
+                                                   << 5U) 
                                                   | (((IData)(vlSelf->top__DOT__ifu_rvalid) 
-                                                      << 5U) 
+                                                      << 4U) 
                                                      | (((IData)(vlSelf->top__DOT__lsu_arvalid) 
-                                                         << 4U) 
-                                                        | ((8U 
-                                                            & (((~ 
-                                                                 ((1U 
-                                                                   == (IData)(vlSelf->top__DOT__ARB__DOT__current_state)) 
-                                                                  | (2U 
-                                                                     == (IData)(vlSelf->top__DOT__ARB__DOT__current_state)))) 
-                                                                | (0U 
-                                                                   == (IData)(vlSelf->top__DOT__ARB__DOT__current_state))) 
-                                                               << 3U)) 
-                                                           | (((IData)(vlSelf->top__DOT__ifu_arvalid) 
-                                                               << 2U) 
-                                                              | (IData)(vlSelf->top__DOT__ARB__DOT__current_state))))))));
-    vlSelf->top__DOT__ARB__DOT__next_state = Vtop__ConstPool__TABLE_hf77c6238_0
+                                                         << 3U) 
+                                                        | (((IData)(vlSelf->top__DOT__ifu_arvalid) 
+                                                            << 2U) 
+                                                           | (IData)(vlSelf->top__DOT__ARB__DOT__current_state)))))));
+    vlSelf->top__DOT__ARB__DOT__next_state = Vtop__ConstPool__TABLE_h70efed7f_0
         [vlSelf->__Vtableidx5];
     vlSelf->top__DOT__IMM__DOT__imm_mux__DOT__i0__DOT__pair_list[0U] 
         = (0x1300000000ULL | (QData)((IData)(vlSelf->top__DOT__IMM__DOT__out5)));
@@ -2185,6 +2176,7 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__IFU__DOT__counter = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__IFU__DOT__axi_rready = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__IFU__DOT__counter_rready = VL_RAND_RESET_I(32);
+    vlSelf->top__DOT__ARB__DOT__arb_ready = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__ARB__DOT__current_state = VL_RAND_RESET_I(2);
     vlSelf->top__DOT__ARB__DOT__next_state = VL_RAND_RESET_I(2);
     vlSelf->top__DOT__UART__DOT__aw_hand = VL_RAND_RESET_I(1);

@@ -23,7 +23,7 @@ extern const VlUnpacked<CData/*7:0*/, 8> Vtop__ConstPool__TABLE_h074114c1_0;
 extern const VlUnpacked<CData/*2:0*/, 32> Vtop__ConstPool__TABLE_hfe40056e_0;
 extern const VlUnpacked<CData/*0:0*/, 512> Vtop__ConstPool__TABLE_hab390d39_0;
 void Vtop___024root____Vdpiimwrap_top__DOT__SRAM__DOT__pmem_write_TOP(IData/*31:0*/ waddr, IData/*31:0*/ wdata, CData/*7:0*/ wmask);
-extern const VlUnpacked<CData/*1:0*/, 512> Vtop__ConstPool__TABLE_hf77c6238_0;
+extern const VlUnpacked<CData/*1:0*/, 256> Vtop__ConstPool__TABLE_h70efed7f_0;
 
 VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -2092,26 +2092,17 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
                                                                   | ((IData)(vlSelf->top__DOT__IDU__DOT__is_or) 
                                                                      | (IData)(vlSelf->top__DOT__IDU__DOT__is_and))))))))));
     vlSelf->__Vtableidx5 = (((IData)(vlSelf->top__DOT__lsu_rready) 
-                             << 8U) | (((IData)(vlSelf->top__DOT__lsu_rvalid) 
-                                        << 7U) | (((IData)(vlSelf->top__DOT__ifu_rready) 
-                                                   << 6U) 
+                             << 7U) | (((IData)(vlSelf->top__DOT__lsu_rvalid) 
+                                        << 6U) | (((IData)(vlSelf->top__DOT__ifu_rready) 
+                                                   << 5U) 
                                                   | (((IData)(vlSelf->top__DOT__ifu_rvalid) 
-                                                      << 5U) 
+                                                      << 4U) 
                                                      | (((IData)(vlSelf->top__DOT__lsu_arvalid) 
-                                                         << 4U) 
-                                                        | ((8U 
-                                                            & (((~ 
-                                                                 ((1U 
-                                                                   == (IData)(vlSelf->top__DOT__ARB__DOT__current_state)) 
-                                                                  | (2U 
-                                                                     == (IData)(vlSelf->top__DOT__ARB__DOT__current_state)))) 
-                                                                | (0U 
-                                                                   == (IData)(vlSelf->top__DOT__ARB__DOT__current_state))) 
-                                                               << 3U)) 
-                                                           | (((IData)(vlSelf->top__DOT__ifu_arvalid) 
-                                                               << 2U) 
-                                                              | (IData)(vlSelf->top__DOT__ARB__DOT__current_state))))))));
-    vlSelf->top__DOT__ARB__DOT__next_state = Vtop__ConstPool__TABLE_hf77c6238_0
+                                                         << 3U) 
+                                                        | (((IData)(vlSelf->top__DOT__ifu_arvalid) 
+                                                            << 2U) 
+                                                           | (IData)(vlSelf->top__DOT__ARB__DOT__current_state)))))));
+    vlSelf->top__DOT__ARB__DOT__next_state = Vtop__ConstPool__TABLE_h70efed7f_0
         [vlSelf->__Vtableidx5];
     vlSelf->top__DOT____VdfgTmp_h241ef1d5__0 = ((IData)(vlSelf->top__DOT__jump_branch) 
                                                 | ((0x6fU 

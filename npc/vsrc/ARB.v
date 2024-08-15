@@ -135,10 +135,10 @@ always@(*)begin
     next_state=0;
     case(current_state)
         IDLE://当前默认状态，判断下一个状态
-            if(ifu_arvalid && arb_ready)begin
+            if(ifu_arvalid)begin
                 next_state=IFU_READ;
             end
-            else if(lsu_arvalid && arb_ready)begin
+            else if(lsu_arvalid)begin
                 next_state=LSU_READ;
             end
             else begin
@@ -172,8 +172,8 @@ assign lsu_wready = saxi_wready;
 assign saxi_bready = lsu_bready;
 assign lsu_bvalid = saxi_bvalid;
 //仲裁器通信信号
-assign arb_ready = (current_state == IDLE) ? 1'b1:
-                   (current_state == IFU_READ) || (current_state == LSU_READ) ? 1'b0 : 1'b1;
+/* assign arb_ready = (current_state == IDLE) ? 1'b1:
+                   (current_state == IFU_READ) || (current_state == LSU_READ) ? 1'b0 : 1'b1; */
 //读地址通道仲裁
 assign saxi_arvalid = (current_state == IFU_READ) ? ifu_arvalid :
                       (current_state == LSU_READ) ? lsu_arvalid :
