@@ -144,7 +144,10 @@ end
 
 wire finish_1,wr_finish,rd_finish,valid_ifu,valid_idu;
 
+wire [2:0] arsize,awsize;
 ysyx_23060240_IDU IDU(
+    .arsize(arsize),
+    .awsize(awsize),
     .valid_ifu(valid_ifu),
     .finish_1(finish_1),
     .valid_idu(valid_idu),
@@ -341,6 +344,8 @@ ysyx_23060240_IFU IFU(
 ysyx_23060240_XBAR XBAR(
     .clk(clock),
     .rst(reset),
+    .arsize(arsize),
+    .awsize(awsize),
 
     .ifu_araddr(ifu_araddr),
     .ifu_arvalid(ifu_arvalid),   

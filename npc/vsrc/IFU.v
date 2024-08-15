@@ -80,7 +80,7 @@ end
 //PC updata
 always@(posedge clk)begin
     if(rst)begin
-        pc<=32'h80000000;
+        pc<=32'h20000000;
     end
     else begin
         if(finish)begin

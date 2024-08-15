@@ -4,6 +4,9 @@ module ysyx_23060240_IDU(
     output reg finish_1,
     output valid_idu,
 
+    output [2:0] arsize,
+    output [2:0] awsize,
+
     output alu_a_sel,
     output [1:0] alu_b_sel,
     output w_en,
@@ -247,12 +250,27 @@ end
 always@(*)
 begin
     case({is_lb,is_lbu,is_lh,is_lhu,is_lw})
-        5'b10000:  memory_rd_ctrl=3'b001;
-        5'b01000:  memory_rd_ctrl=3'b010;
-        5'b00100:  memory_rd_ctrl=3'b011;
-        5'b00010:  memory_rd_ctrl=3'b100;
-        5'b00001:  memory_rd_ctrl=3'b101;
-        default:memory_rd_ctrl=3'b000;
+        5'b10000:begin
+            memory_rd_ctrl=3'b001;
+            arsize=3'b000;
+        end  
+        5'b01000:begin
+            memory_rd_ctrl=3'b010;
+            arsize=3'b000;
+        end  
+        5'b00100:begin
+            memory_rd_ctrl=3'b011;
+            arsize=3'b001;
+        end  
+        5'b00010:begin
+            memory_rd_ctrl=3'b100;
+            arsize=3'b001;
+        end  
+        5'b00001:begin
+            memory_rd_ctrl=3'b101;
+            arsize=3'b010;
+        end  
+        default:begin memory_rd_ctrl=3'b000;arsize=3'b010; end
     endcase
 end
 
@@ -260,10 +278,19 @@ end
 always@(*)
 begin
     case({is_sb,is_sh,is_sw})
-        3'b100:  memory_wr_ctrl=8'b00000001;
-        3'b010:  memory_wr_ctrl=8'b00000010;
-        3'b001:  memory_wr_ctrl=8'b00000011;
-        default:memory_wr_ctrl=8'b00000000;
+        3'b100:begin
+            memory_wr_ctrl=8'b00000001;
+            awsize=3'b000;
+        end  
+        3'b010:begin
+            memory_wr_ctrl=8'b00000010;
+            awsize=3'b001;
+        end  
+        3'b001:begin
+            memory_wr_ctrl=8'b00000011;
+            awsize=3'b010;
+        end  
+        default:begin memory_wr_ctrl=8'b00000000; awsize=3'b010; end
     endcase
 end  
 

@@ -6,8 +6,9 @@
 #include <trace.h>
 
 extern "C" void flash_read(int32_t addr, int32_t *data) { assert(0); }
-extern "C" void mrom_read(int32_t addr, int32_t *data) { assert(0); }
-
+extern "C" void mrom_read(int32_t addr, int32_t *data) { 
+  *data=(int32_t)0x0000006f;  
+}
 void init_disasm(const char *triple);
 extern char *img_path;
 extern int ebreak_flag;

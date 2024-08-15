@@ -1,6 +1,8 @@
 module ysyx_23060240_XBAR(
     input clk,
     input rst,
+    input [2:0] awsize,
+    input [2:0] arsize,
 /* --------------IFU MASTER----------------- */
     //read address channel
     input [31:0] ifu_araddr,
@@ -210,7 +212,8 @@ assign is_clint=((lsu_araddr==32'ha0000048)||(lsu_araddr==32'ha000005c));
 //首先写通道只有LSU会用到，所以直接和LSU连接就好了，不用进行状态机的状态转移
 assign io_master_awid = 4'h0;  
 assign io_master_awlen = 8'h0; 
-assign io_master_awsize = 3'h0;
+//assign io_master_awsize = 3'h0;
+assign io_master_awsize = awsize;
 assign io_master_awburst = 2'h0;
 
 assign io_master_wstrb = 4'h0;
@@ -227,7 +230,8 @@ assign lsu_bvalid   = io_master_bvalid;
 //读地址通道仲裁
 assign io_master_arid=4'h0; 
 assign io_master_arlen=8'h0; 
-assign io_master_arsize=3'h0;
+//assign io_master_arsize=3'h0;
+assign io_master_arsize = (current_state == LSU_READ) ? arsize : 3'b010;
 assign io_master_arburst=2'h0;
 
 assign io_master_arvalid = (current_state == IFU_READ) ? ifu_arvalid :
