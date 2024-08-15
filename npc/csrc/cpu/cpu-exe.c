@@ -6,23 +6,23 @@
 #include <config.h>
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
-extern Vtop dut;
+extern VysyxSoCFull dut;
 int ebreak_flag=0;
 int exe=0;
 
-void itrace_printf(){
+/* void itrace_printf(){
     printf("执行指令数%d\n",exe);  
     printf(COLOR_BLUE "pc:  0x%x" COLOR_RESET "\n",dut.pc);
     printf(COLOR_CYAN "inst:0x%08x" COLOR_RESET "\n",dut.inst);
     itrace();
-}
+} */
 
  void execute(int n){
     if(n>0){
         for (;n > 0; n --) {   
             
             single_cycle(); 
-            if(dut.itrace_reg){
+           /*  if(dut.itrace_reg){
                 #ifdef  ITRACE
                     exe++;
                     itrace_printf();
@@ -35,14 +35,14 @@ void itrace_printf(){
                 #ifdef  DIFFTEST
                     difftest_step(dut.pc,dut.pc);
                 #endif  //DIFFTEST 
-            }                               
+            }            */                    
         }
     }
     else if(n<0) {
         while(!ebreak_flag){  
             
             single_cycle();
-            if(dut.itrace_reg){
+          /*   if(dut.itrace_reg){
                 #ifdef  ITRACE
                     exe++;
                     itrace_printf();
@@ -55,7 +55,7 @@ void itrace_printf(){
                 #ifdef  DIFFTEST
                     difftest_step(dut.pc,dut.pc);
                 #endif  //DIFFTEST
-            }                   
+            }      */              
         }
     }
     else {

@@ -1,11 +1,86 @@
-module top(
-    input clk,
-    input rst,
-    output [31:0] inst,
+module ysyx_23060240(
+/*------------------global------------------ */
+    input clock,
+    input reset,
+    input io_interrupt,
+
+/*------------------axi_master------------------ */
+    input         io_master_awready,
+    output        io_master_awvalid,
+    output [31:0] io_master_awaddr,
+    output [3:0]  io_master_awid,  
+    output [7:0]  io_master_awlen, 
+    output [2:0]  io_master_awsize,
+    output [1:0]  io_master_awburst,
+
+    input         io_master_wready,
+    output        io_master_wvalid,
+    output [31:0] io_master_wdata, 
+    output [3:0]  io_master_wstrb, 
+    output        io_master_wlast, 
+
+    output        io_master_bready,
+    input         io_master_bvalid,
+    input  [1:0]  io_master_bresp, 
+    input  [3:0]  io_master_bid,
+
+    input         io_master_arready,
+    output        io_master_arvalid,
+    output [31:0] io_master_araddr,
+    output [3:0]  io_master_arid,  
+    output [7:0]  io_master_arlen, 
+    output [2:0]  io_master_arsize,
+    output [1:0]  io_master_arburst,
+
+    output        io_master_rready,
+    input         io_master_rvalid,
+    input  [1:0]  io_master_rresp, 
+    input  [31:0] io_master_rdata, 
+    input         io_master_rlast,   
+    input  [3:0]  io_master_rid,                         
+
+/*------------------axi_slave------------------ */
+    output        io_slave_awready,
+    input         io_slave_awvalid,
+    input [31:0]  io_slave_awaddr,
+    input [3:0]   io_slave_awid,  
+    input [7:0]   io_slave_awlen, 
+    input [2:0]   io_slave_awsize,
+    input [1:0]   io_slave_awburst,
+    output        io_slave_wready,
+    input         io_slave_wvalid,
+    input [31:0]  io_slave_wdata, 
+    input [3:0]   io_slave_wstrb, 
+    input         io_slave_wlast, 
+    input         io_slave_bready,
+    output        io_slave_bvalid,
+    output[1:0]   io_slave_bresp, 
+    output[3:0]   io_slave_bid,   
+    output        io_slave_arready,
+    input         io_slave_arvalid,
+    input [31:0]  io_slave_araddr,
+    input [3:0]   io_slave_arid,  
+    input [7:0]   io_slave_arlen, 
+    input [2:0]   io_slave_arsize,
+    input [1:0]   io_slave_arburst,
+    input         io_slave_rready,
+    output        io_slave_rvalid,
+    output[1:0]   io_slave_rresp,
+    output[31:0]  io_slave_rdata,
+    output        io_slave_rlast,
+    output[3:0]   io_slave_rid 
+
+/*------------------trace------------------ */
+/*     output [31:0] inst,
     output [31:0] pc,
     output difftest,
-    output itrace_reg
+    output itrace_reg */
 );
+wire [31:0] inst;
+wire [31:0] pc;
+wire difftest;
+wire itrace_reg;
+
 //ftrace用
 wire jal;
 wire jalr;
@@ -95,7 +170,7 @@ ysyx_23060240_IDU IDU(
 
 ysyx_23060240_GPR GPR(
     .finish(finish_1||rd_finish),
-    .clk(clk),
+    .clk(clock),
     .w_data(w_data),
     .r_rs1_addr(inst[19:15]),
     .r_rs2_addr(inst[24:20]),
@@ -281,8 +356,8 @@ wire [1:0] clint_bresp;
 wire [3:0] clint_bid;
 
 ysyx_23060240_LSU LSU(    
-    .clk(clk),
-    .rst(rst),
+    .clk(clock),
+    .rst(reset),
     .mem_wr_en(mem_wr_en&&valid_ifu),
     .memory_rd_ctrl(memory_rd_ctrl),
     .memory_wr_ctrl(memory_wr_ctrl),
@@ -333,8 +408,8 @@ ysyx_23060240_LSU LSU(
 
 
 ysyx_23060240_IFU IFU(
-    .clk(clk),
-    .rst(rst),    
+    .clk(clock),
+    .rst(reset),    
 
     .jump_en(jump_jtype||jump_branch||jump_ecall||jump_mret),
     .jump_pc(jump_pc),    
@@ -381,8 +456,8 @@ ysyx_23060240_IFU IFU(
 );
 
 ysyx_23060240_XBAR XBAR(
-    .clk(clk),
-    .rst(rst),
+    .clk(clock),
+    .rst(reset),
 
     .ifu_araddr(ifu_araddr),
     .ifu_arvalid(ifu_arvalid),   
@@ -444,65 +519,36 @@ ysyx_23060240_XBAR XBAR(
     .lsu_bresp(lsu_bresp),
     .lsu_bid(lsu_bid),
 
-    .saxi_araddr(saxi_araddr),
-    .saxi_arvalid(saxi_arvalid),   
-    .saxi_arready(saxi_arready),
-    .saxi_arid(saxi_arid),
-    .saxi_arlen(saxi_arlen),
-    .saxi_arsize(saxi_arsize),
-    .saxi_arburst(saxi_arburst),
-    .saxi_rready(saxi_rready),
-    .saxi_rvalid(saxi_rvalid),
-    .saxi_rdata(saxi_rdata),
-    .saxi_rresp(saxi_rresp),
-    .saxi_rlast(saxi_rlast),
-    .saxi_rid(saxi_rid),
-    .saxi_awaddr(saxi_awaddr),
-    .saxi_awvalid(saxi_awvalid),
-    .saxi_awready(saxi_awready),
-    .saxi_awid(saxi_awid),
-    .saxi_awlen(saxi_awlen),
-    .saxi_awsize(saxi_awsize),
-    .saxi_awburst(saxi_awburst),
-    .saxi_wdata(saxi_wdata),
-    .saxi_wvalid(saxi_wvalid),
-    .saxi_wready(saxi_wready), 
-    .saxi_wstrb(saxi_wstrb),
-    .saxi_wlast(saxi_wlast),
-    .saxi_bready(saxi_bready),
-    .saxi_bvalid(saxi_bvalid),
-    .saxi_bresp(saxi_bresp),
-    .saxi_bid(saxi_bid),
 
-    .uart_araddr(uart_araddr),
-    .uart_arvalid(uart_arvalid),   
-    .uart_arready(uart_arready),
-    .uart_arid(uart_arid),
-    .uart_arlen(uart_arlen),
-    .uart_arsize(uart_arsize),
-    .uart_arburst(uart_arburst),
-    .uart_rready(uart_rready),
-    .uart_rvalid(uart_rvalid),
-    .uart_rdata(uart_rdata),
-    .uart_rresp(uart_rresp),
-    .uart_rlast(uart_rlast),
-    .uart_rid(uart_rid),
-    .uart_awaddr(uart_awaddr),
-    .uart_awvalid(uart_awvalid),
-    .uart_awready(uart_awready),
-    .uart_awid(uart_awid),
-    .uart_awlen(uart_awlen),
-    .uart_awsize(uart_awsize),
-    .uart_awburst(uart_awburst),
-    .uart_wdata(uart_wdata),
-    .uart_wvalid(uart_wvalid),
-    .uart_wready(uart_wready), 
-    .uart_wstrb(uart_wstrb),
-    .uart_wlast(uart_wlast),
-    .uart_bready(uart_bready),
-    .uart_bvalid(uart_bvalid),
-    .uart_bresp(uart_bresp),
-    .uart_bid(uart_bid),
+    .io_master_araddr(io_master_araddr),
+    .io_master_arvalid(io_master_arvalid),   
+    .io_master_arready(io_master_arready),
+/*     .io_master_arid(io_master_arid),
+    .io_master_arlen(io_master_arlen),
+    .io_master_arsize(io_master_arsize),
+    .io_master_arburst(io_master_arburst), */
+    .io_master_rready(io_master_rready),
+    .io_master_rvalid(io_master_rvalid),
+    .io_master_rdata(io_master_rdata),
+/*     .io_master_rresp(io_master_rresp),
+    .io_master_rlast(io_master_rlast),
+    .io_master_rid(io_master_rid), */
+    .io_master_awaddr(io_master_awaddr),
+    .io_master_awvalid(io_master_awvalid),
+    .io_master_awready(io_master_awready),
+/*     .io_master_awid(io_master_awid),
+    .io_master_awlen(io_master_awlen),
+    .io_master_awsize(io_master_awsize),
+    .io_master_awburst(io_master_awburst), */
+    .io_master_wdata(io_master_wdata),
+    .io_master_wvalid(io_master_wvalid),
+    .io_master_wready(io_master_wready), 
+/*     .io_master_wstrb(io_master_wstrb),
+    .io_master_wlast(io_master_wlast), */
+    .io_master_bready(io_master_bready),
+    .io_master_bvalid(io_master_bvalid),
+/*     .io_master_bresp(io_master_bresp),
+    .io_master_bid(io_master_bid), */
 
     .clint_araddr(clint_araddr),
     .clint_arvalid(clint_arvalid),   
@@ -536,8 +582,8 @@ ysyx_23060240_XBAR XBAR(
 );
 
 ysyx_23060240_UART UART(
-    .clk(clk),
-    .rst(rst),
+    .clk(clock),
+    .rst(reset),
 
     .uart_araddr(uart_araddr),
     .uart_arvalid(uart_arvalid),   
@@ -576,8 +622,8 @@ ysyx_23060240_UART UART(
 );
 
 ysyx_23060240_CLINT CLINT(
-    .clk(clk),
-    .rst(rst),
+    .clk(clock),
+    .rst(reset),
 
     .clint_araddr(clint_araddr),
     .clint_arvalid(clint_arvalid),   
@@ -587,7 +633,9 @@ ysyx_23060240_CLINT CLINT(
     .clint_arsize(clint_arsize),
     .clint_arburst(clint_arburst),
 
-    .clint_rready(clint_rready),
+    .clint_rready(clint_rready),.asic.cpu.cpu.alu_func
+                    /home/wink/ysyx-workbench/npc/vsrc/MuxKeyInternal.v:26:3:      Example path: ALWAYS
+
     .clint_rvalid(clint_rvalid),
     .clint_rdata(clint_rdata),
     .clint_rresp(clint_rresp),
@@ -615,8 +663,8 @@ ysyx_23060240_CLINT CLINT(
 );
 
 ysyx_23060240_SRAM SRAM(
-    .clk(clk),
-    .rst(rst),
+    .clk(clock),
+    .rst(reset),
     .wmask(memory_wr_ctrl),
 
     .saxi_araddr(saxi_araddr),
@@ -657,7 +705,7 @@ ysyx_23060240_SRAM SRAM(
 ysyx_23060240_CSR CSR(
     .finish(finish_1||rd_finish),
     .pc(pc),
-    .clk(clk),
+    .clk(clock),
     .r_csr_addr(inst[31:20]),
     .w_csr_addr(inst[31:20]),
     .w_csr_data(alu_out),
@@ -675,7 +723,7 @@ ysyx_23060240_CSR CSR(
 import "DPI-C" function void trace_func_ret(input int pc);
 //import "DPI-C" function void trace_func_ret(input int pc);
 
-always@(posedge clk)begin
+always@(posedge clock)begin
     if(jal&&(finish_1||rd_finish||wr_finish))begin
         if(inst[11:7]==1)begin
             trace_func_call(pc,jump_pc,1'b0);
@@ -683,7 +731,7 @@ always@(posedge clk)begin
     end
 end
 
-always@(posedge clk)begin
+always@(posedge clock)begin
     if(jalr&&(finish_1||rd_finish||wr_finish))begin
         if(inst==32'h00008067)begin
             trace_func_ret(pc);

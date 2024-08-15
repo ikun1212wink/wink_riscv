@@ -82,86 +82,45 @@ module ysyx_23060240_XBAR(
     output [1:0] lsu_bresp,
     output [3:0] lsu_bid,
 
-/* --------------SRAM SLAVE----------------- */
-    //read address channel
-    output reg [31:0] saxi_araddr,
-    output reg saxi_arvalid,   
-    input saxi_arready,
+/* --------------IO_MASTER SLAVE----------------- */
+    output reg [31:0] io_master_araddr,
+    output reg io_master_arvalid,   
+    input io_master_arready,
 
-    output [3:0] saxi_arid,
-    output [7:0] saxi_arlen,
-    output [2:0] saxi_arsize,
-    output [1:0] saxi_arburst,
+/*     output [3:0] io_master_arid,
+    output [7:0] io_master_arlen,
+    output [2:0] io_master_arsize,
+    output [1:0] io_master_arburst, */
     //read data channel
-    output reg saxi_rready,
-    input saxi_rvalid,
-    input [31:0] saxi_rdata,
+    output reg io_master_rready,
+    input io_master_rvalid,
+    input [31:0] io_master_rdata,
 
-    input [1:0] saxi_rresp,
-    input saxi_rlast,
-    input [3:0] saxi_rid,
+/*     input [1:0] io_master_rresp,
+    input io_master_rlast,
+    input [3:0] io_master_rid, */
     //write address channel
-    output [31:0] saxi_awaddr,
-    output saxi_awvalid,
-    input saxi_awready,
+    output [31:0] io_master_awaddr,
+    output io_master_awvalid,
+    input io_master_awready,
 
-    output [3:0] saxi_awid,
-    output [7:0] saxi_awlen,
-    output [2:0] saxi_awsize,
-    output [1:0] saxi_awburst,
+/*     output [3:0] io_master_awid,
+    output [7:0] io_master_awlen,
+    output [2:0] io_master_awsize,
+    output [1:0] io_master_awburst, */
     //write data channel
-    output [31:0] saxi_wdata,
-    output saxi_wvalid,
-    input saxi_wready,  
+    output [31:0] io_master_wdata,
+    output io_master_wvalid,
+    input io_master_wready,  
 
-    output [3:0] saxi_wstrb,
-    output saxi_wlast,  
+/*     output [3:0] io_master_wstrb,
+    output io_master_wlast,   */
     //write response channel
-    output saxi_bready,
-    input saxi_bvalid,
+    output io_master_bready,
+    input io_master_bvalid,
 
-    input [1:0] saxi_bresp,
-    input [3:0] saxi_bid,
-
-/* --------------UART SLAVE----------------- */
-    output reg [31:0] uart_araddr,
-    output reg uart_arvalid,   
-    input uart_arready,
-
-    output [3:0] uart_arid,
-    output [7:0] uart_arlen,
-    output [2:0] uart_arsize,
-    output [1:0] uart_arburst,
-    //read data channel
-    output reg uart_rready,
-    input uart_rvalid,
-    input [31:0] uart_rdata,
-
-    input [1:0] uart_rresp,
-    input uart_rlast,
-    input [3:0] uart_rid,
-    //write address channel
-    output [31:0] uart_awaddr,
-    output uart_awvalid,
-    input uart_awready, 
-
-    output [3:0] uart_awid,
-    output [7:0] uart_awlen,
-    output [2:0] uart_awsize,
-    output [1:0] uart_awburst,
-    //write data channel
-    output [31:0] uart_wdata,
-    output uart_wvalid,
-    input uart_wready, 
-
-    output [3:0] uart_wstrb,
-    output uart_wlast,  
-     //write response channel
-    output uart_bready,
-    input uart_bvalid,
-
-    input [1:0] uart_bresp,
-    input [3:0] uart_bid,
+/*     input [1:0] io_master_bresp,
+    input [3:0] io_master_bid, */
 
 /* --------------CLINT SLAVE----------------- */
     output reg [31:0] clint_araddr,
@@ -217,7 +176,7 @@ always@(posedge clk)begin
             arb_ready<=1'b0;
             state<=1;
         end
-        else if(arb_ready&&lsu_arvalid)begin//lsu通信成功
+        else if(arb_ready&&lsu_arvalid)begin//lsu读通信成功
             if((lsu_araddr==32'ha0000048)||(lsu_araddr==32'ha000005c))begin
                 arb_ready<=1'b0;
                 state<=7;
@@ -227,15 +186,15 @@ always@(posedge clk)begin
                 state<=2;     
             end
         end
-        else if(arb_ready&&(lsu_awvalid||lsu_wvalid))begin//lsu通信成功
-            if(lsu_awaddr==32'ha00003f8)begin
+        else if(arb_ready&&(lsu_awvalid||lsu_wvalid))begin//lsu写通信成功
+/*             if(lsu_awaddr==32'ha00003f8)begin
                 arb_ready<=1'b0;
                 state<=6;
             end
-            else begin
+            else begin */
                 arb_ready<=1'b0;
                 state<=3;
-            end
+       //     end
         end
         else if(lsu_rvalid&&lsu_rready)begin//等待lsu从机读操作完成
             if((lsu_araddr==32'ha0000048)||(lsu_araddr==32'ha000005c))begin
@@ -271,11 +230,11 @@ end
 always@(*)begin
     case(state)
         4'd0:begin
-            saxi_arvalid=1'b0;
-            saxi_rready=1'b0;
-            saxi_wdata=32'h00000000;
-            saxi_wvalid=1'b0;
-            saxi_bready=1'b0;
+            io_master_arvalid=1'b0;
+            io_master_rready=1'b0;
+            io_master_wdata=32'h00000000;
+            io_master_wvalid=1'b0;
+            io_master_bready=1'b0;
             ifu_arready=1'b0;
             lsu_arready=1'b0;
             ifu_rvalid=1'b0;
@@ -288,38 +247,38 @@ always@(*)begin
             lsu_bvalid=1'b0;
         end
         4'd1:begin//ifu读通信成功&写通道暂时不管
-            saxi_araddr=ifu_araddr;
-            saxi_arvalid=ifu_arvalid;
-            ifu_arready=saxi_arready;
-            saxi_rready=ifu_rready;
-            ifu_rvalid=saxi_rvalid;
-          //  ifu_rdata=saxi_rdata;
+            io_master_araddr=ifu_araddr;
+            io_master_arvalid=ifu_arvalid;
+            ifu_arready=io_master_arready;
+            io_master_rready=ifu_rready;
+            ifu_rvalid=io_master_rvalid;
+          //  ifu_rdata=io_master_rdata;
         end
         4'd2:begin//lsu读通信成功&写通道暂时不管
-            saxi_araddr=lsu_araddr;
-          //  lsu_rdata=saxi_rdata;
-            saxi_arvalid=lsu_arvalid;
-            lsu_arready=saxi_arready;
-            saxi_rready=lsu_rready;
-            lsu_rvalid=saxi_rvalid; 
+            io_master_araddr=lsu_araddr;
+          //  lsu_rdata=io_master_rdata;
+            io_master_arvalid=lsu_arvalid;
+            lsu_arready=io_master_arready;
+            io_master_rready=lsu_rready;
+            lsu_rvalid=io_master_rvalid; 
         end           
         4'd3:begin//lsu写通信成功&读通道暂时不管
-            saxi_awaddr=lsu_awaddr;
-            saxi_wdata=lsu_wdata;
-            saxi_awvalid=lsu_awvalid;
-            lsu_awready=saxi_awready;
-            saxi_wvalid=lsu_wvalid;
-            lsu_wready=saxi_wready;
-            saxi_bready=lsu_bready;
-            lsu_bvalid=saxi_bvalid;
+            io_master_awaddr=lsu_awaddr;
+            io_master_wdata=lsu_wdata;
+            io_master_awvalid=lsu_awvalid;
+            lsu_awready=io_master_awready;
+            io_master_wvalid=lsu_wvalid;
+            lsu_wready=io_master_wready;
+            io_master_bready=lsu_bready;
+            lsu_bvalid=io_master_bvalid;
         end
         4'd4:begin//切换读出数据到lsu
-            lsu_rdata=saxi_rdata;
+            lsu_rdata=io_master_rdata;
         end
         4'd5:begin
-            ifu_rdata=saxi_rdata;//切换读出数据到ifu
+            ifu_rdata=io_master_rdata;//切换读出数据到ifu
         end
-        4'd6:begin//从机切换至UART 读通道暂时不管
+/*         4'd6:begin//从机切换至UART 读通道暂时不管
             uart_awaddr=lsu_awaddr;
             uart_wdata=lsu_wdata;
             uart_awvalid=lsu_awvalid;
@@ -328,10 +287,10 @@ always@(*)begin
             lsu_wready=uart_wready;
             uart_bready=lsu_bready;
             lsu_bvalid=uart_bvalid;
-        end
+        end */
         4'd7:begin//从机切换至CLINT 写通道暂时不管
             clint_araddr=lsu_araddr;
-          //  lsu_rdata=saxi_rdata;
+          //  lsu_rdata=io_master_rdata;
             clint_arvalid=lsu_arvalid;
             lsu_arready=clint_arready;
             clint_rready=lsu_rready;

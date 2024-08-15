@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
-void itrace(){
+/* void itrace(){
     char logbuf[500];
     char *p=logbuf;
     p += snprintf(p, sizeof(logbuf), FMT_WORD ":", dut.pc);
@@ -23,7 +23,7 @@ void itrace(){
   disassemble(p, logbuf + sizeof(logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, dut.pc, dut.pc), (uint8_t *)&dut.inst, ilen);
     printf("%s\n",logbuf);
-}
+} */
 
 
 //ftrace
