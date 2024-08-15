@@ -71,6 +71,8 @@ always@(posedge clk)begin
      end
 end
 //AXI read data channel
+assign clint_rdata = (clint_araddr==32'ha0000048) ? mtime[31:0] :
+                     (clint_araddr==32'ha000005c) ? mtime[63:32] : 32'h0;
 always@(posedge clk)begin
     if(rst)begin
         clint_rvalid<=1'b0;
@@ -81,15 +83,6 @@ always@(posedge clk)begin
         end
         else if(clint_rvalid && clint_rready)begin
             clint_rvalid<=1'b0;
-            if(clint_araddr==32'ha0000048)begin
-                clint_rdata<=mtime[31:0];
-            end
-            else if(clint_araddr==32'ha000005c)begin
-                clint_rdata<=mtime[63:32];
-            end
-            else begin
-                clint_rdata<=clint_rdata;
-            end
         end
         else begin
             clint_rvalid<=clint_rvalid;

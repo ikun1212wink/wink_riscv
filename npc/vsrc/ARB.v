@@ -112,8 +112,6 @@ module ysyx_23060240_ARB(
     output clint_bready,
     input clint_bvalid    
 );
-reg arb_ready;//置高表示仲裁器空闲，拉低表示仲裁器忙碌
-
 //仲裁器应该有三种状态 lsu读状态 ifu读状态 默认状态
 //状态机参数
 localparam IDLE = 0;//默认
@@ -162,35 +160,55 @@ always@(*)begin
             next_state=IDLE;
     endcase
 end
-//首先AXI写通道只有LSU会用到，所以直接和LSU连接就好了，不用进行状态机的状态转移
-assign saxi_awaddr = lsu_awaddr;
-assign saxi_awvalid = lsu_awvalid;
-assign lsu_awready = saxi_awready;
-assign saxi_wdata = lsu_wdata;
-assign saxi_wvalid = lsu_wvalid;
-assign lsu_wready = saxi_wready;
-assign saxi_bready = lsu_bready;
-assign lsu_bvalid = saxi_bvalid;
-//仲裁器通信信号
-/* assign arb_ready = (current_state == IDLE) ? 1'b1:
-                   (current_state == IFU_READ) || (current_state == LSU_READ) ? 1'b0 : 1'b1; */
+//设备地址判断
+wire is_uart;
+assign is_uart=(lsu_awaddr==32'ha00003f8);
+wire is_clint;
+assign is_clint=((lsu_araddr==32'ha0000048)||(lsu_araddr==32'ha000005c));
+//首先写通道只有LSU会用到，所以直接和LSU连接就好了，不用进行状态机的状态转移
+assign saxi_awaddr = (~is_uart) ? lsu_awaddr : 32'h0;
+assign uart_awaddr = (is_uart) ? lsu_awaddr : 32'h0;
+assign saxi_awvalid = (~is_uart) ? lsu_awvalid : 1'h0;
+assign uart_awvalid = (is_uart) ? lsu_awvalid : 1'h0;
+assign lsu_awready = (is_uart) ? uart_awready : saxi_awready;
+
+assign saxi_wdata = (~is_uart) ? lsu_wdata : 32'h0;
+assign uart_wdata = (is_uart) ? lsu_wdata : 32'h0;
+assign saxi_wvalid = (~is_uart) ? lsu_wvalid : 1'h0;
+assign uart_wvalid = (is_uart) ? lsu_wvalid : 1'h0;
+assign lsu_wready = (is_uart) ? uart_wready : saxi_wready;
+
+assign saxi_bready = (~is_uart) ? lsu_bready : 1'h0;
+assign uart_bready = (is_uart) ? lsu_bready : 1'h0;
+assign lsu_bvalid = (is_uart) ? uart_bvalid : saxi_bvalid;
 //读地址通道仲裁
 assign saxi_arvalid = (current_state == IFU_READ) ? ifu_arvalid :
-                      (current_state == LSU_READ) ? lsu_arvalid :
+                      ((current_state == LSU_READ)&&(~is_clint)) ? lsu_arvalid :
                       (current_state == IDLE) ? 1'h0 : 1'h0;
+assign clint_arvalid = ((current_state == LSU_READ)&&(is_clint)) ? lsu_arvalid : 1'h0;
+assign uart_arvalid = 1'h0;
+
 assign ifu_arready = (current_state == IFU_READ) ? saxi_arready : 1'h0;
-assign lsu_arready = (current_state == LSU_READ) ? saxi_arready : 1'h0;
+assign lsu_arready = ((current_state == LSU_READ)&&(~is_clint)) ? saxi_arready :
+                     ((current_state == LSU_READ)&&(is_clint)) ? clint_arready : 1'h0;
+
 assign saxi_araddr = (current_state == IFU_READ) ? ifu_araddr :
-                     (current_state == LSU_READ) ? lsu_araddr :
+                     ((current_state == LSU_READ)&&(~is_clint)) ? lsu_araddr :
                      (current_state == IDLE) ? 32'h0 : 32'h0;
+assign clint_araddr = ((current_state == LSU_READ)&&(is_clint)) ? lsu_araddr : 32'h0;
+assign uart_araddr = 32'h0;
 //读数据通道仲裁
 assign ifu_rvalid = (current_state == IFU_READ) ? saxi_rvalid : 1'h0;
-assign lsu_rvalid = (current_state == LSU_READ) ? saxi_rvalid : 1'h0;
-assign saxi_rready = (current_state == IFU_READ) ? ifu_rready :
-                     (current_state == LSU_READ) ? lsu_rready :
-                     (current_state == IDLE) ? 1'h0 : 1'h0; 
-assign ifu_rdata = (current_state == IFU_READ) ? saxi_rdata : 32'h0;
-assign lsu_rdata = (current_state == LSU_READ) ? saxi_rdata : 32'h0;
+assign lsu_rvalid = ((current_state == LSU_READ)&&(~is_clint)) ? saxi_rvalid : 
+                     ((current_state == LSU_READ)&&(is_clint)) ? clint_rvalid : 1'h0;
 
+assign saxi_rready = (current_state == IFU_READ) ? ifu_rready :
+                     ((current_state == LSU_READ)&&(~is_clint)) ? lsu_rready :
+                     (current_state == IDLE) ? 1'h0 : 1'h0; 
+assign clint_rready = ((current_state == LSU_READ)&&(is_clint)) ? lsu_rready : 1'h0;
+assign uart_rready = 1'h0;
+assign ifu_rdata = (current_state == IFU_READ) ? saxi_rdata : 32'h0;
+assign lsu_rdata = ((current_state == LSU_READ)&&(~is_clint)) ? saxi_rdata : 
+                   ((current_state == LSU_READ)&&(is_clint)) ? clint_rdata : 32'h0;
 
 endmodule

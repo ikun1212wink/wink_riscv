@@ -81,16 +81,16 @@ extern "C" uint32_t pmem_read(int raddr) {
   uint32_t img_rd_addr = guest_to_host(aligned_addr);//内存内的地址
 
 
-  uint64_t us=get_time();
+/*   uint64_t us=get_time();
   if(raddr==0xa0000048){
     return (uint32_t)us;
   }
   else if(raddr==0xa000005c){
     return (uint32_t)(us >> 32);
   }
-  else{
+  else{ */
     return memory[img_rd_addr/4];
-  }
+/*   } */
 
 }
 
@@ -134,7 +134,7 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
         new_mem_word=0;
     break;
   }
-  if(waddr==0xa00003f8){
+/*   if(waddr==0xa00003f8){
     memory[img_wr_addr/4]=new_mem_word;
     char data = (char)(memory[img_wr_addr / 4] & 0xFF);  // 获取低字节的数据
 
@@ -142,8 +142,8 @@ extern "C" void pmem_write(int waddr, int wdata, char select) {
 
     fflush(stdout);
   }
-  else{
+  else{ */
     memory[img_wr_addr/4]=new_mem_word;
-  }
+ // }
 }
 
