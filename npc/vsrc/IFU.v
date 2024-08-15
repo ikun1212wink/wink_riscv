@@ -6,48 +6,29 @@ module ysyx_23060240_IFU(
     input finish,
     output reg valid_ifu,
     output reg [31:0] pc,
-    output [31:0] inst,
+    output reg [31:0] inst,
     output reg difftest,
     output reg itrace_reg,
     //read address channel signal
     output [31:0] ifu_araddr,
     output reg ifu_arvalid,
     input ifu_arready,
-
-    output [3:0] ifu_arid,
-    output [7:0] ifu_arlen,
-    output [2:0] ifu_arsize,
-    output [1:0] ifu_arburst,    
     //read data channel signal
     output ifu_rready,
     input ifu_rvalid,
     input [31:0] ifu_rdata,
-
-    input [1:0] ifu_rresp,
-    input ifu_rlast,
-    input [3:0] ifu_rid,
     //write address channel
     output [31:0] ifu_awaddr,
     output reg ifu_awvalid,
     input ifu_awready,
-
-    output [3:0] ifu_awid,
-    output [7:0] ifu_awlen,
-    output [2:0] ifu_awsize,
-    output [1:0] ifu_awburst,
     //write data channel
     output [31:0] ifu_wdata,
     output reg ifu_wvalid,
     input ifu_wready,    
-
-    output [3:0] ifu_wstrb,
-    output ifu_wlast,
     //write response channel
     output reg ifu_bready,
-    input ifu_bvalid,
+    input ifu_bvalid
 
-    input [1:0] ifu_bresp,
-    input [3:0] ifu_bid
 );
 assign ifu_araddr=pc;
 wire rvalid;
@@ -70,7 +51,7 @@ always@(posedge clk)begin
         if(finish)begin
             difftest<=1'b1;
         end
-        else if(difftest==1'b1)begin
+        else if(difftest)begin
             difftest<=1'b0;
         end
         else begin
@@ -162,7 +143,7 @@ end
 
 
 //AXI read data channel
-reg axi_rready;//存放延迟的rready信号
+reg axi_rready;//存放延迟的ifu_rready信号
 always@(posedge clk)begin
     if(rst)begin
         axi_rready<=1'b0;
@@ -209,11 +190,19 @@ always@(posedge clk)begin
         end
     end
 end
-
-
-assign inst=ifu_rdata;
-
-
+always@(posedge clk)begin
+    if(rst)begin
+        inst<=32'h0;
+    end
+    else begin
+        if(ifu_rready && ifu_rvalid)begin
+            inst<=ifu_rdata;
+        end
+        else begin
+            inst<=inst;
+        end
+    end
+end
 /* ysyx_23060240_SRAM_IFU SRAM_IFU(
     .clk(clk),
     .rst(rst),

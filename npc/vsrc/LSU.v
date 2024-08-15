@@ -17,41 +17,22 @@ module ysyx_23060240_LSU(
     output [31:0] lsu_araddr,
     output reg lsu_arvalid,
     input lsu_arready,
-
-    output [3:0] lsu_arid,
-    output [7:0] lsu_arlen,
-    output [2:0] lsu_arsize,
-    output [1:0] lsu_arburst,    
     //read data channel signal
     output lsu_rready,
     input lsu_rvalid,
     input [31:0] lsu_rdata,
-
-    input [1:0] lsu_rresp,
-    input lsu_rlast,
-    input [3:0] lsu_rid,
     //write address channel
     output [31:0] lsu_awaddr,
     output reg lsu_awvalid,
     input lsu_awready,
-
-    output [3:0] lsu_awid,
-    output [7:0] lsu_awlen,
-    output [2:0] lsu_awsize,
-    output [1:0] lsu_awburst,
     //write data channel
     output [31:0] lsu_wdata,
     output reg lsu_wvalid,
-    input lsu_wready,  
-
-    output [3:0] lsu_wstrb,
-    output lsu_wlast,  
+    input lsu_wready,    
     //write response channel
     output reg lsu_bready,
-    input lsu_bvalid,
+    input lsu_bvalid
 
-    input [1:0] lsu_bresp,
-    input [3:0] lsu_bid
 );
 
 //read address channel signal
@@ -65,9 +46,6 @@ wire [31:0] lsu_rdata;//rdata   output reg [31:0] mem_rd_data
 reg lsu_rready; */
 reg [31:0] mem_move_out;
 reg [31:0] mem_out;
-always@(*)begin
-    mem_out=lsu_rdata;
-end
 
 //AXI read address channel
 reg axi_arvalid;//存放延迟的arvalid信号
@@ -162,22 +140,22 @@ always@(posedge clk)begin
         end
     end
 end
-//write address channel signal
-/* wire [31:0] lsu_awaddr;
-reg lsu_awvalid;
-wire lsu_awready; */
-assign lsu_awaddr=mem_wr_addr;
-
-//wire data channel signal
-/* wire [31:0] lsu_wdata;
-reg lsu_wvalid;
-wire lsu_wready; */
-
-//wire respone channel signal
-/* reg lsu_bready;
-wire lsu_bvalid; */
+always@(posedge clk)begin
+    if(rst)begin
+        mem_out<=32'h0;
+    end
+    else begin
+        if(lsu_rvalid && lsu_rready)begin
+            mem_out<=lsu_rdata;
+        end
+        else begin
+            mem_out<=mem_out;
+        end
+    end
+end
 
 //AXI write address channel
+assign lsu_awaddr=mem_wr_addr;
 always@(posedge clk)begin
     if(rst)begin
         lsu_awvalid<=1'b0;
