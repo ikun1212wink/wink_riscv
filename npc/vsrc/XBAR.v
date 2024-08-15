@@ -246,10 +246,7 @@ always@(*)begin
             ifu_bvalid=1'b0;
             lsu_bvalid=1'b0;
         end
-        4'd1:begin//ifu读通信成功&写通道暂时不管
-            io_master_araddr=ifu_araddr;
-            io_master_arvalid=ifu_arvalid;
-            ifu_arready=io_master_arready;
+        4'd1:begin//ifu*=io_master_arready;
             io_master_rready=ifu_rready;
             ifu_rvalid=io_master_rvalid;
           //  ifu_rdata=io_master_rdata;
