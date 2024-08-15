@@ -7,44 +7,25 @@ module ysyx_23060240_UART(
     input uart_arvalid,   
     output reg uart_arready,
 
-
-    input [3:0] uart_arid,
-    input [7:0] uart_arlen,
-    input [2:0] uart_arsize,
-    input [1:0] uart_arburst,
     //read data channel
     input uart_rready,
     output reg uart_rvalid,
     output [31:0] uart_rdata,
 
-    output [1:0] uart_rresp,
-    output uart_rlast,
-    output [3:0] uart_rid,
-
     //write address channel
     input [31:0] uart_awaddr,
     input uart_awvalid,
-    output uart_awready, 
+    output uart_awready, //
 
-    input [3:0] uart_awid,
-    input [7:0] uart_awlen,
-    input [2:0] uart_awsize,
-    input [1:0] uart_awburst,
     //write data channel
     input [31:0] uart_wdata,
     input uart_wvalid,
-    output uart_wready, 
+    output uart_wready, //
 
-    input [3:0] uart_wstrb,
-    input uart_wlast,  
      //write response channel
     input uart_bready,
-    output uart_bvalid,  
-
-    output [1:0] uart_bresp,
-    output [3:0] uart_bid,
-
-    output reg [7:0] uart_reg  
+    output uart_bvalid,  //
+    output reg [7:0] uart_reg  //
 );
 localparam uart_addr = 32'ha00003f8;
 //AXI write address channel

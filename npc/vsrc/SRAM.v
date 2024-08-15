@@ -8,45 +8,24 @@ module ysyx_23060240_SRAM(
     input saxi_arvalid,   
     output reg saxi_arready,
 
-    input [3:0] saxi_arid,
-    input [7:0] saxi_arlen,
-    input [2:0] saxi_arsize,
-    input [1:0] saxi_arburst,
-
     //read data channel
     input saxi_rready,
     output reg saxi_rvalid,
-    output [31:0] saxi_rdata,
-
-    output [1:0] saxi_rresp,
-    output saxi_rlast,
-    output [3:0] saxi_rid,
-
+    output reg [31:0] saxi_rdata,
 
     //write address channel
     input [31:0] saxi_awaddr,
     input saxi_awvalid,
     output saxi_awready,
 
-    input [3:0] saxi_awid,
-    input [7:0] saxi_awlen,
-    input [2:0] saxi_awsize,
-    input [1:0] saxi_awburst,
-
     //write data channel
     input [31:0] saxi_wdata,
     input saxi_wvalid,
-    output saxi_wready,
+    output saxi_wready,    
 
-    input [3:0] saxi_wstrb,
-    input saxi_wlast,  
-    //write response channel
+     //write response channel
     input saxi_bready,
-    output saxi_bvalid,
-
-    output [1:0] saxi_bresp,
-    output [3:0] saxi_bid
-
+    output saxi_bvalid
 );
 import "DPI-C" function int pmem_read(input int raddr);
 import "DPI-C" function void pmem_write(input int waddr,input int wdata,input byte wmask);
@@ -85,13 +64,11 @@ always@(posedge clk)begin
      end
 end
 //AXI read data channel
-reg [31:0] axi_data_to_read;//读数据选择
 always@(*)begin
-     axi_data_to_read=pmem_read(axi_raddr);
+     saxi_rdata=pmem_read(axi_raddr);
 end
 always@(posedge clk)begin
      if(rst)begin
-          saxi_rdata<=32'h0;
           saxi_rvalid<=1'b0;
      end
      else begin
@@ -99,7 +76,6 @@ always@(posedge clk)begin
                saxi_rvalid<=1'b1;
           end
           else if(saxi_rvalid && saxi_rready)begin
-               saxi_rdata<=axi_data_to_read;
                saxi_rvalid<=1'b0;             
           end
           else begin
@@ -107,7 +83,6 @@ always@(posedge clk)begin
           end
      end
 end
-
 //AXI write address channel
 reg aw_hand;//aw握手标志 用于标记写响应
 always@(posedge clk)begin

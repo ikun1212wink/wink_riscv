@@ -2,7 +2,7 @@
 #define __COMMON__H__
 #include "verilated.h"
 #include "verilated_vcd_c.h"
-#include "VysyxSoCFull.h"
+#include "Vtop.h"
 #include <stdint.h>
 #include <inttypes.h>
 #include <stdbool.h>

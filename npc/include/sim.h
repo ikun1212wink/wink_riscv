@@ -1,10 +1,10 @@
 #ifndef __SIM__H__
 #define __SIM__H__
 #include <common.h>
-#include "VysyxSoCFull___024root.h"
+#include "Vtop___024root.h"
 extern VerilatedContext* contextp ;
 extern VerilatedVcdC* tfp ;
-extern VysyxSoCFull dut;
+extern Vtop dut;
 void reg_p();
 void sim_init();
 void dump_wave();
