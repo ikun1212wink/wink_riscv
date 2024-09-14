@@ -22,6 +22,7 @@ uint32_t guest_to_host(uint32_t addr){ //虚拟地址转换成物理地址
     int* num=&mem_number;
     FILE* file = fopen(img_path, "rb");
     if (!file) {
+       // printf("1111\n");
         printf("Failed to open file: %s\n", img_path);
         return NULL;
     }
@@ -61,6 +62,7 @@ long img_size(){
   }
   FILE *fp = fopen(img_path, "rb");
   if (!fp) {
+          //  printf("2222\n");
     printf("Failed to open file: %s\n", img_path);
     return -1;
   }
