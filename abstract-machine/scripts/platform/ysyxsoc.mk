@@ -13,8 +13,22 @@ CFLAGS += -DMAINARGS=\"$(mainargs)\"
 
 image: $(IMAGE).elf
 	@$(OBJDUMP) -d $(IMAGE).elf > $(IMAGE).txt
-	@echo + OBJCOPY "->" $(IMAGE_REL).bin
-	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
+	@echo + OBJCOPY "->" $(IMAGE).bin
+	@$(OBJCOPY) --dump-section .text=$(IMAGE_REL).text.bin $(IMAGE).elf
+	@if [ -f $(IMAGE_REL).data.bin ]; then \
+		$(OBJCOPY) --dump-section .data=$(IMAGE_REL).data.bin $(IMAGE).elf; \
+	else \
+		touch $(IMAGE_REL).data.bin; \
+	fi
+	@if [ -f $(IMAGE_REL).bss.bin ]; then \
+		$(OBJCOPY) --dump-section .bss=$(IMAGE_REL).bss.bin $(IMAGE).elf; \
+	else \
+		touch $(IMAGE_REL).bss.bin; \
+	fi
+	@cat $(IMAGE_REL).text.bin $(IMAGE_REL).data.bin $(IMAGE_REL).bss.bin > $(IMAGE).bin
+
+
+
 
 run: image
 	make -C $(NPC_HOME) run ARGS="$(NPCFLAGS)" IMG="$(IMAGE).bin"
