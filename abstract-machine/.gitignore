@@ -1,4 +1,4 @@
-*
+!*
 !*/
 !*.h
 !*.c
@@ -11,9 +11,9 @@
 !Makefile
 !README
 !LICENSE
-.*
-_*
-*~
-build/
+!.*
+!_*
+!*~
+!build/
 !.gitignore
-.vscode
+!.vscode

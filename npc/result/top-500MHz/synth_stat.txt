@@ -1,0 +1,630 @@
+
+29. Printing statistics.
+
+=== $paramod\ysyx_23060240_MuxKeyInternal\NR_KEY=16\KEY_LEN=4\DATA_LEN=32\HAS_DEFAULT=0 ===
+
+   Number of wires:               1448
+   Number of wire bits:           2088
+   Number of public wires:           4
+   Number of public wire bits:     644
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               1476
+     AND2_X2                         2
+     AND2_X4                        30
+     AND4_X1                         8
+     AND4_X2                       120
+     BUF_X1                        612
+     BUF_X4                         85
+     BUF_X8                         11
+     NAND3_X1                      512
+     NAND4_X1                       32
+     XNOR2_X1                        6
+     XNOR2_X2                       58
+
+   Chip area for module '$paramod\ysyx_23060240_MuxKeyInternal\NR_KEY=16\KEY_LEN=4\DATA_LEN=32\HAS_DEFAULT=0': 1746.556000
+
+=== $paramod\ysyx_23060240_MuxKeyInternal\NR_KEY=8\KEY_LEN=7\DATA_LEN=32\HAS_DEFAULT=1 ===
+
+   Number of wires:                768
+   Number of wire bits:           1147
+   Number of public wires:           4
+   Number of public wire bits:     383
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                796
+     AND2_X1                         1
+     AND2_X2                         1
+     AND2_X4                         3
+     AND3_X1                        33
+     AND3_X2                         3
+     AND4_X1                         4
+     AND4_X2                         3
+     AND4_X4                         1
+     AOI221_X1                      42
+     AOI221_X4                      18
+     AOI22_X1                        1
+     BUF_X1                        383
+     BUF_X2                          3
+     BUF_X4                         28
+     BUF_X8                          3
+     CLKBUF_X2                       6
+     NAND2_X1                       64
+     NAND3_X1                      103
+     NAND4_X1                       35
+     NOR2_X2                         1
+     NOR2_X4                         2
+     NOR4_X4                         2
+     XNOR2_X1                       38
+     XNOR2_X2                       18
+
+   Chip area for module '$paramod\ysyx_23060240_MuxKeyInternal\NR_KEY=8\KEY_LEN=7\DATA_LEN=32\HAS_DEFAULT=1': 913.444000
+
+=== $paramod\ysyx_23060240_MuxKeyWithDefault\NR_KEY=8\KEY_LEN=7\DATA_LEN=32 ===
+
+   Number of wires:                  4
+   Number of wire bits:            383
+   Number of public wires:           4
+   Number of public wire bits:     383
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     $paramod\ysyx_23060240_MuxKeyInternal\NR_KEY=8\KEY_LEN=7\DATA_LEN=32\HAS_DEFAULT=1      1
+
+   Area for cell type $paramod\ysyx_23060240_MuxKeyInternal\NR_KEY=8\KEY_LEN=7\DATA_LEN=32\HAS_DEFAULT=1 is unknown!
+
+=== $paramod\ysyx_23060240_MuxKey\NR_KEY=16\KEY_LEN=4\DATA_LEN=32 ===
+
+   Number of wires:                  4
+   Number of wire bits:            613
+   Number of public wires:           3
+   Number of public wire bits:     612
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     $paramod\ysyx_23060240_MuxKeyInternal\NR_KEY=16\KEY_LEN=4\DATA_LEN=32\HAS_DEFAULT=0      1
+     LOGIC0_X1                       1
+
+   Area for cell type $paramod\ysyx_23060240_MuxKeyInternal\NR_KEY=16\KEY_LEN=4\DATA_LEN=32\HAS_DEFAULT=0 is unknown!
+
+   Chip area for module '$paramod\ysyx_23060240_MuxKey\NR_KEY=16\KEY_LEN=4\DATA_LEN=32': 0.532000
+
+=== RegisterFile ===
+
+   Number of wires:              53481
+   Number of wire bits:          53557
+   Number of public wires:        8198
+   Number of public wire bits:    8274
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              45315
+     AND2_X1                       432
+     AND2_X2                        23
+     AND2_X4                         5
+     AND3_X1                        31
+     AND3_X2                         4
+     AOI211_X2                      51
+     AOI211_X4                     434
+     AOI21_X1                      732
+     AOI21_X2                       16
+     AOI221_X4                       1
+     BUF_X1                      16465
+     BUF_X16                        27
+     BUF_X2                         26
+     BUF_X32                        24
+     BUF_X4                       1233
+     BUF_X8                        128
+     CLKBUF_X2                       8
+     CLKBUF_X3                       2
+     DFF_X1                       8192
+     INV_X1                         92
+     INV_X2                          1
+     INV_X32                         2
+     MUX2_X1                     11201
+     MUX2_X2                        67
+     NAND2_X1                      273
+     NAND2_X2                       19
+     NAND2_X4                        8
+     NAND3_X1                      937
+     NAND3_X2                        3
+     NAND4_X1                       10
+     NOR2_X1                       180
+     NOR2_X2                         1
+     NOR2_X4                         2
+     NOR3_X1                       183
+     NOR3_X2                        11
+     OAI211_X2                    2193
+     OAI21_X1                      364
+     OAI21_X2                       16
+     OAI221_X1                       7
+     OR2_X1                       1848
+     OR2_X2                          4
+     OR2_X4                          6
+     OR3_X1                         44
+     OR3_X2                          3
+     OR3_X4                          6
+
+   Chip area for module '\RegisterFile': 86679.026000
+
+=== top ===
+
+   Number of wires:               1003
+   Number of wire bits:           1065
+   Number of public wires:         358
+   Number of public wire bits:     420
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                782
+     AND2_X1                        33
+     AND2_X2                         1
+     AND2_X4                        28
+     AND3_X4                         1
+     AOI22_X1                       33
+     BUF_X1                        362
+     BUF_X4                         17
+     BUF_X8                          1
+     CLKBUF_X2                       3
+     INV_X1                          3
+     MUX2_X1                        64
+     NAND2_X1                       39
+     NAND3_X1                      123
+     NOR2_X1                         4
+     OAI211_X2                      31
+     OAI21_X1                       17
+     OAI21_X2                        1
+     OR2_X1                          1
+     OR3_X1                          1
+     XNOR2_X1                       10
+     ysyx_23060240_ALU               1
+     ysyx_23060240_BSU               1
+     ysyx_23060240_CSR               1
+     ysyx_23060240_GPR               1
+     ysyx_23060240_IDU               1
+     ysyx_23060240_IFU               1
+     ysyx_23060240_IMM               1
+     ysyx_23060240_MEM               1
+     ysyx_23060240_pc                1
+
+   Area for cell type \ysyx_23060240_CSR is unknown!
+   Area for cell type \ysyx_23060240_IDU is unknown!
+   Area for cell type \ysyx_23060240_IFU is unknown!
+   Area for cell type \ysyx_23060240_ALU is unknown!
+   Area for cell type \ysyx_23060240_pc is unknown!
+   Area for cell type \ysyx_23060240_BSU is unknown!
+   Area for cell type \ysyx_23060240_GPR is unknown!
+   Area for cell type \ysyx_23060240_IMM is unknown!
+   Area for cell type \ysyx_23060240_MEM is unknown!
+
+   Chip area for module '\top': 875.938000
+
+=== ysyx_23060240_ALU ===
+
+   Number of wires:               1433
+   Number of wire bits:           1529
+   Number of public wires:         261
+   Number of public wire bits:     357
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               1430
+     $paramod\ysyx_23060240_MuxKey\NR_KEY=16\KEY_LEN=4\DATA_LEN=32      1
+     AND2_X1                       103
+     AND2_X2                         3
+     AND2_X4                         3
+     AND3_X1                        29
+     AND4_X1                         6
+     AOI211_X2                       3
+     AOI211_X4                      15
+     AOI21_X1                       91
+     AOI21_X2                        1
+     AOI21_X4                        3
+     BUF_X1                        321
+     BUF_X2                          7
+     BUF_X4                         19
+     CLKBUF_X2                       1
+     INV_X1                        115
+     INV_X2                          4
+     LOGIC0_X1                       1
+     LOGIC1_X1                       1
+     MUX2_X1                        44
+     NAND2_X1                       80
+     NAND3_X1                       54
+     NAND4_X1                        4
+     NOR2_X1                       159
+     NOR2_X2                         2
+     NOR2_X4                         7
+     NOR3_X1                        28
+     NOR3_X2                         1
+     NOR3_X4                         2
+     NOR4_X1                         4
+     NOR4_X2                         1
+     NOR4_X4                         1
+     OAI211_X2                      25
+     OAI21_X1                      118
+     OAI21_X2                        3
+     OAI221_X1                       2
+     OR2_X1                         29
+     OR3_X1                         66
+     OR3_X4                          1
+     OR4_X4                          1
+     XNOR2_X1                       50
+     XNOR2_X2                        8
+     XOR2_X1                        13
+
+   Area for cell type $paramod\ysyx_23060240_MuxKey\NR_KEY=16\KEY_LEN=4\DATA_LEN=32 is unknown!
+
+   Chip area for module '\ysyx_23060240_ALU': 1542.002000
+
+=== ysyx_23060240_BSU ===
+
+   Number of wires:                251
+   Number of wire bits:            315
+   Number of public wires:           4
+   Number of public wire bits:      68
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                248
+     AND2_X1                        15
+     AND2_X4                         1
+     AND3_X1                         4
+     AND3_X4                         1
+     AOI21_X1                       13
+     AOI21_X2                        1
+     AOI221_X2                       1
+     AOI22_X1                        2
+     BUF_X1                         68
+     INV_X1                         42
+     INV_X16                         1
+     INV_X2                          1
+     NAND2_X1                        9
+     NAND3_X1                        3
+     NAND4_X1                        5
+     NOR2_X1                        29
+     NOR2_X4                         1
+     NOR3_X1                         8
+     NOR3_X4                         1
+     NOR4_X1                         4
+     OAI211_X2                       6
+     OAI21_X1                        7
+     OAI22_X1                        1
+     OR2_X1                          8
+     OR2_X2                          1
+     OR3_X1                          4
+     OR3_X2                          1
+     OR3_X4                          1
+     XNOR2_X1                        6
+     XNOR2_X2                        1
+     XOR2_X1                         1
+     XOR2_X2                         1
+
+   Chip area for module '\ysyx_23060240_BSU': 248.976000
+
+=== ysyx_23060240_CSR ===
+
+   Number of wires:               1545
+   Number of wire bits:           1660
+   Number of public wires:         138
+   Number of public wire bits:     253
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               1439
+     AND2_X1                         8
+     AND2_X2                         4
+     AND2_X4                         4
+     AND3_X1                        30
+     AND3_X2                         4
+     AND4_X1                        50
+     AND4_X2                         1
+     AND4_X4                         2
+     AOI21_X1                      118
+     AOI21_X2                        2
+     BUF_X1                        444
+     BUF_X16                         1
+     BUF_X2                          6
+     BUF_X4                         54
+     BUF_X8                         12
+     CLKBUF_X2                       8
+     DFF_X1                        128
+     INV_X1                         67
+     INV_X16                         1
+     INV_X2                          1
+     INV_X32                         1
+     INV_X4                          1
+     INV_X8                          1
+     MUX2_X1                       100
+     NAND2_X1                       39
+     NAND2_X2                        1
+     NAND2_X4                        2
+     NAND3_X1                       64
+     NAND4_X1                       37
+     NOR2_X1                        41
+     NOR2_X2                         5
+     NOR2_X4                         5
+     NOR3_X1                         5
+     NOR3_X2                         1
+     NOR3_X4                         2
+     OAI211_X2                      55
+     OAI21_X1                      101
+     OAI21_X2                        1
+     OR2_X1                         22
+     OR2_X2                          6
+     OR2_X4                          3
+     OR3_X4                          1
+
+   Chip area for module '\ysyx_23060240_CSR': 2126.936000
+
+=== ysyx_23060240_GPR ===
+
+   Number of wires:               8046
+   Number of wire bits:           8151
+   Number of public wires:        1032
+   Number of public wire bits:    1137
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               7078
+     AND2_X1                       142
+     AOI211_X2                       8
+     AOI211_X4                     306
+     AOI21_X1                       57
+     BUF_X1                       2160
+     BUF_X16                         5
+     BUF_X2                          7
+     BUF_X32                         5
+     BUF_X4                        167
+     BUF_X8                         13
+     CLKBUF_X1                      32
+     CLKBUF_X2                     100
+     DFF_X1                       1024
+     INV_X1                         99
+     INV_X2                          3
+     INV_X32                         2
+     INV_X4                          1
+     MUX2_X1                      2079
+     MUX2_X2                         4
+     NAND2_X1                       27
+     NAND3_X1                      117
+     NOR2_X1                       187
+     NOR3_X1                         1
+     OAI211_X2                     215
+     OAI21_X1                       28
+     OAI221_X1                       8
+     OR2_X1                        179
+     OR3_X1                        102
+
+   Chip area for module '\ysyx_23060240_GPR': 13208.496000
+
+=== ysyx_23060240_IDU ===
+
+   Number of wires:                191
+   Number of wire bits:            238
+   Number of public wires:          18
+   Number of public wire bits:      65
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                206
+     AND2_X1                        11
+     AND2_X2                         4
+     AND2_X4                         4
+     AND3_X1                        13
+     AND4_X1                         3
+     AOI211_X4                       3
+     AOI21_X1                        3
+     AOI22_X1                        1
+     BUF_X1                         65
+     BUF_X2                          1
+     BUF_X8                          1
+     INV_X1                         22
+     INV_X4                          1
+     LOGIC0_X1                       1
+     NAND2_X1                       13
+     NAND3_X1                        6
+     NAND4_X1                        8
+     NOR2_X1                        15
+     NOR2_X2                         2
+     NOR2_X4                         1
+     NOR3_X1                        10
+     NOR3_X4                         1
+     NOR4_X1                         4
+     OAI211_X2                       4
+     OAI21_X1                        4
+     OR2_X1                          1
+     OR3_X1                          2
+     OR4_X2                          1
+     OR4_X4                          1
+
+   Chip area for module '\ysyx_23060240_IDU': 218.918000
+
+=== ysyx_23060240_IFU ===
+
+   Number of wires:                  4
+   Number of wire bits:             66
+   Number of public wires:           3
+   Number of public wire bits:      65
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     LOGIC0_X1                       1
+     RegisterFile                    1
+
+   Area for cell type \RegisterFile is unknown!
+
+   Chip area for module '\ysyx_23060240_IFU': 0.532000
+
+=== ysyx_23060240_IMM ===
+
+   Number of wires:                  4
+   Number of wire bits:             66
+   Number of public wires:           2
+   Number of public wire bits:      64
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  3
+     $paramod\ysyx_23060240_MuxKeyWithDefault\NR_KEY=8\KEY_LEN=7\DATA_LEN=32      1
+     LOGIC0_X1                       1
+     LOGIC1_X1                       1
+
+   Area for cell type $paramod\ysyx_23060240_MuxKeyWithDefault\NR_KEY=8\KEY_LEN=7\DATA_LEN=32 is unknown!
+
+   Chip area for module '\ysyx_23060240_IMM': 1.064000
+
+=== ysyx_23060240_MEM ===
+
+   Number of wires:                  9
+   Number of wire bits:            142
+   Number of public wires:           9
+   Number of public wire bits:     142
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     RegisterFile                    1
+
+   Area for cell type \RegisterFile is unknown!
+
+=== ysyx_23060240_pc ===
+
+   Number of wires:                265
+   Number of wire bits:            327
+   Number of public wires:           5
+   Number of public wire bits:      67
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                260
+     AND2_X1                        14
+     AND2_X4                         2
+     AND3_X1                         1
+     AND3_X4                        13
+     AND4_X1                         1
+     AOI211_X2                       3
+     AOI211_X4                      25
+     AOI21_X1                        1
+     BUF_X1                         98
+     BUF_X2                          1
+     BUF_X4                          5
+     DFF_X1                         32
+     INV_X1                          2
+     MUX2_X1                         2
+     NAND2_X1                        1
+     NOR2_X1                        28
+     OAI211_X2                       1
+     OAI21_X1                        1
+     OAI21_X2                        1
+     OR2_X1                          1
+     XNOR2_X1                       26
+     XNOR2_X2                        1
+
+   Chip area for module '\ysyx_23060240_pc': 453.796000
+
+=== design hierarchy ===
+
+   top                               1
+     ysyx_23060240_ALU               1
+       $paramod\ysyx_23060240_MuxKey\NR_KEY=16\KEY_LEN=4\DATA_LEN=32      1
+         $paramod\ysyx_23060240_MuxKeyInternal\NR_KEY=16\KEY_LEN=4\DATA_LEN=32\HAS_DEFAULT=0      1
+     ysyx_23060240_BSU               1
+     ysyx_23060240_CSR               1
+     ysyx_23060240_GPR               1
+     ysyx_23060240_IDU               1
+     ysyx_23060240_IFU               1
+       RegisterFile                  1
+     ysyx_23060240_IMM               1
+       $paramod\ysyx_23060240_MuxKeyWithDefault\NR_KEY=8\KEY_LEN=7\DATA_LEN=32      1
+         $paramod\ysyx_23060240_MuxKeyInternal\NR_KEY=8\KEY_LEN=7\DATA_LEN=32\HAS_DEFAULT=1      1
+     ysyx_23060240_MEM               1
+       RegisterFile                  1
+     ysyx_23060240_pc                1
+
+   Number of wires:             121937
+   Number of wire bits:         124904
+   Number of public wires:       18241
+   Number of public wire bits:   21208
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:             104339
+     AND2_X1                      1191
+     AND2_X2                        61
+     AND2_X4                        85
+     AND3_X1                       172
+     AND3_X2                        15
+     AND3_X4                        15
+     AND4_X1                        72
+     AND4_X2                       124
+     AND4_X4                         3
+     AOI211_X2                     116
+     AOI211_X4                    1217
+     AOI21_X1                     1747
+     AOI21_X2                       36
+     AOI21_X4                        3
+     AOI221_X1                      42
+     AOI221_X2                       1
+     AOI221_X4                      20
+     AOI22_X1                       37
+     BUF_X1                      37443
+     BUF_X16                        60
+     BUF_X2                         77
+     BUF_X32                        53
+     BUF_X4                       2841
+     BUF_X8                        297
+     CLKBUF_X1                      32
+     CLKBUF_X2                     134
+     CLKBUF_X3                       4
+     DFF_X1                      17568
+     INV_X1                        534
+     INV_X16                         2
+     INV_X2                         11
+     INV_X32                         7
+     INV_X4                          3
+     INV_X8                          1
+     LOGIC0_X1                       5
+     LOGIC1_X1                       2
+     MUX2_X1                     24691
+     MUX2_X2                       138
+     NAND2_X1                      818
+     NAND2_X2                       39
+     NAND2_X4                       18
+     NAND3_X1                     2856
+     NAND3_X2                        6
+     NAND4_X1                      141
+     NOR2_X1                       823
+     NOR2_X2                        12
+     NOR2_X4                        20
+     NOR3_X1                       418
+     NOR3_X2                        24
+     NOR3_X4                         6
+     NOR4_X1                        12
+     NOR4_X2                         1
+     NOR4_X4                         3
+     OAI211_X2                    4723
+     OAI21_X1                     1004
+     OAI21_X2                       38
+     OAI221_X1                      24
+     OAI22_X1                        1
+     OR2_X1                       3937
+     OR2_X2                         15
+     OR2_X4                         15
+     OR3_X1                        263
+     OR3_X2                          7
+     OR3_X4                         15
+     OR4_X2                          1
+     OR4_X4                          2
+     XNOR2_X1                      136
+     XNOR2_X2                       86
+     XOR2_X1                        14
+     XOR2_X2                         1
+
+   Chip area for top module '\top': 194695.242000
+

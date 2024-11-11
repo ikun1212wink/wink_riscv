@@ -1,5 +1,5 @@
-*.*
-*
+!*.*
+!*
 !*/
 !Makefile
 !*.mk
@@ -9,4 +9,4 @@
 !*.cpp
 !.gitignore
 !README.md
-build/
+!build/
